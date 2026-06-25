@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EarSafe Care — Go-To-Market Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#102442; --ocean:#39869b; --cyan:#54c1c8; --frost:#E8F6F7; --chalk:#F4F4F2;
+    --ink:#1a2c42; --muted:#5b6b7d; --line:#dce7ea; --soft:#eef5f6;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif; color:var(--ink); background:#fff; line-height:1.6; -webkit-font-smoothing:antialiased;}
+  .wrap{display:grid; grid-template-columns:260px 1fr; max-width:1280px; margin:0 auto;}
+  /* sidebar */
+  aside{position:sticky; top:0; height:100vh; overflow-y:auto; background:var(--navy); color:#fff; padding:2rem 1.4rem;}
+  aside .brand{font-weight:800; font-size:1.05rem; letter-spacing:-.01em; margin-bottom:.2rem;}
+  aside .brand .c{color:var(--cyan);}
+  aside .sub{font-size:.72rem; color:#8aa0b5; letter-spacing:.12em; text-transform:uppercase; margin-bottom:1.8rem;}
+  aside nav a{display:block; color:#bcccdb; text-decoration:none; font-size:.83rem; padding:.42rem .6rem; border-radius:7px; border-left:2px solid transparent;}
+  aside nav a:hover,aside nav a.active{color:#fff; background:rgba(84,193,200,.12); border-left-color:var(--cyan);}
+  aside nav .n{color:var(--cyan); font-weight:700; margin-right:.5rem; font-size:.78rem;}
+  /* main */
+  main{padding:3.2rem 4rem 6rem; max-width:920px;}
+  .doc-head{border-bottom:3px solid var(--navy); padding-bottom:1.6rem; margin-bottom:2.4rem;}
+  .doc-head .kick{font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ocean); font-weight:700;}
+  .doc-head h1{font-size:2.4rem; font-weight:800; letter-spacing:-.025em; line-height:1.08; margin:.6rem 0 .5rem;}
+  .doc-head .meta{font-size:.82rem; color:var(--muted);}
+  section{margin-bottom:3.4rem; scroll-margin-top:1.5rem;}
+  h2{font-size:1.5rem; font-weight:800; letter-spacing:-.02em; color:var(--navy); margin-bottom:1rem; display:flex; align-items:baseline; gap:.7rem;}
+  h2 .sn{font-family:'Lora',serif; color:var(--cyan); font-size:1.1rem; font-weight:700;}
+  h3{font-size:1.05rem; font-weight:700; color:var(--navy); margin:1.6rem 0 .6rem;}
+  p{margin-bottom:.9rem; color:#2c3e50;}
+  p.lede{font-size:1.12rem; color:#33485c;}
+  ul,ol{margin:.3rem 0 1rem 1.2rem;} li{margin-bottom:.4rem; color:#2c3e50;}
+  strong{font-weight:700; color:var(--navy);}
+  em{color:var(--ocean); font-style:normal; font-weight:600;}
+  table{width:100%; border-collapse:collapse; margin:1.1rem 0 1.4rem; font-size:.86rem;}
+  th,td{text-align:left; padding:.7rem .8rem; border-bottom:1px solid var(--line); vertical-align:top;}
+  th{background:var(--navy); color:#fff; font-weight:600; font-size:.74rem; letter-spacing:.04em; text-transform:uppercase;}
+  tr:nth-child(even) td{background:var(--soft);}
+  .hl td{background:var(--frost)!important; font-weight:600;}
+  .callout{background:var(--frost); border-left:4px solid var(--cyan); border-radius:0 10px 10px 0; padding:1.1rem 1.3rem; margin:1.2rem 0;}
+  .callout .t{font-weight:700; color:var(--navy); margin-bottom:.3rem; font-size:.95rem;}
+  .callout p{margin:0; font-size:.93rem; color:#33485c;}
+  .grid{display:grid; gap:1rem; margin:1.2rem 0;}
+  .g2{grid-template-columns:1fr 1fr;} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+  .card{border:1px solid var(--line); border-radius:12px; padding:1.1rem 1.2rem; background:#fff;}
+  .card h4{font-size:.92rem; color:var(--navy); margin-bottom:.35rem; font-weight:700;}
+  .card p{font-size:.84rem; color:var(--muted); margin:0;}
+  .stat{font-size:1.9rem; font-weight:800; color:var(--navy); letter-spacing:-.02em; line-height:1;}
+  .stat .u{font-size:.8rem; color:var(--ocean); font-weight:600;}
+  .statlbl{font-size:.76rem; color:var(--muted); margin-top:.4rem; line-height:1.35;}
+  .tag{display:inline-block; font-size:.68rem; font-weight:700; padding:.15rem .5rem; border-radius:14px;}
+  .good{background:#e2f3ee; color:#1d7a5e;} .bad{background:#fbe7e7; color:#b23b3b;} .mid{background:#fdf3e0; color:#a9742a;}
+  .owner{font-size:.66rem; font-weight:700; padding:.12rem .45rem; border-radius:5px;}
+  .o-es{background:#e7f6f7; color:#1d6f7a;} .o-ek{background:#eae4fb; color:#5b3da9;} .o-jt{background:#fdf3e0; color:#a9742a;}
+  .funnel{margin:1.4rem 0;}
+  .funnel .row{display:grid; grid-template-columns:1.4fr 80px 1fr; gap:1rem; align-items:center; padding:.6rem .9rem; border:1px solid var(--line); border-radius:9px; margin-bottom:.5rem; background:#fff;}
+  .funnel .row .stage{font-weight:700; color:var(--navy); font-size:.9rem;}
+  .funnel .row .stage small{display:block; font-weight:400; color:var(--muted); font-size:.74rem;}
+  .funnel .row .num{font-size:1.2rem; font-weight:800; color:var(--ocean); text-align:center;}
+  .funnel .row .conv{font-size:.76rem; color:var(--muted);}
+  .timeline{border-left:2px solid var(--line); margin:1.2rem 0 1.2rem .4rem; padding-left:1.4rem;}
+  .timeline .ph{position:relative; margin-bottom:1.3rem;}
+  .timeline .ph::before{content:""; position:absolute; left:-1.75rem; top:.25rem; width:11px; height:11px; border-radius:50%; background:var(--cyan); border:2px solid #fff; box-shadow:0 0 0 2px var(--cyan);}
+  .timeline .ph .w{font-size:.72rem; font-weight:700; color:var(--ocean); letter-spacing:.05em; text-transform:uppercase;}
+  .timeline .ph h4{font-size:1rem; color:var(--navy); margin:.1rem 0 .25rem;}
+  .timeline .ph p{font-size:.86rem; color:var(--muted); margin:0;}
+  .gate{background:var(--navy); color:#fff; border-radius:12px; padding:1.3rem 1.5rem; margin:1.3rem 0;}
+  .gate .t{color:var(--cyan); font-weight:700; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; margin-bottom:.6rem;}
+  .gate .metrics{display:flex; gap:2rem; flex-wrap:wrap;}
+  .gate .m .v{font-size:1.5rem; font-weight:800;}
+  .gate .m .l{font-size:.74rem; color:#9fb3c6;}
+  .pill{display:inline-block; background:var(--soft); border:1px solid var(--line); border-radius:20px; padding:.3rem .8rem; font-size:.78rem; font-weight:600; color:var(--navy); margin:.2rem .3rem .2rem 0;}
+  .footnote{font-size:.76rem; color:var(--muted); border-top:1px solid var(--line); padding-top:1.2rem; margin-top:3rem;}
+  @media(max-width:880px){
+    .wrap{grid-template-columns:1fr;} aside{position:relative; height:auto;} main{padding:2rem 1.4rem;}
+    .g2,.g3,.g4{grid-template-columns:1fr;} .funnel .row{grid-template-columns:1fr;}
+  }
+  @media print{ aside{display:none;} .wrap{grid-template-columns:1fr;} main{max-width:100%;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <aside>
+    <div class="brand">EarSafe <span class="c">Care</span></div>
+    <div class="sub">powered by Earkart</div>
+    <nav>
+      <a href="#summary"><span class="n">00</span>The play</a>
+      <a href="#market"><span class="n">01</span>Market insights</a>
+      <a href="#where"><span class="n">02</span>Where we play</a>
+      <a href="#win"><span class="n">03</span>How we win</a>
+      <a href="#product"><span class="n">04</span>Product &amp; pricing</a>
+      <a href="#journey"><span class="n">05</span>Customer journey</a>
+      <a href="#engine"><span class="n">06</span>Demand engine</a>
+      <a href="#content"><span class="n">07</span>Content plan</a>
+      <a href="#econ"><span class="n">08</span>Unit economics</a>
+      <a href="#ops"><span class="n">09</span>Operating model</a>
+      <a href="#pilot"><span class="n">10</span>90-day pilot</a>
+      <a href="#kpi"><span class="n">11</span>KPIs &amp; gates</a>
+      <a href="#risk"><span class="n">12</span>Risks</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="doc-head">
+      <div class="kick">Go-To-Market Plan · Confidential</div>
+      <h1>EarSafe Care — capturing India's<br>online hearing-aid market</h1>
+      <div class="meta">Internal execution plan · June 2026 · Owner: Head of Content &amp; Growth · Paired with Earkart partnership</div>
+    </div>
+
+    <!-- 00 -->
+    <section id="summary">
+      <h2><span class="sn">00</span>The play, in one page</h2>
+      <p class="lede">Launch <strong>EarSafe Care, powered by Earkart</strong> — a separate, online-first hearing-aid vertical that sells Earkart's CDSCO-certified range to the <em>adult child buying for a parent</em>, using a free online hearing screening as the hook and EarSafe's existing demand engine to win the lowest acquisition cost in the category.</p>
+      <div class="grid g4">
+        <div class="card"><div class="stat">₹8–30K</div><div class="statlbl">price band we own — the empty middle of the market</div></div>
+        <div class="card"><div class="stat">&lt;₹5,500</div><div class="statlbl">CAC gate per device — the make-or-break number</div></div>
+        <div class="card"><div class="stat">D2C</div><div class="statlbl">own site + WhatsApp only — no marketplaces</div></div>
+        <div class="card"><div class="stat">90<span class="u">days</span></div><div class="statlbl">contained pilot before any scale-up</div></div>
+      </div>
+      <div class="callout">
+        <div class="t">The one-line strategy</div>
+        <p>Be the most affordable certified, audiologist-backed hearing aid you can buy online in India — sitting above the uncertified ₹5K amplifiers on trust, and below the ₹25K+ clinical floor on access — and use our online strength to acquire demand no clinic can match on cost.</p>
+      </div>
+    </section>
+
+    <!-- 01 -->
+    <section id="market">
+      <h2><span class="sn">01</span>The insights we're building on</h2>
+      <p>Five findings from the market research drive every decision in this plan:</p>
+      <table>
+        <tr><th>#</th><th>Insight</th><th>What it means for GTM</th></tr>
+        <tr><td>1</td><td><strong>Penetration is ~1–5%</strong> of 63M with loss; 7–10yr adoption delay. The barrier is stigma/awareness/cost/access, not demand.</td><td>This is a marketing &amp; distribution problem — our craft. Lead with education, not product.</td></tr>
+        <tr><td>2</td><td><strong>The market is barbelled; the ₹8–30K middle is empty</strong> — certified-but-clinic-bound above, uncertified amplifiers below.</td><td>Earkart's certified ₹8–30K range fills exactly this gap. This is the beachhead.</td></tr>
+        <tr><td>3</td><td><strong>Everyone's "online" is clinic-first</strong> (Hearzap, hear.com). No one is digital-native.</td><td>Our DNA inversion is the moat — build a true online-first funnel.</td></tr>
+        <tr><td>4</td><td><strong>Under ₹30K, rivals give 3–6 channels / single unit / disposable battery.</strong> Earkart gives 16ch / pair / rechargeable / invisible.</td><td>Compete as a <em>value-leader</em> ("more per rupee"), never as a discounter.</td></tr>
+        <tr><td>5</td><td><strong>Apple's hearing-aid feature is coming</strong> (not yet India-approved) and will take the young/mild self-buyer.</td><td>Aim at moderate loss + the older parent + human fitting — where Apple won't go.</td></tr>
+      </table>
+    </section>
+
+    <!-- 02 -->
+    <section id="where">
+      <h2><span class="sn">02</span>Where we play — target market</h2>
+      <h3>Primary buyer: the adult child (not the patient)</h3>
+      <p>In India the hearing aid is researched, chosen and paid for by the adult child for a parent. They are online, low on stigma, time-poor, guilt-motivated, and already partly inside EarSafe's audience. <strong>We market to the child; the parent is the user.</strong></p>
+      <table>
+        <tr><th>Segment</th><th>Who</th><th>Role</th><th>Hero product</th><th>Priority</th></tr>
+        <tr class="hl"><td>Adult child → parent</td><td>30–45, metro/tier-1, English/Hindi, in our audience</td><td>Buyer &amp; decision-maker</td><td>TINY, Radius 16</td><td>P1 — all paid spend</td></tr>
+        <tr><td>Early-onset self-buyer</td><td>45–60, mild-moderate, professional, avoids clinics</td><td>Buyer &amp; user</td><td>TINY (invisible), Radius 8</td><td>P2 — SEO + retargeting</td></tr>
+        <tr><td>Noise-aware younger flank</td><td>EarSafe's existing 25–45 lifestyle audience</td><td>Future pipeline</td><td>Screening / Bluup</td><td>P3 — screening &amp; nurture only</td></tr>
+      </table>
+      <h3>Geography (pilot)</h3>
+      <p>One metro cluster where our existing audience density, English/Hindi reach, and last-mile logistics are strongest — <strong>Bangalore + Hyderabad</strong> as the lead candidate (tech-corridor adult children, high online buying, our strongest organic footprint). Expand on proven economics, not ambition.</p>
+      <div class="callout"><div class="t">The beachhead, precisely</div><p>Moderate-loss parents, bought online by their 30–45 children in metro India, served by TINY (invisible + rechargeable) and Radius 16 (16-channel value). Win this narrow wedge before widening.</p></div>
+    </section>
+
+    <!-- 03 -->
+    <section id="win">
+      <h2><span class="sn">03</span>How we win — positioning &amp; message</h2>
+      <p class="lede">Positioning: <em>"Hearing care that comes to you — tested at home, fitted by a real audiologist, at a price that makes sense."</em></p>
+      <h3>Four message pillars (and the proof behind each)</h3>
+      <table>
+        <tr><th>Pillar</th><th>The claim</th><th>Proof</th></tr>
+        <tr><td>Certified, not amplified</td><td>"A real medical device, not an Amazon amplifier."</td><td>CDSCO Class-B certification; audiologist + warranty</td></tr>
+        <tr><td>More per rupee</td><td>"16 channels, rechargeable, invisible, a full pair — at the price of a single basic aid."</td><td>Feature-vs-price table (§04)</td></tr>
+        <tr><td>Dignity, not pity</td><td>"Invisible. Rechargeable. No one needs to know but you."</td><td>TINY CIC form factor</td></tr>
+        <tr><td>Care that comes home</td><td>"Free hearing test at home. A senior audiologist on call. 2-year support."</td><td>Earkart Omni + audiology network + benefit stack</td></tr>
+      </table>
+      <div class="callout"><div class="t">Tone guardrail</div><p>Warm, de-stigmatised, dignity-first — the EarSafe voice, adapted for a higher-trust purchase. Never fear-based, never "disability/aging." This runs as a <strong>separate sub-brand</strong>: distinct pages, separate pixels and campaigns, its own IG highlight/handle — <strong>never in the main EarSafe lifestyle Reels feed.</strong></p></div>
+    </section>
+
+    <!-- 04 -->
+    <section id="product">
+      <h2><span class="sn">04</span>Product &amp; pricing architecture</h2>
+      <h3>The range &amp; role of each SKU (MRP)</h3>
+      <table>
+        <tr><th>SKU</th><th>Type</th><th>MRP</th><th>Role in funnel</th></tr>
+        <tr class="hl"><td>TINY</td><td>Rechargeable invisible CIC, 16ch, pair + charger</td><td>₹29,900</td><td><strong>Hero</strong> — paid + organic lead product</td></tr>
+        <tr class="hl"><td>Radius 16</td><td>BTE digital, 16ch/32-band</td><td>₹24,900</td><td><strong>Hero</strong> — value-spec champion</td></tr>
+        <tr><td>Radius 8</td><td>BTE digital, 8ch</td><td>₹19,900</td><td>Step-down / budget moderate</td></tr>
+        <tr><td>FORT / Fame 2T</td><td>Trimmer digital, severe</td><td>₹17,900 / 10,900</td><td>Severe-loss coverage</td></tr>
+        <tr><td>Fame / Fame P / SP</td><td>Non-programmable BTE</td><td>₹7,900–9,900</td><td>EMI door-opener / entry</td></tr>
+      </table>
+      <h3>The feature wedge (why we lead on value, not price)</h3>
+      <table>
+        <tr><th>At ~₹25–30K</th><th>Typical certified competitor</th><th>EarSafe Care (Earkart)</th></tr>
+        <tr><td>Channels</td><td>3–6 (Signia Intuis 3 = 3 @ ₹24,990)</td><td><strong>16</strong> (Radius 16 @ ₹24,900)</td></tr>
+        <tr><td>Power</td><td>Disposable zinc-air</td><td><strong>Rechargeable</strong></td></tr>
+        <tr><td>Form</td><td>Visible BTE/RIC</td><td><strong>Invisible CIC</strong></td></tr>
+        <tr><td>Quantity</td><td>Single unit</td><td><strong>Pair + charger</strong></td></tr>
+      </table>
+      <h3>Pricing posture: value-leader, not discounter</h3>
+      <ul>
+        <li><strong>Hold MRP.</strong> Win on spec-per-rupee + the benefit stack, not headline discounts — this protects the margin the CAC gate depends on.</li>
+        <li><strong>Benefit stack as the lever</strong> (Earkart-funded): free insurance, 0% no-cost EMI, 4 free senior-audiologist consults, exchange/upgrade, free LED dehumidifier on hero SKUs.</li>
+        <li><strong>Honesty rule:</strong> lead claims with rechargeable / invisible / pair / certified / warranty; use channel-count as support only (budget "16ch" ≠ premium 16ch).</li>
+        <li><strong>Stay ≤₹30K.</strong> We do not fight where Bluetooth/streaming decides the sale (Earkart has none) — that's Apple/Signia territory.</li>
+      </ul>
+    </section>
+
+    <!-- 05 -->
+    <section id="journey">
+      <h2><span class="sn">05</span>Customer journey &amp; funnel</h2>
+      <p>Five stages, each with a clear owner. The free screening is the conversion hinge — it qualifies the lead, de-risks the medical fit, and gives Earkart's audiologist a warm, informed customer.</p>
+      <table>
+        <tr><th>Stage</th><th>Action</th><th>Owner</th><th>Goal</th></tr>
+        <tr><td>1 · Reach</td><td>SEO, Meta, Google, content, owned audience</td><td><span class="owner o-es">EarSafe</span></td><td>Qualified visit</td></tr>
+        <tr><td>2 · Screen</td><td>Free online self-test → Omni remote audiometry</td><td><span class="owner o-jt">Joint</span></td><td>Captured lead</td></tr>
+        <tr><td>3 · Consult</td><td>WhatsApp booking → senior audiologist call</td><td><span class="owner o-ek">Earkart</span></td><td>Device recommendation</td></tr>
+        <tr><td>4 · Convert</td><td>Fit + benefit stack + EMI checkout</td><td><span class="owner o-ek">Earkart</span></td><td>Sale</td></tr>
+        <tr><td>5 · Serve</td><td>2-yr warranty, follow-up, upgrade path</td><td><span class="owner o-ek">Earkart</span></td><td>Retention + referral</td></tr>
+      </table>
+      <h3>Illustrative funnel model <span style="font-weight:400;font-size:.8rem;color:#888">(assumptions to validate in pilot)</span></h3>
+      <div class="funnel">
+        <div class="row"><div class="stage">Qualified visitors<small>paid + organic to EarSafe Care</small></div><div class="num">10,000</div><div class="conv">—</div></div>
+        <div class="row"><div class="stage">Screening started<small>free online test CTA</small></div><div class="num">2,500</div><div class="conv">25% of visits</div></div>
+        <div class="row"><div class="stage">Lead captured<small>screening complete + contact</small></div><div class="num">1,250</div><div class="conv">50% complete</div></div>
+        <div class="row"><div class="stage">Consult attended<small>WhatsApp → audiologist</small></div><div class="num">~260</div><div class="conv">~21% of leads</div></div>
+        <div class="row"><div class="stage">Devices sold<small>purchase</small></div><div class="num">~52</div><div class="conv">~20% of consults</div></div>
+      </div>
+      <p class="footnote" style="margin-top:0;border:none;padding:0;">At these rates, ~10,000 qualified visitors → ~52 devices. To clear the &lt;₹5,500 CAC gate, total blended acquisition cost for those visitors must stay under ~₹2.9L. Organic/owned traffic (free) is what makes this math work — a pure-paid model would breach the gate.</p>
+    </section>
+
+    <!-- 06 -->
+    <section id="engine">
+      <h2><span class="sn">06</span>The demand engine — leveraging our online strength</h2>
+      <p>This is the reason the bet exists. We convert EarSafe's existing, owned demand machine into the cheapest qualified hearing-aid lead flow in India.</p>
+
+      <h3>A · SEO / AEO — own the money keywords</h3>
+      <p>Clinic pages rank thin on high-intent terms. We have ~29k keywords and ~4.9L impressions of existing authority to extend.</p>
+      <table>
+        <tr><th>Keyword cluster</th><th>Intent</th><th>Asset to build</th></tr>
+        <tr><td>"hearing aid price india", "hearing aid cost"</td><td>Commercial research</td><td>Transparent price-guide hub</td></tr>
+        <tr><td>"rechargeable invisible hearing aid", "small hearing aid"</td><td>Product</td><td>TINY product + comparison page</td></tr>
+        <tr><td>"hearing aid for parents / elderly"</td><td>Buyer (the child)</td><td>"Buying for your parent" guide</td></tr>
+        <tr><td>"online hearing test", "hearing test at home"</td><td>Lead magnet</td><td>Free screening landing</td></tr>
+        <tr><td>"is it hearing loss or ear wax", "signs of hearing loss"</td><td>Top-funnel education</td><td>Symptom/awareness content</td></tr>
+      </table>
+
+      <h3>B · Paid — Meta + Google, CAC-gated</h3>
+      <table>
+        <tr><th>Channel</th><th>Campaign</th><th>Audience</th><th>Objective</th></tr>
+        <tr><td>Meta</td><td>Screening lead-gen</td><td>30–45, parents 60+, lookalikes off our list</td><td>Lead (free test)</td></tr>
+        <tr><td>Meta</td><td>Retargeting</td><td>Screening starters, page visitors</td><td>Consult booking</td></tr>
+        <tr><td>Google</td><td>Search — high intent</td><td>"hearing aid price/online/for parents"</td><td>Lead / consult</td></tr>
+        <tr><td>Google</td><td>PMax / brand</td><td>EarSafe Care brand + competitor-adjacent</td><td>Conversion</td></tr>
+      </table>
+
+      <h3>C · WhatsApp — our best-converting channel (4.9% CVR)</h3>
+      <p>The high-touch hinge between a screening lead and an audiologist consult. Indicative flow:</p>
+      <ol>
+        <li>Auto-message on screening completion: result summary + "Book your free audiologist call."</li>
+        <li>Slot booking + reminder (cuts no-shows).</li>
+        <li>Post-consult: device recommendation, EMI calculator, benefit-stack recap.</li>
+        <li>Abandoned-consult nudge sequence (where our existing recovery muscle applies).</li>
+      </ol>
+
+      <h3>D · Owned — audience, email, content</h3>
+      <p>Our 14k community and email list seed the screening funnel at zero media cost and supply lookalike seeds. The noise-aware younger flank enters via screening/Bluup and nurtures into the pipeline.</p>
+    </section>
+
+    <!-- 07 -->
+    <section id="content">
+      <h2><span class="sn">07</span>Content plan — the trust spine</h2>
+      <p>Hearing aids are a high-trust purchase; content does the de-risking before the audiologist ever calls. Authority is anchored on Earkart's senior audiologists (ex-Starkey pedigree).</p>
+      <table>
+        <tr><th>Theme</th><th>Angle</th><th>Format</th><th>Job</th></tr>
+        <tr><td>The cost of waiting</td><td>The 7–10yr delay; untreated loss &amp; dementia risk</td><td>Long-form + carousel</td><td>Create urgency, honestly</td></tr>
+        <tr><td>Loss or just wax?</td><td>Demystify early symptoms</td><td>Article + Reel</td><td>Top-funnel capture</td></tr>
+        <tr><td>Buying for your parent</td><td>A guilt-free guide for the adult child</td><td>Guide + email</td><td>Speak to the real buyer</td></tr>
+        <tr><td>Certified vs amplifier</td><td>Why the ₹5K Amazon aid fails them</td><td>Comparison</td><td>Trust / differentiation</td></tr>
+        <tr><td>Invisible &amp; rechargeable</td><td>TINY in real life — dignity story</td><td>Reel + UGC</td><td>Kill stigma, drive product</td></tr>
+        <tr><td>Audiologist authority</td><td>Earkart senior audiologist explains</td><td>Talking-head video</td><td>Credibility</td></tr>
+      </table>
+      <p>Cadence for the pilot: <span class="pill">2 SEO articles / wk</span><span class="pill">3 paid creative concepts / wk</span><span class="pill">1 authority video / wk</span><span class="pill">WhatsApp + email always-on</span></p>
+    </section>
+
+    <!-- 08 -->
+    <section id="econ">
+      <h2><span class="sn">08</span>Unit economics &amp; the gate</h2>
+      <p>Illustrative on the TINY hero (₹29,900 MRP, 50% landed cost), with Earkart absorbing audiology + warranty:</p>
+      <table>
+        <tr><th>Line</th><th>Realistic</th></tr>
+        <tr><td>Realised price (after EMI subvention)</td><td>₹24,900</td></tr>
+        <tr><td>Landed cost (device)</td><td>(₹14,950)</td></tr>
+        <tr class="hl"><td>Gross margin</td><td>₹9,950 · ~40%</td></tr>
+        <tr><td>Payment / COD / EMI cost</td><td>(₹1,000)</td></tr>
+        <tr><td>Returns provision (≤25% amortised)</td><td>(₹2,800)</td></tr>
+        <tr><td>2-way logistics</td><td>(₹600)</td></tr>
+        <tr><td>Audiology + fitting + warranty</td><td><em>Earkart absorbs</em></td></tr>
+        <tr class="hl"><td>Contribution before CAC</td><td>~₹5,550</td></tr>
+      </table>
+      <div class="gate">
+        <div class="t">The gate — non-negotiable</div>
+        <div class="metrics">
+          <div class="m"><div class="v">&lt; ₹5,500</div><div class="l">blended CAC / device</div></div>
+          <div class="m"><div class="v">≥ 40%</div><div class="l">realised gross margin</div></div>
+          <div class="m"><div class="v">&lt; 25%</div><div class="l">return rate</div></div>
+        </div>
+      </div>
+      <p>Holding MRP (value-leader posture) keeps contribution intact; discounting collapses it. Our owned/organic demand is what makes a sub-₹5,500 CAC realistic — a cold-paid-only model would not clear the gate.</p>
+    </section>
+
+    <!-- 09 -->
+    <section id="ops">
+      <h2><span class="sn">09</span>Operating model — who owns what</h2>
+      <div class="grid g2">
+        <div class="card"><h4>EarSafe owns</h4><p>Brand &amp; sub-brand · demand generation · acquisition cost · the online experience (site, screening UX, WhatsApp, content) · first-line lead management.</p></div>
+        <div class="card"><h4>Earkart owns</h4><p>Audiology &amp; remote diagnosis (Omni) · device fitting · <strong>warranty &amp; returns liability</strong> · clinical fulfilment &amp; service · CDSCO licensing · the benefit stack.</p></div>
+      </div>
+      <div class="callout"><div class="t">The protecting principle</div><p>EarSafe earns device margin for bringing qualified demand; <strong>margin never moves without clinical responsibility moving with it.</strong> Confirm in the partnership agreement before any spend: margin split, fitting/warranty/returns liability on Earkart, CDSCO indemnity, MRP floor, lead-ownership rules, audiologist consult SLA.</p></div>
+    </section>
+
+    <!-- 10 -->
+    <section id="pilot">
+      <h2><span class="sn">10</span>The 90-day pilot</h2>
+      <div class="timeline">
+        <div class="ph"><div class="w">Weeks 1–2 · Setup</div><h4>Terms + foundations</h4><p>Sign partnership terms (liability, SLA, floor, indemnity). Stand up EarSafe Care pages, separate pixel/campaigns, Omni screening integration, WhatsApp flow.</p></div>
+        <div class="ph"><div class="w">Weeks 2–4 · Content + SEO</div><h4>Trust spine live</h4><p>Publish money-keyword hub + buyer guides; build paid creative; seed owned audience to screening.</p></div>
+        <div class="ph"><div class="w">Weeks 4–8 · Pilot live</div><h4>Spend, capped</h4><p>One metro cluster, hero TINY + Radius 16, capped media. Daily funnel tracking against the gate.</p></div>
+        <div class="ph"><div class="w">Week 6 · Day-45 read</div><h4>First gate</h4><p>CAC, GM, return rate vs targets. Continue / fix / kill.</p></div>
+        <div class="ph"><div class="w">Week 12 · Day-90 read</div><h4>Scale decision</h4><p>If gate clears: widen geography + SKUs. Only then does full clinical retail (Move 3) open.</p></div>
+      </div>
+      <h3>Parallel quick-win (no clinical risk)</h3>
+      <p>Launch <strong>Bluup earplugs + accessories</strong> under the core EarSafe brand immediately — on-brand "safe listening" prevention product, 50% margin, builds the prevention→correction bridge while the pilot stands up.</p>
+    </section>
+
+    <!-- 11 -->
+    <section id="kpi">
+      <h2><span class="sn">11</span>KPIs &amp; the gates</h2>
+      <table>
+        <tr><th>Metric</th><th>Type</th><th>Pilot target</th></tr>
+        <tr class="hl"><td>Blended CAC / device</td><td>Lagging — gate</td><td>&lt; ₹5,500</td></tr>
+        <tr class="hl"><td>Realised gross margin</td><td>Lagging — gate</td><td>≥ 40%</td></tr>
+        <tr class="hl"><td>Return rate</td><td>Lagging — gate</td><td>&lt; 25%</td></tr>
+        <tr><td>Cost per screening lead</td><td>Leading</td><td>Track → drive down</td></tr>
+        <tr><td>Screening → consult rate</td><td>Leading</td><td>≥ 20%</td></tr>
+        <tr><td>Consult → purchase rate</td><td>Leading</td><td>≥ 20%</td></tr>
+        <tr><td>WhatsApp consult booking rate</td><td>Leading</td><td>Benchmark vs 4.9% site CVR</td></tr>
+        <tr><td>Organic share of leads</td><td>Leading</td><td>Grow — it's the CAC lever</td></tr>
+      </table>
+      <p><strong>Decision rule:</strong> all three gate metrics must pass at Day 90 to authorise scale-up. Any single breach at Day 45 triggers a fix-or-kill review — we do not "spend through" a broken funnel.</p>
+    </section>
+
+    <!-- 12 -->
+    <section id="risk">
+      <h2><span class="sn">12</span>Risks &amp; mitigations</h2>
+      <table>
+        <tr><th>Risk</th><th>Severity</th><th>Mitigation</th></tr>
+        <tr><td>Brand dilution of the lifestyle brand</td><td><span class="tag bad">High</span></td><td>Separate sub-brand, pages, pixels, feeds; dignity-led, never pity</td></tr>
+        <tr><td>Medical returns / fit failure online</td><td><span class="tag bad">High</span></td><td>Omni pre-screen; Earkart owns fitting + returns liability; trial</td></tr>
+        <tr><td>CAC exceeds contribution</td><td><span class="tag bad">High</span></td><td>Lead with organic/SEO; hard gate; kill at Day 45 if breached</td></tr>
+        <tr><td>After-sales burden over 2-yr warranty</td><td><span class="tag mid">Med</span></td><td>Earkart service SLA; we own acquisition only</td></tr>
+        <tr><td>Channel conflict with Earkart's own D2C/clinics</td><td><span class="tag mid">Med</span></td><td>Territory, MRP floor, lead-ownership rules up front</td></tr>
+        <tr><td>Apple compresses the mild/young end</td><td><span class="tag mid">Med</span></td><td>Target moderate + parent + human service now</td></tr>
+        <tr><td>Margin compression from discounting</td><td><span class="tag mid">Med</span></td><td>Hold MRP; benefit stack, not price, as the lever</td></tr>
+      </table>
+
+      <div class="footnote">
+        Sources: market sizing triangulated (Grand View, TechSci, MarketsandMarkets, Fortune Business Insights — de-outliered); prevalence (NMJI, Indian Journal of Otology, LASI-DAD); penetration (WHO, The Hearing Review); adoption delay (ASHA); competitor pricing/features verified live (Hearzap/Zenaud, hear.com, Signia India, Amazon/Flipkart, Jun 2026); regulation (CDSCO MDR 2017); product specs &amp; MRP (Earkart catalogue, Jun 2026). Margins shown below MRP after discounting; figures directional for planning. · EarSafe Care, powered by Earkart · Confidential.
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  const links=[...document.querySelectorAll('aside nav a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  const obs=new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){
+      const id='#'+e.target.id;
+      links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')===id));
+    }});
+  },{rootMargin:'-30% 0px -60% 0px'});
+  secs.forEach(s=>s&&obs.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NG x WeHear SafeBuds — Open Ear. AI Inside.</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Lora:ital@1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy:  #102442;
+      --ocean: #39869b;
+      --cyan:  #54c1c8;
+      --frost: #E8F6F7;
+      --chalk: #F4F4F2;
+      --muted: #4a6070;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--chalk); color: var(--navy); -webkit-font-smoothing: antialiased; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; }
+
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 clamp(20px,5vw,72px); }
+    .sec { padding: clamp(64px,8vw,104px) 0; }
+    .lbl { font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--ocean); display: block; margin-bottom: 12px; }
+    h2 { font-size: clamp(26px,4vw,46px); font-weight: 500; line-height: 1.1; letter-spacing: -.02em; }
+    h2 em { font-style: normal; color: var(--ocean); }
+
+    /* ── ANNOUNCEMENT ── */
+    .ann { background: var(--navy); color: rgba(255,255,255,.65); text-align: center; padding: 9px 16px; font-size: 13px; }
+    .ann strong { color: var(--cyan); }
+
+    /* ── NAV ── */
+    nav { position: sticky; top: 0; z-index: 99; background: rgba(244,244,242,.95); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(16,36,66,.07); padding: 13px 0; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-size: 15px; font-weight: 500; }
+    .nav-logo small { display: block; font-size: 10px; color: var(--ocean); letter-spacing: .06em; text-transform: uppercase; font-weight: 400; }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+    .nav-price { font-size: 14px; font-weight: 500; }
+    .nav-btn { background: var(--navy); color: #fff; padding: 9px 22px; border-radius: 50px; font-size: 13px; font-weight: 500; transition: background .15s; }
+    .nav-btn:hover { background: #1d3a60; }
+
+    /* ── HERO ── */
+    .hero { background: var(--chalk); padding: clamp(48px,7vw,88px) 0 0; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px,5vw,72px); align-items: start; }
+
+    .badge { display: inline-flex; align-items: center; gap: 6px; background: var(--frost); border: 1px solid rgba(84,193,200,.3); border-radius: 50px; padding: 5px 14px; font-size: 12px; font-weight: 500; color: var(--ocean); margin-bottom: 22px; }
+
+    h1 { font-size: clamp(34px,5vw,60px); font-weight: 500; line-height: 1.06; letter-spacing: -.025em; margin-bottom: 18px; }
+    h1 em { font-style: normal; color: var(--ocean); }
+
+    .hero-sub { font-size: clamp(15px,1.6vw,17px); color: var(--muted); line-height: 1.7; max-width: 460px; margin-bottom: 28px; }
+
+    .price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+    .price-big { font-size: clamp(30px,3.5vw,40px); font-weight: 500; letter-spacing: -.02em; }
+    .price-note { font-size: 13px; color: #6a8090; }
+    .prepaid { display: inline-flex; align-items: center; gap: 5px; background: #edf7ed; color: #2e7d32; border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 500; margin-bottom: 22px; }
+
+    .color-row { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+    .color-lbl { font-size: 12px; color: #6a8090; text-transform: uppercase; letter-spacing: .06em; }
+    .sw { width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: all .15s; }
+    .sw.active { border-color: var(--ocean); box-shadow: 0 0 0 2px rgba(57,134,155,.2); }
+    .sw-name { font-size: 13px; color: var(--muted); }
+
+    .cta-stack { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .btn-main { width: 100%; padding: 17px; background: var(--navy); color: #fff; border-radius: 12px; font-size: 16px; font-weight: 500; transition: all .2s; }
+    .btn-main:hover { background: #1d3a60; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(16,36,66,.18); }
+    .btn-sec { width: 100%; padding: 15px; background: var(--frost); color: var(--navy); border-radius: 12px; font-size: 15px; font-weight: 500; border: 1.5px solid rgba(16,36,66,.1); transition: all .2s; }
+    .btn-sec:hover { border-color: var(--ocean); background: #fff; }
+
+    .micro { display: flex; flex-wrap: wrap; gap: 14px; }
+    .mi { display: flex; align-items: center; gap: 5px; font-size: 12.5px; color: #6a8090; }
+
+    /* Image side */
+    .hero-img-wrap { position: relative; }
+    .hero-img { width: 100%; border-radius: 16px; background: var(--frost); display: block; }
+    .thumbs { display: flex; gap: 8px; margin-top: 10px; overflow-x: auto; }
+    .thumb { width: 58px; height: 58px; border-radius: 8px; object-fit: cover; flex-shrink: 0; cursor: pointer; border: 2px solid transparent; transition: border-color .15s; background: var(--frost); }
+    .thumb.active { border-color: var(--cyan); }
+
+    .fc { position: absolute; border-radius: 12px; box-shadow: 0 8px 32px rgba(16,36,66,.15); }
+    .fc-rating { top: 20px; right: -14px; background: var(--navy); color: #fff; padding: 12px 16px; text-align: center; min-width: 100px; }
+    .fc-rating .num { font-size: 22px; font-weight: 500; line-height: 1; }
+    .fc-rating .stars { color: var(--cyan); font-size: 12px; letter-spacing: 1px; margin: 3px 0; }
+    .fc-rating .cnt { font-size: 10px; color: rgba(255,255,255,.5); }
+    .fc-ent { bottom: 80px; left: -14px; background: #fff; padding: 12px 16px; display: flex; gap: 10px; align-items: center; min-width: 190px; }
+    .fc-ent-ico { width: 36px; height: 36px; border-radius: 9px; background: var(--frost); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .fc-ent-txt strong { display: block; font-size: 13px; }
+    .fc-ent-txt span { font-size: 11px; color: #6a8090; }
+
+    /* Shark Tank badge */
+    .st-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #fff; border: 1.5px solid rgba(16,36,66,.1);
+      border-radius: 10px; padding: 9px 16px;
+      margin-top: 12px; box-shadow: 0 2px 12px rgba(16,36,66,.07);
+    }
+    .st-seen { font-size: 10px; color: #6a8090; text-transform: uppercase; letter-spacing: .08em; }
+    .st-logo {
+      display: flex; align-items: center; gap: 6px;
+    }
+    .st-shark {
+      width: 28px; height: 28px; flex-shrink: 0;
+    }
+    .st-text { line-height: 1.15; }
+    .st-text strong { display: block; font-size: 13px; font-weight: 500; color: #0a2540; letter-spacing: .01em; }
+    .st-text span { font-size: 10px; color: #e63329; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
+
+    @media(max-width:900px) { .hero-grid { grid-template-columns: 1fr; } .hero-img-wrap { order: -1; } .fc { display: none; } }
+
+    /* ── PROOF STRIP ── */
+    .proof { background: var(--navy); padding: 22px 0; }
+    .proof-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .pi { display: flex; align-items: center; gap: 10px; color: #fff; flex: 1; min-width: 130px; }
+    .pi strong { display: block; font-size: 16px; color: var(--cyan); font-weight: 500; }
+    .pi span { font-size: 11.5px; color: rgba(255,255,255,.5); }
+    .pd { width: 1px; height: 30px; background: rgba(255,255,255,.1); }
+    @media(max-width:680px) { .pd { display: none; } .pi { min-width: calc(50% - 8px); } }
+
+    /* ── FOUR PILLARS ── */
+    .pillars { background: var(--white, #fff); }
+    .pillars-head { text-align: center; margin-bottom: 48px; }
+    .pillars-head p { color: var(--muted); font-size: 16px; margin-top: 10px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .pillars-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+    .pillar { background: var(--chalk); border-radius: 14px; padding: 28px 22px; transition: all .2s; border: 1.5px solid transparent; }
+    .pillar:hover { border-color: rgba(84,193,200,.3); background: var(--frost); }
+    .pillar .ic { font-size: 30px; margin-bottom: 14px; }
+    .pillar strong { display: block; font-size: 16px; font-weight: 500; color: var(--navy); margin-bottom: 8px; }
+    .pillar p { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
+    @media(max-width:900px) { .pillars-grid { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:500px) { .pillars-grid { grid-template-columns: 1fr; } }
+
+    /* ── WHO IT'S FOR — TABS ── */
+    .audience { background: var(--chalk); }
+    .audience-head { text-align: center; margin-bottom: 40px; }
+    .audience-head p { color: var(--muted); margin-top: 10px; font-size: 16px; }
+
+    .tab-bar { display: flex; background: var(--frost); border-radius: 12px; padding: 4px; max-width: 680px; margin: 0 auto 40px; overflow-x: auto; gap: 2px; }
+    .tab { flex: 1; padding: 10px 12px; border-radius: 9px; font-size: 13px; font-weight: 500; color: var(--muted); background: transparent; cursor: pointer; white-space: nowrap; transition: all .2s; }
+    .tab.active { background: var(--navy); color: #fff; }
+
+    .panels {}
+    .panel { display: none; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .panel.active { display: grid; }
+    .panel-img { border-radius: 14px; overflow: hidden; background: var(--frost); aspect-ratio: 4/3; }
+    .panel-img img { width: 100%; height: 100%; object-fit: cover; }
+    .panel-eyebrow { font-family: 'Lora', serif; font-style: italic; font-size: 15px; color: var(--ocean); display: block; margin-bottom: 10px; }
+    .panel h3 { font-size: clamp(20px,2.8vw,32px); font-weight: 500; line-height: 1.2; margin-bottom: 16px; }
+    .panel-scene { font-size: 14.5px; color: var(--muted); line-height: 1.75; margin-bottom: 18px; font-style: italic; border-left: 3px solid var(--cyan); padding-left: 14px; }
+    .panel-body { font-size: 14.5px; line-height: 1.75; margin-bottom: 20px; color: var(--navy); }
+    .panel-pts { display: flex; flex-direction: column; gap: 9px; }
+    .pt { display: flex; gap: 9px; align-items: flex-start; font-size: 14px; }
+    .pt-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); flex-shrink: 0; margin-top: 6px; }
+
+    @media(max-width:900px) { .panel.active { grid-template-columns: 1fr; } .panel-img { order: -1; } }
+    @media(max-width:560px) { .tab-bar { flex-wrap: wrap; max-width: 100%; } .tab { flex: 1 1 calc(50% - 4px); } }
+
+    /* ── COMPARISON ── */
+    .cmp { background: var(--frost); }
+    .cmp-head { margin-bottom: 36px; }
+    .cmp-head p { color: var(--muted); font-size: 16px; margin-top: 10px; max-width: 520px; }
+    .cmp-table { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 24px rgba(16,36,66,.07); }
+    .cmp-row { display: grid; grid-template-columns: 1.5fr 1fr 1fr; border-bottom: 1px solid rgba(16,36,66,.06); }
+    .cmp-row:last-child { border-bottom: none; }
+    .cmp-row.head-row { font-size: 13px; font-weight: 500; border-bottom: 2px solid rgba(16,36,66,.08); }
+    .cc { padding: 15px 20px; font-size: 13.5px; display: flex; align-items: center; }
+    .cc:first-child { background: var(--chalk); font-weight: 500; font-size: 14px; }
+    .cc:nth-child(2) { justify-content: center; color: var(--muted); }
+    .cc:nth-child(3) { justify-content: center; background: rgba(16,36,66,.02); }
+    .head-row .cc:nth-child(3) { background: var(--navy); color: #fff; justify-content: center; flex-direction: column; align-items: center; gap: 2px; }
+    .head-row .cc:nth-child(3) small { color: var(--cyan); font-size: 11px; font-weight: 400; }
+    .good { color: #2e7d32; font-size: 13px; font-weight: 500; }
+    .bad  { color: #b71c1c; font-size: 13px; }
+    .ck { color: #2e7d32; font-size: 16px; margin-right: 4px; }
+    .xk { color: #c62828; font-size: 16px; }
+    @media(max-width:560px) { .cmp-row { grid-template-columns: 1fr 1fr; } .cc:nth-child(2), .head-row .cc:nth-child(2) { display: none; } }
+
+    /* ── REVIEWS ── */
+    .revs { background: #fff; }
+    .revs-head { text-align: center; margin-bottom: 44px; }
+    .revs-head p { color: var(--muted); margin-top: 8px; font-size: 16px; }
+    .rev-sum { display: flex; align-items: center; justify-content: center; gap: 32px; margin-bottom: 36px; flex-wrap: wrap; }
+    .rev-num { font-size: 52px; font-weight: 500; letter-spacing: -.03em; line-height: 1; }
+    .rev-stars { color: #f5a623; font-size: 20px; letter-spacing: 3px; margin: 5px 0; }
+    .rev-ct { font-size: 12px; color: #6a8090; }
+    .rev-bars { max-width: 240px; flex: 1; }
+    .br { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+    .br-l { font-size: 11.5px; color: #6a8090; width: 24px; }
+    .br-t { flex: 1; height: 5px; background: rgba(16,36,66,.08); border-radius: 3px; overflow: hidden; }
+    .br-f { height: 100%; background: var(--ocean); border-radius: 3px; }
+    .br-n { font-size: 11.5px; color: #6a8090; width: 18px; }
+    .rev-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .rc { background: var(--chalk); border-radius: 12px; padding: 22px; }
+    .rc .stars { color: #f5a623; font-size: 13px; letter-spacing: 1px; margin-bottom: 10px; }
+    .rc p { font-size: 14px; line-height: 1.7; margin-bottom: 14px; }
+    .rc-meta { display: flex; align-items: center; gap: 9px; }
+    .rc-av { width: 30px; height: 30px; border-radius: 50%; background: var(--frost); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; color: var(--ocean); flex-shrink: 0; }
+    .rc-name { font-size: 12.5px; font-weight: 500; }
+    .rc-loc { font-size: 11px; color: #6a8090; }
+    .rc-tag { margin-top: 10px; display: inline-block; background: var(--frost); color: var(--ocean); font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 50px; }
+    @media(max-width:760px) { .rev-grid { grid-template-columns: 1fr; } }
+
+    /* ── FAQ ── */
+    .faq { background: var(--chalk); }
+    .faq-wrap { max-width: 680px; margin: 0 auto; }
+    .faq-head { text-align: center; margin-bottom: 32px; }
+    .faq-item { background: #fff; border-radius: 10px; margin-bottom: 8px; overflow: hidden; border: 1px solid rgba(16,36,66,.07); }
+    .faq-q { width: 100%; background: none; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 14.5px; font-weight: 500; text-align: left; gap: 14px; transition: background .15s; color: var(--navy); }
+    .faq-q:hover { background: var(--frost); }
+    .faq-ic { width: 22px; height: 22px; border-radius: 50%; background: var(--frost); display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--ocean); flex-shrink: 0; transition: transform .2s, background .2s; }
+    .faq-item.open .faq-ic { transform: rotate(45deg); background: var(--navy); color: #fff; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .2s; padding: 0 20px; }
+    .faq-item.open .faq-a { max-height: 240px; padding: 0 20px 18px; }
+    .faq-a p { font-size: 14px; color: var(--muted); line-height: 1.75; }
+
+    /* ── FINAL CTA ── */
+    .final { background: var(--navy); padding: clamp(72px,9vw,112px) 0; text-align: center; position: relative; overflow: hidden; }
+    .final::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(84,193,200,.08) 0%, transparent 65%); pointer-events: none; }
+    .final-inner { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; }
+    .final h2 { color: #fff; margin-bottom: 14px; }
+    .final h2 em { color: var(--cyan); font-style: normal; }
+    .final p { color: rgba(255,255,255,.55); font-size: 16px; line-height: 1.65; margin-bottom: 30px; }
+    .final-price { font-size: clamp(34px,5vw,50px); font-weight: 500; color: #fff; letter-spacing: -.025em; margin-bottom: 4px; }
+    .final-price span { color: var(--cyan); }
+    .final-pre { font-size: 13.5px; color: rgba(255,255,255,.4); margin-bottom: 28px; }
+    .final-pre strong { color: var(--cyan); }
+    .final-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+    .final-btns a { padding: 17px 36px; border-radius: 50px; font-size: 15px; font-weight: 500; transition: all .2s; }
+    .fbm { background: var(--cyan); color: var(--navy); }
+    .fbm:hover { background: #43b0b7; transform: translateY(-1px); }
+    .fbo { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.3); }
+    .fbo:hover { border-color: #fff; }
+    .final-gs { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+    .fg { font-size: 12.5px; color: rgba(255,255,255,.4); display: flex; align-items: center; gap: 5px; }
+
+    /* ── FOOTER ── */
+    footer { background: #091520; padding: 40px 0 24px; }
+    .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; margin-bottom: 36px; }
+    .foot-logo { font-size: 15px; font-weight: 500; color: #fff; }
+    .foot-logo small { display: block; font-size: 10px; color: var(--cyan); letter-spacing: .08em; text-transform: uppercase; margin-top: 2px; font-weight: 400; }
+    footer p.about { font-size: 13px; color: rgba(255,255,255,.35); line-height: 1.65; margin-top: 12px; max-width: 240px; }
+    .foot-col h5 { font-size: 11px; color: rgba(255,255,255,.35); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 14px; }
+    .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .foot-col a { font-size: 13px; color: rgba(255,255,255,.45); transition: color .15s; }
+    .foot-col a:hover { color: #fff; }
+    .foot-bottom { border-top: 1px solid rgba(255,255,255,.07); padding-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 12px; color: rgba(255,255,255,.3); }
+    @media(max-width:640px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+
+    /* ── NG × WEHEAR PARTNERSHIP ── */
+    .partner { background: var(--navy); }
+    .partner .lbl { color: var(--cyan); }
+    .partner h2 { color: #fff; }
+    .partner-lead { color: rgba(255,255,255,.55); font-size: 16px; line-height: 1.65; margin: 16px 0 32px; max-width: 480px; }
+    .partner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px,6vw,80px); align-items: start; }
+    .partner-cards { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+    .pcard { display: flex; gap: 16px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 18px 20px; align-items: flex-start; }
+    .pcard-mark { width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; letter-spacing: .04em; flex-shrink: 0; margin-top: 2px; }
+    .pcard-mark.ng { background: var(--ocean); color: #fff; }
+    .pcard-mark.wh { background: var(--cyan); color: var(--navy); }
+    .pcard strong { display: block; font-size: 15px; font-weight: 500; color: #fff; margin-bottom: 7px; }
+    .pcard p { font-size: 13.5px; color: rgba(255,255,255,.45); line-height: 1.65; }
+    .shark-badge-inline { font-size: 11px; background: rgba(230,51,41,.18); color: #ff6b5b; border-radius: 4px; padding: 2px 7px; margin-left: 6px; font-weight: 500; letter-spacing: .02em; }
+    .partner-quote { border-left: 3px solid var(--cyan); padding-left: 18px; font-size: 15px; color: rgba(255,255,255,.55); line-height: 1.7; font-style: italic; }
+    .partner-quote cite { display: block; margin-top: 10px; font-size: 12px; font-style: normal; color: var(--cyan); letter-spacing: .04em; }
+    .partner-img-box { position: relative; background: rgba(255,255,255,.05); border-radius: 16px; overflow: hidden; margin-bottom: 20px; }
+    .partner-img-box img { width: 100%; display: block; }
+    .partner-stamp { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(16,36,66,.88)); padding: 36px 20px 18px; }
+    .ps-line1 { display: block; font-size: 10px; color: var(--cyan); text-transform: uppercase; letter-spacing: .1em; font-weight: 500; }
+    .ps-line2 { display: block; font-size: 22px; font-weight: 500; color: #fff; margin: 2px 0; }
+    .ps-line3 { display: block; font-size: 11px; color: rgba(255,255,255,.4); }
+    .partner-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+    .pstat { background: rgba(255,255,255,.06); border-radius: 10px; padding: 16px 14px; text-align: center; }
+    .pstat strong { display: block; font-size: 26px; font-weight: 500; color: var(--cyan); line-height: 1; margin-bottom: 5px; }
+    .pstat span { font-size: 11.5px; color: rgba(255,255,255,.4); line-height: 1.4; }
+    @media(max-width:900px) { .partner-grid { grid-template-columns: 1fr; } }
+
+    /* ── REVEAL ── */
+    .r { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+    .r.v { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="ann"><strong>₹200 off</strong> all prepaid orders &nbsp;·&nbsp; Free shipping &nbsp;·&nbsp; Delivered in 4–5 days</div>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <div class="nav-inner">
+      <div class="nav-logo">NG EarSafe <small>Open ear since 2020</small></div>
+      <div class="nav-right">
+        <span class="nav-price">₹2,999</span>
+        <a href="#buy" class="nav-btn">Buy Now</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════════════════
+     HERO
+═════════════════════════ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+
+      <div class="hero-copy">
+        <div class="badge">✦ Open ear · AI inside · 9 grams</div>
+        <h1>Your ears open.<br>Your world <em>intact.</em><br>35 hours.</h1>
+        <p class="hero-sub">SafeBuds rest outside your ear canal — nothing goes inside. You hear your music and your room at the same time. And with SphereLingo™ AI, they translate conversations and take your meeting notes too.</p>
+
+        <div class="price-row">
+          <span class="price-big">₹2,999</span>
+          <span class="price-note">incl. taxes</span>
+        </div>
+        <div class="prepaid">✦ Pay prepaid → ₹2,799 (₹200 off instantly)</div>
+
+        <div class="color-row">
+          <span class="color-lbl">Colour</span>
+          <div class="sw active" style="background:#1a1a1a" onclick="setColor('black',this)"></div>
+          <div class="sw" style="background:#F5EFE0;border:1px solid #ddd" onclick="setColor('ivory',this)"></div>
+          <span class="sw-name" id="swName">Black</span>
+        </div>
+
+        <div class="cta-stack" id="buy">
+          <button class="btn-main">Add to Cart</button>
+          <button class="btn-sec">Buy Now with UPI / Card</button>
+        </div>
+
+        <div class="micro">
+          <span class="mi"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#39869b" stroke-width="2.5"><path d="M17 5 8 15 3 10"/></svg> 7-day returns</span>
+          <span class="mi"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#39869b" stroke-width="2.5"><path d="M17 5 8 15 3 10"/></svg> 1-year warranty</span>
+          <span class="mi"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#39869b" stroke-width="2.5"><path d="M17 5 8 15 3 10"/></svg> ENT certified</span>
+          <span class="mi"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="#39869b" stroke-width="2.5"><path d="M17 5 8 15 3 10"/></svg> Ships in 1–2 days</span>
+        </div>
+      </div>
+
+      <div class="hero-img-wrap">
+        <div class="fc fc-rating">
+          <div class="num">4.8</div>
+          <div class="stars">★★★★★</div>
+          <div class="cnt">38 reviews</div>
+        </div>
+        <div class="fc fc-ent">
+          <div class="fc-ent-ico">🩺</div>
+          <div class="fc-ent-txt"><strong>ENT Certified</strong><span>Safe for all-day wear</span></div>
+        </div>
+        <img id="heroImg" class="hero-img" src="Product Images/Safebuds.1.png" alt="NG x WeHear SafeBuds"/>
+        <div class="thumbs">
+          <img class="thumb active" src="Product Images/Safebuds.1.png"             onclick="swp(this,'Product Images/Safebuds.1.png')" alt=""/>
+          <img class="thumb"        src="Product Images/Safe Buds_Website.5.png"     onclick="swp(this,'Product Images/Safe Buds_Website.5.png')" alt=""/>
+          <img class="thumb"        src="Product Images/Safebuds.2.png"              onclick="swp(this,'Product Images/Safebuds.2.png')" alt=""/>
+          <img class="thumb"        src="Product Images/Safebuds back.1.png"         onclick="swp(this,'Product Images/Safebuds back.1.png')" alt=""/>
+          <img class="thumb"        src="Product Images/Safebuds top.9.png"          onclick="swp(this,'Product Images/Safebuds top.9.png')" alt=""/>
+          <img class="thumb"        src="Product Images/Safebuds closed hover.6.png" onclick="swp(this,'Product Images/Safebuds closed hover.6.png')" alt=""/>
+          <img class="thumb"        src="Product Images/Safebuds packaging (1).png"  onclick="swp(this,'Product Images/Safebuds packaging (1).png')" alt=""/>
+          <img class="thumb"        src="Product Images/safebudslife1.png"            onclick="swp(this,'Product Images/safebudslife1.png')" alt=""/>
+        </div>
+        <!-- Shark Tank Badge -->
+        <div class="st-badge">
+          <span class="st-seen">Seen on</span>
+          <div class="st-logo">
+            <svg class="st-shark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <!-- shark fin -->
+              <path d="M8 27 C11 23 17 17 21 11 C24 6 29 4 34 7 C30 12 28 18 30 23 L35 27 Z" fill="#102442" opacity=".8"/>
+              <!-- waterline -->
+              <line x1="3" y1="27" x2="37" y2="27" stroke="#102442" stroke-width="2" stroke-linecap="round"/>
+              <!-- waves -->
+              <path d="M2 30 Q9 27 16 30 Q23 33 30 30 Q34 28 38 30" stroke="#39869b" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            </svg>
+            <div class="st-text">
+              <strong>WeHear</strong>
+              <span>Shark Tank India</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<div class="proof">
+  <div class="wrap">
+    <div class="proof-inner">
+      <div class="pi"><span style="font-size:20px">👂</span><div><strong>Open Ear</strong><span>Nothing inside your canal</span></div></div>
+      <div class="pd"></div>
+      <div class="pi"><span style="font-size:20px">🔋</span><div><strong>35 Hours</strong><span>Full work week on one charge</span></div></div>
+      <div class="pd"></div>
+      <div class="pi"><span style="font-size:20px">⚖️</span><div><strong>9 Grams</strong><span>Forget you're wearing them</span></div></div>
+      <div class="pd"></div>
+      <div class="pi"><span style="font-size:20px">🌍</span><div><strong>SphereLingo™</strong><span>Live translation · AI notes</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════
+     FOUR PILLARS
+═════════════════════════ -->
+<section class="pillars sec" style="background:#fff;">
+  <div class="wrap">
+    <div class="pillars-head r">
+      <span class="lbl">What makes it different</span>
+      <h2>Four reasons. One product.</h2>
+      <p>SafeBuds isn't a feature list. It's what happens when you build audio around the ear instead of inside it.</p>
+    </div>
+    <div class="pillars-grid r">
+      <div class="pillar">
+        <div class="ic">👂</div>
+        <strong>Open Ear Design</strong>
+        <p>The hook sits over your ear. The driver rests outside your canal at the tragus. Nothing inside. No pressure. No heat. No infections. Wear it all day.</p>
+      </div>
+      <div class="pillar">
+        <div class="ic">🎙</div>
+        <strong>Call-Grade Mic</strong>
+        <p>Quad ENC microphones at −32dB isolate your voice from everything around you. Your team hears you clearly on Zoom, Teams, and Meet — every call, all day.</p>
+      </div>
+      <div class="pillar">
+        <div class="ic">🌐</div>
+        <strong>SphereLingo™ AI</strong>
+        <p>Live translation in 100+ languages and real-time meeting notes — powered by the free WeHear app. The only earbuds in India with this at ₹2,999.</p>
+      </div>
+      <div class="pillar">
+        <div class="ic">🎵</div>
+        <strong>Rich Open Audio</strong>
+        <p>12×17mm driver delivers clear, full-range sound for music, shows, and gaming — while you still hear the world around you. Custom EQ via app.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════
+     NG × WEHEAR PARTNERSHIP
+═════════════════════════ -->
+<section class="partner sec">
+  <div class="wrap">
+    <div class="partner-grid">
+
+      <div class="r">
+        <span class="lbl">The story behind SafeBuds</span>
+        <h2>Two Indian brands.<br>One <em>breakthrough.</em></h2>
+        <p class="partner-lead">India's open ear pioneer meets the AI audio company that pitched on Shark Tank India. This is what they built together.</p>
+
+        <div class="partner-cards">
+          <div class="pcard">
+            <div class="pcard-mark ng">NG</div>
+            <div>
+              <strong>NG EarSafe</strong>
+              <p>Five years building India's only open-ear product line — hardware engineered around how ears actually work. Nothing inside the canal, ever. Worn by WFH professionals, runners, and parents who don't want their family losing hearing to in-ear buds.</p>
+            </div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-mark wh">WH</div>
+            <div>
+              <strong>WeHear <span class="shark-badge-inline">🦈 Shark Tank India</span></strong>
+              <p>AI live translation and meeting transcription — built in India, speaking 100+ languages. WeHear's SphereLingo™ platform caught the attention of Shark Tank India. Then they found NG EarSafe.</p>
+            </div>
+          </div>
+        </div>
+
+        <blockquote class="partner-quote">
+          "We built the ear. They built the brain. SafeBuds is what India gets when two product-first startups stop working in isolation."
+          <cite>— NG EarSafe × WeHear, 2025</cite>
+        </blockquote>
+      </div>
+
+      <div class="r">
+        <div class="partner-img-box">
+          <img src="Product Images/Safebuds packaging (1).png" alt="NG x WeHear SafeBuds packaging"/>
+          <div class="partner-stamp">
+            <span class="ps-line1">NG × WeHear</span>
+            <span class="ps-line2">SafeBuds</span>
+            <span class="ps-line3">Born in India · Built for the world</span>
+          </div>
+        </div>
+        <div class="partner-stats">
+          <div class="pstat"><strong>5</strong><span>Years open ear R&D by NG</span></div>
+          <div class="pstat"><strong>100+</strong><span>Languages via SphereLingo™</span></div>
+          <div class="pstat"><strong>1</strong><span>Product that merges both</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════
+     WHO IT'S FOR
+═════════════════════════ -->
+<section class="audience sec">
+  <div class="wrap">
+    <div class="audience-head r">
+      <span class="lbl">Who it's for</span>
+      <h2>Different people.<br>Same open ear.</h2>
+      <p>SafeBuds fits four kinds of Indian buyers. Pick yours.</p>
+    </div>
+
+    <div class="tab-bar r">
+      <button class="tab active" onclick="tab(this,'p-wfh')">💼 WFH Pro</button>
+      <button class="tab" onclick="tab(this,'p-bridge')">🌍 Multilingual</button>
+      <button class="tab" onclick="tab(this,'p-entertain')">🎧 Entertainment</button>
+      <button class="tab" onclick="tab(this,'p-parent')">👨‍👩‍👧 Parent</button>
+    </div>
+
+    <!-- WFH Pro -->
+    <div id="p-wfh" class="panel active">
+      <div class="panel-img"><img src="Product Images/safebudslife1.png" alt="WFH professional"/></div>
+      <div class="r">
+        <span class="panel-eyebrow">The WFH Professional</span>
+        <h3>6th meeting. Ears still fine. Notes already written.</h3>
+        <p class="panel-scene">4:30pm. Gurgaon home office. You've been on calls since 10. Chai is cold. Another Teams invite just landed. Your ears don't hurt yet — that used to not be true.</p>
+        <p class="panel-body">SafeBuds sit outside your ear canal, so six hours of back-to-back calls don't leave you with that pressure-and-heat buildup you've accepted as normal. And SphereLingo™ takes your meeting notes in real-time — so you stop choosing between speaking and writing.</p>
+        <div class="panel-pts">
+          <div class="pt"><div class="pt-dot"></div><span>Open ear — no pain at 5pm, no infections from all-day use</span></div>
+          <div class="pt"><div class="pt-dot"></div><span>Quad ENC mic — colleagues hear you, not your kitchen or building sounds</span></div>
+          <div class="pt"><div class="pt-dot"></div><span>Auto meeting notes — transcribed and summarised, saved after every call</span></div>
+          <div class="pt"><div class="pt-dot"></div><span>35 hours total battery — charge Sunday, wear all week</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Multilingual -->
+    <div id="p-bridge" class="panel">
+      <div class="panel-img"><img src="Product Images/safebudslifestyle.webp" alt="Multilingual professional"/></div>
+      <div class="r">
+        <span class="panel-eyebrow">The Multilingual Professional</span>
+        <h3>Mumbai meeting. Tokyo client. Zero awkward pauses.</h3>
+        <p class="panel-scene">Hyderabad IT consultant. Client in Osaka, supplier in Shenzhen, manager in Dubai. Four people. Four languages. Used to mean an interpreter or Google Translate held up to a phone. Not anymore.</p>
+        <p class="panel-body">SphereLingo™ translates a live conversation into your language as it's happening — directly into your ear. Whether you're an NRI dealing with family paperwork, a Delhi exporter on a Chinese supplier call, or a Bangalore startup on a US investor call, the language gap closes before it opens.</p>
+        <div class="panel-pts">
+          <div class="pt"><div class="pt-dot"></div><span>100+ languages — Hindi, Tamil, Telugu, Marathi, Bengali + all major global languages</span></div>
+          <div class="pt"><div class="pt-dot"></div><span>Works on Zoom, Teams, Meet, WhatsApp calls, and in-person</span></div>
+          <div class="pt"><div class="pt-dot"></div><span>One-to-one and group conversation modes</span></div>
+          <div class="pt"><div class="pt-dot"></div><span>Translated transcript saved automatically after every session</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Entertainment -->
+    <div id="p-entertain" class="panel">
+      <div class="panel-img"><img src="Product Images/Safebuds.2.png" alt="Entertainment use"/></div>
+      <div class="r">
+        <span class="panel-eyebrow">The Entertainment Audience</span>
+        <h3>Netflix chal raha hai. Ghar mein sab ko pata bhi nahi chalega.</h3>
+        <p class="panel-scene">Friday night. Sacred Games cue. Dark room. SafeBuds on, volume up. The doorbell rang — you heard it. That's the point. No more missed knocks, no more "ek second" panic.</p>
+        <p class="panel-body">Most earphones force a trade-off: full audio or full awareness. SafeBuds gives you both. Deep immersion in Mirzapur or a midnight BGMI session — while still hearing your phone buzz, your mom call, or your delivery boy at the door. You never have to pull one out.</p>
+        <div class="panel-pts">
+          <div class="pt"><div class="pt-dot"></div><span>Custom EQ via WeHear app — deep bass for movies, clarity for dialogue</span></div>
+          <div class="pt"><div class="pt-dot"></div><span>9g open fit — wear for 4-hour binge sessions, no ear fatigue</span></div>
+          <div class="pt"><div class="pt-dot"></div><span>Stay aware — hear the room while staying in the scene</span></div>
+          <div class="pt"><div class="pt-dot"></div><span>Bluetooth 5.4 — instant pair to phone, laptop, iPad, or TV</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parent -->
+    <div id="p-parent" class="panel">
+      <div class="panel-img"><img src="Product Images/Safe Buds_Website.7.png" alt="Safe for students"/></div>
+      <div class="r">
+        <span class="panel-eyebrow">The Aware Parent</span>
+        <h3>JEE prep. 8 hours a day. Earphones in. This is the one you give them.</h3>
+        <p class="panel-scene">Your daughter has been studying since morning — Unacademy, YouTube, then calls with her study group. Same in-ear earphones since Class 9. You've read what prolonged canal use does. SafeBuds is the decision you make before it's too late to make it.</p>
+        <p class="panel-body">The WHO estimates 1.1 billion young people globally are at risk from recreational audio use. In India, with marathon coaching sessions and screen-heavy lifestyles, the exposure is especially high. SafeBuds rests outside the ear canal entirely. Nothing goes in. No pressure, no heat, no bacteria — and they still hear you when you call them for dinner.</p>
+        <div class="panel-pts">
+          <div class="pt"><div class="pt-dot"></div><span>Nothing inside the ear canal — eliminates the primary risk factor</span></div>
+          <div class="pt"><div class="pt-dot"></div><span>ENT doctor certified safe for all-day daily use</span></div>
+          <div class="pt"><div class="pt-dot"></div><span>9g light — comfortable for 6-hour study and class sessions</span></div>
+          <div class="pt"><div class="pt-dot"></div><span>They still hear ambient sound — safer, more aware at all times</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════
+     COMPARISON
+═════════════════════════ -->
+<section class="cmp sec">
+  <div class="wrap">
+    <div class="cmp-head r">
+      <span class="lbl">Why switch</span>
+      <h2>SafeBuds vs. what you have now.</h2>
+      <p>Your current earphones were designed to seal out the world. SafeBuds were built to keep you in it.</p>
+    </div>
+    <div class="cmp-table r">
+      <div class="cmp-row head-row">
+        <div class="cc"></div>
+        <div class="cc">AirPods / TWS</div>
+        <div class="cc">SafeBuds <small>₹2,999</small></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cc">All-day ear comfort</div>
+        <div class="cc"><span class="bad">Fatigue &amp; pain after 2–3 hrs</span></div>
+        <div class="cc"><span class="good">Open fit — wear all day, no pressure</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cc">Hear your surroundings</div>
+        <div class="cc"><span class="bad">Blocked by design</span></div>
+        <div class="cc"><span class="good">Always — that's the whole point</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cc">Live translation</div>
+        <div class="cc"><span class="xk">✗</span></div>
+        <div class="cc"><span class="ck">✓</span> <span class="good">SphereLingo™ · 100+ languages</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cc">Meeting notes</div>
+        <div class="cc"><span class="xk">✗</span></div>
+        <div class="cc"><span class="ck">✓</span> <span class="good">Auto-transcribed + AI summary</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cc">Hearing health</div>
+        <div class="cc"><span class="bad">Long-term exposure risk (WHO)</span></div>
+        <div class="cc"><span class="good">ENT certified — canal stays open</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cc">Total battery</div>
+        <div class="cc">24–30 hours (with case)</div>
+        <div class="cc"><span class="good">35 hours — full work week</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════
+     REVIEWS
+═════════════════════════ -->
+<section class="revs sec">
+  <div class="wrap">
+    <div class="revs-head r">
+      <span class="lbl">What they said</span>
+      <h2>82% five-star. 38 buyers.</h2>
+      <p>Real people. What they actually noticed.</p>
+    </div>
+    <div class="rev-sum r">
+      <div>
+        <div class="rev-num">4.8</div>
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-ct">38 verified reviews</div>
+      </div>
+      <div class="rev-bars">
+        <div class="br"><span class="br-l">5★</span><div class="br-t"><div class="br-f" style="width:82%"></div></div><span class="br-n">31</span></div>
+        <div class="br"><span class="br-l">4★</span><div class="br-t"><div class="br-f" style="width:16%"></div></div><span class="br-n">6</span></div>
+        <div class="br"><span class="br-l">3★</span><div class="br-t"><div class="br-f" style="width:3%"></div></div><span class="br-n">1</span></div>
+      </div>
+    </div>
+    <div class="rev-grid r">
+      <div class="rc">
+        <div class="stars">★★★★★</div>
+        <p>"Been wearing these through 6 back-to-back calls for three weeks now. Ears don't hurt at 5pm anymore. That was not true before. The open-ear thing sounds like a gimmick — it isn't."</p>
+        <div class="rc-meta"><div class="rc-av">R</div><div><div class="rc-name">Rohan M.</div><div class="rc-loc">Bangalore · Verified buyer</div></div></div>
+        <span class="rc-tag">All-Day Calls</span>
+      </div>
+      <div class="rc">
+        <div class="stars">★★★★★</div>
+        <p>"Wore it on a 3-hour study session last night. Sound quality is better than my previous TWS and I could hear my mom call me from the next room. She was very happy about that."</p>
+        <div class="rc-meta"><div class="rc-av">A</div><div><div class="rc-name">Aditya S.</div><div class="rc-loc">Pune · Verified buyer</div></div></div>
+        <span class="rc-tag">Study + Music</span>
+      </div>
+      <div class="rc">
+        <div class="stars">★★★★★</div>
+        <p>"Bought for my daughter who was on in-ear earphones 8+ hours a day. She says it's comfortable — doesn't complain about fit. Sound quality is genuinely good for study calls and YouTube."</p>
+        <div class="rc-meta"><div class="rc-av">S</div><div><div class="rc-name">Suresh V.</div><div class="rc-loc">Chennai · Verified buyer</div></div></div>
+        <span class="rc-tag">Hearing Health</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════
+     FAQ
+═════════════════════════ -->
+<section class="faq sec">
+  <div class="wrap">
+    <div class="faq-wrap">
+      <div class="faq-head r">
+        <span class="lbl">Before you buy</span>
+        <h2>Honest answers.</h2>
+      </div>
+      <div class="r">
+        <div class="faq-item">
+          <button class="faq-q" onclick="faq(this)">Will my colleagues hear me clearly on Zoom and Teams? <span class="faq-ic">+</span></button>
+          <div class="faq-a"><p>Yes. SafeBuds has quad ENC microphones at −32dB — isolates your voice from background noise on every call. Verified on Zoom, Teams, and Google Meet.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="faq(this)">Nothing is in my ear — will the sound be weak or thin? <span class="faq-ic">+</span></button>
+          <div class="faq-a"><p>The 12×17mm driver is built for air conduction delivery. Sound is full and clear for music, calls, and entertainment. Custom EQ in the WeHear app lets you tune bass and treble. It isn't identical to a sealed in-ear monitor — it was designed to be different, not lesser.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="faq(this)">Does SphereLingo™ cost extra? Is there a subscription? <span class="faq-ic">+</span></button>
+          <div class="faq-a"><p>No subscription. Translation and live note-taking are included. The WeHear app is free on iOS and Android.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="faq(this)">What if it doesn't fit my ear or I don't like it? <span class="faq-ic">+</span></button>
+          <div class="faq-a"><p>SafeBuds includes S/M/L silicone ear hooks so fit adapts to different ear shapes. If anything still feels off — 7-day no-questions-asked returns. Email support@ngearsafe.com, we arrange pickup and full refund. 1-year warranty covers the rest.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════
+     FINAL CTA
+═════════════════════════ -->
+<section class="final">
+  <div class="wrap">
+    <div class="final-inner r">
+      <h2>Open ear. AI inside.<br><em>35 hours.</em></h2>
+      <p>The earbuds that keep your ears open, your meetings noted, and your world audible — all at the same time. Nothing quite like it at ₹2,999.</p>
+      <div class="final-price">₹2,999 <span>— or ₹2,799 prepaid</span></div>
+      <div class="final-pre">Save <strong>₹200</strong> instantly on prepaid</div>
+      <div class="final-btns">
+        <a href="#buy" class="fbm">Add to Cart</a>
+        <a href="#buy" class="fbo">Buy Now →</a>
+      </div>
+      <div class="final-gs">
+        <span class="fg">🚚 Free shipping</span>
+        <span class="fg">🔄 7-day returns</span>
+        <span class="fg">🛡 1-year warranty</span>
+        <span class="fg">🩺 ENT certified</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">NG EarSafe <small>Open ear since 2020</small></div>
+        <p class="about">India's open ear brand. One belief: the way we've been listening is hurting us — and there's a better way.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Products</h5>
+        <ul>
+          <li><a href="#">SafeBuds</a></li>
+          <li><a href="#">Comm 2.0</a></li>
+          <li><a href="#">ES Pro</a></li>
+          <li><a href="#">EarSafe Lite</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Help</h5>
+        <ul>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Warranty</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 NG EarSafe · support@ngearsafe.com</span>
+      <span><a href="#" style="margin-right:12px; color:rgba(255,255,255,.3)">Privacy</a><a href="#" style="color:rgba(255,255,255,.3)">Returns</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function swp(el, src) {
+    document.getElementById('heroImg').src = src;
+    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+  function setColor(c, el) {
+    document.querySelectorAll('.sw').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('swName').textContent = c === 'black' ? 'Black' : 'Ivory';
+    document.getElementById('heroImg').src = c === 'black'
+      ? 'Product Images/Safebuds.1.png'
+      : 'Product Images/Safe Buds_Website.4.png';
+  }
+  function tab(btn, id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(id).classList.add('active');
+  }
+  function faq(btn) {
+    const item = btn.parentElement;
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!open) item.classList.add('open');
+  }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.r').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!--
+  NG EARSAFE — GEO COUNTRY SELECTOR + REDIRECT  (Shokz-style)
+  ============================================================
+  WHAT IT DOES
+  - Detects the visitor's country by IP on the India store (ngearsafe.com).
+  - If they're in the UAE and haven't chosen yet, shows a minimalist modal:
+        "Looks like you're in the UAE — shop our UAE store."
+        [ Shop UAE store ]   [ Stay on India store ]
+  - Remembers the choice in localStorage (won't nag on every visit).
+  - Provides a manual switcher you can place in the footer (NGsetRegion).
+  - Skips itself entirely on the UAE pages and for ad traffic that lands
+    directly on a /pages/uae-* URL (those must load instantly — no redirect).
+
+  WHERE TO PASTE
+  - India store theme:  Online Store → Themes → Edit code → layout/theme.liquid
+    Paste this whole block just before </body>.
+  - Do NOT paste it on the UAE landing pages themselves.
+
+  CONFIG: edit the URLs in NG = {...} below to match where you deploy.
+  - Test setup (recommended):  same-domain Shopify pages
+        uaeUrl:  'https://ngearsafe.com/pages/uae-home'
+  - Scale setup:  brand ccTLD
+        uaeUrl:  'https://ngearsafe.ae'
+
+  NOTE ON THE GEO API
+  - Uses ipwho.is (free, HTTPS, no key, ~10k lookups/mo). Fine for the test.
+  - For scale, swap to Cloudflare country header, MaxMind, or Shopify's native
+    free "Geolocation" app (no-code alternative to this whole snippet).
+-->
+
+<style>
+  .ng-geo-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;background:rgba(14,14,14,.45);backdrop-filter:blur(4px);font-family:'Inter',-apple-system,Segoe UI,sans-serif;}
+  .ng-geo-modal.show{display:flex;}
+  .ng-geo-card{background:#fff;max-width:380px;width:calc(100% - 40px);border-radius:18px;padding:30px 28px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.25);}
+  .ng-geo-flag{font-size:30px;margin-bottom:14px;}
+  .ng-geo-ey{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#6B6B6B;margin-bottom:10px;}
+  .ng-geo-card h3{font-size:21px;font-weight:600;letter-spacing:-.02em;margin:0 0 8px;color:#0E0E0E;}
+  .ng-geo-card p{font-size:14px;line-height:1.6;color:#6B6B6B;margin:0 0 22px;}
+  .ng-geo-btns{display:flex;flex-direction:column;gap:10px;}
+  .ng-geo-btn{display:block;width:100%;padding:15px;border-radius:50px;font-size:15px;font-weight:500;cursor:pointer;border:none;font-family:inherit;transition:opacity .15s,background .15s;}
+  .ng-geo-primary{background:#0E0E0E;color:#fff;}
+  .ng-geo-primary:hover{opacity:.88;}
+  .ng-geo-ghost{background:#fff;color:#0E0E0E;border:1px solid rgba(0,0,0,.14);}
+  .ng-geo-ghost:hover{background:#F4F3F0;}
+</style>
+
+<div class="ng-geo-modal" id="ngGeoModal" role="dialog" aria-modal="true" aria-label="Choose your region">
+  <div class="ng-geo-card">
+    <div class="ng-geo-flag">🇦🇪</div>
+    <div class="ng-geo-ey">Region detected</div>
+    <h3>Looks like you're in the UAE</h3>
+    <p>Shop our UAE store for AED pricing, free UAE delivery and pay-in-4 with Tabby / Tamara.</p>
+    <div class="ng-geo-btns">
+      <button class="ng-geo-btn ng-geo-primary" onclick="NGsetRegion('uae')">Shop the UAE store →</button>
+      <button class="ng-geo-btn ng-geo-ghost" onclick="NGsetRegion('india')">Stay on the India store</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var NG = {
+    uaeUrl:       'https://ngearsafe.com/pages/uae-home',  // EDIT for scale: 'https://ngearsafe.ae'
+    indiaUrl:     'https://ngearsafe.com',
+    uaeCountries: ['AE'],                                   // add 'SA','QA','KW' etc. when you expand GCC
+    api:          'https://ipwho.is/',
+    keyRegion:    'ng_region',
+    keyPrompted:  'ng_geo_prompted'
+  };
+
+  // 1) On any UAE page, lock region = uae and never prompt.
+  if (location.pathname.indexOf('/pages/uae') === 0 || location.hostname.indexOf('ngearsafe.ae') !== -1) {
+    try { localStorage.setItem(NG.keyRegion, 'uae'); } catch (e) {}
+    return;
+  }
+
+  // 2) Manual switcher — call from footer links: onclick="NGsetRegion('uae')"
+  window.NGsetRegion = function (region) {
+    try { localStorage.setItem(NG.keyRegion, region); } catch (e) {}
+    var m = document.getElementById('ngGeoModal'); if (m) m.classList.remove('show');
+    if (region === 'uae') { window.location.href = NG.uaeUrl; }
+  };
+
+  // 3) Auto-detect — only if no prior choice and not already prompted.
+  var chosen, prompted;
+  try { chosen = localStorage.getItem(NG.keyRegion); prompted = localStorage.getItem(NG.keyPrompted); } catch (e) {}
+  if (chosen || prompted) return;
+
+  fetch(NG.api).then(function (r) { return r.json(); }).then(function (d) {
+    var cc = d && (d.country_code || d.countryCode);
+    if (cc && NG.uaeCountries.indexOf(cc) !== -1) {
+      var m = document.getElementById('ngGeoModal');
+      if (m) m.classList.add('show');
+      try { localStorage.setItem(NG.keyPrompted, '1'); } catch (e) {}
+    }
+  }).catch(function () { /* fail silent — never block the store */ });
+})();
+</script>
+
+<!--
+  OPTIONAL — FOOTER COUNTRY SWITCHER (place on any page, both stores)
+  Lets users switch regions manually, like Shokz's footer selector.
+
+  <div class="ng-region-switch" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6B6B6B;">
+    <a href="#" onclick="NGsetRegion('india');return false;">🇮🇳 India</a>
+    &nbsp;·&nbsp;
+    <a href="#" onclick="NGsetRegion('uae');return false;">🇦🇪 UAE</a>
+  </div>
+-->

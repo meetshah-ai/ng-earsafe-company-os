@@ -1,0 +1,124 @@
+{
+  "name": "NG EarSafe — Daily 8AM Performance Report",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "cronExpression", "expression": "0 8 * * *" }]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Every Day 8AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = new Date();\nconst yesterday = new Date(now);\nyesterday.setDate(yesterday.getDate() - 1);\nconst dateStr = yesterday.toISOString().split('T')[0];\nconst displayDate = yesterday.toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });\nreturn [{ json: { date: dateStr, displayDate } }];"
+      },
+      "id": "set-date",
+      "name": "Set Yesterday Date",
+      "type": "n8n-nodes-base.code",
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://connectors.windsor.ai/facebook",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "api_key", "value": "={{ $vars.WINDSOR_API_KEY }}" },
+            { "name": "date_from", "value": "={{ $json.date }}" },
+            { "name": "date_to", "value": "={{ $json.date }}" },
+            { "name": "fields", "value": "spend,purchase_roas" },
+            { "name": "account_id", "value": "2337775109995901" }
+          ]
+        }
+      },
+      "id": "windsor-meta",
+      "name": "Windsor — Meta Spend",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [700, 180]
+    },
+    {
+      "parameters": {
+        "url": "https://connectors.windsor.ai/google_ads",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "api_key", "value": "={{ $vars.WINDSOR_API_KEY }}" },
+            { "name": "date_from", "value": "={{ $('Set Yesterday Date').item.json.date }}" },
+            { "name": "date_to", "value": "={{ $('Set Yesterday Date').item.json.date }}" },
+            { "name": "fields", "value": "spend,conversions_value,conversions" },
+            { "name": "account_id", "value": "508-958-3796" }
+          ]
+        }
+      },
+      "id": "windsor-google",
+      "name": "Windsor — Google Ads Spend",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "graphql",
+        "query": "query {\n  shopifyqlQuery(query: \"FROM sales SHOW total_sales, orders, gross_sales, net_sales SINCE -1d UNTIL -1d\") {\n    tableData {\n      unformattedData {\n        rowData\n        columns { name dataType }\n      }\n    }\n  }\n}"
+      },
+      "id": "shopify-total",
+      "name": "Shopify — Total Sales",
+      "type": "n8n-nodes-base.shopify",
+      "position": [700, 420]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "graphql",
+        "query": "query {\n  shopifyqlQuery(query: \"FROM sales SHOW gross_sales, net_sales, orders GROUP BY product_title ORDER BY gross_sales DESC SINCE -1d UNTIL -1d\") {\n    tableData {\n      unformattedData {\n        rowData\n        columns { name dataType }\n      }\n    }\n  }\n}"
+      },
+      "id": "shopify-products",
+      "name": "Shopify — Product Split",
+      "type": "n8n-nodes-base.shopify",
+      "position": [700, 540]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── Pull data from all upstream nodes ──────────────────────────────\nconst metaRaw    = $('Windsor — Meta Spend').all()[0].json;\nconst googleRaw  = $('Windsor — Google Ads Spend').all()[0].json;\nconst shopifyTotal   = $('Shopify — Total Sales').all()[0].json;\nconst shopifyProds   = $('Shopify — Product Split').all();\nconst dateInfo   = $('Set Yesterday Date').all()[0].json;\n\n// ── Meta ────────────────────────────────────────────────────────────\nconst metaData   = Array.isArray(metaRaw) ? metaRaw[0] : (metaRaw.data ? metaRaw.data[0] : metaRaw);\nconst metaSpend  = parseFloat(metaData?.spend || 0);\nconst metaRoasRaw = metaData?.purchase_roas;\nconst metaRoas   = Array.isArray(metaRoasRaw)\n  ? parseFloat(metaRoasRaw[0]?.value || 0)\n  : parseFloat(metaRoasRaw || 0);\nconst metaConvValue = metaSpend * metaRoas;\n\n// ── Google Ads ───────────────────────────────────────────────────────\nconst googleData = Array.isArray(googleRaw) ? googleRaw[0] : (googleRaw.data ? googleRaw.data[0] : googleRaw);\nconst googleSpend = parseFloat(googleData?.spend || 0);\nconst googleConvValue = parseFloat(googleData?.conversions_value || 0);\nconst googleRoas = googleSpend > 0 ? googleConvValue / googleSpend : 0;\n\n// ── Blended ──────────────────────────────────────────────────────────\nconst totalSpend     = metaSpend + googleSpend;\nconst totalConvValue = metaConvValue + googleConvValue;\nconst blendedRoas    = totalSpend > 0 ? totalConvValue / totalSpend : 0;\n\n// ── Shopify Revenue ──────────────────────────────────────────────────\nconst shopifyRows = shopifyTotal?.shopifyqlQuery?.tableData?.unformattedData?.rowData || [];\nconst totalRevenue = shopifyRows.length > 0 ? parseFloat(shopifyRows[0][0] || 0) : 0;\nconst totalOrders  = shopifyRows.length > 0 ? parseInt(shopifyRows[0][1] || 0) : 0;\nconst grossSales   = shopifyRows.length > 0 ? parseFloat(shopifyRows[0][2] || 0) : 0;\n\n// ── Product Split ─────────────────────────────────────────────────────\nconst prodRows = shopifyProds[0]?.json?.shopifyqlQuery?.tableData?.unformattedData?.rowData || [];\nconst productLines = prodRows\n  .filter(r => r[0] && r[0].trim() && parseFloat(r[1]) > 0)\n  .map(r => ({\n    name: r[0].replace('NG EarSafe ', '').replace('NG x Wehear ', ''),\n    gross: parseFloat(r[1]),\n    net: parseFloat(r[2]),\n    orders: parseInt(r[3])\n  }))\n  .sort((a, b) => b.gross - a.gross);\n\n// ── Format currency ──────────────────────────────────────────────────\nconst fmt = (n) => '₹' + Math.round(n).toLocaleString('en-IN');\nconst fmtR = (n) => n.toFixed(2) + 'x';\n\n// ── Build product HTML table rows ────────────────────────────────────\nconst productRowsHtml = productLines.length > 0\n  ? productLines.map(p =>\n      `<tr><td style=\"padding:6px 12px;border-bottom:1px solid #f0f0f0;\">${p.name}</td>\n       <td style=\"padding:6px 12px;border-bottom:1px solid #f0f0f0;text-align:right;font-weight:600;\">${fmt(p.gross)}</td>\n       <td style=\"padding:6px 12px;border-bottom:1px solid #f0f0f0;text-align:right;color:#666;\">${p.orders} orders</td></tr>`\n    ).join('')\n  : '<tr><td colspan=\"3\" style=\"padding:12px;color:#999;text-align:center;\">No sales data yet for yesterday</td></tr>';\n\n// ── Build email HTML ──────────────────────────────────────────────────\nconst html = `\n<!DOCTYPE html><html><body style=\"font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f5f5f5;margin:0;padding:20px;\">\n<div style=\"max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);\">\n\n  <!-- Header -->\n  <div style=\"background:#102442;padding:24px 28px;\">\n    <h1 style=\"color:#fff;margin:0;font-size:20px;font-weight:700;\">NG EarSafe — Daily Report</h1>\n    <p style=\"color:#7eb3d4;margin:4px 0 0;font-size:13px;\">${dateInfo.displayDate}</p>\n  </div>\n\n  <!-- Revenue Block -->\n  <div style=\"padding:24px 28px 16px;border-bottom:2px solid #f0f4f8;\">\n    <h2 style=\"color:#102442;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:0 0 16px;\">💰 Revenue</h2>\n    <div style=\"display:flex;gap:24px;margin-bottom:20px;\">\n      <div style=\"flex:1;background:#f0f8ff;border-radius:8px;padding:16px;\">\n        <div style=\"font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.5px;\">Total Revenue</div>\n        <div style=\"font-size:26px;font-weight:700;color:#102442;margin-top:4px;\">${fmt(totalRevenue)}</div>\n      </div>\n      <div style=\"flex:1;background:#f0f8ff;border-radius:8px;padding:16px;\">\n        <div style=\"font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.5px;\">Orders</div>\n        <div style=\"font-size:26px;font-weight:700;color:#102442;margin-top:4px;\">${totalOrders}</div>\n      </div>\n    </div>\n\n    <!-- Product Split -->\n    <table style=\"width:100%;border-collapse:collapse;font-size:13px;\">\n      <thead>\n        <tr style=\"background:#f8fafc;\">\n          <th style=\"padding:8px 12px;text-align:left;color:#666;font-weight:600;font-size:11px;text-transform:uppercase;\">Product</th>\n          <th style=\"padding:8px 12px;text-align:right;color:#666;font-weight:600;font-size:11px;text-transform:uppercase;\">Revenue</th>\n          <th style=\"padding:8px 12px;text-align:right;color:#666;font-weight:600;font-size:11px;text-transform:uppercase;\">Orders</th>\n        </tr>\n      </thead>\n      <tbody>${productRowsHtml}</tbody>\n    </table>\n  </div>\n\n  <!-- Ad Spend Block -->\n  <div style=\"padding:24px 28px;\">\n    <h2 style=\"color:#102442;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:0 0 16px;\">📊 Ad Performance</h2>\n    <table style=\"width:100%;border-collapse:collapse;font-size:13px;\">\n      <thead>\n        <tr style=\"background:#f8fafc;\">\n          <th style=\"padding:8px 12px;text-align:left;color:#666;font-weight:600;font-size:11px;text-transform:uppercase;\">Channel</th>\n          <th style=\"padding:8px 12px;text-align:right;color:#666;font-weight:600;font-size:11px;text-transform:uppercase;\">Spend</th>\n          <th style=\"padding:8px 12px;text-align:right;color:#666;font-weight:600;font-size:11px;text-transform:uppercase;\">ROAS</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td style=\"padding:10px 12px;border-bottom:1px solid #f0f0f0;\"><span style=\"display:inline-block;width:8px;height:8px;background:#1877f2;border-radius:2px;margin-right:6px;\"></span>Meta Ads</td>\n          <td style=\"padding:10px 12px;border-bottom:1px solid #f0f0f0;text-align:right;font-weight:600;\">${fmt(metaSpend)}</td>\n          <td style=\"padding:10px 12px;border-bottom:1px solid #f0f0f0;text-align:right;color:${metaRoas >= 2 ? '#16a34a' : '#dc2626'};font-weight:600;\">${fmtR(metaRoas)}</td>\n        </tr>\n        <tr>\n          <td style=\"padding:10px 12px;border-bottom:1px solid #f0f0f0;\"><span style=\"display:inline-block;width:8px;height:8px;background:#4285f4;border-radius:2px;margin-right:6px;\"></span>Google Ads</td>\n          <td style=\"padding:10px 12px;border-bottom:1px solid #f0f0f0;text-align:right;font-weight:600;\">${fmt(googleSpend)}</td>\n          <td style=\"padding:10px 12px;border-bottom:1px solid #f0f0f0;text-align:right;color:${googleRoas >= 2 ? '#16a34a' : '#dc2626'};font-weight:600;\">${fmtR(googleRoas)}</td>\n        </tr>\n        <tr style=\"background:#f0f4f8;\">\n          <td style=\"padding:12px;font-weight:700;color:#102442;\">⚡ Blended Total</td>\n          <td style=\"padding:12px;text-align:right;font-weight:700;color:#102442;\">${fmt(totalSpend)}</td>\n          <td style=\"padding:12px;text-align:right;font-weight:700;font-size:16px;color:${blendedRoas >= 2 ? '#16a34a' : '#dc2626'};\">${fmtR(blendedRoas)}</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n\n  <!-- Footer -->\n  <div style=\"background:#f8fafc;padding:16px 28px;text-align:center;\">\n    <p style=\"color:#999;font-size:11px;margin:0;\">Auto-generated by NG EarSafe Growth Stack · Data: Shopify + Windsor.ai</p>\n  </div>\n</div>\n</body></html>`;\n\nreturn [{ json: { html, subject: `NG EarSafe Report — ${dateInfo.displayDate} | Rev: ${fmt(totalRevenue)} | Blended ROAS: ${fmtR(blendedRoas)}` } }];"
+      },
+      "id": "format-report",
+      "name": "Format Report",
+      "type": "n8n-nodes-base.code",
+      "position": [940, 360]
+    },
+    {
+      "parameters": {
+        "sendTo": "meetshah@ngearsafe.com",
+        "subject": "={{ $json.subject }}",
+        "emailType": "html",
+        "message": "={{ $json.html }}",
+        "options": {}
+      },
+      "id": "send-email",
+      "name": "Send Daily Report",
+      "type": "n8n-nodes-base.gmail",
+      "position": [1160, 360]
+    }
+  ],
+  "connections": {
+    "Every Day 8AM": { "main": [[{ "node": "Set Yesterday Date", "type": "main", "index": 0 }]] },
+    "Set Yesterday Date": {
+      "main": [[
+        { "node": "Windsor — Meta Spend", "type": "main", "index": 0 },
+        { "node": "Windsor — Google Ads Spend", "type": "main", "index": 0 },
+        { "node": "Shopify — Total Sales", "type": "main", "index": 0 },
+        { "node": "Shopify — Product Split", "type": "main", "index": 0 }
+      ]]
+    },
+    "Windsor — Meta Spend": { "main": [[{ "node": "Format Report", "type": "main", "index": 0 }]] },
+    "Windsor — Google Ads Spend": { "main": [[{ "node": "Format Report", "type": "main", "index": 1 }]] },
+    "Shopify — Total Sales": { "main": [[{ "node": "Format Report", "type": "main", "index": 2 }]] },
+    "Shopify — Product Split": { "main": [[{ "node": "Format Report", "type": "main", "index": 3 }]] },
+    "Format Report": { "main": [[{ "node": "Send Daily Report", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

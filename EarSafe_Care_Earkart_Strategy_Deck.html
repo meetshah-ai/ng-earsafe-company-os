@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EarSafe Care × Earkart — Partnership Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#102442; --ocean:#39869b; --cyan:#54c1c8; --frost:#E8F6F7; --chalk:#F4F4F2;
+    --ink:#102442; --muted:#5b6b7d; --line:#d8e6e9;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+    color:var(--ink); background:var(--navy);
+    -webkit-font-smoothing:antialiased;
+  }
+  .deck{scroll-snap-type:y mandatory; height:100vh; overflow-y:scroll;}
+  .slide{
+    scroll-snap-align:start; min-height:100vh; width:100%;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:7vh 8vw; position:relative; background:var(--chalk);
+    border-bottom:1px solid rgba(0,0,0,.04);
+  }
+  .inner{width:100%; max-width:var(--maxw); margin:0 auto;}
+  .kicker{
+    font-size:.72rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--ocean); font-weight:700; margin-bottom:1.2rem;
+    display:flex; align-items:center; gap:.6rem;
+  }
+  .kicker::before{content:""; width:26px; height:2px; background:var(--cyan); display:inline-block;}
+  h1{font-size:clamp(2rem,4.6vw,3.6rem); font-weight:700; line-height:1.05; letter-spacing:-.02em;}
+  h2{font-size:clamp(1.6rem,3.4vw,2.6rem); font-weight:700; line-height:1.12; letter-spacing:-.015em; margin-bottom:1.4rem;}
+  h2 .hl{color:var(--ocean);}
+  .serif{font-family:'Lora',Georgia,serif; font-weight:400;}
+  p{font-size:clamp(1rem,1.25vw,1.18rem); line-height:1.6; color:#2c3e50; max-width:62ch;}
+  .lede{font-size:clamp(1.1rem,1.6vw,1.45rem); color:#33485c; max-width:58ch; line-height:1.5;}
+  .muted{color:var(--muted);}
+  .cyan{color:var(--ocean);}
+  strong{font-weight:700;}
+  .grid{display:grid; gap:1.1rem; margin-top:1.8rem;}
+  .g2{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+  .card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:1.4rem 1.5rem;}
+  .card h3{font-size:1.05rem; font-weight:700; margin-bottom:.5rem; color:var(--navy);}
+  .card p{font-size:.95rem; line-height:1.5; color:var(--muted);}
+  .stat{font-size:clamp(2.4rem,5vw,3.6rem); font-weight:700; color:var(--navy); line-height:1; letter-spacing:-.03em;}
+  .stat .u{font-size:1.1rem; color:var(--ocean); font-weight:600;}
+  .statlabel{font-size:.9rem; color:var(--muted); margin-top:.5rem; line-height:1.4;}
+  table{width:100%; border-collapse:collapse; margin-top:1.6rem; font-size:.92rem; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 1px 0 var(--line);}
+  th,td{text-align:left; padding:.85rem 1rem; border-bottom:1px solid var(--line); vertical-align:top;}
+  th{background:var(--navy); color:#fff; font-weight:600; font-size:.78rem; letter-spacing:.04em; text-transform:uppercase;}
+  tr:last-child td{border-bottom:none;}
+  .hlrow{background:var(--frost);}
+  .hlrow td{font-weight:600;}
+  .tag{display:inline-block; font-size:.72rem; font-weight:700; padding:.2rem .6rem; border-radius:20px; letter-spacing:.03em;}
+  .tag.good{background:#e2f3ee; color:#1d7a5e;} .tag.bad{background:#fbe7e7; color:#b23b3b;} .tag.mid{background:#fdf3e0; color:#a9742a;}
+  .pill{display:inline-flex; align-items:center; gap:.5rem; background:#fff; border:1px solid var(--line); border-radius:30px; padding:.5rem .95rem; font-size:.85rem; font-weight:600; color:var(--navy);}
+  .pillrow{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.6rem;}
+  .num{font-family:'Lora',serif; color:var(--cyan); font-size:1.3rem; font-weight:700;}
+  /* dark slides */
+  .slide.dark{background:var(--navy); color:#fff;}
+  .slide.dark h1,.slide.dark h2{color:#fff;}
+  .slide.dark h2 .hl{color:var(--cyan);}
+  .slide.dark p,.slide.dark .lede{color:#c4d4e0;}
+  .slide.dark .kicker{color:var(--cyan);}
+  .slide.dark .card{background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.12);}
+  .slide.dark .card h3{color:#fff;} .slide.dark .card p{color:#aebfcf;}
+  .slide.dark .stat{color:#fff;} .slide.dark .stat .u{color:var(--cyan);}
+  .gradient{background:linear-gradient(150deg,#0c1c34 0%,#102442 45%,#16395a 100%);}
+  /* cover */
+  .cover .lock{font-weight:700; letter-spacing:-.01em; font-size:1.05rem; color:#fff; margin-bottom:2.6rem; display:flex; align-items:center; gap:.8rem;}
+  .cover .lock .x{color:var(--cyan); font-weight:400;}
+  .cover .dot{width:9px;height:9px;border-radius:50%;background:var(--cyan); display:inline-block;}
+  .footer{position:absolute; bottom:2.4vh; left:8vw; right:8vw; display:flex; justify-content:space-between; align-items:center; font-size:.72rem; color:var(--muted); letter-spacing:.04em;}
+  .slide.dark .footer{color:#7f93a7;}
+  .footer .conf{text-transform:uppercase;}
+  .progress{position:fixed; top:0; left:0; height:3px; background:var(--cyan); width:0; z-index:50; transition:width .15s ease;}
+  .nav{position:fixed; bottom:18px; right:18px; z-index:50; display:flex; gap:8px;}
+  .nav button{width:34px;height:34px;border-radius:50%; border:1px solid rgba(255,255,255,.25); background:rgba(16,36,66,.7); color:#fff; cursor:pointer; font-size:1rem; backdrop-filter:blur(6px);}
+  .nav button:hover{background:var(--ocean);}
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center;}
+  .checklist{list-style:none; margin-top:1.4rem;}
+  .checklist li{display:flex; gap:.8rem; align-items:flex-start; padding:.55rem 0; font-size:1rem; line-height:1.45; color:#2c3e50;}
+  .slide.dark .checklist li{color:#cfdce8;}
+  .checklist li::before{content:"→"; color:var(--cyan); font-weight:700; flex:none;}
+  .big-quote{font-family:'Lora',serif; font-size:clamp(1.5rem,3vw,2.4rem); line-height:1.35; color:#fff; max-width:24ch;}
+  .small{font-size:.82rem; color:var(--muted); line-height:1.5;}
+  .flow{display:grid; grid-template-columns:repeat(5,1fr); gap:.7rem; margin-top:2rem;}
+  .flow .step{background:#fff; border:1px solid var(--line); border-radius:12px; padding:1rem .9rem; position:relative;}
+  .flow .step .n{font-size:.7rem; font-weight:700; color:var(--cyan); letter-spacing:.1em;}
+  .flow .step h4{font-size:.92rem; margin:.35rem 0 .3rem; color:var(--navy);}
+  .flow .step p{font-size:.78rem; color:var(--muted); line-height:1.4;}
+  .owner{font-size:.7rem; font-weight:700; margin-top:.5rem; display:inline-block; padding:.15rem .5rem; border-radius:6px;}
+  .o-es{background:#e7f6f7; color:#1d6f7a;} .o-ek{background:#eae4fb; color:#5b3da9;} .o-jt{background:#fdf3e0; color:#a9742a;}
+  @media(max-width:760px){
+    .g2,.g3,.g4,.flow,.two{grid-template-columns:1fr;}
+    .slide{padding:8vh 7vw;}
+    table{font-size:.8rem;} th,td{padding:.6rem;}
+  }
+  @media print{
+    .deck{height:auto; overflow:visible;}
+    .slide{min-height:auto; page-break-after:always; border:none;}
+    .nav,.progress{display:none;}
+    body{background:#fff;}
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <!-- 1 COVER -->
+  <section class="slide dark gradient cover">
+    <div class="inner">
+      <div class="lock"><span class="dot"></span>NG EarSafe <span class="x">×</span> earKART</div>
+      <div class="kicker">Partnership Strategy · Confidential</div>
+      <h1>Winning India's online<br>hearing-aid market,<br><span class="serif" style="color:var(--cyan)">together.</span></h1>
+      <p class="lede" style="margin-top:1.8rem;">A proposal to take Earkart's CDSCO-certified hearing aids to the one place the category has never been properly built — <strong style="color:#fff">online, direct, and de-stigmatised.</strong></p>
+      <div class="pillrow">
+        <span class="pill" style="background:rgba(255,255,255,.06);color:#fff;border-color:rgba(255,255,255,.18)">EarSafe Care, <em>powered by Earkart</em></span>
+      </div>
+      <div class="footer"><span>Prepared for Earkart Senior Leadership</span><span class="conf">Confidential · June 2026</span></div>
+    </div>
+  </section>
+
+  <!-- 2 WHY WE'RE HERE -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">Why this conversation</div>
+      <h2>You built the clinical engine.<br>We built the <span class="hl">demand engine.</span></h2>
+      <div class="two" style="margin-top:1rem;">
+        <div>
+          <p>Earkart has what almost no one in India has: a CDSCO-certified hearing-aid range, India's largest all-brand clinic network, the Omni remote-diagnostic platform, and audiology leadership built over 30 years at Starkey.</p>
+          <p style="margin-top:1rem;">NG EarSafe has spent four years building the other half — a loved consumer brand and a digital demand machine that reaches the exact Indians who never walk into a clinic.</p>
+        </div>
+        <div class="grid g2">
+          <div class="card"><div class="stat">14k+</div><div class="statlabel">customers &amp; an engaged community in open-ear audio</div></div>
+          <div class="card"><div class="stat">4.9L</div><div class="statlabel">monthly search impressions, ~29k keywords ranking</div></div>
+          <div class="card"><div class="stat">4.9%</div><div class="statlabel">WhatsApp conversion — our best-performing channel</div></div>
+          <div class="card"><div class="stat">D2C</div><div class="statlabel">native Meta + Google + Shopify performance stack</div></div>
+        </div>
+      </div>
+      <div class="footer"><span>EarSafe × Earkart</span><span class="conf">Confidential</span></div>
+    </div>
+  </section>
+
+  <!-- 3 THE OPPORTUNITY -->
+  <section class="slide dark gradient">
+    <div class="inner">
+      <div class="kicker">The opportunity</div>
+      <h2>A market that is enormous,<br>and almost entirely <span class="hl">untreated.</span></h2>
+      <div class="grid g4" style="margin-top:1.4rem;">
+        <div class="card"><div class="stat">63<span class="u">M</span></div><div class="statlabel">Indians with significant hearing loss — the 2nd most common disability</div></div>
+        <div class="card"><div class="stat">~1–5<span class="u">%</span></div><div class="statlabel">adoption among those who need a device (vs ~17% globally)</div></div>
+        <div class="card"><div class="stat">7–10<span class="u">yrs</span></div><div class="statlabel">average delay from onset to first hearing aid</div></div>
+        <div class="card"><div class="stat">~₹2,000<span class="u">Cr</span></div><div class="statlabel">market today, growing ~8% — and under-measured</div></div>
+      </div>
+      <p style="margin-top:1.8rem;">The bottleneck is not demand. It is <strong style="color:#fff">stigma, awareness, cost and access</strong> — four walls that clinics alone have never been able to scale past. Every one of them is a marketing-and-distribution problem. That is our craft.</p>
+      <div class="footer"><span>EarSafe × Earkart</span><span class="conf">Confidential</span></div>
+    </div>
+  </section>
+
+  <!-- 4 THE EMPTY MIDDLE -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">The core insight</div>
+      <h2>The market is barbelled.<br>The <span class="hl">middle is empty.</span></h2>
+      <table>
+        <tr><th>Layer</th><th>Who</th><th>Price</th><th>Certified</th><th>Fitting</th></tr>
+        <tr><td>Premium clinical</td><td>Signia, Phonak, Widex, Philips, hear.com</td><td>₹25K–₹3.5L</td><td><span class="tag good">Yes</span></td><td>Clinic-led</td></tr>
+        <tr><td>Entry-clinical</td><td>Zenaud / Hearzap</td><td>₹14K–30K</td><td><span class="tag good">Yes</span></td><td>Clinic-bound</td></tr>
+        <tr class="hlrow"><td>THE EMPTY MIDDLE</td><td><em>no clear owner</em></td><td>₹8K–30K</td><td><span class="tag good">Yes</span></td><td>Remote / light</td></tr>
+        <tr><td>Uncertified amplifiers (PSAPs)</td><td>Fastwell, Aika, Leo-Tune (Amazon/Flipkart)</td><td>₹5K–14K</td><td><span class="tag bad">No</span></td><td>None</td></tr>
+      </table>
+      <p style="margin-top:1.6rem;">Cheap online means uncertified amplifiers with no audiology and poor outcomes. Certified means a clinic visit and ₹25K+. <strong>Nobody owns affordable + certified + de-stigmatised + truly online + a clinical safety net — all at once.</strong> That is the space Earkart's products and EarSafe's reach can take together.</p>
+      <div class="footer"><span>EarSafe × Earkart</span><span class="conf">Confidential</span></div>
+    </div>
+  </section>
+
+  <!-- 5 THESIS -->
+  <section class="slide dark gradient">
+    <div class="inner">
+      <div class="kicker">The thesis</div>
+      <h2>Prevention and correction<br>are <span class="hl">one journey.</span></h2>
+      <div class="flow" style="grid-template-columns:repeat(4,1fr);">
+        <div class="step"><div class="n">EARSAFE — TODAY</div><h4>Listen safely</h4><p>Open-ear audio, "the way we listen is hurting us"</p><span class="owner o-es">EarSafe</span></div>
+        <div class="step"><div class="n">PROTECT</div><h4>Hearing protection</h4><p>Bluup earplugs, accessories</p><span class="owner o-es">EarSafe</span></div>
+        <div class="step"><div class="n">SCREEN</div><h4>Free online test</h4><p>Earkart Omni remote diagnostics</p><span class="owner o-jt">Joint</span></div>
+        <div class="step"><div class="n">CORRECT</div><h4>Hearing aids</h4><p>Earkart certified range, ₹8–30K</p><span class="owner o-ek">Earkart</span></div>
+      </div>
+      <p style="margin-top:2rem;">For four years EarSafe has told India that <strong style="color:#fff">hearing matters</strong> — the top of the exact funnel that ends in a hearing aid. We have permission to start the conversation. Earkart has everything needed to finish it. <strong style="color:var(--cyan)">No competitor sits on both ends of this line.</strong></p>
+      <div class="footer"><span>EarSafe × Earkart</span><span class="conf">Confidential</span></div>
+    </div>
+  </section>
+
+  <!-- 6 WHY EARSAFE (DNA) -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">Why EarSafe is the right partner</div>
+      <h2>The incumbents are clinics that<br>added e-commerce. We are the <span class="hl">inverse.</span></h2>
+      <div class="grid g2" style="margin-top:.6rem;">
+        <div class="card">
+          <h3>Hearzap, hear.com, Aanvii…</h3>
+          <p>Clinic-first businesses bolting digital onto a physical footprint. Online is a lead-capture form; fulfilment still drags everyone into a store. Cold calls, high cost-per-lead, no consumer brand love.</p>
+        </div>
+        <div class="card" style="border-color:var(--cyan); border-width:2px;">
+          <h3>EarSafe Care, powered by Earkart</h3>
+          <p>A digital-native brand with a warm audience, SEO authority, performance-marketing muscle and a WhatsApp funnel — bolting on Earkart's clinical backbone. We start with the asset they spent years buying.</p>
+        </div>
+      </div>
+      <p class="lede serif" style="margin-top:2rem; color:var(--ocean)">"They would need years to build our demand engine. We would need years to build your audiology. Neither of us has to."</p>
+      <div class="footer"><span>EarSafe × Earkart</span><span class="conf">Confidential</span></div>
+    </div>
+  </section>
+
+  <!-- 7 PRODUCTS WIN ON FEATURES -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">The product story</div>
+      <h2>Under ₹30K, Earkart isn't cheaper —<br>it's <span class="hl">more hearing aid per rupee.</span></h2>
+      <table>
+        <tr><th>At ~₹25–30K</th><th>Typical certified competitor</th><th>Earkart (EarSafe Care)</th></tr>
+        <tr><td>Channels</td><td>3–6 &nbsp;<span class="muted">(Signia Intuis 3 = 3ch @ ₹24,990)</span></td><td><strong class="cyan">16 channels</strong> (Radius 16 @ ₹24,900)</td></tr>
+        <tr><td>Power</td><td>Disposable zinc-air</td><td><strong class="cyan">Rechargeable</strong> (TINY)</td></tr>
+        <tr><td>Form factor</td><td>BTE / RIC — visible</td><td><strong class="cyan">Invisible CIC</strong> (TINY)</td></tr>
+        <tr><td>What you get</td><td>Single unit</td><td><strong class="cyan">A pair + charger</strong> @ ₹29,900</td></tr>
+        <tr class="hlrow"><td>Certified + warranty</td><td>Yes, clinic-bound</td><td>Yes + remote audiologist + 2-yr</td></tr>
+      </table>
+      <p class="small" style="margin-top:1.2rem;"><strong>We'll message this honestly:</strong> we lead with rechargeable · invisible · pair-pricing · certified · audiologist-fitted — and use channel count as support, never as the only proof. We deliberately stay ≤₹30K, where spec-per-rupee wins and Bluetooth/streaming is not the deciding factor.</p>
+      <div class="footer"><span>EarSafe × Earkart</span><span class="conf">Confidential</span></div>
+    </div>
+  </section>
+
+  <!-- 8 USP -->
+  <section class="slide dark gradient">
+    <div class="inner">
+      <div class="kicker">Our USP — five pillars</div>
+      <h2>Why this offer wins <span class="hl">where others can't.</span></h2>
+      <div class="grid g3" style="margin-top:1rem;">
+        <div class="card"><h3>① Certified, not amplified</h3><p>We sit above the Amazon/Flipkart PSAP junk on the one thing online buyers fear most — legitimacy. "A medical device, not an amplifier."</p></div>
+        <div class="card"><h3>② A brand, not a stigma</h3><p>De-stigmatised voice + the invisible, rechargeable TINY. We make hearing care feel like self-care, not aging.</p></div>
+        <div class="card"><h3>③ Clinical safety net online</h3><p>Omni remote screening + a real audiologist + 2-yr warranty + benefit stack. Outcomes the PSAPs can't match.</p></div>
+        <div class="card"><h3>④ Lowest-cost qualified demand</h3><p>Our SEO, content and WhatsApp turn warm intent into leads far cheaper than clinic cold-calling.</p></div>
+        <div class="card"><h3>⑤ Permission to begin</h3><p>Four years of "hearing matters" earns the right to the conversation no commodity seller has.</p></div>
+        <div class="card" style="background:rgba(84,193,200,.12); border-color:var(--cyan);"><h3 style="color:var(--cyan)">The line</h3><p style="color:#dfeef0">"The most affordable certified, audiologist-backed hearing aid you can buy online in India."</p></div>
+      </div>
+      <div class="footer"><span>EarSafe × Earkart</span><span class="conf">Confidential</span></div>
+    </div>
+  </section>
+
+  <!-- 9 THE CUSTOMER -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">Who we sell to</div>
+      <h2>We don't sell to the patient.<br>We sell to <span class="hl">their child.</span></h2>
+      <div class="two" style="margin-top:1rem;">
+        <div>
+          <p>In India the hearing aid is researched, chosen and paid for by the <strong>adult child (30–45)</strong> — for a <strong>parent (55–75)</strong>. They are online, low on stigma, and already inside EarSafe's audience.</p>
+          <ul class="checklist">
+            <li><strong>Primary:</strong> adult child buying for a parent</li>
+            <li><strong>Secondary:</strong> early-onset self-buyer, 45–60 (invisible + rechargeable hooks)</li>
+            <li><strong>Pipeline:</strong> our younger, noise-aware audience — screening today, customers tomorrow</li>
+          </ul>
+        </div>
+        <div class="card" style="background:var(--frost);">
+          <h3>The Apple clock — why we aim here</h3>
+          <p style="color:#33485c">AirPods Pro's hearing-aid feature is <strong>not yet approved in India</strong> — but when it lands it takes the mild-loss, young, tech self-buyer. So we plant our flag where Apple structurally won't go: <strong>moderate loss, the older parent, and the value of a human fitting and warranty.</strong></p>
+        </div>
+      </div>
+      <div class="footer"><span>EarSafe × Earkart</span><span class="conf">Confidential</span></div>
+    </div>
+  </section>
+
+  <!-- 10 GTM FUNNEL -->
+  <section class="slide dark gradient">
+    <div class="inner">
+      <div class="kicker">The go-to-market model</div>
+      <h2>A demand-gen funnel —<br><span class="hl">not another clinic.</span></h2>
+      <div class="flow">
+        <div class="step"><div class="n">01 · REACH</div><h4>Owned + paid traffic</h4><p>SEO, Meta, Google, content, 14k community</p><span class="owner o-es">EarSafe</span></div>
+        <div class="step"><div class="n">02 · CAPTURE</div><h4>Free online screening</h4><p>Self-test → Omni remote audiometry</p><span class="owner o-jt">Joint</span></div>
+        <div class="step"><div class="n">03 · CONSULT</div><h4>WhatsApp + audiologist</h4><p>Senior audiologist, device match</p><span class="owner o-ek">Earkart</span></div>
+        <div class="step"><div class="n">04 · CONVERT</div><h4>Fit + benefit stack</h4><p>Insurance, 0% EMI, 4 consults, exchange</p><span class="owner o-ek">Earkart</span></div>
+        <div class="step"><div class="n">05 · SERVE</div><h4>2-year care</h4><p>Warranty, follow-up, upgrade path</p><span class="owner o-ek">Earkart</span></div>
+      </div>
+      <div class="grid g2" style="margin-top:2rem;">
+        <div class="card"><h3 style="color:var(--cyan)">EarSafe owns</h3><p>Brand · demand · acquisition cost · the online experience</p></div>
+        <div class="card"><h3 style="color:var(--cyan)">Earkart owns</h3><p>Audiology · fitting · warranty · returns · clinical fulfilment</p></div>
+      </div>
+      <div class="footer"><span>EarSafe × Earkart</span><span class="conf">Confidential</span></div>
+    </div>
+  </section>
+
+  <!-- 11 COMMERCIAL -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">The commercial model</div>
+      <h2>Clean split. <span class="hl">Each does what they do best.</span></h2>
+      <div class="grid g3" style="margin-top:.6rem;">
+        <div class="card"><h3>Supply</h3><p>Earkart supplies the certified range at the agreed landed cost. EarSafe holds MRP — a value-leader, never a discounter.</p></div>
+        <div class="card"><h3>Channel</h3><p><strong>Own D2C only</strong> for the pilot — EarSafe Care site + WhatsApp. No marketplaces; we protect the brand and the certified story.</p></div>
+        <div class="card"><h3>Pricing posture</h3><p>Win on spec-per-rupee + the ₹25K benefit stack. Entry SKUs (Fame ₹7,900) as EMI-friendly door-openers.</p></div>
+      </div>
+      <div class="card" style="margin-top:1.2rem; background:var(--frost); border-color:var(--cyan);">
+        <h3>The principle that protects both sides</h3>
+        <p style="color:#33485c">EarSafe earns the device margin for bringing qualified demand; <strong>Earkart contractually owns fitting, warranty and returns liability.</strong> Margin never moves without the clinical responsibility moving with it. That is what makes selling a medical device online safe — for the customer and for both brands.</p>
+      </div>
+      <div class="footer"><span>EarSafe × Earkart</span><span class="conf">Confidential</span></div>
+    </div>
+  </section>
+
+  <!-- 12 PILOT -->
+  <section class="slide dark gradient">
+    <div class="inner">
+      <div class="kicker">How we de-risk it</div>
+      <h2>One disciplined <span class="hl">90-day pilot.</span></h2>
+      <div class="grid g4" style="margin-top:1rem;">
+        <div class="card"><div class="stat" style="font-size:2.4rem;">1</div><div class="statlabel">metro cluster, tightly tracked</div></div>
+        <div class="card"><div class="stat" style="font-size:2.4rem;">2</div><div class="statlabel">hero SKUs — TINY + Radius 16</div></div>
+        <div class="card"><div class="stat" style="font-size:2.4rem;">&lt;25%</div><div class="statlabel">returns ceiling — Omni pre-screen protects it</div></div>
+        <div class="card"><div class="stat" style="font-size:2.4rem;">45 / 90</div><div class="statlabel">day gate reads — continue, fix, or stop</div></div>
+      </div>
+      <p style="margin-top:1.8rem;">We hold ourselves to a strict unit-economics gate before scaling a single rupee. We don't ask Earkart to bet on a leap of faith — we ask for a contained test with clear pass/fail lines, and we scale only what the data earns.</p>
+      <div class="footer"><span>EarSafe × Earkart</span><span class="conf">Confidential</span></div>
+    </div>
+  </section>
+
+  <!-- 13 THE ASK -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">What we need from Earkart</div>
+      <h2>Five things to <span class="hl">start the pilot.</span></h2>
+      <div class="grid g2" style="margin-top:.6rem;">
+        <div class="card"><h3>① Clinical ownership</h3><p>Earkart owns fitting, warranty and returns liability — in writing.</p></div>
+        <div class="card"><h3>② Omni integration</h3><p>Remote-screening access so our funnel can route leads to your audiologists.</p></div>
+        <div class="card"><h3>③ Supply + pricing floor</h3><p>Confirmed landed cost, stock for two hero SKUs, agreed MRP discipline.</p></div>
+        <div class="card"><h3>④ Audiologist SLA</h3><p>Senior-audiologist consult turnaround that keeps a hot lead hot.</p></div>
+        <div class="card"><h3>⑤ Compliance cover</h3><p>CDSCO licensing held by Earkart; EarSafe is the marketing + demand layer.</p></div>
+        <div class="card" style="border-color:var(--cyan); border-width:2px;"><h3 style="color:var(--ocean)">What you get</h3><p>A digital-native sales channel into the young-buying-for-old segment your clinics can't reach — at our acquisition cost, not yours.</p></div>
+      </div>
+      <div class="footer"><span>EarSafe × Earkart</span><span class="conf">Confidential</span></div>
+    </div>
+  </section>
+
+  <!-- 14 CLOSE -->
+  <section class="slide dark gradient">
+    <div class="inner" style="text-align:left;">
+      <div class="kicker">The prize</div>
+      <p class="big-quote">Become the brand that gets India to take its hearing seriously — and the place it goes when it's ready to act.</p>
+      <p class="lede" style="margin-top:2rem;">Earkart makes the medicine. EarSafe makes India want it. Let's build the category leader in affordable, online hearing care — before anyone else realises the middle was empty.</p>
+      <div class="pillrow" style="margin-top:2rem;">
+        <span class="pill" style="background:var(--cyan); color:var(--navy); border:none;">Next step: a 30-minute working session on pilot terms</span>
+      </div>
+      <div class="footer"><span>NG EarSafe × earKART · EarSafe Care</span><span class="conf">Confidential</span></div>
+    </div>
+  </section>
+
+  <!-- 15 SOURCES -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">Appendix</div>
+      <h2 style="font-size:1.6rem;">Basis of analysis</h2>
+      <p class="small" style="max-width:75ch;">Market sizing &amp; growth triangulated from Grand View Research, TechSci, MarketsandMarkets &amp; Fortune Business Insights (estimates carry wide dispersion; ranges shown are de-outliered). Prevalence: National Medical Journal of India, Indian Journal of Otology, LASI-DAD. Adoption &amp; penetration: WHO, The Hearing Review. Adoption delay: ASHA / Audibel. Competitor pricing &amp; features verified against live pages — Hearzap / Zenaud, hear.com, Signia India, and Amazon/Flipkart listings (June 2026). Regulatory: CDSCO MDR 2017 (hearing aids = Class B). Product specifications &amp; MRPs from the Earkart catalogue (June 2026). Realised margins are below MRP after discounting; figures are directional for partnership discussion, not a binding offer.</p>
+      <p class="small" style="margin-top:1.5rem; color:var(--ocean); font-weight:600;">EarSafe Care, powered by Earkart · A partnership proposal · Confidential</p>
+      <div class="footer"><span>EarSafe × Earkart</span><span class="conf">Confidential</span></div>
+    </div>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button id="prev" aria-label="Previous">↑</button>
+  <button id="next" aria-label="Next">↓</button>
+</div>
+
+<script>
+  const deck=document.getElementById('deck');
+  const slides=[...document.querySelectorAll('.slide')];
+  const progress=document.getElementById('progress');
+  function update(){
+    const max=deck.scrollHeight-deck.clientHeight;
+    progress.style.width=(deck.scrollTop/max*100)+'%';
+  }
+  deck.addEventListener('scroll',update); update();
+  function current(){
+    return Math.round(deck.scrollTop/deck.clientHeight);
+  }
+  function go(i){
+    i=Math.max(0,Math.min(slides.length-1,i));
+    slides[i].scrollIntoView({behavior:'smooth'});
+  }
+  document.getElementById('next').onclick=()=>go(current()+1);
+  document.getElementById('prev').onclick=()=>go(current()-1);
+  window.addEventListener('keydown',e=>{
+    if(['ArrowDown','ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();go(current()+1);}
+    if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(current()-1);}
+    if(e.key==='Home'){e.preventDefault();go(0);}
+    if(e.key==='End'){e.preventDefault();go(slides.length-1);}
+  });
+</script>
+</body>
+</html>

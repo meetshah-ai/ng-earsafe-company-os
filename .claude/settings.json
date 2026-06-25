@@ -1,0 +1,26 @@
+{
+  "$comment": "NG EarSafe AI-first operating spine. The PreToolUse hook is the technical backbone of the draft-everything policy: every live-mutation tool is denied unless NG_EXECUTE=1, which only the /execute-approved command sets. Department agents and the orchestrator draft to Company_OS/APPROVALS_QUEUE.md; nothing goes live until a human approves and runs /execute-approved.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__claude_ai_(Shopify__(graphql_mutation|create-product|update-product|bulk-update-product-status|create-collection|update-collection|add-to-collection|set-inventory|create-discount|claim-storefront-preview)|Meta_Ads__ads_(create_.*|update_.*|activate_entity|boost_ig_post|delete_.*|catalog_create.*|pixel_.*|experiment_.*)|Gmail__create_draft|Windsor_ai__execute_action|Porter__execute|Canva__publish-brand-template)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ \"$NG_EXECUTE\" = \"1\" ]; then exit 0; else echo 'BLOCKED by NG EarSafe approval gate: live mutations only run via /execute-approved (NG_EXECUTE=1). Draft this action to Company_OS/APPROVALS_QUEUE.md instead, then have a human approve it.' >&2; exit 2; fi"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'NG EarSafe AI-first OS active. Read order: Company_OS/COMPANY_STATE.md -> the relevant departments/<dept>/ triad -> draft to APPROVALS_QUEUE.md. No live writes outside /execute-approved.'"
+          }
+        ]
+      }
+    ]
+  }
+}

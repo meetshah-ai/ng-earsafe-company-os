@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NG EarSafe — Open-Ear Audio | UAE</title>
+  <meta name="description" content="Premium open-ear headphones and earbuds for people who live on calls, on the move, and across languages. ENT-informed design, 14,000+ customers. Now delivering across the UAE."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --ink:   #0E0E0E;
+      --ink2:  #6B6B6B;
+      --paper: #FFFFFF;
+      --mist:  #F4F3F0;
+      --mist2: #ECEBE7;
+      --line:  rgba(0,0,0,.11);
+      --line2: rgba(0,0,0,.06);
+      --live:  #2FA56A;
+      --r:     14px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.5; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px,5vw,56px); }
+    .sec  { padding: clamp(60px,8vw,116px) 0; }
+
+    .mono { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink2); }
+    .ey { font-family: 'Space Mono', monospace; font-size: 11.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); display: inline-flex; align-items: center; gap: 9px; }
+    .ey::before { content: ''; width: 22px; height: 1px; background: var(--ink); display: inline-block; }
+    .ey.center { justify-content: center; }
+
+    h1 { font-size: clamp(36px,7vw,80px); font-weight: 500; line-height: .99; letter-spacing: -.035em; }
+    h2 { font-size: clamp(27px,4.4vw,50px); font-weight: 500; line-height: 1.04; letter-spacing: -.03em; }
+    h3 { font-weight: 500; letter-spacing: -.02em; }
+    .lead { font-size: clamp(16px,2vw,20px); font-weight: 300; color: var(--ink2); line-height: 1.6; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 500; font-size: 15px; padding: 16px 32px; border-radius: 50px; transition: transform .15s, background .2s, opacity .2s; }
+    .btn-dark { background: var(--ink); color: #fff; }
+    .btn-dark:hover { transform: translateY(-1px); opacity: .88; }
+    .btn-ghost { border: 1px solid var(--line); color: var(--ink); }
+    .btn-ghost:hover { background: var(--mist); }
+    .btn-sm { padding: 12px 22px; font-size: 13.5px; }
+    .btn-arrow::after { content: '→'; }
+
+    /* ── ANNOUNCEMENT ── */
+    .ann { background: var(--ink); color: #fff; }
+    .ann-inner { display: flex; justify-content: center; gap: clamp(16px,4vw,44px); flex-wrap: wrap; padding: 10px 16px; }
+    .ann-inner span { font-family: 'Space Mono', monospace; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.78); display: inline-flex; align-items: center; gap: 8px; }
+    .ann-inner span::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,.5); }
+
+    /* ── NAV ── */
+    nav { position: sticky; top: 0; z-index: 90; background: rgba(255,255,255,.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line2); padding: 15px 0; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-weight: 600; font-size: 17px; letter-spacing: -.02em; }
+    .nav-logo small { display: block; font-family: 'Space Mono', monospace; font-size: 9px; color: var(--ink2); letter-spacing: .18em; text-transform: uppercase; font-weight: 400; margin-top: 1px; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { font-size: 13.5px; color: var(--ink2); transition: color .15s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-btn { padding: 10px 24px; font-size: 13px; }
+    @media(max-width:820px) { .nav-links { display: none; } }
+
+    /* ── HERO ── */
+    .hero { text-align: center; padding: clamp(46px,7vw,96px) 0 0; }
+    .hero .ey { margin-bottom: 24px; }
+    .hero h1 { max-width: 15ch; margin: 0 auto 24px; }
+    .hero .lead { max-width: 580px; margin: 0 auto 32px; }
+    .hero-cta { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .hero-ship { margin-top: 22px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink2); }
+    .hero-img { margin-top: clamp(40px,6vw,68px); }
+
+    /* ── AUTHORITY BAND ── */
+    .auth { border-top: 1px solid var(--line2); border-bottom: 1px solid var(--line2); background: var(--mist); }
+    .auth-grid { display: grid; grid-template-columns: repeat(4,1fr); }
+    .auth-cell { padding: 34px 20px; text-align: center; border-right: 1px solid var(--line2); }
+    .auth-cell:last-child { border-right: none; }
+    .auth-cell b { display: block; font-size: clamp(24px,3.4vw,40px); font-weight: 500; letter-spacing: -.03em; line-height: 1; }
+    .auth-cell span { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink2); margin-top: 10px; display: block; }
+    @media(max-width:680px) { .auth-grid { grid-template-columns: 1fr 1fr; } .auth-cell:nth-child(2) { border-right: none; } .auth-cell:nth-child(1), .auth-cell:nth-child(2) { border-bottom: 1px solid var(--line2); } }
+
+    /* ── PRODUCTS ── */
+    .prods-head { text-align: center; margin-bottom: 44px; }
+    .prods-head h2 { margin-top: 14px; }
+    .prods-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .pcard { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 26px; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; }
+    .pcard:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,.07); }
+    .pcard-img { position: relative; background: var(--mist); border-radius: 14px; aspect-ratio: 4/3; overflow: hidden; margin-bottom: 22px; }
+    .pcard-img img { width: 100%; height: 100%; object-fit: cover; }
+    .pcard-badge { position: absolute; top: 14px; left: 14px; font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; background: var(--ink); color: #fff; padding: 5px 10px; border-radius: 50px; }
+    .pcard .tag { display: block; margin-bottom: 12px; }
+    .pcard h3 { font-size: 24px; margin-bottom: 9px; }
+    .pcard p { font-size: 14.5px; color: var(--ink2); line-height: 1.6; margin-bottom: 22px; flex: 1; }
+    .pcard-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    .pcard-price { font-size: 18px; font-weight: 500; }
+    .pcard-price s { color: var(--ink2); font-weight: 300; font-size: 14px; margin-right: 6px; }
+    @media(max-width:720px) { .prods-grid { grid-template-columns: 1fr; } }
+
+    /* ── SCENARIOS ── */
+    .scn { background: var(--mist); }
+    .scn-head { text-align: center; margin-bottom: 44px; }
+    .scn-head h2 { margin-top: 14px; }
+    .scn-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .scn-card { background: var(--paper); border: 1px solid var(--line2); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; }
+    .scn-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,.07); }
+    .scn-body { padding: 24px; }
+    .scn-body .mono { color: var(--live); margin-bottom: 10px; display: block; }
+    .scn-card h3 { font-size: 20px; margin-bottom: 8px; }
+    .scn-card p { font-size: 13.5px; color: var(--ink2); line-height: 1.6; margin-bottom: 16px; }
+    .scn-link { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .scn-link::after { content: ' →'; }
+    @media(max-width:760px) { .scn-grid { grid-template-columns: 1fr; } }
+
+    /* ── COMPARE ── */
+    .cmp-head { text-align: center; margin-bottom: 40px; }
+    .cmp-head h2 { margin-top: 14px; }
+    .cmp-table { border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+    .cmp-row { display: grid; grid-template-columns: 1.1fr 1fr 1fr; border-bottom: 1px solid var(--line2); }
+    .cmp-row:last-child { border-bottom: none; }
+    .cc { padding: 16px 18px; font-size: 14px; display: flex; align-items: center; }
+    .cc:not(:first-child) { justify-content: center; text-align: center; border-left: 1px solid var(--line2); }
+    .cmp-k { font-family: 'Space Mono', monospace; font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink2); }
+    .cmp-row.head .cc { background: var(--mist); padding: 22px 18px; }
+    .cmp-row.head .cc h3 { font-size: 19px; }
+    .cmp-row.head .cc small { display: block; font-weight: 500; margin-top: 4px; font-size: 14px; }
+    .cmp-row.head .cc small s { color: var(--ink2); font-weight: 300; font-size: 12px; margin-right: 5px; }
+    .cmp-row.buy .cc { padding: 18px; }
+    .cmp-yes { color: var(--live); font-weight: 500; }
+    .cmp-no { color: var(--ink2); }
+    @media(max-width:600px) { .cc { padding: 13px 10px; font-size: 12.5px; } .cmp-k { font-size: 9.5px; } .cmp-row.head .cc h3 { font-size: 15px; } .cmp-row.buy .cc:first-child { display: none; } .cmp-row.buy { grid-template-columns: 1fr 1fr; } .cmp-row.buy .cc:nth-child(2) { border-left: none; } }
+
+    /* ── FEATURE BLOCK ── */
+    .feat { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px,6vw,80px); align-items: center; }
+    .feat-num { font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: .16em; color: var(--ink2); margin-bottom: 20px; display: block; }
+    .feat-copy h2 { margin-bottom: 18px; }
+    .feat-copy .lead { margin-bottom: 26px; max-width: 460px; }
+    .prob-list { display: flex; flex-direction: column; gap: 20px; }
+    .prob-item { display: flex; gap: 16px; align-items: flex-start; }
+    .prob-mk { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink); padding-top: 2px; flex-shrink: 0; }
+    .prob-item h4 { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+    .prob-item p { font-size: 14px; color: var(--ink2); line-height: 1.6; }
+    @media(max-width:840px) { .feat { grid-template-columns: 1fr; } .feat .ph { order: -1; } }
+
+    /* ── TECH CARDS ── */
+    .tech { background: var(--mist); }
+    .tech-head { text-align: center; margin-bottom: 44px; }
+    .tech-head h2 { margin-top: 14px; }
+    .tech-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .tech-card { background: var(--paper); border: 1px solid var(--line2); border-radius: 18px; padding: 30px 26px; }
+    .tech-card .ico { width: 44px; height: 44px; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+    .tech-card .lbl { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink2); display: block; margin-bottom: 8px; }
+    .tech-card h3 { font-size: 19px; margin-bottom: 10px; }
+    .tech-card p { font-size: 13.5px; color: var(--ink2); line-height: 1.65; }
+    @media(max-width:760px) { .tech-grid { grid-template-columns: 1fr; } }
+
+    /* ── BRAND ── */
+    .brand { text-align: center; }
+    .brand .ey { margin-bottom: 22px; }
+    .brand h2 { max-width: 18ch; margin: 0 auto 24px; }
+    .brand .lead { max-width: 640px; margin: 0 auto; }
+    .brand-quote { font-size: clamp(21px,2.8vw,32px); font-weight: 300; line-height: 1.4; letter-spacing: -.02em; max-width: 780px; margin: 44px auto 0; }
+
+    /* ── WHY ── */
+    .why-head { text-align: center; margin-bottom: 48px; }
+    .why-head h2 { margin-top: 14px; }
+    .why-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--line2); border: 1px solid var(--line2); border-radius: 18px; overflow: hidden; }
+    .why-cell { background: var(--paper); padding: 32px 26px; }
+    .why-cell .n { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink2); margin-bottom: 18px; display: block; }
+    .why-cell h3 { font-size: 18px; margin-bottom: 10px; }
+    .why-cell p { font-size: 13.5px; color: var(--ink2); line-height: 1.6; }
+    @media(max-width:880px) { .why-grid { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:460px) { .why-grid { grid-template-columns: 1fr; } }
+
+    /* ── GUARANTEE BAR ── */
+    .guar { border-top: 1px solid var(--line2); border-bottom: 1px solid var(--line2); }
+    .guar-grid { display: grid; grid-template-columns: repeat(4,1fr); }
+    .guar-cell { padding: 30px 20px; text-align: center; border-right: 1px solid var(--line2); display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .guar-cell:last-child { border-right: none; }
+    .guar-cell svg { stroke: var(--ink); }
+    .guar-cell b { font-size: 14px; font-weight: 500; }
+    .guar-cell span { font-size: 12px; color: var(--ink2); }
+    @media(max-width:680px) { .guar-grid { grid-template-columns: 1fr 1fr; } .guar-cell:nth-child(2) { border-right: none; } .guar-cell:nth-child(1), .guar-cell:nth-child(2) { border-bottom: 1px solid var(--line2); } }
+
+    /* ── TESTIMONIALS ── */
+    .test-head { text-align: center; margin-bottom: 44px; }
+    .test-head .stars { color: var(--ink); font-size: 18px; letter-spacing: 3px; margin-bottom: 14px; }
+    .test-head h2 { margin-top: 6px; }
+    .test-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .test-card { border: 1px solid var(--line2); border-radius: 18px; padding: 26px; background: var(--paper); }
+    .test-card .tstars { color: var(--ink); font-size: 13px; letter-spacing: 2px; margin-bottom: 14px; }
+    .test-card .tquote { font-size: 15px; line-height: 1.6; margin-bottom: 20px; }
+    .test-person { display: flex; align-items: center; gap: 12px; }
+    .test-avatar { width: 38px; height: 38px; border-radius: 50%; border: 1px dashed var(--line); display: flex; align-items: center; justify-content: center; font-family: 'Space Mono', monospace; font-size: 8px; color: var(--ink2); flex-shrink: 0; }
+    .test-person b { display: block; font-size: 13.5px; font-weight: 500; }
+    .test-person span { font-size: 11.5px; color: var(--ink2); }
+    .press { text-align: center; margin-top: 56px; }
+    .press-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink2); margin-bottom: 20px; }
+    .press-row { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; }
+    @media(max-width:820px) { .test-grid { grid-template-columns: 1fr; } }
+    @media(max-width:680px) { .press-row { grid-template-columns: repeat(2,1fr); } }
+
+    /* ── NEWSLETTER ── */
+    .news { background: var(--ink); color: #fff; text-align: center; }
+    .news .ey { color: #fff; } .news .ey::before { background: #fff; }
+    .news h2 { color: #fff; margin: 16px 0 14px; }
+    .news p { color: rgba(255,255,255,.6); font-size: 16px; margin: 0 auto 30px; max-width: 440px; }
+    .news-form { display: flex; gap: 10px; max-width: 440px; margin: 0 auto; }
+    .news-form input { flex: 1; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 50px; padding: 15px 22px; color: #fff; font-family: inherit; font-size: 14px; }
+    .news-form input::placeholder { color: rgba(255,255,255,.45); }
+    .news-form button { background: #fff; color: var(--ink); border-radius: 50px; padding: 15px 26px; font-weight: 500; font-size: 14px; white-space: nowrap; }
+    .news-fine { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-top: 16px; }
+    @media(max-width:520px) { .news-form { flex-direction: column; } .news-form button { width: 100%; } }
+
+    /* ── FINAL ── */
+    .final { background: var(--mist); text-align: center; }
+    .final h2 { margin: 14px 0 22px; }
+    .final .lead { max-width: 480px; margin: 0 auto 32px; }
+    .final-cta { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--line2); padding: 48px 0 30px; }
+    .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; margin-bottom: 40px; }
+    .foot-brand .nav-logo { margin-bottom: 12px; display: inline-block; }
+    .foot-brand p { font-size: 13px; color: var(--ink2); max-width: 280px; line-height: 1.6; }
+    .foot-col h5 { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink2); margin-bottom: 16px; }
+    .foot-col a { display: block; font-size: 13.5px; color: var(--ink); margin-bottom: 11px; transition: opacity .15s; }
+    .foot-col a:hover { opacity: .6; }
+    .foot-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding-top: 24px; border-top: 1px solid var(--line2); }
+    .foot-bottom span { font-family: 'Space Mono', monospace; font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink2); }
+    @media(max-width:760px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+
+    /* ── PLACEHOLDERS ── */
+    .ph { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; background: var(--mist); border: 1px dashed var(--line); border-radius: var(--r); text-align: center; padding: 24px 18px; min-height: 240px; }
+    .ph-ico { font-size: 24px; }
+    .ph-type { font-family: 'Space Mono', monospace; font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); background: var(--paper); border: 1px solid var(--line2); padding: 5px 11px; border-radius: 50px; }
+    .ph-desc { font-size: 12px; color: var(--ink2); line-height: 1.55; max-width: 260px; }
+    .ph-dim { font-family: 'Space Mono', monospace; font-size: 9.5px; color: var(--ink2); letter-spacing: .05em; }
+    .ph.hero-ph { min-height: clamp(280px,40vw,500px); border-radius: 22px; max-width: 900px; margin: 0 auto; }
+    .ph.tall { min-height: 420px; }
+    .ph.scn-ph { min-height: 180px; border: none; border-bottom: 1px dashed var(--line); border-radius: 18px 18px 0 0; }
+    .press-row .ph { min-height: 66px; padding: 12px; border-radius: 10px; }
+
+    /* ── MOBILE-FIRST ── */
+    @media(max-width:600px) {
+      .wrap { padding: 0 18px; }
+      .sec { padding: 56px 0; }
+      h2 { font-size: clamp(26px,7.2vw,36px); }
+      .lead { font-size: 15.5px; }
+      .hero { padding: 38px 0 0; }
+      .hero h1 { max-width: 100%; }
+      .hero-cta { flex-direction: column; width: 100%; gap: 10px; }
+      .hero-cta .btn { width: 100%; }
+      .ph.hero-ph { min-height: 280px; }
+      .btn { min-height: 50px; }
+      .pcard { padding: 20px; border-radius: 18px; }
+      .pcard-foot { flex-direction: column; align-items: stretch; gap: 14px; }
+      .pcard-foot .btn { width: 100%; }
+      .pcard-price { text-align: center; }
+      .ph.tall { min-height: 280px; }
+      .auth-cell { padding: 26px 16px; }
+      .brand-quote { margin-top: 30px; }
+      .final-cta { flex-direction: column; width: 100%; gap: 10px; }
+      .final-cta .btn { width: 100%; }
+      .foot-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="ann">
+  <div class="wrap ann-inner">
+    <span>Free UAE delivery · 3–5 days</span>
+    <span>1-year warranty</span>
+    <span>30-day returns</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap nav-inner">
+    <div class="nav-logo">NG EarSafe<small>Open-Ear Audio</small></div>
+    <div class="nav-links">
+      <a href="#products">Products</a>
+      <a href="#compare">Compare</a>
+      <a href="#tech">Technology</a>
+      <a href="#why">Why Open-Ear</a>
+      <a href="mailto:support@ngearsafe.com">Support</a>
+    </div>
+    <a href="#products" class="btn btn-dark nav-btn">Shop</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <span class="ey center">NG EarSafe — Open-Ear Audio</span>
+    <h1>Sound that never shuts out the world.</h1>
+    <p class="lead">Premium open-ear headphones and earbuds for people who live on calls, on the move, and across languages. Hear your audio and everything around you — all day, in comfort.</p>
+    <div class="hero-cta">
+      <a href="#products" class="btn btn-dark btn-arrow">Explore the range</a>
+      <a href="#compare" class="btn btn-ghost">Compare models</a>
+    </div>
+    <p class="hero-ship">● Free delivery across the UAE</p>
+
+    <div class="hero-img">
+      <div class="ph hero-ph">
+        <span class="ph-ico">🎧</span>
+        <span class="ph-type">Brand Hero — Product / Lifestyle</span>
+        <span class="ph-desc">Bright, minimalist hero: both products together on a clean light surface, or a person mid-call in a Dubai setting. Airy, premium, product-forward.</span>
+        <span class="ph-dim">2400 × 1400 · 16:9 (mobile crop 4:5)</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- AUTHORITY BAND -->
+<div class="auth">
+  <div class="wrap">
+    <div class="auth-grid">
+      <div class="auth-cell"><b>14,000+</b><span>Customers</span></div>
+      <div class="auth-cell"><b>Open-Ear</b><span>Our only focus</span></div>
+      <div class="auth-cell"><b>ENT</b><span>Informed design</span></div>
+      <div class="auth-cell"><b>3–5 Days</b><span>Free UAE delivery</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="sec" id="products">
+  <div class="wrap">
+    <div class="prods-head">
+      <span class="ey center">The Range</span>
+      <h2>Two ways to keep your ears open.</h2>
+    </div>
+    <div class="prods-grid">
+
+      <div class="pcard">
+        <div class="pcard-img">
+          <span class="pcard-badge">Best for calls</span>
+          <img src="https://cdn.shopify.com/s/files/1/0804/5762/9975/files/Comm2Listing1.webp?v=1745217871" alt="NG Comm 2.0 open-ear headset" />
+        </div>
+        <span class="tag mono">For the call professional</span>
+        <h3>Comm 2.0</h3>
+        <p>The open-ear headset for people who live on calls. Stay on every call and hear the room — 8 hours, a noise-cancelling boom mic, zero ear fatigue.</p>
+        <div class="pcard-foot">
+          <span class="pcard-price"><s>AED 309</s> AED 175</span>
+          <a href="UAE_Comm2_LP.html" class="btn btn-dark btn-sm btn-arrow">Discover</a>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-img">
+          <span class="pcard-badge">Live translation</span>
+          <img src="https://cdn.shopify.com/s/files/1/0804/5762/9975/files/Untitled_design_1.png?v=1776592936" alt="NG SafeBuds open-ear earbuds" />
+        </div>
+        <span class="tag mono">For every day, every language</span>
+        <h3>SafeBuds</h3>
+        <p>Open-ear earbuds that let the world in — and translate it in real time. Music, calls, and live Arabic ↔ English translation. In Black or Ivory.</p>
+        <div class="pcard-foot">
+          <span class="pcard-price"><s>AED 269</s> AED 200</span>
+          <a href="UAE_SafeBuds_LP.html" class="btn btn-dark btn-sm btn-arrow">Discover</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SCENARIOS -->
+<section class="scn sec">
+  <div class="wrap">
+    <div class="scn-head">
+      <span class="ey center">Find Your Fit</span>
+      <h2>Built for how you actually live.</h2>
+    </div>
+    <div class="scn-grid">
+
+      <div class="scn-card">
+        <div class="ph scn-ph"><span class="ph-ico">📞</span><span class="ph-type">Lifestyle</span><span class="ph-desc">Broker / pro mid-call.</span></div>
+        <div class="scn-body">
+          <span class="mono">On every call</span>
+          <h3>For people on the phone all day</h3>
+          <p>Brokers, recruiters, IT and support teams who can't miss the call or the room. Boom-mic clarity, eight-hour battery.</p>
+          <a href="UAE_Comm2_LP.html" class="scn-link">Shop Comm 2.0</a>
+        </div>
+      </div>
+
+      <div class="scn-card">
+        <div class="ph scn-ph"><span class="ph-ico">🏃</span><span class="ph-type">Lifestyle</span><span class="ph-desc">Commute / gym / walk.</span></div>
+        <div class="scn-body">
+          <span class="mono">On the move</span>
+          <h3>For your commute &amp; everyday</h3>
+          <p>Music, podcasts and calls while you stay aware of traffic, the gym, the street. Open-ear comfort that disappears.</p>
+          <a href="UAE_SafeBuds_LP.html" class="scn-link">Shop SafeBuds</a>
+        </div>
+      </div>
+
+      <div class="scn-card">
+        <div class="ph scn-ph"><span class="ph-ico">💬</span><span class="ph-type">Lifestyle</span><span class="ph-desc">Two nationalities, one chat.</span></div>
+        <div class="scn-body">
+          <span class="mono">Across languages</span>
+          <h3>For a city of 200 nationalities</h3>
+          <p>Live Arabic ↔ English translation, plus Hindi, Urdu and more — two people, two languages, one conversation.</p>
+          <a href="UAE_SafeBuds_LP.html" class="scn-link">Shop SafeBuds</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="sec" id="compare">
+  <div class="wrap">
+    <div class="cmp-head">
+      <span class="ey center">Compare</span>
+      <h2>Which one is you?</h2>
+    </div>
+    <div class="cmp-table">
+      <div class="cmp-row head">
+        <div class="cc"></div>
+        <div class="cc"><div><h3>Comm 2.0</h3><small><s>AED 309</s> AED 175</small></div></div>
+        <div class="cc"><div><h3>SafeBuds</h3><small><s>AED 269</s> AED 200</small></div></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cc cmp-k">Best for</div>
+        <div class="cc">Calls, all day</div>
+        <div class="cc">Everyday + languages</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cc cmp-k">Wear style</div>
+        <div class="cc">Single ear-hook headset</div>
+        <div class="cc">Open-ear earbuds (pair)</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cc cmp-k">Microphone</div>
+        <div class="cc">Noise-cancelling boom</div>
+        <div class="cc">Built-in call mic</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cc cmp-k">Live translation</div>
+        <div class="cc cmp-no">—</div>
+        <div class="cc cmp-yes">✓ Arabic ↔ English</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cc cmp-k">Music &amp; media</div>
+        <div class="cc">Voice-first</div>
+        <div class="cc cmp-yes">✓ Music + calls</div>
+      </div>
+      <div class="cmp-row buy">
+        <div class="cc cmp-k">&nbsp;</div>
+        <div class="cc"><a href="UAE_Comm2_LP.html" class="btn btn-dark btn-sm">Shop Comm 2.0</a></div>
+        <div class="cc"><a href="UAE_SafeBuds_LP.html" class="btn btn-dark btn-sm">Shop SafeBuds</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="sec" style="background:var(--mist)">
+  <div class="wrap feat">
+    <div class="feat-copy">
+      <span class="feat-num">01 — The Problem</span>
+      <h2>In-ear was never built for all day.</h2>
+      <p class="lead">If you wear earbuds from your first call to your last, the thing sealing your ear is quietly working against you.</p>
+      <div class="prob-list">
+        <div class="prob-item"><span class="prob-mk">01</span><div><h4>It shuts you off</h4><p>Sealed buds block the room — you miss the client beside you, the colleague, the announcement.</p></div></div>
+        <div class="prob-item"><span class="prob-mk">02</span><div><h4>It wears you out</h4><p>Hours of canal pressure mean fatigue and a dull ring by evening — ears that need a break you can't take.</p></div></div>
+        <div class="prob-item"><span class="prob-mk">03</span><div><h4>It isn't built for the heat</h4><p>Sweat, slippage and hygiene issues from sealing your ear canal shut for hours at a time.</p></div></div>
+      </div>
+    </div>
+    <div class="ph tall">
+      <span class="ph-ico">🔇</span>
+      <span class="ph-type">Editorial</span>
+      <span class="ph-desc">Person removing a sealed earbud mid-day — the "in-ear problem" visualised. Bright, clean.</span>
+      <span class="ph-dim">1080 × 1350 · 4:5</span>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="tech sec" id="tech">
+  <div class="wrap">
+    <div class="tech-head">
+      <span class="ey center">The Technology</span>
+      <h2>How we keep your ears open.</h2>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="ico">🔊</div>
+        <span class="lbl">Across the range</span>
+        <h3>Open-Ear Air Conduction</h3>
+        <p>Sound reaches you through the air, just outside the ear — nothing inserted, canal fully open. Safer and more comfortable than sealed in-ear for all-day wear.</p>
+      </div>
+      <div class="tech-card">
+        <div class="ico">🎙️</div>
+        <span class="lbl">Comm 2.0</span>
+        <h3>Clear-Voice Boom Mic</h3>
+        <p>A forward-facing, noise-cancelling boom mic isolates your voice from traffic, AC hum and open offices — so every call sounds like a quiet room.</p>
+      </div>
+      <div class="tech-card">
+        <div class="ico">💬</div>
+        <span class="lbl">SafeBuds</span>
+        <h3>Live Translation</h3>
+        <p>Real-time, two-way voice translation through the NG app — including Arabic ↔ English. Two people, two languages, one conversation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND -->
+<section class="brand sec">
+  <div class="wrap">
+    <span class="ey center">Who We Are</span>
+    <h2>We make one thing — and we make it well.</h2>
+    <p class="lead">NG EarSafe is an open-ear audio company. While everyone else builds earbuds that seal you in, we set out to do the opposite: audio that lives outside the ear, so you never have to choose between your call and your world. Our designs are ENT-informed, comfort-obsessed, and trusted by over 14,000 customers.</p>
+    <p class="brand-quote">"The best headphones shouldn't disconnect you from life. They should let you stay in it — now delivered to your door across the UAE."</p>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="sec" id="why">
+  <div class="wrap">
+    <div class="why-head">
+      <span class="ey center">Why NG EarSafe</span>
+      <h2>Built on four promises.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-cell"><span class="n">01</span><h3>Open-Ear Safety</h3><p>Hear your surroundings at all times — safer on the road, aware at work.</p></div>
+      <div class="why-cell"><span class="n">02</span><h3>All-Day Comfort</h3><p>Nothing jammed in your canal. A lightweight fit you can wear from 9 to 7.</p></div>
+      <div class="why-cell"><span class="n">03</span><h3>ENT-Informed</h3><p>Designs shaped around ear health, not just sound — comfort you can trust.</p></div>
+      <div class="why-cell"><span class="n">04</span><h3>UAE-Ready</h3><p>Free delivery in 3–5 days, 1-year warranty, 30-day returns. No risk.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE BAR -->
+<div class="guar">
+  <div class="wrap">
+    <div class="guar-grid">
+      <div class="guar-cell">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <b>1-Year Warranty</b><span>On every device</span>
+      </div>
+      <div class="guar-cell">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="17" r="1.6"/><circle cx="17" cy="17" r="1.6"/></svg>
+        <b>Free Delivery</b><span>3–5 days, UAE-wide</span>
+      </div>
+      <div class="guar-cell">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M4 9a8 8 0 0114-5M20 15a8 8 0 01-14 5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 4v5h5M20 20v-5h-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <b>30-Day Returns</b><span>No-risk trial</span>
+      </div>
+      <div class="guar-cell">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M4 5h16v11H8l-4 3z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <b>Real Support</b><span>7 days a week</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="test-head">
+      <div class="stars">★ ★ ★ ★ ★</div>
+      <span class="ey center">Loved by 14,000+</span>
+      <h2 style="margin-top:14px;">Don't take our word for it.</h2>
+    </div>
+    <!-- Populate with REAL verified reviews from Shopify / Google before publishing -->
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="tstars">★★★★★</div>
+        <p class="tquote">"[Verified customer review — e.g. on calls all day and my ears finally don't hurt by evening.]"</p>
+        <div class="test-person"><span class="test-avatar">PHOTO</span><div><b>[Customer name]</b><span>[Role / city]</span></div></div>
+      </div>
+      <div class="test-card">
+        <div class="tstars">★★★★★</div>
+        <p class="tquote">"[Verified customer review — e.g. I can hear my music and the traffic. Wish I'd switched sooner.]"</p>
+        <div class="test-person"><span class="test-avatar">PHOTO</span><div><b>[Customer name]</b><span>[Role / city]</span></div></div>
+      </div>
+      <div class="test-card">
+        <div class="tstars">★★★★★</div>
+        <p class="tquote">"[Verified customer review — e.g. the translation feature is genuinely useful at work every day.]"</p>
+        <div class="test-person"><span class="test-avatar">PHOTO</span><div><b>[Customer name]</b><span>[Role / city]</span></div></div>
+      </div>
+    </div>
+
+    <div class="press">
+      <p class="press-label">As featured in</p>
+      <div class="press-row">
+        <div class="ph"><span class="ph-type">Press Logo</span></div>
+        <div class="ph"><span class="ph-type">Press Logo</span></div>
+        <div class="ph"><span class="ph-type">Press Logo</span></div>
+        <div class="ph"><span class="ph-type">Press Logo</span></div>
+        <div class="ph"><span class="ph-type">Press Logo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="news sec">
+  <div class="wrap">
+    <span class="ey center">Stay in the loop</span>
+    <h2>Open ears, open inbox.</h2>
+    <p>Be first on new drops, UAE offers and open-ear tips. No spam — just the good stuff.</p>
+    <form class="news-form" onsubmit="return false;">
+      <input type="email" placeholder="your@email.com" aria-label="Email address" required />
+      <button type="submit">Notify me</button>
+    </form>
+    <p class="news-fine">Connect to Shopify / Klaviyo before publishing</p>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="final sec">
+  <div class="wrap">
+    <span class="ey center">Get Started</span>
+    <h2>Keep your ears open.</h2>
+    <p class="lead">Pick the open-ear device built for your day. Free delivery across the UAE.</p>
+    <div class="final-cta">
+      <a href="UAE_Comm2_LP.html" class="btn btn-dark">Shop Comm 2.0 — AED 175</a>
+      <a href="UAE_SafeBuds_LP.html" class="btn btn-ghost">Shop SafeBuds — AED 200</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="nav-logo">NG EarSafe</span>
+        <p>Open-ear audio for people who live in motion. Now delivering across the UAE.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Products</h5>
+        <a href="UAE_Comm2_LP.html">Comm 2.0</a>
+        <a href="UAE_SafeBuds_LP.html">SafeBuds</a>
+        <a href="#compare">Compare</a>
+      </div>
+      <div class="foot-col">
+        <h5>Support</h5>
+        <a href="https://ngearsafe.com/policies/shipping-policy">Shipping</a>
+        <a href="https://ngearsafe.com/policies/refund-policy">Returns &amp; Warranty</a>
+        <a href="mailto:support@ngearsafe.com">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="#tech">Technology</a>
+        <a href="#why">Why Open-Ear</a>
+        <a href="https://ngearsafe.com/policies/privacy-policy">Privacy</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 NG EarSafe</span>
+      <span>Free UAE delivery · 1-year warranty · 30-day returns</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

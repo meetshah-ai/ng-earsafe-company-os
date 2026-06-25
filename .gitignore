@@ -1,0 +1,35 @@
+# --- NG EarSafe Ops repo: keep it to the operating system the cloud agents need ---
+# Rule: markdown operating docs + .claude config IN; raw financials, data, and heavy media OUT.
+
+# OS cruft
+.DS_Store
+**/.DS_Store
+
+# Local, machine-specific Claude config (paths + permissions) and local plans
+.claude/settings.local.json
+.claude/plans/
+
+# Financials & raw data — never push to the cloud repo
+*.xlsx
+*.xls
+*.csv
+CFO/
+Amazon Data/
+
+# Heavy media — not needed for read-and-draft loops (generation happens locally at execute time)
+*.mp4
+*.mov
+*.mp3
+*.wav
+*.m4a
+*.png
+*.jpg
+*.jpeg
+*.gif
+Generated Content/
+Product Images/
+Content Team/
+CX Team/
+
+# Shopify theme export — not needed by the loops
+SafeBuds_Shopify/

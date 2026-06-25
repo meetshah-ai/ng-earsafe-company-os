@@ -1,0 +1,135 @@
+
+C2 CAMPAIGN — IMAGE ASSET BRIEF
+================================
+Campaign: C2 | Bone Conduction + Open Ear
+Required specs: 1200×628 (landscape) | 1200×1200 (square) | 900×1200 (portrait, optional)
+Max file size: 5 MB per image | Format: JPG or PNG
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AG1 — BONE CONDUCTION GENERAL (4 images needed)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IMG-A1-01: Comm 2.0 on-ear, office/WFH setting
+  Source: EXISTING DSLR — Haritha Parth shoot (Google Drive, Comm folder)
+  Select: Shot with laptop visible, natural window light, boom mic forward
+  Crop to: 1200×628 (landscape) + 1200×1200 (square crop, face/ear focus)
+  Action: Download from Drive, crop in Canva, export both ratios
+
+IMG-A1-02: Pro on-ear, outdoor running/morning
+  Source: EXISTING — Pro lifestyle refs already in Higgsfield (from Drive memory)
+  OR generate new via Higgsfield (prompt below)
+  Higgsfield prompt:
+    "Indian male runner, late 20s, early morning road in Bangalore, 6am light,
+     NG EarSafe Pro bone conduction headphones on ear (hook sits on cheekbone,
+     ear canal fully open, no earbud in canal), light jog mid-stride, city street
+     behind him, cool blue-teal morning light, documentary style, motion blur on
+     feet, sharp face, photorealistic. seedance_2_0, natural human energy,
+     slight camera shake, breathing motion."
+  Crop to: 1200×628 + 1200×1200
+
+IMG-A1-03: Lite on-ear, casual everyday use
+  Source: Generate via Higgsfield
+  Higgsfield prompt:
+    "Indian woman, early 30s, sitting at kitchen table, morning coffee, casual
+     weekend, NG EarSafe Lite open ear headphones on ear, ear canal open and
+     visible, phone on table, warm but cool-toned morning light through window,
+     relaxed expression, not posing, Bangalore apartment feel, photorealistic,
+     documentary style, subtle breathing motion."
+  Crop to: 1200×628 + 1200×1200
+
+IMG-A1-04: Full product family flat-lay
+  Source: Product Images/ folder — all 4 products
+  Production: Canva composite — arrange Comm 2.0, Pro, Lite, SafeBuds on Frost (#E8F6F7) background
+  Layout: 2×2 grid or diagonal arrangement, brand navy label at bottom
+  Crop to: 1200×628 (landscape primary) + 1200×1200
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AG2 — CALLS/MIC — COMM 2.0 (3 images needed)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IMG-A2-01: Comm 2.0 on-ear, home office call
+  Source: EXISTING DSLR — Haritha Parth shoot
+  Select: Shot showing boom mic pointing forward, laptop screen visible,
+          person speaking (mouth slightly open), window in background
+  IMPORTANT: Verify boom mic faces FORWARD per on-ear reference (not down, not back)
+  Crop to: 1200×628 + 1200×1200
+
+IMG-A2-02: Comm 2.0 on-ear, video call close-up
+  Source: EXISTING DSLR or generate via Higgsfield
+  Higgsfield prompt:
+    "Close-up of left ear and cheek of Indian professional, 30s, NG EarSafe Comm 2.0
+     mono headset on ear, boom microphone pointing forward toward mouth,
+     ear canal completely open (no earbud inserted), home office background soft
+     bokeh, laptop screen visible, cool natural light, photorealistic, sharp ear detail,
+     subtle breathing motion, not posed."
+  Crop to: 1200×1200 (square — close-up works best)
+
+IMG-A2-03: Comm 2.0 on-ear, standing desk call setup
+  Source: Generate via Higgsfield
+  Higgsfield prompt:
+    "Indian man, mid 30s, standing at home desk, NG EarSafe Comm 2.0 bone conduction
+     headset on ear, boom mic forward, dual monitors visible, looks engaged in call,
+     natural afternoon window light, Bangalore home office, photorealistic,
+     documentary-style, no stiff posing, subtle sway motion, micro hand movements."
+  Crop to: 1200×628
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AG3 — SPORT/SWIMMING — PRO (3 images needed)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IMG-A3-01: Pro on-ear, runner on road (morning)
+  Source: Generate via Higgsfield using existing Pro lifestyle refs
+  Higgsfield prompt:
+    "Indian male runner, late 20s, road running at 6am, NG EarSafe Pro bone conduction
+     headphones on ear (ear canal fully open, hook sits on cheekbone above ear),
+     mid-stride, urban road Bangalore, cool blue morning light, motion energy,
+     photorealistic, handheld camera feel, runner looking ahead not at camera,
+     natural body motion, slight motion blur legs, sharp face and ear."
+  Crop to: 1200×628 (wide runner shot) + 1200×1200 (tighter ear/face crop)
+
+IMG-A3-02: Pro on-ear, swimmer at pool
+  Source: GENERATE — no existing swim shot
+  Higgsfield prompt:
+    "Indian swimmer, 28 years old, standing at pool edge ready to dive, NG EarSafe Pro
+     waterproof bone conduction headphones on ear (hook behind ear, ear canal open),
+     goggles pushed up on forehead, competitive pool background, cool blue-teal light
+     reflecting off water, photorealistic, confident expression, not posed,
+     water droplets on skin suggest recent swimming, breathing motion."
+  Crop to: 1200×628 + 1200×1200
+  NOTE: Generate 1 image, review on-ear placement carefully before using.
+        Reference: A_Reel_OnEar_v1 for correct Pro fit.
+
+IMG-A3-03: Pro on-ear, cycling/gym
+  Source: Generate via Higgsfield
+  Higgsfield prompt:
+    "Indian man, early 30s, on stationary bike at gym, NG EarSafe Pro bone conduction
+     headphones on ear (ear canal open, hook rests on cheekbone), mid-pedal,
+     gym background soft bokeh, natural light from windows, focused expression,
+     photorealistic, slight motion on cycling legs, sharp upper body and ear."
+  Crop to: 1200×628
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PRODUCTION CHECKLIST (in priority order)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+□ IMG-A1-01: Pull from Haritha Parth Drive folder, crop (30 min)
+□ IMG-A2-01: Pull from Haritha Parth Drive folder, verify mic placement, crop (15 min)
+□ IMG-A2-02: Pull or Higgsfield generate (20 min)
+□ IMG-A1-02: Higgsfield — Pro running (1 image, review before next)
+□ IMG-A3-01: Higgsfield — Pro running (can reuse or variant of above)
+□ IMG-A3-02: Higgsfield — Pro swimming (most important new generate)
+□ IMG-A1-03: Higgsfield — Lite casual
+□ IMG-A3-03: Higgsfield — Pro cycling
+□ IMG-A1-04: Canva — product flat-lay composite
+□ IMG-A2-03: Higgsfield — Comm 2.0 standing desk
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+UPLOAD CHECKLIST (Google Ads)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+After images are ready:
+Google Ads → Assets → Images → + New image asset
+Upload per ad group:
+  AG1: IMG-A1-01, IMG-A1-02, IMG-A1-03, IMG-A1-04
+  AG2: IMG-A2-01, IMG-A2-02, IMG-A2-03
+  AG3: IMG-A3-01, IMG-A3-02, IMG-A3-03
+Each image asset applies to the RSA in that ad group.
+Google will A/B test combinations automatically.
