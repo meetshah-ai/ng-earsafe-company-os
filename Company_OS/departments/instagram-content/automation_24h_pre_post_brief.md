@@ -2,7 +2,7 @@
 
 > Standing automation spec. The instagram-content agent assembles a decision-ready brief **24 hours before each scheduled post**, the chief-of-staff agent audits it, and it is delivered to Meet + Riya so they can approve an option before production.
 >
-> Owner: Riya / Meet · Created: 2026-06-29 · Status: **STAGED — awaiting 2 unblocks (GitHub repo URL + send mechanism). See §6.**
+> Owner: Riya / Meet · Created: 2026-06-29 · Status: **🟢 LIVE (2026-06-30).** 3 weekly cloud routines + n8n send wired. See §6.
 
 ---
 
@@ -61,12 +61,13 @@ Recipients: **meetshah@ngearsafe.com, riyashah@ngearsafe.com.**
 
 Verdict line: `CoS AUDIT: CLEAR` or `CoS AUDIT: FLAG — <what + fix>`.
 
-## 6. OPEN UNBLOCKS (why this is STAGED, not LIVE)
+## 6. LIVE CONFIG (resolved 2026-06-30)
 
-1. **Cloud-routine repo source.** Routines run in Anthropic cloud and clone from a **GitHub URL**; this repo has no remote. Needs the repo pushed to a private GitHub repo (decision: push full Company_OS — taken 2026-06-29). Blocked locally on GitHub auth (`gh` not installed, no PAT/SSH). → user provides repo URL / token.
-2. **Send mechanism.** The connected claude.ai Gmail connector is **draft-only** (`create_draft`; no send). Literal auto-send isn't possible through it. Two resolutions:
-   - **(a) Auto-draft:** routine creates a fully-composed, CoS-audited Gmail draft to Meet+Riya 24h prior; Meet clicks Send (one click, zero composition).
-   - **(b) True auto-send via n8n:** routine POSTs the brief to an n8n webhook whose email node sends to both. Uses existing n8n plumbing (`Automations/daily_report_n8n.json`). Needs a webhook + email node set up once.
+- **Cloud routines (3):** `trig_01HtaYyPvytGhxPC5gYZHiaC` (Fri→Sat reactive, `30 13 * * 5`), `trig_01UbGrE7oieugr5iyFn2czsU` (Mon→Tue confessional, `30 2 * * 1`), `trig_017Lg62cJnfD1w3RQ6xCnzBu` (Tue→Wed carousel, `30 2 * * 2`). Manage at claude.ai/code/routines. Model: claude-sonnet-4-6.
+- **Repo mirror:** `github.com/meetshah-ai/ng-earsafe-company-os` (private). Each routine clones this. **The cloud agent only sees what is PUSHED** — Claude owns pushing repo updates each session (CEO directive 2026-06-30, DECISION_LOG `CEO-2026-06-30-a`).
+- **Send mechanism = n8n (NOT the Gmail connector).** The claude.ai Gmail connector is **draft-only** (`create_draft`, no send tool), so true auto-send is done via n8n: the routine POSTs `{subject, slot, postDateTime, deadline, body}` to the webhook `https://ngearsafe.app.n8n.cloud/webhook/ng-ig-24h-brief`, whose Gmail node sends to Meet + Riya. Workflow: `Automations/ig_24h_brief_webhook_n8n.json`. Pipe tested HTTP 200 on 2026-06-30.
+- **Known limitation — freshness:** the routine's "memory" is only as current as the last push. The weekly learning-log/tracker updates must be pushed or the cloud agent drifts. Owned by Claude per the directive above.
+- **First instance:** IC-006 brief sent 2026-06-30 ~09:11 IST. Because setup ran overnight it landed same-day rather than 24h-ahead; the recurring routines are correctly 24h-ahead from next week.
 
 ## 7. PROVENANCE
 
