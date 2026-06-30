@@ -39,7 +39,7 @@ THESIS — 2–3 sentences: the bet (tribe × content type × structure), why no
 
 EXPECTATIONS — target signal, success threshold, comparison baseline (note where blank + the proxy used), which scale hypothesis (SH-IC-1 / SH-IC-2) it advances.
 
-3 POSTING OPTIONS — three distinct executions (not 3 captions of one idea). Each: label + 6-word angle · format · tribe + SKU · hook (0–3s) · caption mode + 1-line direction · visual brief (Higgsfield for video / Canva for overlay+carousel; real product photo only) · audio (if reactive) · target signal · one-line win/flop.
+3 POSTING OPTIONS — three executions that span DIFFERENT content pillars (e.g. one reach/humor play, one education/value play, one product-in-a-wrapper) so Meet/Riya pick a *strategy*, not three captions of one idea. Each must obey the craft law (5s hook · 75% value · share/save payoff · concrete). Each: pillar + label + 6-word angle · format · tribe + SKU (if any) · hook (first 5s) · the 75%-value spine in one line · share/save payoff · caption mode + 1-line direction · visual brief (Higgsfield for video / Canva for overlay+carousel; real product photo only) · audio (if reactive) · target signal (saves/shares/reach) · one-line win/flop.
 
 RECOMMENDED OPTION — one pick + one-line why.
 
@@ -59,7 +59,10 @@ Recipients: **meetshah@ngearsafe.com, riyashah@ngearsafe.com.**
 - **Skeleton integrity:** the slot matches the standing skeleton; any change is flagged, not silently made.
 - **Measurability:** the expectation is falsifiable with a named signal + threshold; baseline-blank is stated honestly with the proxy used.
 
-Verdict line: `CoS AUDIT: CLEAR` or `CoS AUDIT: FLAG — <what + fix>`.
+The CoS audits as an ex-McKinsey D2C growth advisor: reads the brief against the trend of past data + brand equity, then commits to ONE recommendation.
+Verdict + recommendation lines:
+`CoS AUDIT: CLEAR` or `CoS AUDIT: FLAG — <what + fix>`
+`THE ONE RECOMMENDATION: <approve as-is | option X | change to Y> — <one line grounded in a number / brand truth>`
 
 ## 6. LIVE CONFIG (resolved 2026-06-30)
 

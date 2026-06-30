@@ -33,12 +33,13 @@
 ## PERFORMANCE TARGETS
 | Metric | Baseline | 30-day | 60-day | 90-day |
 |---|---|---|---|---|
-| Saves-to-reach ratio | BLANK — pull needed (IC-004 queued) | — | — | — |
-| Non-follower reach % | BLANK — pull needed (IC-004 queued) | — | — | — |
-| Shares to stories / post | BLANK — pull needed (IC-004 queued) | — | — | — |
+| Avg saves / post | **~0 (May 31–Jun 29, Porter)** | ≥5 | ≥15 | ≥25 (hit 20+ save secondary-distribution trigger) |
+| Avg reach / post | **284 (range 114–426) = 1–3% of followers** | 600 | 1,500 | 4,000 |
+| Avg shares / post | **2.2 (range 0–7)** | 5 | 12 | 25 |
+| Saves-to-reach ratio | **~0.1% (≈1 save / 1,500 reach)** | 1% | 2% | 3% |
 | Trend-rides that hit ≥baseline reach | n/a | 1/wk | 2/wk | 3/wk |
 
-**BLOCKER NOTE (2026-06-27, confirmed cycle 3):** Porter has NO Instagram organic insights connector. `get_trends` is TikTok-only. `facebook-ads:v25.0:insights.get` is paid ads only. Riya must pull @ngearsafe IG Insights directly from Instagram (native app or Creator Studio) for the period May 21 – Jun 27 and paste figures here. IC-004 remains open. Without these numbers Day 7 and Day 14 sprint reviews cannot be conducted. Do not attempt Porter IG pull again — the connector does not exist.
+**✅ RESOLVED 2026-06-30 — Porter IG IS connected.** The earlier "no IG connector" note was WRONG. Porter `instagram-insights` (account `17841425400478205`, `@ngearsafe`) is live — pull via `Porter__execute tool:porter-reporting:query_data` (`date_range:{preset:"last_30_days"}`). **Constraint: Free plan = last-30-days history only** (older ranges error → upgrade at portermetrics.com for deeper history). IC-004 (manual Riya pull) is obsolete — the agent pulls each cycle. The baseline above is the first real pull. The crisis it reveals: **saves ≈ 0 + reach at 1–3% of followers** → fix via the content-pillar mix + the 5s-hook/75%-value/share-payoff craft law (constitution). Do NOT use `get_trends` (TikTok-only) for IG.
 
 ## DATA PULL SCHEDULE
 - Daily: WebSearch India trends + Porter signal scan (the trend test).
@@ -48,7 +49,7 @@
 ## DEPENDENCIES / BLOCKERS
 - **Stock-before-demand:** CLEARED — Comm 2.0 + ES Lite confirmed in stock (CEO 2026-06-27). SafeBuds zero supply risk. ES OpenMax capped at 100-unit pre-order pool. ES Pro / Pro Mini deferred — no demand.
 - **Approval bottleneck (critical):** IC-005 has a 48hr window (post by Sat 28 Jun 7pm). IC-006 has a 3–5 day window. IC-003 is Wed 2 Jul. Recommend Meet/Riya action on IC-005 today + IC-007 (kill/revive IC-001 decision).
-- **Porter IG Insights CONFIRMED BLOCKED:** Porter has no Instagram organic connector. Do not retry. Riya to pull native IG Insights (May 21 – Jun 27) and paste into PERFORMANCE TARGETS above. IC-004 open.
+- **Porter IG Insights: ✅ LIVE (resolved 2026-06-30).** Connector `instagram-insights` works; agent pulls each cycle (free plan = 30-day window). IC-004 obsolete. See baseline table above.
 - **IC-005 product review required:** Hero frame generated (Higgsfield 227f09cc). Verify that the earphone hook in the generated image matches SafeBuds' actual form. If AI has rendered a generic hook shape, composite the real SafeBuds using safebudslife1.png before posting.
 - **IC-002 (Headphone Swap) dead end:** Trend confirmed past peak. Do not create assets.
 - **Facebook cross-posting:** Starting from IC-005, all posts go to both IG and FB simultaneously. Track engagement separately per platform and note any divergence in the sprint review.

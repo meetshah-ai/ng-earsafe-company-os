@@ -12,7 +12,9 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 
 ## IG/FB PERFORMANCE LEDGER (Porter-sourced)
 
-> Last attempted pull: 2026-06-27. Porter `get_trends` tool confirmed TikTok-only (`source_filters: platforms: ["tiktok"]`, total 0 for any Instagram query). No Instagram Insights / organic account data connector exists in Porter for @ngearsafe. The `facebook-ads:v25.0:insights.get` tool is scoped to paid ad accounts only, not organic page metrics. This section will be populated as soon as a human-authenticated Porter session or manual IG Insights export is completed (see IC-004 in APPROVALS_QUEUE).
+> **✅ Porter IG connector LIVE as of 2026-06-30** (`instagram-insights`, acct `17841425400478205`). Earlier "no connector" entries were WRONG — the agent now pulls each cycle via `Porter__execute tool:porter-reporting:query_data`. Free plan = last-30-days window only.
+>
+> **FIRST REAL PULL — 2026-06-30 (last 30d, May 31–Jun 29, 6 posts):** avg reach 284 (114–426 = 1–3% of 14k followers), **avg saves ≈ 0 (best post = 1 save)**, avg shares 2.2 (0–7), avg engagement 17. Best reach: Jun 8 Reel (426 reach / 602 plays / 7 shares / 0 saves). **THE FINDING: the account is suppressed because content earns ~0 saves and near-0 shares — the two signals that drive non-follower distribution.** Likes-only content (every post here) is invisible to the algorithm. This is the evidence base for the pivot to the content-pillar mix (reach/humor/education/product) + the 5s-hook/75%-value/share-payoff craft law. The new scoreboard is **saves + shares**, tracked every cycle off this pull.
 
 ### WHAT WORKED (confirmed patterns — from posted log + institutional memory, pre-launch data-gap period)
 
