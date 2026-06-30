@@ -47,7 +47,19 @@
 6. **Log** which trends were ridden / skipped and why, so the learning-log builds a sense of what trend-types convert for this brand.
 
 ### 5b. The content cycle (WAT): LEARN → PLAN → CREATE → REVIEW
-14-day calendar; each post = tribe + format + caption mode (1–5) + sell stage (1–4) + visual brief + Higgsfield prompt + target signal + hypothesis. One labelled experiment + one reactive slot per sprint. Day 7 + Day 14 review vs hypothesis → log → adjust.
+**Posting skeleton (updated CEO mandate 2026-06-27): 3 posts/week on BOTH Instagram AND Facebook (same content, dual-platform). Prior skeleton was 5x/week IG-only — superseded.**
+
+Posting days + slot assignment (standing skeleton, adjustable per sprint):
+
+| Day | Time (IST) | Primary tribe | Format type | Hypothesis axis | SKU eligible |
+|---|---|---|---|---|---|
+| **Saturday** | 7pm | B + D (night-owl, presence-seeker) | Reel — reactive/trend-ride | Trend-jacked reach: does riding a current moment beat non-trend baseline on saves + non-follower reach? | SafeBuds primary (zero supply risk); Comm 2.0 eligible (in stock) |
+| **Tuesday** | 8am | A + E (WFH, focused creator) | Reel — confessional/educational | Brand-awareness: does the confessional format earn Tribe A saves and profile visits? | SafeBuds primary; Comm 2.0 may be named in caption |
+| **Wednesday** | 8am | A + E (WFH, focused creator) | Carousel — educational | Saves-threshold: does educational carousel hit 20+ saves and trigger secondary distribution? | SafeBuds primary; Comm 2.0 in CTA once stock confirmed per post |
+
+Each post = tribe + format + caption mode (1–5) + sell stage (1–4) + visual brief + Higgsfield prompt + target signal + hypothesis. One labelled experiment per sprint. One reactive slot (replaces Saturday Reel when a fresh trend hits). Day 7 + Day 14 review vs hypothesis → log → adjust.
+
+Facebook note: all three slots post to Facebook simultaneously (same creative, same caption). Track IG vs FB reach/engagement separately in the porter pull to identify any format divergence.
 
 ### 5c. Templates
 - **Caption modes:** Observer / Nudge / Scene / Wit / Declaration. Hinglish is natural for Wit. Write native registers — never translate.

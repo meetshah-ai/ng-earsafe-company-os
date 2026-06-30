@@ -1,0 +1,48 @@
+{
+  "name": "NG EarSafe — IG 24h Pre-Post Brief (Webhook Send)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ng-ig-24h-brief",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Brief Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "ng-ig-24h-brief"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Accepts JSON posted by the cloud routine: { subject, html, body, slot, postDateTime, deadline }\n// If 'html' is supplied, use it as-is. Otherwise wrap the plain-text 'body' in the NG branded shell.\nconst inp = $input.first().json.body ? $input.first().json.body : $input.first().json;\nconst subject = inp.subject || 'NG IG — 24h Pre-Post Brief';\nconst slot = inp.slot || '';\nconst postDateTime = inp.postDateTime || '';\nconst deadline = inp.deadline || '';\nlet html = inp.html;\nif (!html) {\n  const safe = (inp.body || '').replace(/\\n/g, '<br>');\n  html = `<!DOCTYPE html><html><body style=\"font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f5f5f5;margin:0;padding:20px;\">\n  <div style=\"max-width:640px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);\">\n    <div style=\"background:#102442;padding:24px 28px;\">\n      <h1 style=\"color:#fff;margin:0;font-size:19px;font-weight:700;\">NG Instagram — 24h Pre-Post Brief</h1>\n      <p style=\"color:#7eb3d4;margin:4px 0 0;font-size:13px;\">${slot}${postDateTime ? ' · posts ' + postDateTime : ''}</p>\n    </div>\n    <div style=\"padding:24px 28px;color:#1a1a1a;font-size:14px;line-height:1.6;\">${safe}</div>\n    <div style=\"background:#f8fafc;padding:14px 28px;text-align:center;\">\n      <p style=\"color:#999;font-size:11px;margin:0;\">Auto-brief by the NG instagram-content agent · Chief-of-Staff audited · decision needed by ${deadline || 'the stated deadline'}</p>\n    </div>\n  </div></body></html>`;\n}\nreturn [{ json: { subject, html } }];"
+      },
+      "id": "build-html",
+      "name": "Build Email HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "sendTo": "meetshah@ngearsafe.com, riyashah@ngearsafe.com",
+        "subject": "={{ $json.subject }}",
+        "emailType": "html",
+        "message": "={{ $json.html }}",
+        "options": {}
+      },
+      "id": "send-email",
+      "name": "Send Brief to Meet + Riya",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [720, 300]
+    }
+  ],
+  "connections": {
+    "Brief Webhook": { "main": [[{ "node": "Build Email HTML", "type": "main", "index": 0 }]] },
+    "Build Email HTML": { "main": [[{ "node": "Send Brief to Meet + Riya", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

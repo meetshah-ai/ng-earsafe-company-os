@@ -2,6 +2,12 @@
 
 This folder is the operating system for NG EarSafe as an AI-first company. Each department runs as a specialized, auto-learning Claude Code agent; humans intervene only at approval points. This README explains how the pieces fit.
 
+> **Launch point:** open the project at the **git root (`…/Claude Team/`)**, never inside `Company_OS/`. Every read-order path is git-root-relative; launching inside `Company_OS/` breaks them. A `SessionStart` guard hook warns you if the cwd is wrong.
+>
+> **Required MCP connectors** (the loops assume these are connected in the running environment — they are claude.ai account connectors, not declared in-repo): **Windsor.ai** (GA4/Meta/Google Ads/GSC/Shopify metrics), **Porter** (IG insights), **Shopify**, **Meta Ads**, **Google Drive** (assets). Without them the read steps degrade to "data unavailable — flag it." See `COMPANY_STATE.md` §7.
+>
+> **Observability:** every run is traced to `Company_OS/_observability/`; run `/trace-view` after a run to see a flowchart + verdict proving the agent booted right, read the map in order, stayed read-only, the gate held, and actions were drafted.
+
 ---
 
 ## The shape

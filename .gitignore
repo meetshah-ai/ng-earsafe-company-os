@@ -33,3 +33,7 @@ CX Team/
 
 # Shopify theme export — not needed by the loops
 SafeBuds_Shopify/
+
+# Observability — raw event traces are ephemeral/noisy. The tooling (log.sh,
+# expected.json, README, the /trace-view command) IS committed; the traces are not.
+Company_OS/_observability/trace-*.jsonl

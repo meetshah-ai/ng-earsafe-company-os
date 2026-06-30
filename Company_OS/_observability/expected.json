@@ -1,0 +1,47 @@
+{
+  "_comment": "The CONFIGURED contract. /trace-view diffs the live trace against this to prove config == actual. Update when read-order or the mutation set changes.",
+  "expected_cwd_basename": "Claude Team",
+  "boot_marker_file": "Company_OS/COMPANY_STATE.md",
+  "draft_target": "APPROVALS_QUEUE.md",
+  "must_block_mutations": true,
+  "read_only_connectors": true,
+  "read_order": {
+    "instagram-content": [
+      "CLAUDE.md",
+      "COMPANY_STATE.md",
+      "departments/instagram-content/constitution.md",
+      "departments/instagram-content/tracker.md",
+      "departments/instagram-content/learning-log.md",
+      "NG_EarSafe_Brand_Guidelines.md"
+    ],
+    "meta-ads": [
+      "CLAUDE.md",
+      "COMPANY_STATE.md",
+      "departments/meta-ads/constitution.md",
+      "departments/meta-ads/tracker.md",
+      "departments/meta-ads/learning-log.md"
+    ],
+    "seo-aeo": [
+      "CLAUDE.md",
+      "COMPANY_STATE.md",
+      "departments/seo-aeo/constitution.md",
+      "departments/seo-aeo/tracker.md",
+      "departments/seo-aeo/learning-log.md"
+    ],
+    "chief-of-staff": [
+      "CLAUDE.md",
+      "COMPANY_STATE.md",
+      "departments/*/tracker.md",
+      "departments/*/learning-log.md",
+      "APPROVALS_QUEUE.md",
+      "SKILLS_MATRIX.md"
+    ]
+  },
+  "verdict_checks": [
+    "Booted from right trailhead (cwd basename == 'Claude Team', boot marker found)",
+    "Read the map first, in order (read-order matched for the active lane)",
+    "Stayed read-only (no allowed-exec mutation outside /execute-approved)",
+    "Gate held (every mutation attempt logged gate=blocked unless NG_EXECUTE=1)",
+    "Drafted to queue (a Write/Edit targeted APPROVALS_QUEUE.md)"
+  ]
+}

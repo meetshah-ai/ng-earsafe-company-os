@@ -1,13 +1,63 @@
 {
-  "$comment": "NG EarSafe AI-first operating spine. The PreToolUse hook is the technical backbone of the draft-everything policy: every live-mutation tool is denied unless NG_EXECUTE=1, which only the /execute-approved command sets. Department agents and the orchestrator draft to Company_OS/APPROVALS_QUEUE.md; nothing goes live until a human approves and runs /execute-approved.",
+  "$comment": "NG EarSafe AI-first operating spine. Three hook jobs: (1) the PreToolUse APPROVAL GATE (Company_OS/_observability/approval_gate.py) denies every live-mutation tool unless NG_EXECUTE=1 (only /execute-approved sets it) — the primary defense is each agent's read-only tool allowlist; this hook is the secondary net. The ONE exception: Porter misroutes the read-only analytics call query_data through the Porter__execute dispatcher, so the gate inspects the inner tool_id and lets exactly that read through (so agents can pull deep analytics in scheduled runs) while still blocking every real Porter/Shopify/Meta/Gmail/Canva/Drive mutation. (2) the SessionStart GUARD warns if you launched from the wrong directory (must be the git root, not inside Company_OS/). (3) the OBSERVABILITY logger (Company_OS/_observability/log.sh) records every event to a trace so /trace-view can prove config==actual. The logger always exits 0 and never blocks anything.",
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "mcp__claude_ai_(Shopify__(graphql_mutation|create-product|update-product|bulk-update-product-status|create-collection|update-collection|add-to-collection|set-inventory|create-discount|claim-storefront-preview)|Meta_Ads__ads_(create_.*|update_.*|activate_entity|boost_ig_post|delete_.*|catalog_create.*|pixel_.*|experiment_.*)|Gmail__create_draft|Windsor_ai__execute_action|Porter__execute|Canva__publish-brand-template)",
+        "matcher": "mcp__claude_ai_(Shopify__(graphql_mutation|create-product|update-product|bulk-update-product-status|create-collection|update-collection|add-to-collection|set-inventory|create-discount|claim-storefront-preview)|Meta_Ads__ads_(create_.*|update_.*|activate_entity|boost_ig_post|delete_.*|catalog_create.*|pixel_.*|experiment_.*)|Windsor_ai__execute_action|Porter__execute|Gmail__(create_draft|create_label|update_label|delete_label|label_message|label_thread|unlabel_message|unlabel_thread)|Canva__(publish-brand-template|commit-editing-transaction|create-design-from-candidate|create-design-from-brand-template|create-folder|create-brand-template-draft|move-item-to-folder)|Google_Drive__(create_file|copy_file))",
         "hooks": [
           {
             "type": "command",
-            "command": "if [ \"$NG_EXECUTE\" = \"1\" ]; then exit 0; else echo 'BLOCKED by NG EarSafe approval gate: live mutations only run via /execute-approved (NG_EXECUTE=1). Draft this action to Company_OS/APPROVALS_QUEUE.md instead, then have a human approve it.' >&2; exit 2; fi"
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/Company_OS/_observability/approval_gate.py\""
+          }
+        ]
+      },
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/Company_OS/_observability/log.sh\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/Company_OS/_observability/log.sh\""
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/Company_OS/_observability/log.sh\""
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/Company_OS/_observability/log.sh\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/Company_OS/_observability/log.sh\""
           }
         ]
       }
@@ -17,7 +67,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo 'NG EarSafe AI-first OS active. Read order: Company_OS/COMPANY_STATE.md -> the relevant departments/<dept>/ triad -> draft to APPROVALS_QUEUE.md. No live writes outside /execute-approved.'"
+            "command": "if [ ! -f \"Company_OS/COMPANY_STATE.md\" ]; then echo '⚠️  NG EarSafe: launch from the GIT ROOT (…/Claude Team), not inside Company_OS/. Company_OS/COMPANY_STATE.md was not found from this directory — the read-order paths in CLAUDE.md and the agents will break.' >&2; else echo 'NG EarSafe AI-first OS active. Read order: CLAUDE.md -> Company_OS/COMPANY_STATE.md -> the relevant departments/<dept>/ triad -> draft to APPROVALS_QUEUE.md. No live writes outside /execute-approved.'; fi"
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/Company_OS/_observability/log.sh\""
           }
         ]
       }
