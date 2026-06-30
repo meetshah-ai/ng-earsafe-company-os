@@ -12,7 +12,23 @@
 
 ---
 
-## SHOT-BY-SHOT — OpenArt prompts + text overlays
+## IMAGE PROMPTS (generate the base still first, then animate with the matching motion prompt below)
+
+> Workflow: text-to-image → pick the best still → image-to-video using that still + the Shot's motion prompt. Paste the **CHARACTER + SET block** into every image prompt so the same man and room appear in all four frames. Append to each: `photorealistic, shot on smartphone, 9:16 vertical, natural warm lighting, candid home-video realism, 35mm look, slight grain` and the negative prompt above.
+
+**CHARACTER + SET (reuse verbatim every time):** *A 30-year-old Indian man — short wavy black hair, light stubble, warm brown skin, faded olive-green crew-neck t-shirt — at a cluttered work-from-home desk: open laptop showing a video-call grid, a coffee mug, scattered papers, a small plant; warm afternoon light from a window behind him; lived-in middle-class Indian home.*
+
+- **Shot 1 still (hook):** [CHARACTER + SET] medium close-up, he sits upright and composed, leaning slightly toward the laptop, one hand resting on the keyboard about to tap unmute, calm professional expression, the call grid glowing on his face.
+- **Shot 2 still (the mom):** [CHARACTER + SET] mid-sentence, mouth open, eyes wide in comedic horror; behind him a door is open and a ~55-year-old Indian woman in a salwar kameez leans in mid-shout; his hand jerks toward the laptop. Candid, caught-in-the-act framing.
+- **Shot 3 still (the stack):** [CHARACTER + SET] wider framing, overwhelmed, both hands flying toward the laptop to mute; in the background kitchen a steel pressure cooker steams, his phone lights up on the desk; panicked comedic expression, cluttered chaos.
+- **Shot 4 still (the defeat):** [CHARACTER + SET] he rests his forehead in one palm then looks up into the camera with a tired, defeated half-smile; behind him the laptop shows a grid of amused, surprised colleague faces. Intimate, relatable.
+- **(Optional) End-card background:** prefer **Canva** (flat deep-navy #102442). If you'd rather AI-generate it: *minimal flat deep-navy #102442 background, soft subtle gradient, empty center for text, no objects, no people.*
+
+**Consistency tip:** generate Shot 1 first; if your OpenArt model supports it, feed that image as the **character/reference image** (or img2img seed) for Shots 2–4 so his face and shirt stay identical.
+
+---
+
+## SHOT-BY-SHOT — motion/video prompts + text overlays
 
 ### SHOT 1 — HOOK (0:00–0:03)
 **OpenArt prompt:**
