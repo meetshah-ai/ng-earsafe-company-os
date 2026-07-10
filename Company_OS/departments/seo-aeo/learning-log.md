@@ -143,6 +143,46 @@ All still pending approval in APPROVALS_QUEUE.md. No executed rows for SEO dept 
 
 ---
 
+### 2026-07-03 — Morning loop cycle 3: post-execution verification pull + Article 1 deadline check
+
+**Initiative:** First live GSC pull SINCE the 2026-07-01 execution of SEO-001/002/003/007/008. Window: last_28d (≈2026-06-05→2026-07-02) — only 1-2 days post-execution fall inside this window, so this is a verification pull, NOT a valid 30-day result read. Also pulled GA4 organic channel data and re-ran competitor SERP + product-schema checks.
+
+**CONFIRMED — the 5 executed rewrites are LIVE on-site (verified directly, not just per DECISION_LOG):**
+| Page | Title tag confirmed live | FAQ Q&As visible |
+|---|---|---|
+| bone-conduction-headphones-side-effects (SEO-002) | "Bone Conduction Side Effects India 2026 — What's Actually Safe" — CONFIRMED via WebFetch | 7 visible (8th referenced) |
+| best-noise-canceling-headset-for-wfh (SEO-004, still NOT executed) | "Best Headset for Work From Home India 2026 — Open Ear vs Noise Cancelling" — confirms DECISION_LOG note this changed independently of our approval | H1 still stale: "Best Noise-Canceling Microphone Headset for Working from Home" (mismatch) |
+
+**CAUTION — FAQPage JSON-LD schema NOT independently confirmed by WebFetch** on bone-conduction-side-effects despite DECISION_LOG SEO-002 claiming "verified live." This is most likely a WebFetch/markdown-conversion artifact (script tags are commonly stripped when HTML→markdown converts) rather than proof the schema is missing — but it must be confirmed with an actual Rich Results Test before trusting AEO eligibility. Action: run Rich Results Test on all 3 schema pages (open-ear-vs-in-ear, bone-conduction-side-effects, vertigo) next session — read-only, no approval needed.
+
+**TOO EARLY — CTR/position movement on the 4 executed pages is noise-level at n=1-2 days, exactly as expected:**
+| Page | Cycle 2 (06-27) | Cycle 3 (07-03, post-exec) | Read |
+|---|---|---|---|
+| open-ear-vs-in-ear-vs-over-ear (SEO-001+003) | 21,401 impr / 18 clicks / 0.08% CTR / pos 6.48 | 20,528 impr / 18 clicks / 0.09% CTR / pos 6.15 | flat — too early |
+| bone-conduction-side-effects (SEO-002) | 7,495 impr / 32 clicks / 0.43% CTR / pos 10.63 | 7,069 impr / 23 clicks / 0.33% CTR / pos 10.77 | down, noise-level |
+| can-headphones-cause-vertigo (SEO-007) | 21,869 impr / 361 clicks / 1.65% CTR / pos 5.59 | 20,900 impr / 368 clicks / 1.76% CTR / pos 5.65 | slightly up — encouraging but not yet significant |
+| side-effects-of-headphones-on-brain (SEO-008) | 13,124 impr / 122 clicks / 0.93% CTR / pos 6.27 | 11,349 impr / 87 clicks / 0.77% CTR / pos 5.92 | down, noise-level |
+**Do not credit or reject the SH-SEO-1/SH-SEO-2 hypotheses yet.** First valid read: ~2026-07-31 (30 days post-execution).
+
+**NEW SIGNAL — SEO-004 (halted, not executed) page has gotten WORSE since cycle 2:** position dropped from pos 4.06 (top-5) to pos 5.36, CTR from 0.17% to 0.13%, impressions down 2,873→2,287. The independently-live title ("Best Headset for Work From Home India 2026 — Open Ear vs Noise Cancelling") has NOT fixed the CTR-disease and the H1 is stale/mismatched. Re-queued as SEO-012 for a decision: harmonize meta + H1 + add FAQ schema now rather than waiting for Article 4 (Jul 28).
+
+**CONFIRMED — non-branded CTR read (new direct calculation, first of its kind this cycle):** Site-wide 28d totals: 337,525 impressions, 3,828 clicks, 1.13% overall CTR, avg pos 7.95 (Windsor searchconsole aggregate pull). Branded query set (all queries containing "earsafe"): ~4,287 impressions, ~789 clicks, ~18.4% CTR. Non-branded (site total minus branded): ~333,238 impressions, ~3,039 clicks, **~0.91% non-branded CTR** — up from the 0.48% Jun 1 baseline. CAVEAT: this is a different measurement method than the baseline (direct query-string filter on "earsafe" substring, vs whatever classification produced the 0.48% baseline number) and a different/shifted 28-day window — treat as a fresh anchor point for future cycles, not a confirmed 2× lift. Organic clicks are also up: ~3,828/28d vs ~1,963/month baseline — same caveat applies, but directionally consistent with a genuine improvement, not just noise.
+
+**FLAG — GA4 organic revenue vs GSC click volume mismatch (data-integrity concern, not an SEO on-page finding):** GA4 `googleanalytics4` pull, last 28d: Organic Search = 5,389 sessions, ₹1,74,428.80 revenue, 64 transactions. This is far below the ₹7.5L/month baseline and even below the 30-day target of ₹9.5L — a ~77% shortfall. But GSC clicks are UP over the same period (3,828 vs ~1,963 baseline), which is inconsistent with a genuine organic revenue collapse. Combined with the previously-confirmed broken UTM tracking (138× Meta/GA4 discrepancy, `[[ng-product-page-cro]]`), this reads like an attribution/measurement problem, not a real organic-demand drop. Flagged as SEO-009 for CFO/CRO cross-check — do not act on the ₹1.74L figure as if it were real until reconciled.
+
+**CONFIRMED — competitor/AEO gap unchanged:**
+- "best open ear headphones india 2026" web search: NG EarSafe absent from all 10 results (Smartprix, TheAudioStore, Digit.in, Amazon, Dailyhunt/Mashable, TheQuint, TechRadar, Yahoo Tech). Same gap as cycles 1-2.
+- bestreviewsonline.in/open-ear-headphones (checked again 2026-07-03): top 10 = pTron ×4, WeCool ×2, Truke, King Lucky, Acer, Drumstone — NG EarSafe still not mentioned anywhere on page. Gap persists, unchanged from cycle 2.
+- "bone conduction headphones side effects india" web search: NG's page NOW appears in organic web results (3rd link) — but Google's cached snippet still shows the OLD title ("Bone Conduction Headphones Side Effects — What's Real and What's Not"), confirming Google has not yet recrawled the 07-01 change. Expected lag, not a problem.
+
+**NEW SIGNAL — P1-5 (product schema) data now complete enough to draft:** Comm 2.0 = 49 reviews, ₹3,499 (live price, matches COMPANY_STATE); SafeBuds (`/products/ngwehear`, NOT `/products/open-ear-earbuds-wireless-ng-ear-safe-buds` which is a different/legacy NG Buds SKU at ₹3,499) = 38 reviews, 4.3★, ₹2,999 (matches COMPANY_STATE); Pro = 119 reviews. None show confirmed AggregateRating/Offers JSON-LD via WebFetch (same script-tag caveat as above). Queued as SEO-011.
+
+**NEW SIGNAL — Article 1 (SEO-006) deadline risk:** `Q3_2026_Content_Calendar_Automation.md` confirms Article 1 status is still `BRIEF_READY` with publish date 2026-07-07 — 4 days away — and no evidence of writer progress (no DRAFT_READY transition). Flagged as SEO-010.
+
+**Next sprint change triggered:** SEO-009 (GA4/GSC data-integrity flag), SEO-010 (Article 1 deadline flag), SEO-011 (product schema draft), SEO-012 (SEO-004 re-harmonization). SEO-001/002/003/007/008 remain in PENDING-READ status (30-day read due ~2026-07-31). SEO-005 (earplug) still awaiting founder decision — "do earplugs work" still at pos 2.46, 1,817 impr, 0 clicks, confirms the drag is unchanged.
+
+---
+
 ## SCALE HYPOTHESIS BACKLOG (per COMPANY_STATE §5.5 — test → validate → scale)
 
 > Falsifiable bets on what wins clicks + AEO citations. Scale bar: non-branded CTR + position trend up on the target cluster, AEO citation captured. A confirmed pattern gets rolled across the cluster; a rejected one is retired.

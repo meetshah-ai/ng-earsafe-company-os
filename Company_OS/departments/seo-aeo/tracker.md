@@ -1,7 +1,15 @@
 # SEO & AEO — Live Task Tracker
 
 > Read at the start of every SEO session to resume instantly. After a task: update status + result. Each 30-day cycle: archive completed into `learning-log.md` and reset.
-> Last updated: 2026-06-25 (seeded from `[[ng-seo-aeo-task-tracker]]`, `[[ng-seo-aeo-baseline]]`)
+> Last updated: 2026-07-03 (morning loop cycle 3 — post-execution verification pull)
+
+## LIVE STATUS SNAPSHOT (2026-07-03)
+- SEO-001, SEO-002, SEO-003, SEO-007, SEO-008 — **EXECUTED 2026-07-01**, verified live on-site (title tags confirmed via direct WebFetch). Too early to read CTR/position impact (1-2 days old). **First valid 30-day read: 2026-07-31.**
+- SEO-004 — still NOT executed (halted at /execute-approved — live title already independently changed). Position has WORSENED since (pos 4.06→5.36, dropped out of top-5). Re-queued as SEO-012 for a harmonization decision.
+- SEO-005 (earplug consolidation) — still PENDING founder decision. "do earplugs work" still pos 2.46, 0 clicks — drag confirmed unchanged.
+- SEO-006 (Article 1) — still `BRIEF_READY` in the Q3 calendar file, publish date 2026-07-07 is 4 days out, no writer progress visible. Flagged SEO-010.
+- FAQPage schema on the 3 executed pages could not be independently confirmed by WebFetch (likely a script-tag/markdown-conversion limitation, not proof of absence) — needs a Rich Results Test next session.
+- New: non-branded CTR direct-calculated at ~0.91% (28d, methodology differs slightly from the 0.48% baseline — new anchor point, not a confirmed 2x). GSC clicks up (~3,828/28d vs ~1,963/mo baseline) but GA4 organic revenue down (₹1.74L/28d vs ₹7.5L/mo baseline) — flagged as a likely attribution/data-integrity issue (SEO-009), not a real demand drop.
 
 ## PRIORITY SYSTEM
 - **P0** — this week (no new content until P0s clear). **P1** — this month. **P2** — 30–60 days. **P3** — 60–90 days / new clusters.
@@ -33,6 +41,11 @@
 | Q3 Article 1 writer assignment (publish Jul 7) | SEO-006 | approval |
 | Rewrite title/meta + add FAQSchema: can-headphones-cause-vertigo (21,869 impressions, 1.65% CTR, pos 5.59 — highest-click blog; CTR uplift to 3% = +290 clicks/mo) | SEO-007 | approval |
 | Rewrite title/meta: side-effects-of-headphones-on-brain (13,124 impressions, 0.93% CTR, pos 6.27) | SEO-008 | approval |
+| FLAG — GA4 organic revenue (₹1.74L/28d) vs GSC click volume (up) mismatch — data-integrity cross-check | SEO-009 | CFO/CRO review |
+| FLAG — Article 1 still BRIEF_READY, publish 2026-07-07 in 4 days, no writer progress | SEO-010 | founder/writer-resourcing decision |
+| Product schema (AggregateRating/Offers/Availability): Comm 2.0 (49 rev), SafeBuds/ngwehear (38 rev, 4.3★), Pro (119 rev), ES Lite | SEO-011 | approval |
+| Re-harmonize SEO-004 (WFH page): meta + H1 alignment + FAQ schema — position dropped 4.06→5.36 since halt | SEO-012 | approval |
+| OpenWire LP SEO/AEO package DRAFTED (Jul 9): keyword-tuned title/meta/H1 ("open ear wired earphones with mic", Type-C/USB-C, ear-health, clip-fit clusters from live GSC 90d pull), 7-Q FAQPage JSON-LD, Product JSON-LD (live price/availability, conditional aggregateRating), Judge.me widget. Files: `OpenWire_Shopify/`. Goes live with OW-001. Post-live: Rich Results Test + GSC indexing request. NOTE: collection `/collections/wired-open-ear-headphones` (648 clicks/90d, pos 3.2 on "open ear wired earphones") is the cluster's ranking asset — LP complements, must not replace it. FLAG: possible duplicate PDP `/products/ng-earsafe-openwire` vs ranking `/products/open-ear-headphones-wired-ng-earsafe` — check & 301 if duplicate | OW-001 | approval |
 
 ## PERFORMANCE TARGETS (baseline Jun 1 2026)
 | Metric | Baseline | 30-day | 60-day | 90-day |

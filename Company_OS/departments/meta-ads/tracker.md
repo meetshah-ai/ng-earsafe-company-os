@@ -1,7 +1,7 @@
 # Meta Ads — Live Task Tracker
 
 > Read at the start of every session. After a task: update status + result. Each 30-day cycle: archive completed into `learning-log.md`.
-> Last updated: 2026-06-27 (Cycle 3 — weekly re-analysis + mandate update + test matrix seeded)
+> Last updated: 2026-07-03 (morning-loop cycle 4 — WoW read 7d Jun26-Jul2 vs Jun19-25; MA-004 scale confirmed working; MA-009 campaign found dark/paused despite "DONE" decision-log status; Retargeting freq now 2.89× — past gate; new ES Pro test campaign found active on deferred SKU)
 
 ## PRIORITY SYSTEM
 - **P0** — this week. **P1** — this month. **P2** — 30–60 days. **P3** — experiments.
@@ -18,41 +18,66 @@
 
 ---
 
-## CURRENT SPRINT — Sprint 2, seeded 2026-06-27 (mandate update cycle)
+## CURRENT SPRINT — Sprint 2, seeded 2026-06-27 (mandate update cycle) — updated 2026-07-03 cycle 4
+
 | # | Task | Target | Expected impact | Status | Result |
 |---|---|---|---|---|---|
-| P0-1 | Execute MA-001 (kill SafeBuds Unboxing) — still pending approval | Pending human approval | Stop spend on pool-exhausted creative | PENDING APPROVAL | — |
-| P0-2 | Execute MA-002 (kill Comm Unboxing Reel) — still pending approval | Pending human approval | Stop spend on freq-breached creative | PENDING APPROVAL | — |
-| P0-3 | Execute MA-007 (kill Retargeting campaign) — still pending approval | Pending human approval | Stop ₹691 CPP bleed | PENDING APPROVAL — weekly data shows freq now 2.50×; retargeting ROAS improved to 20.12× in 7d but reach only 4,317 — pool still exhausted, confirm kill | — |
-| P0-4 | MA-010 recheck — ES Pro "3D All Feature-Pro" spend after CEO-confirmed pause | Verify zero spend in 7d | Confirm EBITDA discipline restored | DONE — confirmed below | 7d: campaign status = PAUSED. Spend ₹1,732 in 7d is from BEFORE the pause decision took effect within that window. The campaign (id 6991972011216) shows PAUSED status on 7d pull. Trend is to zero. VERIFIED — spending is stopping. |
-| P0-5 | MA-009 recheck — LAL 1% (id 52576570206220) after CEO concern about performance | Confirm/revise weekly verdict | Understand if audience or creative problem | DONE — confirmed below | PAUSED at campaign level. Zero 7d spend. Full teardown in learning-log cycle 3. |
-| P0-6 | New: scale MA-004 (Techopedia SafeBuds) — ROAS 12.19× in 7d, freq 1.56× | +20% budget step | +~22 purchases at CPP ~₹333/week | PENDING APPROVAL (MA-004) | Comm 2.0 stock now cleared; SafeBuds unaffected |
-| P0-7 | Launch Test EXP-001 (see test matrix) — new review-format Comm 2.0 creative vs decaying Custom Reel | MA-006 creative brief pending production | Creative swap + ROAS recovery above 8× | BLOCKED — creative not yet produced | Creative brief MA-006 in queue |
-| P1-1 | Brief + produce SafeBuds rotation creative (MA-005) | — | Rotation pipeline before Techopedia hits 2.5× freq | PENDING APPROVAL | 7d freq = 1.56×; ~3–4 weeks of runway before gate at current pace |
-| P1-2 | Brief + produce Comm 2.0 rotation creative (MA-006) | — | Replace Custom Reel before ROAS falls further | PENDING APPROVAL | Custom Reel 7d ROAS 4.95× — below 8× bar; urgent |
-| P1-3 | Unblock and scale MA-009 LAL — but only with new creative, not the incumbent | Re-launch with EXP-001 creative once confirmed | Volume at CPP ≤₹201 ROAS ≥8× | BLOCKED — campaign paused + creative problem identified | Teardown: creative issue is confirmed (see learning-log cycle 3) |
-| P2-1 | EXP-002: Broad audience test — same winning creative on broad vs LAL 1% | 7-day read | Validate Meta Andromeda signal theory (2026 trend) | OPEN (see test matrix) | — |
-| P2-2 | EXP-003: ES Lite review-style Reel — reactivate the 3D Feature-Lite angle with updated hook | — | Unlock Lite revenue now stock cleared | OPEN (see test matrix) | — |
+| P0-1 | MA-001/002 (Unboxing reel kills) — founder "held — pause none for now" 2026-06-30, i.e. not executed via approval | — | Stop spend on pool-exhausted creative | RESOLVED BY OTHER MEANS | 7d pull shows both ads now ADSET_PAUSED/PAUSED with only residual spend (₹1,072 / ₹530, both declining). Outcome achieved without a logged approval — governance gap, not a spend risk. Not re-flagging. |
+| P0-2 | (merged into P0-1) | — | — | — | — |
+| P0-3 | MA-007 (kill Retargeting campaign) — held 2026-06-30 | Pending human decision | Stop CPP bleed / frequency breach | **RE-FLAGGED — WORSE, not better (MA-017)** | 7d freq climbed 2.50×→**2.89×** (past gate). Reach barely grew (4,317→5,278) while freq rose — pool exhaustion, not recovery. 2 new remarketing carousel ads were added into THIS SAME campaign 2026-07-01/02 — does not reset frequency (audience-level metric). |
+| P0-4 | MA-010 recheck — ES Pro "3D All Feature-Pro" spend after CEO-confirmed pause | Verify zero spend in 7d | Confirm EBITDA discipline restored | TRENDING TO ZERO — confirm next cycle | 7d spend ₹318 (down from ₹1,732 prior week, ₹9,488/30d before pause). Clean decay: 9,488→1,732→318. One more week should read ₹0. **BUT:** new ES Pro campaign "Test – ES Pro OutDoor Audience" (6980755504416) found ACTIVE — zero delivery this week but a stock-gate violation risk (MA-019). |
+| P0-5 | MA-009 recheck — Comm LAL (id 52576570206220), approved+"executed" 2026-06-30 (₹750/day + audience change) | Confirm scale is running | Volume at CPP ≤₹201, ROAS ≥8× | **BROKEN — campaign is PAUSED, zero 7d delivery (MA-018)** | Decision log says DONE/executed 2026-06-30. One week later: campaign-level pull shows PAUSED, no spend/reach data. Contradiction — needs founder clarification on what happened. |
+| P0-6 | MA-004 scale (Techopedia SafeBuds, ₹2,500/day) — approved+executed 2026-06-30 | Hold ROAS while scaling | +volume at CPP ≤₹380 | **CONFIRMED WORKING — clean win** | 7d spend ₹9,308→₹12,546 (+35%); CPP ₹343→₹210 (-39%); ROAS 12.40×→14.32×; freq eased 1.56×→1.33×. Textbook scale-at-improving-ROAS. Hold before next step — 7-day read completes ~2026-07-07 (per CSO-003). |
+| P0-7 | Comm 2.0 rotation creative (EXP-001 / MA-006) — brief rejected 2026-06-30 for being too basic | — | Creative swap if Custom Reel keeps decaying | **DE-PRIORITIZED — Custom Reel self-recovered** | 7d ROAS 4.95×→**10.50×**, CPP ₹213→₹173, freq eased 1.77×→1.58×. Above 8× bar without any swap. Watch one more week before concluding real decay vs. noise. |
+| P1-1 | SafeBuds rotation creative (MA-005, brief rejected 2026-06-30) | — | Rotation pipeline before Techopedia hits 2.5× freq | **ALREADY LIVE — outside approval flow (MA-020)** | "Nobody Tech Safebuds Reel_30Jun26" (52607419046420) launched 2026-06-30, 7d spend ₹3,170, ROAS 8.56× already (small pool). Satisfies the rotation need organically but shipped without a queue draft. |
+| P1-2 | Comm 2.0 rotation creative (MA-006, rejected) | — | Replace Custom Reel before ROAS falls further | ON HOLD | See P0-7 — no longer urgent this cycle. |
+| P1-3 | Unblock Comm LAL (52576570206220) with correct creative mix | — | Volume at CPP ≤₹250, ROAS ≥8× | **STALLED — campaign is dark (see P0-5/MA-018)** | Creative-mix question is moot until the campaign is confirmed running again. |
+| P2-1 | EXP-002: Broad audience test (MA-013, rejected — insufficient analysis) | 7-day read | Validate Meta Andromeda signal theory | OPEN — not re-queued this cycle | Needs re-brief to BRIEF & TEST STANDARD; MA-021 (ES Lite) prioritized instead this cycle. |
+| P2-2 | EXP-003: ES Lite review-style Reel (MA-014, rejected — too basic) | — | Unlock Lite revenue now stock cleared | **RE-BRIEFED to full standard — MA-021** | Full hypothesis + single variable + audience + past-data signal + read plan structure applied. |
+| P0-8 | ES Lite relaunch — proven creatives × updated LAL (MA-022, drafted 2026-07-09) | ₹1,000/day, 7-day read | CPP ≤ ₹265, ROAS ≥ 8× | **BLOCKED on P0-9** | Lifetime pull: 3D Feature-Lite 10.19× ROAS is the anchor. Target audience needs to change — see P0-9: the "23 May 26" LAL turned out to be the same stale Nov-25 seed, not fresh. Do not launch MA-022 against the old audience id; wait for MA-023's new LAL. |
+| P0-9 | Rebuild ES Lite 1% LAL from fresh 365d purchaser list (MA-023, drafted 2026-07-09, founder-initiated) | 2 sequential Meta writes via /execute-approved | New LAL populated + delivering | **DRAFTED — pending approval** | Investigation found "Lookalike (1%) -Lite 23 May 26" derives from Custom Audience "litecust.csv" (created 2025-11-18) — cosmetically renamed/refreshed, not rebuilt. 966 of 1,247 lifetime-year ES Lite customers purchased AFTER that seed was frozen — current LAL is missing them. New seed + new LAL required. |
 
 ---
 
-## WEEKLY AD-LEVEL STATUS TABLE (as of 2026-06-27, 7d = Jun 20–26)
+## LIVE — REMARKETING CAROUSELS (launched live by founder 2026-07-02, NOT via /execute-approved)
 
-| Ad (id) | Creative type | 7d ROAS | 7d CPP | 7d Freq | 7d Reach | 30d ROAS | 30d CPP | Verdict |
+> Two 3-slide review-style carousels went live directly. Slide 1 = review wall, Slide 2 = trust badges (No Cost EMI / 7-Day Replacement / 1-Year Warranty), Slide 3 = brand credibility (since 2020, 1L+ customers, India's only open-ear D2C). These are now spending real money — log, monitor, and reconcile against the read plan below.
+>
+> **STRUCTURE CORRECTION (2026-07-03 pull):** these are NOT standalone campaigns as originally logged — they are two new ADS inside the existing Retargeting campaign (id 52563334980220): "Comm_Customer Review_Carousel_1 Jul 26" (id 52608762416620, launched Jul 1) and "Safebuds_Review Carousel_2 Jul 26" (id 52609007190020, launched Jul 2). This matters: they share the same audience pool as the already-fatigued Retargeting campaign (freq 2.89× this week, see MA-017) — they do not get a fresh pool of their own.
+
+| Ad (id) | Product | Campaign | Status | 7d spend | 7d reach | 7d freq | Notes |
+|---|---|---|---|---|---|---|---|
+| Comm_Customer Review_Carousel_1 Jul 26 (52608762416620) | Comm 2.0 | Retargeting (52563334980220) | ACTIVE | ₹28.93 | 160 | 1.14× | Too new for a ROAS read — "Not available." |
+| Safebuds_Review Carousel_2 Jul 26 (52609007190020) | SafeBuds | Retargeting (52563334980220) | ADSET_PAUSED | ₹67.10 | 314 | 1.29× | Too new for a ROAS read; adset already shows paused status. |
+
+**Read plan (first checkpoint 2026-07-09, 7-day read):**
+- **Scale line:** CPP ≤ ₹300 (SafeBuds) / ≤ ₹250 (Comm 2.0) AND ROAS ≥ 8× → step budget +20%.
+- **Hold line:** ROAS 5–8× → keep, rotate slide-1 review copy if CTR < 1%.
+- **Kill line:** ROAS < 5× OR frequency ≥ 2.5× by day 7 → pause (remarketing pools are small and saturate fast — watch frequency closely, this is the #1 risk).
+- **New risk surfaced 2026-07-03:** because these ads share the parent Retargeting campaign's audience pool (already at 2.89× frequency), the "kill line: freq ≥2.5×" is effectively already breached at the campaign level before these two carousels even get a clean individual read. The 2026-07-09 checkpoint should be read at the AD level (not just campaign level) to isolate whether the carousels are pulling fresh people from within the pool or just adding more impressions to already-fatigued viewers.
+- Remarketing carousels are objection-removal on warm intent, so expected ROAS should run HIGHER than cold prospecting — if it doesn't beat cold, the pool is too thin or the offer isn't the blocker.
+
+**MISSING for a clean read (please confirm):** exact daily budget per ad, whether 90D/180D are separate adsets or merged (ad-level data doesn't expose this), and which primary-text/headline variant went live. Without these the 2026-07-09 read is directional only.
+
+---
+
+## WEEKLY AD-LEVEL STATUS TABLE (as of 2026-07-03, 7d = Jun 26–Jul 2, prior 7d = Jun 19–25)
+
+| Ad (id) | Creative type | 7d ROAS | 7d CPP | 7d Freq | 7d Reach | Prior-wk ROAS | Prior-wk CPP | Verdict |
 |---|---|---|---|---|---|---|---|---|
-| Techopedia SafeBuds (52555562286020) | Review/explainer Reel | **12.19×** | ₹333 | 1.56× | 28,328 | 12.62× | ₹235* | HOLD + scale (MA-004) |
-| Custom Reel Comm (52561764556620) | Custom Reel — feature/demo | **4.95×** | ₹204 | 1.73× | 11,628 | 6.82× | ₹253 | BELOW 8× bar — swap (MA-003/MA-006 urgent) |
-| 3D All Feature-Pro (6991972011616) | 3D feature animation | 10.38× | ₹357 | 1.99× | 4,850 | 11.20× | ₹509 | CAMPAIGN PAUSED — CEO confirmed. Spend trending to zero. |
-| Comm Unboxing Reel (52566417321620) | Unboxing | 25.33× | ₹228 | 2.17× | 3,228 | 12.70×† | ₹449 | Kill still valid — small pool artifact (reach 3,228 only); 30d freq breach 3.63×. MA-002 pending. |
-| SafeBuds Unboxing Reel (52566437408420) | Unboxing | 14.96× | ₹368 | 2.20× | 1,626 | 7.53× | ₹845 | Kill still valid — pool exhausted (reach 1,626). MA-001 pending. |
-| Retargeting campaign (52563334980220) | Mixed | 20.12× | ₹318 | **2.50×** | 4,317 | 10.27× | ₹691 | Freq now AT the gate. 7d CPP improved to ₹318 but audience pool is tiny (reach 4,317). Kill (MA-007) still correct — pool will exhaust within days. |
-| LAL 1% campaign (52576570206220) | Mixed creative set | — | — | — | — | 8.08× | ₹201 | PAUSED — creative problem confirmed. Relaunch only with validated review-format creative. |
-| Influencer_Gadgetbhai LAL (52576570207020) | Influencer review | 9.85× (30d LAL) | ₹179 | 1.27× | 30,214 | — | — | Best performer in LAL campaign during active window — this is the reference creative for EXP-001 |
-| Influencer_Merged LAL (52576570207820) | Influencer review | 19.75× (30d LAL) | ₹96 | 1.05× | 1,753 | — | — | Highest ROAS in LAL set — tiny reach though; signal for merged-angle brief |
-| Custom Reel LAL (52576570206020) | Custom Reel | 5.82× (30d LAL) | ₹174 | 1.48× | 25,932 | — | — | Below 8× bar even in LAL set — confirms creative problem |
+| Techopedia SafeBuds Reel (52555562286020) | Review/explainer Reel | **14.32×** ▲ | **₹210** ▼ | 1.33× ▼ | 59,739 | 12.40× | ₹343 | CONFIRMED WORKING — MA-004 scale (₹2,500/day) is holding and improving. Hold before next step (7-day read completes ~Jul 7). |
+| Nobody Tech Safebuds Reel (52607419046420) — NEW | Review/explainer Reel | 8.56× | ₹326 | 1.45× | 9,726 | — (launched Jun 30) | — | New rotation creative, already live outside approval flow. Clears 8× bar early. Watch 7 more days (MA-020). |
+| Custom Reel Comm (52561764556620) | Custom Reel — feature/demo | **10.50×** ▲ | ₹173 ▼ | 1.58× ▼ | 13,110 | 4.95× | ₹213 | RECOVERED above 8× bar without a swap. De-prioritize MA-006 swap; watch one more week. |
+| Influencer_Merged_13Nov Comm (6966256876416) | Influencer review | 11.01× | ₹127 | 1.21× | 12,295 | 18.94× | — | Still well above bar; ROAS normalized down as spend scaled 4x — expected. |
+| Influencer_Gadgetbhai_13Nov Comm (6966216690416) | Influencer review | 15.66× | ₹414 | 1.17× | 544 | — | ₹365 | Small/shrinking pool (1,307→544 reach) — low spend, monitor for exhaustion. |
+| 3D All Feature-Pro (6991972011616) | 3D feature animation | 15.41× | ₹215 | 1.42× | 1,478 | 10.44× | ₹384 | CAMPAIGN_PAUSED. Spend ₹318 (down from ₹1,732) — trending cleanly to zero. |
+| Comm Unboxing Reel (52566417321620) | Unboxing | — | ₹188 | 2.28× | 2,817 | 29.57× | ₹216 | PAUSED. Residual spend only, declining. Outcome achieved without logged approval. |
+| SafeBuds Unboxing Reel (52566437408420) | Unboxing | 27.65× | ₹419 | 2.26× | 2,555 | 25.84× | ₹331 | ADSET_PAUSED. Residual spend only, declining. Outcome achieved without logged approval. |
+| Retargeting campaign (52563334980220) — full campaign incl. 2 new carousel ads | Mixed (incl. new review carousels) | 23.17× | — | **2.89×** ▲▲ | 5,278 | — (was 2.50× last cycle) | — | **PAST the 2.5× gate, worse than last week.** New carousel ads added into this same fatigued pool do not reset frequency. Re-flagged (MA-017). |
+| ES Comm 2 – LAL Max Conv (52576570206220) | Mixed creative set | — | — | — | — | — | — | **PAUSED, zero 7d delivery** — contradicts decision-log "DONE" status for MA-009 (scaled 2026-06-30). Flagged for clarification (MA-018). |
+| Test – ES Pro OutDoor Audience (6980755504416) — NEW, unflagged | Unknown (no creative data yet) | — | — | — | — | — | — | **ACTIVE status on a ⬛ Deferred SKU.** Zero delivery this week (not a spend risk yet) but a stock-gate violation if it starts spending. Flagged (MA-019). |
 
-*30d CPP for Techopedia SafeBuds — note: last month data shows ₹293 CPP, current 7d shows higher CPP of ₹333 suggesting slight cost increase. Monitor.
-†30d Comm Unboxing — 30d data from last_month pull shows ROAS 17.81×, CPP ₹255; the 30d CPP of ₹449 from cycle 1 may reflect an earlier window. In all cases the frequency breach at 3.63× (30d cycle 1 pull) governs the kill decision.
+**Blended Meta 7d spend (Windsor, `facebook` connector):** ≈₹30,892, 100 purchases, weighted ROAS ≈**9.81×** — well above the 5–6× KPI floor. Pace still modestly under the ~₹38,500/week needed for ₹5L/3mo, but MA-004's confirmed clean scale supports another step once the 7-day read completes.
 
 ---
 

@@ -2,8 +2,9 @@
 
 > Canonical company state. The orchestrator and every department agent read this first, each session, before acting. **This file is updated only via an approved decision** (see `DECISION_LOG.md`). If a department needs to change a fact here, it drafts the change to `APPROVALS_QUEUE.md` — it does not edit this file directly.
 >
-> Last updated: 2026-06-27 · Maintained by: Chief of Staff (orchestrator)
-> Latest change (2026-06-27, CEO decision — see `DECISION_LOG.md`): Comm 2.0 + ES Lite supply constraint **cleared** (now in stock); ES OpenMax moved to a 100-unit pre-order test; north-star pacing set to "as fast as possible while holding ROAS"; added §5.5 Hypothesis-Testing & Scale doctrine.
+> Last updated: 2026-06-30 · Maintained by: Chief of Staff (orchestrator)
+> Latest change (2026-06-30, CEO decision): **LinkedIn Content department registered** (§6) — B2B demand-gen + founder thought-leadership, twice-weekly auto-publish via an approved-buffer → n8n pipeline; added the `linkedin_organic` connector to §7.
+> Prior change (2026-06-27, CEO decision — see `DECISION_LOG.md`): Comm 2.0 + ES Lite supply constraint **cleared** (now in stock); ES OpenMax moved to a 100-unit pre-order test; north-star pacing set to "as fast as possible while holding ROAS"; added §5.5 Hypothesis-Testing & Scale doctrine.
 
 ---
 
@@ -112,6 +113,7 @@ Canonical detail lives in finance memories; this is the snapshot the orchestrato
 | **Meta Ads** | ROAS ≥ 8× (target band 8–12×), CPP at/under SKU floor, frequency < 2.5× | `departments/meta-ads/learning-log.md` |
 | **Instagram Content** | Saves/reach + profile-visit rate beating the format's prior baseline (proxy until paid attribution) | `departments/instagram-content/learning-log.md` |
 | **SEO / AEO** | Non-branded CTR + position trend up on the target cluster; AEO citation captured | `departments/seo-aeo/learning-log.md` |
+| **Amazon** | Blended Amazon Ads ROAS ≥ 15 (SC+VC revenue ÷ total ad spend), SKU inventory cover ≥ 3 weeks; campaign passes marginal-ROAS scale test (set by CEO 2026-07-08) | `departments/amazon/learning-log.md` |
 | **(future depts)** | Define the one metric the lever must hold, before any scale budget | their `learning-log.md` |
 
 **Rules:** (a) one hypothesis = one logged bet with a number; (b) no scale budget without a prior confirmed test; (c) every scaled lever has a standing ROAS watch and reverts to "test" on decay; (d) the orchestrator surfaces the cross-department test backlog every `/standup` and the per-department reads every `/morning-loop`.
@@ -139,6 +141,8 @@ Departments scaffolded into the spine. Each has a triad at `Company_OS/departmen
 | Instagram Content (organic social + daily trend test) | `instagram-content` | `.claude/agents/instagram-content.md` | 🟢 Live |
 | Meta Ads (competitor teardown + paid) | `meta-ads` | `.claude/agents/meta-ads.md` | 🟢 Live |
 | SEO / AEO | `seo-aeo` | `.claude/agents/seo-aeo.md` | 🟢 Live |
+| LinkedIn Content (B2B demand-gen + founder thought-leadership; twice-weekly auto-publish via approved buffer → n8n) | `linkedin-content` | `.claude/agents/linkedin-content.md` | 🟢 Live |
+| Amazon (SC + VC marketplace + Amazon Ads; mandate ₹35L/mo at blended ROAS ≥ 15 — CEO 2026-07-08) | `amazon` | `.claude/agents/amazon.md` | 🟢 Live |
 | Google Ads | `google-ads` | — | ⬜ Not yet scaffolded |
 | CRO / Product Pages | `cro` | — | ⬜ Not yet scaffolded |
 | CX / Support | `cx` | — | ⬜ Not yet scaffolded |
@@ -159,11 +163,15 @@ To add one: run `/new-department <slug>` and port the relevant existing role doc
 | Tool | Read use | Key IDs |
 |---|---|---|
 | **Windsor.ai** | Cross-channel metrics (GA4, Meta, Google Ads, GSC, Shopify) | — |
+| **Windsor.ai** `linkedin_organic` | LinkedIn organic — follower count, impressions, engagement, per-post (SHARE) performance | Acct/org `13379517` (NG EarSafe). Writes (publishing) are **not** via Windsor — they run through the gated n8n approved-buffer pipeline (`Automations/linkedin_twice_weekly_n8n.json`). |
 | **Porter** | Instagram Insights, marketing blends | — |
 | **Shopify MCP** | Products, orders, inventory, ShopifyQL | — |
 | **Meta Ads MCP** | Campaign/creative insights | Acct `2337775109995901` (NG SafeTech) |
 | **GA4** | Revenue / funnel | Property `299565498` (www.ngcorp.in) |
 | **Google Ads** | Campaign performance | Acct `508-958-3796` |
+| **Windsor.ai** `amazon_ads` | Amazon Ads SP/SB/SD campaign daily (cost, attributedsales14d — 14-day attribution window) | Accts `1452172411967063` (NG Corporation), `1498424255518113` (NG AMS). Connected 2026-07-08. |
+| **Windsor.ai** `amazon_sp` | Seller Central: sales_and_traffic (ordered rev/units, ~1-day lag), settlement, FBA inventory | Acct `A1R7VDIQ0BT3J7-IN` |
+| **Windsor.ai** `amazon_vendor` | Vendor Central: vendor_sales (ordered rev/units, ~3-day lag) | Acct `amzn1.vg.8998932-IN` |
 | **Google Drive** | Asset library | See `[[ng-gdrive-asset-library]]` |
 
 Writes (Shopify mutation, Meta create/update, Gmail send, Canva publish, IG post) are **denied in agent contexts** and only run via `/execute-approved`. See `../README.md`.
