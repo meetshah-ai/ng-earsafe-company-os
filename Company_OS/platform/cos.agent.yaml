@@ -1,5 +1,5 @@
 name: NG EarSafe — Chief of Staff
-model: claude-opus-4-8
+model: claude-sonnet-5
 
 description: >
   NG EarSafe orchestrator + senior growth advisor. Reads live commerce data and the Company_OS
