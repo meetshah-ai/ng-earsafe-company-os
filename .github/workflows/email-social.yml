@@ -1,0 +1,62 @@
+name: Email the daily content suggestions
+
+# Fires when the Social Content Strategist commits its daily suggestion file. Emails the IG +
+# LinkedIn ideas, trend radar and competitor note to Riya (social lead) + Meet, from Meet's own
+# Gmail. Suggestion only — nothing auto-posts. Reuses the same MAIL_USERNAME / MAIL_PASSWORD
+# secrets as the daily brief workflow.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Company_OS/social/**'
+
+jobs:
+  email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Find the suggestion file and build the email body
+        id: pick
+        run: |
+          set -euo pipefail
+          file=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- 'Company_OS/social/*.md' 2>/dev/null | tail -n1 || true)
+          if [ -z "${file:-}" ] || [ ! -f "$file" ]; then
+            file=$(ls -t Company_OS/social/*.md 2>/dev/null | head -n1 || true)
+          fi
+          if [ -z "${file:-}" ] || [ ! -f "$file" ]; then
+            echo "No suggestion file found; nothing to email."
+            echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          date=$(basename "$file" .md)
+          {
+            echo "NG EarSafe — content suggestions for ${date}."
+            echo "One Instagram idea and one LinkedIn idea, plus today's trend radar and a competitor note."
+            echo "Suggestion only — nothing is posted. Riya decides what ships."
+            echo ""
+            echo "========================================================================"
+            echo ""
+            cat "$file"
+          } > social_body.txt
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          echo "path=$file"  >> "$GITHUB_OUTPUT"
+          echo "date=$date"  >> "$GITHUB_OUTPUT"
+
+      - name: Send it
+        if: steps.pick.outputs.skip == 'false'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          from: NG EarSafe Social Strategist <${{ secrets.MAIL_USERNAME }}>
+          to: riyashah@ngearsafe.com, meetshah@ngearsafe.com
+          subject: "NG EarSafe — Daily Content Suggestions · ${{ steps.pick.outputs.date }}"
+          body: file://social_body.txt
+          attachments: ${{ steps.pick.outputs.path }}

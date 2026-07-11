@@ -1,0 +1,58 @@
+name: Post reports to Slack
+
+# When the CoS commits a commercial brief, or the Social agent commits content suggestions,
+# post it to Slack — a header, a readable excerpt, and a link to the full report on GitHub.
+# One-way (agent -> Slack). Replying in Slack does nothing yet; that needs a relay service.
+# Uses the same commit-triggers-a-workflow pattern as the email workflows.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Company_OS/briefs/**'
+      - 'Company_OS/social/**'
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Post the newest report to Slack
+        env:
+          SLACK_WEBHOOK_BRIEF: ${{ secrets.SLACK_WEBHOOK_BRIEF }}
+          SLACK_WEBHOOK_CONTENT: ${{ secrets.SLACK_WEBHOOK_CONTENT }}
+        run: |
+          set -euo pipefail
+          file=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- 'Company_OS/briefs/*.md' 'Company_OS/social/*.md' 2>/dev/null | tail -n1 || true)
+          if [ -z "${file:-}" ] || [ ! -f "$file" ]; then
+            file=$(ls -t Company_OS/briefs/*.md Company_OS/social/*.md 2>/dev/null | head -n1 || true)
+          fi
+          if [ -z "${file:-}" ] || [ ! -f "$file" ]; then
+            echo "No report to post."; exit 0
+          fi
+
+          # Route each report type to its own channel (its own webhook).
+          case "$file" in
+            *briefs*) title="📊 Daily Commercial Brief";    hook="$SLACK_WEBHOOK_BRIEF" ;;
+            *social*) title="📱 Daily Content Suggestions"; hook="$SLACK_WEBHOOK_CONTENT" ;;
+            *)        echo "Unknown report path; skipping."; exit 0 ;;
+          esac
+          if [ -z "${hook:-}" ]; then
+            echo "No webhook configured for this report type; skipping."; exit 0
+          fi
+          date=$(basename "$file" .md)
+          url="${{ github.server_url }}/${{ github.repository }}/blob/main/${file}"
+          excerpt=$(head -c 2500 "$file")
+
+          # jq builds the JSON so any characters in the excerpt are escaped safely.
+          jq -n --arg t "$title · $date" --arg e "$excerpt" --arg u "$url" '{
+            text: $t,
+            blocks: [
+              { type: "header",  text: { type: "plain_text", text: $t } },
+              { type: "section", text: { type: "mrkdwn", text: $e } },
+              { type: "section", text: { type: "mrkdwn", text: ("<" + $u + "|📎 Full report on GitHub>") } }
+            ]
+          }' | curl -sS -X POST -H 'Content-type: application/json' --data @- "$hook"

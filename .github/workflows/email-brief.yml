@@ -1,0 +1,60 @@
+name: Email the daily brief
+
+# Fires when the CoS agent commits a daily performance brief. Emails it to management
+# (Meet + Riya) from Meet's own Gmail over authenticated SMTP. Information only — no
+# approvals, no links to act on. The agent commits Company_OS/briefs/<D>.md; GitHub mails it.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Company_OS/briefs/**'
+
+jobs:
+  email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Find the brief and build the email body
+        id: brief
+        run: |
+          set -euo pipefail
+          file=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- 'Company_OS/briefs/*.md' 2>/dev/null | tail -n1 || true)
+          if [ -z "${file:-}" ] || [ ! -f "$file" ]; then
+            file=$(ls -t Company_OS/briefs/*.md 2>/dev/null | head -n1 || true)
+          fi
+          if [ -z "${file:-}" ] || [ ! -f "$file" ]; then
+            echo "No brief found; nothing to email."
+            echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          date=$(basename "$file" .md)
+          {
+            echo "NG EarSafe — daily performance brief for ${date}."
+            echo "Yesterday's numbers across Meta, Google, Amazon and the website. Information only."
+            echo ""
+            echo "========================================================================"
+            echo ""
+            cat "$file"
+          } > email_body.txt
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          echo "path=$file"  >> "$GITHUB_OUTPUT"
+          echo "date=$date"  >> "$GITHUB_OUTPUT"
+
+      - name: Send it
+        if: steps.brief.outputs.skip == 'false'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          from: NG EarSafe Chief of Staff <${{ secrets.MAIL_USERNAME }}>
+          to: meetshah@ngearsafe.com, riyashah@ngearsafe.com
+          subject: "NG EarSafe — Daily Performance Brief · ${{ steps.brief.outputs.date }}"
+          body: file://email_body.txt
+          attachments: ${{ steps.brief.outputs.path }}
