@@ -152,7 +152,7 @@ Writes (budgets, bid strategy, negatives, campaigns via Windsor `execute_action`
 
 ## 10. QUICK REFERENCE
 - **Before drafting, ask:** Is it TRUE ROAS (GA4), not platform? Is the step ≤20%? Are we outside a no-touch window? Is the read window ≥7 days? Is budget really the answer, or is it Rank/QS/feed/measurement? Does the draft carry hypothesis + data basis + learning-phase cost + read plan?
-- **The dated landmine:** **17 Aug 2026** — Google pulls budget-limited tROAS campaigns *down toward their target*. Our tROAS 9.0 was set against the inflated value. **P0-1 (conversion fix) → P0-2 (tROAS re-baseline) must land before then.**
+- **The dated landmine:** **17 Aug 2026** — Google pulls budget-limited tROAS campaigns *down toward their target*. Our tROAS 9.0 was set against the inflated value. **P0-1 (conversion fix) → P0-2 (tROAS re-baseline) must land before then.** ⚠️ Corrected 2026-07-14: Shopping tROAS is **8.0**, not 9.0.
 - **Skills:** google-ads row in `../../SKILLS_MATRIX.md` (§3 — 6 skills already defined).
 - **Guide:** `reference/Google_Ads_Mastery_Guide_2026.md` (Ch 10 = Smart Bidding + learning phase; Ch 5 = AI Max; Ch 8 = Shopping feed).
 - **Baselines to beat:** TRUE ROAS 9.38× (30d), 11.50× (best week, ₹1,801/day).

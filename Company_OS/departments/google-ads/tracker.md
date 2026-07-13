@@ -12,7 +12,7 @@
 
 ## ⏳ THE COUNTDOWN — 17 AUG 2026 (35 days from 2026-07-13)
 
-Google's Smart Bidding change: **budget-limited tROAS campaigns will be pulled DOWN toward their target instead of letting them overperform.** Our tROAS is **9.0**, set against the *inflated* conversion value; TRUE delivery is 9.38× (GA4) but platform-claimed is 13.93×. **Correction, 2026-07-13 22:26 IST:** only `Search-26 May 25` is genuinely Lost-IS-**Rank** limited (60.4% lost-rank); `SC - All Range` (79% of spend) is actually Lost-IS-**Budget** limited (49.0% lost-budget, only 7.4% lost-rank) — see P1-2 note below. **On 17 Aug, Google will spend harder to drag us toward a target that was never calibrated to reality.**
+Google's Smart Bidding change: **budget-limited tROAS campaigns will be pulled DOWN toward their target instead of letting them overperform.** Our tROAS targets are **Search ad-group 9.0** / **Shopping campaign 8.0**, both set against the *inflated* conversion value; TRUE delivery is 9.38× (GA4) but platform-claimed is 13.93×. **Correction, 2026-07-13 22:26 IST:** only `Search-26 May 25` is genuinely Lost-IS-**Rank** limited (60.4% lost-rank); `SC - All Range` (79% of spend) is actually Lost-IS-**Budget** limited (49.0% lost-budget, only 7.4% lost-rank) — see P1-2 note below. **On 17 Aug, Google will spend harder to drag us toward a target that was never calibrated to reality.**
 
 **P0-1 → P0-2 must both land before 17 Aug.** This is the single hard deadline the department owns.
 

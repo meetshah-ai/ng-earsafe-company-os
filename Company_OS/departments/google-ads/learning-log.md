@@ -99,6 +99,30 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 
 ## CYCLE LOG (most recent first)
 
+### 2026-07-14 — GA-009/GA-010 EXECUTED · two structural discoveries
+
+**Initiative:** Execute the approved negative-keyword prune; scope the Shopping SKU mix shift.
+
+**EXECUTED (live writes, Windsor `push_negative_keywords`):**
+- `Search-26 May 25` (22601036342) — **30 EXACT negatives added** ✅
+- `SC - All Range` (23278488657) — **69 EXACT negatives added** ✅
+- **99 total · ₹3,659/30d of zero-conversion waste removed.** Zero converting terms, zero brand tokens, zero conquest terms in the list — verified against an unfiltered aggregate before the push. `open ear headphones` deliberately KEPT (converts: ₹5,331) per Meet.
+- Full list: `execute/GA-009_GA-010_negatives.json`. Negatives are removable if any of these turn out to matter.
+
+**⭐ DISCOVERY 1 — a dedicated SafeBuds Shopping campaign already exists, PAUSED.**
+`Shopping | SafeBuds | 7th May'26` (campaign_id **23830060744**), status **PAUSED**, tROAS **10.0**, lifetime ₹943 spend → ₹28,997 value. Also `SC - All Range #2` (23891088227), PAUSED, tROAS 8.0. **Nobody needs to build a SafeBuds Shopping campaign — one is already sitting there.** (Lifetime ROAS figures are contaminated by the pre-W22 duplicate conversion actions — do not quote them as clean.)
+
+**⭐ DISCOVERY 2 — CORRECTION: Shopping tROAS is 8.0, not 9.0.**
+`SC - All Range` runs `campaign_target_roas = 8`. The **9.0** figure is the *Search-26* **ad-group** target (`ad_group_target_roas = 9`). The department docs asserted 9.0 for both. **Corrected 2026-07-14.** This matters for the 17 Aug re-baseline — the two campaigns need *different* corrected targets, not one.
+
+**⭐ DISCOVERY 3 — product-group bids are NOT editable on a Smart Bidding Shopping campaign.**
+`SC - All Range` uses Target ROAS, so the product-group bid column is greyed out — Google bids at auction time. At product-group level you can only **include/exclude**. **The SKU-mix lever is therefore the AD GROUP, not the product group** (give each ad group its own tROAS target). Search-26 already runs ad-group-level tROAS, so the pattern is proven in-account. Guide: `execute/GA-004_mix_shift_guide.md`.
+
+**Also learned:** Merchant Center **custom labels are feed attributes, not a UI field** — you set them in the data source / feed rules / Shopify's Google channel, which is why they can't be found in the Merchant Center product view. **They are not needed:** Google Ads can subdivide product groups by **Item ID** directly.
+
+**Learning carried forward:** *Read the account's actual configuration before designing a change for it.* Three separate plans (custom labels, product-group bids, "build a SafeBuds campaign") were all invalidated by a single config pull that took thirty seconds. The bidding strategy determines which levers even exist.
+
+
 ### 2026-07-13, 23:xx IST — Fourth Monday-read pass, same day: two new findings, budget hold reconfirmed a fourth time
 
 **Initiative:** Fourth independent decode this calendar day (07:30, 22:02, 22:26, now 23:xx IST). Fresh Windsor pull (all 7 pulls per spec, `medium=cpc` GA4 filter applied, keyword QS pulled WITH `date`), TRUE ROAS + marginal ROAS recomputed from scratch in one Python pass, cross-checked against the sanity anchor and all three earlier passes.
