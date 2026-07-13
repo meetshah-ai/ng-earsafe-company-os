@@ -16,13 +16,13 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 
 3. **…and that move also triggered a learning phase, which is the deeper lesson.** Guide Ch 10: a budget change **>20% in either direction** resets Smart Bidding into a 1–2 week learning phase, during which volatility is *expected*. We changed by ~100%. So the 6.20× is **contaminated** — it is partly diminishing returns and partly self-inflicted recalibration, and we cannot separate them. **This is exactly why the ≤20% ratchet exists.** Never again read a post-jump number as a clean verdict.
 
-4. **₹1,800/day is the proven operating point.** wk2 ₹1,701/day → 11.22×; wk3 ₹1,801/day → 11.50×. Every window at or below ~₹1,800/day cleared the 9–11× band. The single window above it did not.
+4. **₹1,800/day is the proven operating point** — *provisionally, see finding #16 below, which found an even better window and has not yet been reconciled with this pattern.* wk2 ₹1,701/day → 11.22×; wk3 ₹1,801/day → 11.50×. Every window at or below ~₹1,800/day cleared the 9–11× band. The single window above it did not.
 
-5. **Lost impression share is RANK, not budget.** 76% / 47% on the two search campaigns. Ad Rank = Bid × QS × asset impact (Ch 2). **Budget cannot buy an impression you are losing on Rank.** The levers are Quality Score and Ad Strength.
+5. **Lost impression share is RANK, not budget — but only for Search.** 76% / 47% cited historically for the two search campaigns. **Correction, 2026-07-13 22:26 IST pass:** this does not hold campaign-by-campaign. Fresh impression-share pull shows `SC - All Range` (79% of spend) is actually **Budget**-lost (49.0% lost-budget vs 7.4% lost-rank, IS 42.7%) while `Search-26 May 25` is genuinely **Rank**-lost (60.4% lost-rank vs 26.6% lost-budget, IS 12.4%). **Budget cannot buy an impression lost on Rank (Search's problem). But budget genuinely could buy impression share on Shopping — once the marginal-ROAS gate clears.** See SH-GA-9.
 
 6. **High CTR with zero conversions is a landing-page problem.** `Search | SafeBuds | OWS + Conquest`: ₹1,011 spent, **12.57% CTR** (vs the 3–5% Search average), **0 conversions**. The ad is working; the page is not. Never answer this with a bid change.
 
-7. **A missing date in a connector pull is not a zero.** Google Ads returned **no row at all** for 2026-07-09 and **₹1.29** for 2026-07-10 (the account went dark). Silently zeroing a missing day corrupts every window that contains it.
+7. **A missing date in a connector pull is not a zero.** Google Ads returned **no row at all** for 2026-07-09 and **₹1.29** for 2026-07-10 (the account went dark). Silently zeroing a missing day corrupts every window that contains it. **Reconfirmed 2026-07-13 22:26 IST: a naive marginal-ROAS baseline spanning 07-04→07-10 (which contains this blackout) produced a false 4.75× — thrown out in favour of a clean pre-spike baseline (06-29→07-05) giving 1.43×. Never build a marginal-ROAS baseline across a known blackout window.**
 
 8. **GA4 has no campaign dimension in the standard pull.** `date,source,medium,sessions,totalrevenue,transactions` gives account-level TRUE ROAS only. Per-campaign "ROAS" without a campaign-level GA4 pull is platform-claimed and diagnostic only — label it as such, every time.
 
@@ -42,7 +42,7 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
    | `open ear wireless headphones` | **0.8** | ₹7 | **0×** |
    | `outside ear earbuds` | **0.0** | **₹958** | **0×** |
 
-   QS 9.0 on brand and on the *bone-conduction* framing; **QS ≤ 4.2 on every *open-ear* term.** Expected CTR is the most heavily weighted QS component and Ad Rank = Bid × QS × assets — so this is *simultaneously* why Search loses IS to **Rank** and why open-ear terms cost more and convert less. India's open-ear brand cannot win the open-ear auction. **`outside ear earbuds` alone burned ₹958 at QS 0.0 for ₹0.**
+   QS 9.0 on brand and on the *bone-conduction* framing; **QS ≤ 4.2 on every *open-ear* term.** Expected CTR is the most heavily weighted QS component and Ad Rank = Bid × QS × assets — so this is *simultaneously* why Search loses IS to **Rank** and why open-ear terms cost more and convert less. India's open-ear brand cannot win the open-ear auction. **`outside ear earbuds` alone burned ₹958 at QS 0.0 for ₹0.** **2026-07-13 22:26 IST: reconfirmed bit-for-bit a third time; FIX drafted this pass as GA-008 (RSA rewrite + landing-page message match, no budget/bid change).**
 
 9. **⭐ AI Max is ALREADY ON** (`Search-26 May 25` — `search_term_match_type = AI_MAX`). **This corrects the 2026-07-13 department-creation entry, which assumed it was off and made it the headline scale lever (P2-1).** It is on, and it is matching junk: `truth hear`, `tecno earbuds`, `finger earphone`, `wehear` — ~₹270/30d, **zero conversions**. The job is to **rein it in** (brand exclusions, negatives, text guidelines) or prove it earns its keep — **not to "enable" it.**
 
@@ -56,17 +56,22 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 
 11. **Tablet is a free kill.** ₹363 spent across every campaign, **0 conversions, ₹0 revenue**. Mobile 14.16×, Desktop 13.82×, Tablet 0×.
 
-12. **We bid against ourselves on brand.** Both `Search-26` and the Shopping campaign buy `ng earsafe`. Search returns 22.0×, Shopping 8.8× **on the same query**. Plus `ngearsafe`, `earsafe ng`, `ngsafe`, `ng earphone`, `earsafe bluetooth` — ~₹2,400/30d of brand spend split across two campaigns.
+12. **We bid against ourselves on brand.** Both `Search-26` and the Shopping campaign buy `ng earsafe`. Search returns 22.0×, Shopping 8.8× **on the same query** (2026-07-13 22:26 IST reconfirmation, wider brand-term set: Search 16.25×, Shopping 13.12×). Plus `ngearsafe`, `earsafe ng`, `ngsafe`, `ng earphone`, `earsafe bluetooth` — ~₹1,500–2,400/30d of brand spend split across two campaigns depending on term-set width.
 
 13. **Conquest works and is starved.** `wehear earbuds` **45.7×** · `wehear safe buds` **53.9×** · `poly voyager free 60` **55.2×** — on ₹50–100 each. The best return in the account, on trivial spend. Meanwhile `shokz openrun pro 2` (₹48) returns 0×.
 
-14. **~₹1,168/30d of zero-conversion category search terms**: `open ear earbuds` (₹338), `bone conduction earphones` (₹229), `open ear headphones` (₹186 across both campaigns), `bone headphones`, `running earphones`, `best open ear earbuds`, `open ear tws`, `bone conduction earbuds`, `ear conduction headphones`, `earphones with mic and noise cancellation`.
+14. **~₹1,168–2,709/30d of zero-conversion category search terms** (range depends on the spend-filter threshold used per pull): `open ear earbuds` (₹338), `bone conduction earphones` (₹229), `open ear headphones` (₹186 across both campaigns), `bone headphones`, `running earphones`, `best open ear earbuds`, `open ear tws`, `bone conduction earbuds`, `ear conduction headphones`, `earphones with mic and noise cancellation`, plus 4 AI Max junk terms (₹270).
 
 15. **Windsor field constraint:** `quality_score` **cannot** be queried together with impression-share fields (Google API restriction). They must be separate pulls. Attempting to merge them errors out.
 
+16. **⭐ NEW, 2026-07-13 22:26 IST — the account's true best-week may not be the one on record.** A full rolling-7-day TRUE-ROAS scan across the 30d window found **2026-06-17→06-23 at 16.35×** (spend ₹8,996.28, ~₹1,285/day) — higher than the tracker's logged best-week figure (11.50×, wk3, ~₹1,801/day). **Not yet reconciled** with finding #4 ("₹1,800/day is the proven operating point") — could mean the true efficient operating point is *lower* spend than currently assumed, or that window contains an idiosyncratic demand spike unrelated to spend level. **Flagged, not actioned. Next run: pull day-level detail for 17–23 Jun and check whether it's a demand event (e.g. a marketing push, PR mention) or a genuine low-spend efficiency point.**
+
+17. **⭐ NEW, 2026-07-13 22:26 IST — Shopping is Budget-lost, Search is Rank-lost; they are not the same problem.** See CONFIRMED PATTERNS #5 above. `SC - All Range` Lost-Budget 49.0% / Lost-Rank 7.4%. `Search-26 May 25` Lost-Rank 60.4% / Lost-Budget 26.6%. This means the QS/Ad-Strength fix (GA-008) is Search's lever; a future budget increase (once gated marginal ROAS clears) is Shopping's lever. Conflating the two campaigns under one "Rank-limited" label was imprecise. Logged as hypothesis **SH-GA-9**.
+
 ## REJECTED / DEAD ENDS
 
-- **Candidate for rejection, pending the 19 Jul read:** *"Google Ads has headroom at ₹3,600/day."* Provisionally **rejected** on the 11–12 Jul evidence (marginal ROAS 0.86×), reconfirmed directionally on 2026-07-13 (recomputed at 1.15× from a fresh pull, same sub-floor conclusion) — and reconfirmed a third time, bit-for-bit, on the 22:02 IST same-day re-pull. The read is still contaminated by the learning phase and still younger than the 7-day attribution period (only 2 of 7 days available). **Re-read 2026-07-19 before writing this down as final.**
+- **Rejected, three times over, still not final until the 7-day read lands:** *"Google Ads has headroom at ₹3,600/day."* Marginal ROAS computed three separate times this week from three different (defensible) baseline choices: 0.86× (initial), 1.15× (22:02 IST re-pull, different baseline), **1.43× (this pass, clean pre-spike baseline, throwing out a corrupted-baseline 4.75× computation)**. All three land well under the 6.0 gate. The read is still younger than the 7-day attribution period (2 of 7 post-change days exist). **Re-read 2026-07-19 before writing this down as final.**
+- **Rejected, 2026-07-13 22:26 IST:** *"A naive marginal-ROAS baseline spanning 2026-07-04→07-10 is usable."* It contains the 07-09 blackout and 07-10 near-dark day, deflating the pre-period average and producing a false 4.75× marginal ROAS. **Dead end — never build a marginal-ROAS baseline across a known data gap.**
 
 ## SCALE HYPOTHESIS BACKLOG (per COMPANY_STATE §5.5 — test → validate → scale)
 
@@ -75,12 +80,35 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 | **SH-GA-1** | Fixing the duplicate conversion action closes the 49% overclaim to **<20%** | P0-1 — deduplicate, put the Shopify-pixel action in the bidding goal | ⬜ OPEN | — |
 | **SH-GA-2** | With corrected values, a tROAS re-baselined to **~7.0–8.0** holds TRUE ROAS ≥ 9.0 *and* survives the 17 Aug change | P0-2 — walk the target in ≤15%/week steps | ⬜ BLOCKED by SH-GA-1 | — |
 | **SH-GA-3** | **AI Max** delivers the guide's **+34% CVR** on `Search-26 May 25` | P2-1 — one-click experiment, 50/50, 2-week read | ⬜ BLOCKED by SH-GA-1 | — |
-| **SH-GA-4** | Raising Ad Strength to Excellent recovers Lost-IS-Rank **without** extra budget (guide: +45% CTR vs Poor) | P1-2 — 8–10 headlines / 3–4 descriptions per ad group | ⬜ OPEN | — |
+| **SH-GA-4** | Raising Ad Strength to Excellent recovers Lost-IS-Rank **without** extra budget (guide: +45% CTR vs Poor) | P1-2 — 8–10 headlines / 3–4 descriptions per ad group | 🟡 DRAFTED — GA-008 | GA-008 |
 | **SH-GA-5** | Rewriting Shopping feed titles to `[Brand]+[Type]+[Feature]+[Variant]` lifts `SC - All Range` TRUE ROAS above 11.5× | P1-3 — Merchant Center feed-rule A/B on the top 20% of SKUs by spend | ⬜ OPEN | — |
 | **SH-GA-6** | **Enhanced Conversions** recovers a measurable share of the platform-vs-GA4 gap | P1-1 — enable; impact visible ~30 days after | ⬜ OPEN | — |
 | **SH-GA-7** | The account has **any** budget headroom above ₹1,800/day at marginal ROAS ≥ 6.0 | +20% step (₹1,800 → ₹2,160), held 7 days, then read marginal | ⬜ OPEN — **gated behind the 19 Jul re-read** | — |
+| **SH-GA-8** | Conquest terms (`wehear earbuds`, `wehear safe buds`, `poly voyager free 60`) hold platform ROAS ≥20× at 30–50% higher max-CPC | Bid increase, funded by GA-002 cut, flat net spend | 🟡 DRAFTED — GA-006 | GA-006 |
+| **SH-GA-9** | `SC - All Range`'s IS ceiling is Budget (49.0% lost-budget), not Rank — so a Shopping-specific budget step clears marginal ROAS ≥6.0 where an account-wide step didn't | +15% on SC-All Range only (~₹193/day), 7-day read, **gated behind both the 19 Jul account-level re-read AND the ~26 Jul no-touch expiry** | ⬜ OPEN — double-gated | — |
 
 ## CYCLE LOG (most recent first)
+
+### 2026-07-13, 22:26 IST — Third pass, same day: GA-008 drafted, Shopping budget-vs-rank nuance found, hold reaffirmed
+
+**Initiative:** User-triggered full decode, third pass of the calendar day (07:30 IST and 22:02 IST runs already completed). Independent fresh Windsor pull across all seven tables, TRUE ROAS + marginal ROAS recomputed in code from scratch, cross-checked against the sanity anchor and against the two earlier passes today.
+
+**Hypotheses tested:**
+1. *"The 30d sanity anchor still holds."* → **CONFIRMED.** 9.3774× TRUE ROAS / 48.5% overclaim / 133 GA4 transactions — bit-for-bit identical to both earlier passes today.
+2. *"A clean pre-spike baseline gives a materially different marginal-ROAS read than a blackout-contaminated one."* → **CONFIRMED.** Naive baseline (07-04→07-10, contains the blackout) → false 4.75×. Clean baseline (06-29→07-05) → 1.43×, consistent with the week's prior 0.86×/1.15× reads. The naive number was discarded, not reported. Logged as a new dead end (never build a marginal-ROAS baseline across a known gap).
+3. *"Lost impression share is uniformly a Rank problem across the account."* → **REJECTED, refined.** Fresh IS pull shows `SC - All Range` is Budget-lost (49.0%) while `Search-26 May 25` is Rank-lost (60.4%) — two different constraints, two different levers. New hypothesis SH-GA-9 opened to test this once gates allow.
+4. *"Nothing new is actionable today beyond what's already queued."* → **REJECTED.** The QS/Ad-Strength fix (P0-6/P1-2) had no live draft despite being the tracker's own headline lever — drafted this pass as **GA-008** (RSA rewrite + landing-page message match, zero budget/bid cost, not gated by the no-touch window).
+
+**Learning carried forward:**
+- Optimization (FIX/CUT/TEST) is never fully "done" just because prior passes queued cuts — a Monday teardown should keep checking whether every open tracker lever has a live draft, not just restate old ones.
+- Never build a marginal-ROAS baseline window that contains a known data blackout; the delta will be corrupted even though each side's arithmetic is individually correct.
+- A full rolling-window scan (not just the headline 7d/30d cuts) can surface findings the fixed windows hide — see finding #16 (17–23 Jun best-week anomaly).
+
+**Next-sprint changes triggered:**
+- **GA-008 queued** — RSA/landing-page fix for the open-ear cluster, no budget/bid cost, addresses tracker P0-6/P1-2 directly.
+- **SH-GA-9 opened** — Shopping-specific budget test, double-gated (19 Jul account-level re-read, then ~26 Jul no-touch expiry).
+- Finding #16 (best-week anomaly) flagged for a follow-up day-level pull; not actioned this run.
+- GA-001 still stays as-is pending Meet's P0-3 decision. No budget draft filed.
 
 ### 2026-07-13, 22:02 IST — Second Monday-read pass, same day: confirmed, no drift, hold unchanged
 
