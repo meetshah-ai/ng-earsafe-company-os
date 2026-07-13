@@ -6,7 +6,33 @@
 
 ---
 
-## 0. CADENCE
+## 0. THE FOUNDER ACCOUNT IS THE PRIMARY CHANNEL (Meet, 2026-07-13)
+
+**The strategy is to grow Meet Shah's personal LinkedIn account.** It has ~2,800 followers to the company page's 1,485, and on LinkedIn a person out-reaches a brand — people follow people. The NG EarSafe company page (org `13379517`) is now the **secondary amplifier**, not the star.
+
+| | Channel | Role |
+|---|---|---|
+| **Primary** | **Meet Shah, personal profile** | The reach engine. **The 3 options are written FOR this account, in first person.** |
+| Secondary | NG EarSafe company page (`13379517`) | Amplifies: reshares the founder post, comments on it from the brand within the first hour to seed the golden-hour signal. Runs its own post only when the angle is genuinely corporate (B1 procurement, a milestone). |
+
+### How we read the founder account — no connector exists, but public post pages do
+
+**No analytics connector can see a personal LinkedIn profile.** Windsor's `linkedin_organic` is org-scoped (verified 2026-07-13: it holds exactly one account, `13379517`). Porter is the same. Metricool would work but is paid — **rejected**. Scrapers would work but violate LinkedIn's ToS and risk the very account this strategy depends on — **never**.
+
+**What does work — and this is the method (verified 2026-07-13):**
+1. **Enumerate:** search `site:linkedin.com/posts meet-shah-9065505a`.
+2. **Fetch each post URL.** Individual post pages are publicly readable even though the *profile* page returns HTTP 999. Gives the **full post text, reaction count and comment count**.
+3. **Date it exactly:** LinkedIn's `activity-<id>` is a snowflake — the post timestamp is `(id >> 22)` ms since epoch.
+
+**The scoreboard is reactions + comments.** Impressions are visible only to the account owner, so engagement *rate* is not obtainable — and doesn't matter: reactions and comments are the signal the algorithm actually rewards. Ledger lives in `founder-account-stats.md`.
+
+⚠️ **Rules, not preferences.** A handful of fetches per cycle, **never a crawl**. If fetches start failing, write *"founder post data unavailable this cycle"* and move on — **never estimate, never fabricate, never escalate to a scraper.** We do not risk a 2,800-follower account to save two minutes.
+
+**The same method fixes the peer scan (step 2)** — peer founders' posts are public too. Search `site:linkedin.com/posts <their-handle>`, fetch, read the reactions and comments. That is how we learn what actually lands, instead of reading press coverage about their product launches.
+
+---
+
+## 0.1 CADENCE
 
 | | v2 (old) | v3 (this spec) |
 |---|---|---|
