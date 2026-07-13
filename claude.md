@@ -57,8 +57,9 @@ Identify the lane, load its constitution + live memory, then act. Migrated lanes
 | **Instagram Content** 🟢 | `Company_OS/departments/instagram-content/` + `NG_EarSafe_Brand_Guidelines.md` | [[ng-earsafe-content-strategy]], [[ng-earsafe-products-tribes]], [[ng-earsafe-posted-log]] |
 | **Meta Ads** 🟢 | `Company_OS/departments/meta-ads/` + `safebuds_*.csv`, `c2_*` | [[ng-meta-ads-performance]], [[ng-paid-marketing-performance-jan-may26]] |
 | **SEO / AEO** 🟢 | `Company_OS/departments/seo-aeo/` | [[ng-seo-aeo-task-tracker]] ← *every SEO session*, [[ng-seo-aeo-baseline]] |
+| **Amazon (SC+VC + Ads)** 🟢 | `Company_OS/departments/amazon/` | [[ng-budget-allocation-logic]], [[ng-fireside-playbooks]] (Amazon chapter) |
 | **CFO / Finance** | `CFO/` (verified txn xlsx, forecasts) | [[ng-cfo-cashflow-analysis]], [[ng-supply-chain-map]] |
-| **Google Ads** | `GoogleAds_*.md` | [[ng-google-ads-task-tracker]] ← *every Google Ads session* |
+| **Google Ads** 🟢 | `Company_OS/departments/google-ads/` + `GoogleAds_*.md` | [[ng-google-ads-agent]] ← *TRUE ROAS definition + thresholds*, [[ng-google-ads-task-tracker]] |
 | **CRO / Product Pages** | `SafeBuds_LP.html`, Shopify theme | [[ng-product-page-cro]] |
 | **CX / Support** | `CX_Support_Scripts.md`, `CX Team/` | [[ng-cx-support-context]] |
 | **UAE / International** | `UAE_Market_Context.md`, `UAE_*.html` | [[ng-uae-market-context]] ← *all UAE/intl work* |
