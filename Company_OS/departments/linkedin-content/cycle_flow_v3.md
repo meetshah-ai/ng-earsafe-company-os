@@ -2,7 +2,7 @@
 
 > **The 9-step process every posting cycle must follow.** Specified by Meet Shah, 2026-07-13.
 > Supersedes the S1–S5 research flow in `content_intelligence_engine.md` and the twice-weekly cadence in `constitution.md` §5a/§5c.
-> Implemented by `Automations/linkedin_all_in_one_n8n.json` (v3). Read with: `constitution.md` (pillars, guardrails), `learning-log.md` (what's been tried), `tracker.md` (what's in flight).
+> **Implemented by the Managed Agent `agent_0119BswBnem6JbKHfJ8iihtv`** (`Company_OS/agents/linkedin-content.agent.yaml`), fired by deployment `depl_01UTmi6WRZMGkyAcpEv5X9Mw` every **Tuesday 07:00 IST**. The n8n workflow (`Automations/linkedin_all_in_one_n8n.json`) is **dead — decommissioned 2026-07-13, it never published a single post in its life.** Read with: `constitution.md` (pillars, guardrails), `learning-log.md` (what's been tried), `tracker.md` (what's in flight).
 
 ---
 
@@ -34,17 +34,17 @@
 
 ## 0.1 CADENCE
 
-| | v2 (old) | v3 (this spec) |
+| | v2 (n8n, never fired) | v3 (LIVE) |
 |---|---|---|
-| Posts per week | 2 | **3** |
-| Slots | Tue, Fri | **Tuesday** *(Meet, 2026-07-13 — started at 1×/week, not 3×)* |
-| Research runs | 2/week | **3/week — one full 9-step cycle per slot** |
-| Cycle trigger | 07:00 IST on slot day | 07:00 IST on slot day (cron `30 1 * * 2,4,6` UTC) |
-| Ideas per email | 3 options → pick 1 | **3 options → pick 1** (unchanged) |
-| Posting | on approve-click | on approve-click |
+| Posts per week | 2 (in theory) | **1 — Tuesday** |
+| Cycle trigger | — | **Tuesday 07:00 IST** (`0 7 * * 2`, Asia/Kolkata) |
+| Ideas per email | 3 → pick 1 | **3 → pick 1** |
+| Written for | company page | **Meet's personal profile** |
+| Posting | never happened | Meet posts by hand |
 
-**One cycle = one slot = one full run of steps 1–9 = one email = 3 ideas = 1 post.**
-Nine ideas are generated a week; three get published. The news-reaction option is researched same-morning, so it never goes stale.
+**One cycle = one email = 3 options = 1 post.**
+
+> ⚠️ **Cadence is a known, deliberate compromise.** Meet chose 1×/week on 2026-07-13 (start small, prove it). But this department's single CONFIRMED learning is that **cadence is the binding constraint** — 4 posts in 180 days held followers dead flat at 1,453, and sporadic good posts do not compound (`learning-log.md`, REJECTED). One post a week is a real cadence and far better than what came before; it is *not* the 3×/week the strategy was designed around. **Revisit after 4 Tuesdays.** Raising it is a one-line change to the deployment's cron.
 
 ---
 
@@ -64,15 +64,15 @@ Rules: cite **source + date** for every hit. If a horizon is genuinely empty, sa
 ### Step 2 — Peer scan: founder posts + company posts
 What relevant **D2C / consumer-electronics founders and company pages** have posted recently — what's landing, what angle, what format, what the comments are reacting to.
 
-**Watchlist (config — editable in the workflow's Watchlist node):**
+**Watchlist:**
 - *Founders/operators:* Peyush Bansal (Lenskart), Ghazal Alagh / Varun Alagh (Mamaearth), Arjun Vaidya (V3 Ventures), Kaushik Mukherjee (SUGAR), Ankur Warikoo, Nikhil Kamath, Shantanu Deshpande (Bombay Shaving).
 - *Company pages:* boAt, Noise, Atomberg, Wakefit, Mokobara, The Whole Truth, Zouk.
 - *Direct competitors:* Shokz, Noise, boAt, Mojawe, Oladence. *(The flag-before-naming rule is removed as of 2026-07-13 — naming them is allowed. Any factual claim about them must still be true and checkable.)*
 
-**Known constraint — read this before trusting the output.** LinkedIn's API does not expose third-party posts, and LinkedIn blocks crawlers, so this step runs on **web search and is best-effort**. When coverage is thin, the cycle must say *"peer scan: thin this cycle"* rather than fabricate. Upgrade paths, in order of cost: (a) Meet/Riya paste 3–5 peer post links into a `PeerPosts` sheet tab each week — free, highest signal; (b) a scraper API (Apify/Phantombuster) — paid, ToS-grey; (c) accept best-effort.
+**Read peers the same way we read ourselves — with `curl`, not guesswork.** Search `site:linkedin.com/posts <handle>` to enumerate, then `curl` each post URL and read `data-num-reactions` / `data-num-comments` (see §0). **`web_fetch` is blocked on linkedin.com — never use it.** Read what actually *landed*, not press coverage of their product launches. If a peer genuinely can't be read, write *"peer scan: thin this cycle"* and move on — **never fabricate a peer post, and never reach for a scraper.**
 
 ### Step 3 — Our own past posts: performance + content bucket
-Read every past cycle from the `Proposals` sheet and the live `linkedin_organic` numbers (Windsor). For each past post: **what it was, which bucket it fell into, and how it actually performed.**
+Read `cycle-log.md` (our own approvals + decisions) and `founder-account-stats.md` (the founder post ledger — the primary account), plus live `linkedin_organic` from Windsor for the company page. For each past post: **what it was, which bucket it fell into, and how it actually performed.**
 
 **Content buckets** (= the constitution's pillars — every option must be tagged with exactly one):
 
