@@ -22,7 +22,7 @@ published this week — it has to be handed over once. Paste the URL here; from 
 it every cycle and watches the reactions and comments climb.
 
 ```
-(paste new linkedin.com/posts/... URLs here, one per line — the agent takes it from there)
+https://www.linkedin.com/posts/meet-shah-9065505a_metaads-performancemarketing-d2c-activity-7482365486110871552-6eHs
 ```
 
 ---
@@ -79,6 +79,7 @@ account — the single asset this entire strategy depends on — to save a human
 
 | Posted | Post (first line / topic) | Bucket | Reactions | Comments | Note |
 |---|---|---|---|---|---|
+| **2026-07-13** 09:29 UTC | **"We scaled a Meta ad's budget 35% and its cost-per-purchase went DOWN 39%. Here's the account structure that made that possible."** | **P2 Meta Ads playbook** | *(too new)* | *(too new)* | 🟢 **THE FIRST POST THIS SYSTEM EVER SHIPPED.** CYCLE-002, Option B — Meet's pick. First time NG's real paid-media numbers have been made public. **Read reactions + comments every cycle from here.** This is the P2-vs-P3 head-to-head: does a real number beat a human story? The kaan-dard post (22 reactions / 3 comments) is the bar. |
 | 2025-09-04 | *"A few days ago, I was standing outside our office on a call…"* — the delivery-boy who couldn't work for 3 days because his neckband hurt his ears. Made him try EarSafe, helped him order on Amazon. | P3 founder | **22** | **3** | **The register that works.** A real, specific, human story with a validated-hypothesis payoff. No pitch. This is the reference post. Not re-fetched 2026-07-13 (fetch blocked) — figure carried forward from a prior cycle, unverified this session. |
 | 2025-04-09 | #offline #retail #startupstories | — | — | — | not yet fetched. Date confirmed by activity-ID decode 2026-07-13 (`activity-7315680353275260928` → 2025-04-09). |
 | 2025-03-28 | #startuplife #openearheadphones #ngearsafe #shokz | — | — | — | not yet fetched. Date confirmed by activity-ID decode 2026-07-13 (`activity-7311400417773428737` → 2025-03-28). |

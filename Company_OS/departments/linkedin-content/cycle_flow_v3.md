@@ -37,7 +37,7 @@
 | | v2 (old) | v3 (this spec) |
 |---|---|---|
 | Posts per week | 2 | **3** |
-| Slots | Tue, Fri | **Tue, Thu, Sat** |
+| Slots | Tue, Fri | **Tuesday** *(Meet, 2026-07-13 — started at 1×/week, not 3×)* |
 | Research runs | 2/week | **3/week — one full 9-step cycle per slot** |
 | Cycle trigger | 07:00 IST on slot day | 07:00 IST on slot day (cron `30 1 * * 2,4,6` UTC) |
 | Ideas per email | 3 options → pick 1 | **3 options → pick 1** (unchanged) |
