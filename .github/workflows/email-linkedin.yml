@@ -1,9 +1,11 @@
 name: Email the LinkedIn cycle brief
 
-# Fires when the LinkedIn Content agent commits its cycle brief. Emails the 3 post options (plus the
-# research table, the cycle audience and the CoS audit) to Meet. Suggestion only — nothing auto-posts;
-# Meet picks one and a human publishes. Reuses the same MAIL_USERNAME / MAIL_PASSWORD secrets as the
-# daily brief and social workflows.
+# Fires when the LinkedIn agent commits its cycle brief. Emails Meet ONLY the three post options —
+# nothing about how the cycle was worked. The research, audit and rollups live below the
+# "<!-- APPENDIX — not emailed -->" marker in the file and are cut here. (Meet, 2026-07-13:
+# "I don't want to know how it ran, what it ran, just the 3 options.")
+#
+# The full brief is still attached, for when he wants the reasoning.
 
 on:
   push:
@@ -20,7 +22,7 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Find the cycle brief and build the email body
+      - name: Build the email — options only, rendered as HTML
         id: pick
         run: |
           set -euo pipefail
@@ -32,24 +34,17 @@ jobs:
             echo "No cycle brief found; nothing to email."
             echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0
           fi
-          date=$(basename "$file" .md)
-          {
-            echo "NG EarSafe — LinkedIn cycle brief for ${date}."
-            echo "Three post options for today's slot, researched this morning across the day/week/month"
-            echo "trend horizons, the peer scan, our own past performance, and the Meta Ads lane."
-            echo ""
-            echo "Pick one. Do nothing = nothing posts. Your edits and your non-decisions both teach the"
-            echo "next cycle — they are logged either way."
-            echo ""
-            echo "Suggestion only. The agent has no publishing tool and cannot post to LinkedIn."
-            echo ""
-            echo "========================================================================"
-            echo ""
-            cat "$file"
-          } > linkedin_body.txt
+
+          # A brief under ~400 bytes is a placeholder/stub commit, not a real brief. Don't mail junk.
+          if [ "$(wc -c < "$file")" -lt 400 ]; then
+            echo "Brief is a stub ($(wc -c < "$file") bytes) — not emailing."
+            echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+
+          python3 .github/scripts/render_linkedin_email.py "$file" > linkedin_body.html
           echo "skip=false" >> "$GITHUB_OUTPUT"
-          echo "path=$file"  >> "$GITHUB_OUTPUT"
-          echo "date=$date"  >> "$GITHUB_OUTPUT"
+          echo "path=$file" >> "$GITHUB_OUTPUT"
+          echo "date=$(basename "$file" .md)" >> "$GITHUB_OUTPUT"
 
       - name: Send it
         if: steps.pick.outputs.skip == 'false'
@@ -60,8 +55,8 @@ jobs:
           secure: true
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          from: NG EarSafe LinkedIn Agent <${{ secrets.MAIL_USERNAME }}>
+          from: NG EarSafe LinkedIn <${{ secrets.MAIL_USERNAME }}>
           to: meetshah@ngearsafe.com
-          subject: "NG EarSafe — LinkedIn cycle · ${{ steps.pick.outputs.date }} · 3 options"
-          body: file://linkedin_body.txt
+          subject: "LinkedIn — ${{ steps.pick.outputs.date }} — 3 options"
+          html_body: file://linkedin_body.html
           attachments: ${{ steps.pick.outputs.path }}
