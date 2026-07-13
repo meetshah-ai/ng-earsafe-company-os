@@ -10,6 +10,21 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 
 ## CONFIRMED PATTERNS (institutional truths)
 
+0b. **🚨 NEVER PUT A METRIC IN A WINDSOR `filters` ARGUMENT. Pull everything; filter in code.** Windsor applies filters at the **segmented row** grain, not the aggregate grain — so any metric filter silently drops rows, and every total computed from the survivors is wrong. It never errors. **Three separate findings were corrupted this way in a single day (2026-07-13/14):**
+
+   | Filter | Produced | Damage |
+   |---|---|---|
+   | `conversions == 0` | "34 zero-conversion search terms" | Contained the **brand**. Would have negatived **₹1,13,234 — 25% of Google revenue.** |
+   | *(no `date`)* on `quality_score` | "QS 4.2 / 0.8 / 0.0" | A **fabricated** QS crisis. Real QS is 7–8. Emailed to Meet before anyone checked. |
+   | `spend > 200` on Shopping SKUs | "Pro takes 50.5%, 3 SKUs" | **Missed an entire SKU.** Inverted the conclusion. **Meet caught it; the agent did not.** |
+
+   **And always reconcile.** Every breakdown must be asserted, in code, to sum to its parent total:
+   ```python
+   assert abs(sum(r["spend"] for r in sku_rows) - campaign_spend) < 1.0
+   ```
+   A breakdown that doesn't reconcile to its parent is not a breakdown — it is a subset wearing a breakdown's clothes.
+
+
 0. **🚨 NEVER FILTER ON `conversions == 0`. IT NEARLY DESTROYED THE ACCOUNT (2026-07-13).** Windsor returns a search term as *several* rows, segmented by dimensions you did not request. Filtering `conversions == 0` keeps only the **non-converting slices** and hides the converting ones — so a term that earned ₹42,589 comes back looking like a zero.
 
    A `conversions == 0` filter produced the "34 zero-conversion search terms" list (GA-002, ₹2,709 of claimed waste). It contained **`ng earsafe` (₹42,589 / 17.6 conv), `ngearsafe` (₹19,420), `bone conduction headphones` (₹24,703), `wehear earbuds` (₹7,757), `open ear headphones` (₹5,332)** — the brand, the best conquest term, and the top category term. **Executing it would have negatived 41 conversions and ₹1,13,234 — 25% of all Google-paid revenue.** Meet asked for it to be executed. It was caught in pre-flight, minutes before the write.
@@ -59,13 +74,31 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 
 9. **⭐ AI Max is ALREADY ON** (`Search-26 May 25` — `search_term_match_type = AI_MAX`). **This corrects the 2026-07-13 department-creation entry, which assumed it was off and made it the headline scale lever (P2-1).** It is on, and it is matching junk: `truth hear`, `tecno earbuds`, `finger earphone`, `wehear` — ~₹270/30d, **zero conversions**. The job is to **rein it in** (brand exclusions, negatives, text guidelines) or prove it earns its keep — **not to "enable" it.**
 
-10. **Shopping SKU mix is upside-down.** The highest-spending SKU has the worst return; the best-returning SKU gets the least budget.
+10. **🚨 RETRACTED — "Shopping SKU mix is upside-down" was FALSE. Third Windsor filter artifact of the day.** *(Raised 2026-07-13, withdrawn 2026-07-14 — **caught by Meet, not by the agent**.)*
+
+    **The claim:** Pro takes 50.5% of Shopping spend at the worst ROAS; SafeBuds gets 18.1% at the best. "The mix is upside-down."
+
+    **The cause:** the SKU pull used `filters=[["spend","gt",200]]`. Windsor applies filters at the *segmented row* grain, so the filter **silently dropped rows** — including an entire SKU.
+
+    **The truth** (unfiltered pull, sums **exactly** to the campaign's ₹38,528.55):
+
+    | SKU | Spend | Share | ROAS | CPA |
+    |---|---|---|---|---|
+    | NG EarSafe Pro | ₹18,115 | **47.0%** | 11.31× | ₹316 |
+    | EarSafe Comm 2.0 | ₹11,419 | 29.6% | 14.92× | ₹218 |
+    | **SafeBuds — Black** | ₹8,039 | 20.9% | **15.84×** | **₹137** |
+    | **SafeBuds — Ivory** | ₹956 | 2.5% | **9.05×** ← *worst in the campaign* | **₹332** |
+
+    **There are FOUR SKUs, not three** — SafeBuds ships in Black *and* Ivory, and Ivory was invisible to the filtered pull. **SafeBuds + Comm 2.0 already take 53.0% of Shopping spend.** The mix is **not** upside-down; the best SKUs are already the majority. The real gap is Pro 11.31× vs core 15.01× — **1.33×, real but modest** — not the dramatic inversion that was reported.
+
+    **Consequence: GA-004's premise collapses.** Shifting Pro 47% → 35% moves ~₹4,600/30d, against a partial re-learn and two weeks of unreadable data. That trade is no longer obviously worth it. The sharper, cheaper move is to exclude **SafeBuds Ivory** — one product-group exclusion, no restructure, no learning phase.
 
     | SKU | 30d spend | share | ROAS | CPA |
     |---|---|---|---|---|
-    | NG EarSafe **Pro** | ₹18,088 | **50%** | **11.33×** ← worst | ₹315 |
-    | EarSafe **Comm 2.0** | ₹11,245 | 31% | 15.10× | ₹215 |
-    | NG x WeHear **SafeBuds** | ₹6,488 | 18% | **15.27×** ← best | **₹140** |
+    | NG EarSafe **Pro** | ₹18,115 | **47.0%** | 11.31× | ₹316 |
+    | EarSafe **Comm 2.0** | ₹11,419 | 29.6% | 14.92× | ₹218 |
+    | **SafeBuds — Black** | ₹8,039 | 20.9% | **15.84×** ← best | **₹137** |
+    | **SafeBuds — Ivory** | ₹956 | 2.5% | **9.05×** ← WORST | **₹332** |
 
 11. **Tablet is a free kill.** ₹363 spent across every campaign, **0 conversions, ₹0 revenue**. Mobile 14.16×, Desktop 13.82×, Tablet 0×.
 

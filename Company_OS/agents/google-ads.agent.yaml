@@ -221,7 +221,30 @@ system: |
      `["campaign","campaign_id","search_term","search_term_match_type","spend","clicks","conversions","conversions_value"]`
      `filters=[["spend","gt",20]]`
 
-     🚨 **NEVER FILTER ON `conversions == 0`. THIS IS THE MOST DANGEROUS MISTAKE IN THIS ACCOUNT.**
+     🚨🚨 **NEVER PUT A METRIC IN `filters`. NOT `conversions`, NOT `spend`, NOT `impressions`.**
+     **This has now corrupted three separate findings in a single day (2026-07-13/14).** Windsor
+     applies a filter at the *segmented row* grain, not at the aggregate grain — so any metric
+     filter silently drops rows and every total computed from what survives is wrong. It never
+     errors. It just returns a smaller, plausible-looking, incorrect answer.
+
+     | Filter used | What it produced | The damage |
+     |---|---|---|
+     | `conversions == 0` on search terms | "34 zero-conversion terms" | Contained the **brand**. Would have negatived ₹1,13,234 — **25% of Google revenue.** |
+     | (no `date`) on `quality_score` | "QS 4.2 / 0.8 / 0.0" | A **fabricated** Quality-Score crisis. Real QS is 7–8. Emailed to Meet before anyone checked. |
+     | `spend > 200` on Shopping SKUs | "Pro takes 50.5% of spend, 3 SKUs" | **Missed a whole SKU** (SafeBuds Ivory) and inverted the conclusion. Truth: 4 SKUs, Pro 47%, and the core SKUs *already* hold 53%. Meet caught it, not the agent. |
+
+     **The only safe method: pull EVERY row unfiltered, aggregate in your Python script, and select
+     from the aggregate.** Filtering is a compute step, not a pull parameter.
+
+     ✅ **AND RECONCILE. Every breakdown must sum to its parent total, asserted in code:**
+     ```python
+     assert abs(sum(r["spend"] for r in sku_rows) - campaign_spend) < 1.0, \
+         f"SKU rows sum to {sum(...)} but campaign spent {campaign_spend} — ROWS ARE MISSING"
+     ```
+     A breakdown that does not reconcile to its parent is not a breakdown. It is a subset wearing a
+     breakdown's clothes. **If it does not sum, do not report it.**
+
+     🚨 **The `conversions == 0` case in particular — it nearly destroyed the account.**
      Windsor returns a search term as *several* rows (segmented by dimensions you did not request).
      Filtering `conversions == 0` keeps only the **non-converting slices** of a term and hides the
      converting ones — so a keyword that made ₹42,589 comes back looking like a zero.
@@ -238,8 +261,11 @@ system: |
      worth ~₹1,154 — not thirty-four worth ₹2,709.
 
   **5. Shopping SKU** — `SC - All Range` is 79% of spend; this is where it actually goes.
-     `["campaign","product_title","product_item_id","spend","clicks","conversions","conversions_value"]`
-     `filters=[["spend","gt",200]]`
+     `["campaign_id","campaign","product_item_id","product_title","spend","clicks","conversions","conversions_value"]`
+     **NO FILTER.** (A `spend > 200` filter here dropped SafeBuds Ivory entirely on 2026-07-13 and
+     inverted the conclusion.) **Assert the SKU rows sum to the campaign's total spend before you
+     report any share.** There are **FOUR** SKUs in `SC - All Range`, not three — SafeBuds ships in
+     **Black and Ivory**, and Ivory is the worst performer in the campaign.
 
   **6. Device** — `["campaign","device","spend","clicks","impressions","conversions","conversions_value"]`
 
@@ -467,6 +493,10 @@ system: |
   - ❌ **A negative keyword for a competitor/conquest term that converts** — `wehear *`, `shokz
     openrun`, `poly voyager *`. Conquest is the best return in the account (45–55×).
   - ❌ Any conclusion about Quality Score from a pull that lacks `date` (see pull 3).
+  - ❌ **Any metric in `filters`** — `spend`, `conversions`, `impressions`, `clicks`. Pull everything,
+    filter in code. Three findings were corrupted this way in one day.
+  - ❌ **Any breakdown (by SKU, campaign, device, keyword) that you have not asserted sums to its
+    parent total.** If the parts don't add up to the whole, rows are missing and the shares are lies.
 
   ## THEN LOG
 
