@@ -1,6 +1,7 @@
 # NG EarSafe — Daily D2C Report (Managed Agent, version-controlled)
 #
-# LIVE AGENT ID: agent_01Le1Jv7eYusesQCVDcC8DNv   (created 2026-07-13, Sonnet 5)
+# LIVE AGENT ID: agent_01Le1Jv7eYusesQCVDcC8DNv   (created 2026-07-13, v6, Sonnet 5)
+# DEPLOYMENT:    depl_01EHidqXQKUtp7YTRHMqAheg  (Daily D2C Report — 0 7 * * * Asia/Kolkata, ACTIVE)
 # ENVIRONMENT:   env_01XyAqVA96XbV6YDd2YpeyPB  (ng-eaarsafe)
 # VAULT:         vlt_011Cct4FFqcsnrcEDFfzHCXo  (ng-earsafe-readonly — GitHub + Windsor creds)
 #
@@ -12,9 +13,11 @@
 #           .github/workflows/email-brief.yml turns that commit into the "Daily D2C Report" email
 #           to meetshah@ngearsafe.com + riyashah@ngearsafe.com.
 #
-# Supersedes the Chief-of-Staff agent's daily-brief duty (deployment "Daily COS Brief",
-# depl_01ASJrzqZtb6ksBrXHrthVcH — archive it) and the n8n workflows
-# Automations/daily_commercial_brief_n8n.json + daily_report_n8n.json.
+# ⚠️ Supersedes the Chief-of-Staff agent's daily-brief duty. The old deployment "Daily COS Brief"
+# (depl_01ASJrzqZtb6ksBrXHrthVcH, Opus) writes to the SAME path, Company_OS/briefs/. It is PAUSED and
+# MUST STAY PAUSED — unpausing it means two agents write the same file and Meet and Riya get two
+# contradictory emails every morning. Archive it once you are happy this one has settled.
+# Also retire the n8n workflows Automations/daily_commercial_brief_n8n.json + daily_report_n8n.json.
 #
 # ── WHY THIS AGENT EXISTS SEPARATELY FROM THE COS ─────────────────────────────
 # The CoS agent reads COMPANY_STATE, every department tracker, every learning log, the approvals
