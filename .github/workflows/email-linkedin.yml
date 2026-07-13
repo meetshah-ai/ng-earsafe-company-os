@@ -1,0 +1,67 @@
+name: Email the LinkedIn cycle brief
+
+# Fires when the LinkedIn Content agent commits its cycle brief. Emails the 3 post options (plus the
+# research table, the cycle audience and the CoS audit) to Meet. Suggestion only — nothing auto-posts;
+# Meet picks one and a human publishes. Reuses the same MAIL_USERNAME / MAIL_PASSWORD secrets as the
+# daily brief and social workflows.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Company_OS/linkedin/**'
+
+jobs:
+  email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Find the cycle brief and build the email body
+        id: pick
+        run: |
+          set -euo pipefail
+          file=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- 'Company_OS/linkedin/*.md' 2>/dev/null | tail -n1 || true)
+          if [ -z "${file:-}" ] || [ ! -f "$file" ]; then
+            file=$(ls -t Company_OS/linkedin/*.md 2>/dev/null | head -n1 || true)
+          fi
+          if [ -z "${file:-}" ] || [ ! -f "$file" ]; then
+            echo "No cycle brief found; nothing to email."
+            echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          date=$(basename "$file" .md)
+          {
+            echo "NG EarSafe — LinkedIn cycle brief for ${date}."
+            echo "Three post options for today's slot, researched this morning across the day/week/month"
+            echo "trend horizons, the peer scan, our own past performance, and the Meta Ads lane."
+            echo ""
+            echo "Pick one. Do nothing = nothing posts. Your edits and your non-decisions both teach the"
+            echo "next cycle — they are logged either way."
+            echo ""
+            echo "Suggestion only. The agent has no publishing tool and cannot post to LinkedIn."
+            echo ""
+            echo "========================================================================"
+            echo ""
+            cat "$file"
+          } > linkedin_body.txt
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          echo "path=$file"  >> "$GITHUB_OUTPUT"
+          echo "date=$date"  >> "$GITHUB_OUTPUT"
+
+      - name: Send it
+        if: steps.pick.outputs.skip == 'false'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          from: NG EarSafe LinkedIn Agent <${{ secrets.MAIL_USERNAME }}>
+          to: meetshah@ngearsafe.com
+          subject: "NG EarSafe — LinkedIn cycle · ${{ steps.pick.outputs.date }} · 3 options"
+          body: file://linkedin_body.txt
+          attachments: ${{ steps.pick.outputs.path }}

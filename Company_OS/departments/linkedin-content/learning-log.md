@@ -21,6 +21,19 @@ Be specific and quantified. A learning that can't change a future decision isn't
 
 ## CYCLE LOG (most recent first)
 
+### 2026-07-13 — CEO redirect #2: 3×/week, Meta Ads is the founder voice, guardrails traded for a number-accuracy rule
+**Initiative:** Meet respecified the whole posting cycle (9 steps — see the new canonical `cycle_flow_v3.md`) and revised the constitution to v2.0.
+**What changed, and why:**
+1. **Cadence 2× → 3×/week**, Tue/Thu/Sat. One full 9-step research cycle *per slot* (not one weekly batch) so the news-reaction option is always same-morning fresh.
+2. **The founder-voice domain is now Meta Ads optimization + scale-up, specifically.** Reading every department's initiatives was too heavy and too diffuse; the paid-media build is the one story we live daily and it throws off real numbers weekly. **We now post the numbers** — ROAS, CVR, CPP, % change, what we scaled and what we killed.
+3. **Consumer segments added: B5 software engineers, B6 SME owners, B7 regular commuters.** These are prospective NG customers, not just B2B buyers. A cycle aimed at them is written to a person, not a business.
+4. **Guardrails removed from the audit:** north-star fit, product-showcase cap, stock-before-demand, brand-safety/competitor-flagging. The audit is now three checks — antithesis present, numbers accurate, structure correct.
+5. **Replaced by a number-accuracy rule:** every published figure traces to a dated source in the meta-ads lane and is shown to Meet beside that source. Rates and percentages publishable; absolute revenue/cash/margin/supplier terms are not.
+6. **Frugality:** n8n Claude node moves Opus 4.8 → **Sonnet 5**; the single call splits into a small search call + a no-search write call; system prompt cached; digest hard-capped. Target: v3 costs less per week than v2 did, while doing 50% more.
+**Risk knowingly accepted (logged so it isn't relearned the hard way):** dropping the product cap re-opens the exact failure of 2026-07-04 (all three options came back product-forward). **Mitigation, by construction not by audit:** the generator hard-codes A = P1 news POV, B = P2 Meta Ads playbook, C = rotating. If a future cycle still comes back all-product, that mitigation failed and the cap should come back.
+**Open item for the CEO:** `COMPANY_STATE.md` §5 still binds every department to stock-before-demand / brand-safety / channel-balance. This lane's audit no longer re-checks them, but the company spine is not this department's to amend. Until Meet formally exempts LinkedIn in `COMPANY_STATE.md`, **those gates still apply** — the exemption is local-only.
+**Result:** OPEN — first read after the first three v3 cycles publish.
+
 ### 2026-07-04 — CEO redirect: LinkedIn = operator-insight channel, NOT an open-ear showcase
 **Initiative:** First live run of the `linkedin_all_in_one` n8n workflow (Meet completed credential setup 2026-07-04). The brief generated fine mechanically, but **all three options came back as open-ear category-awareness angles.** Meet rejected the mix: "the strategy for posting should revolve around industry news, D2C tips, etc, not just open ear showcase."
 **Root cause:** The v1 system prompt in the Claude node instructed "keep only signals that map to a real NG product or category truth" and made option A "category-POV" by design — it filtered every non-product signal out before generation. Prompt design, not model behavior.
