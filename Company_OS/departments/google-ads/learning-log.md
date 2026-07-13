@@ -26,6 +26,44 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 
 8. **GA4 has no campaign dimension in the standard pull.** `date,source,medium,sessions,totalrevenue,transactions` gives account-level TRUE ROAS only. Per-campaign "ROAS" without a campaign-level GA4 pull is platform-claimed and diagnostic only — label it as such, every time.
 
+## DEEP-DIVE FINDINGS — 2026-07-13 (first expert teardown, 30d to 12 Jul)
+
+> These came from the keyword/search-term/SKU/device/IS pulls, not the campaign roll-up. **They are the reason the agent is an operator, not a reporter** — none of this is visible at campaign level.
+> ⚠️ All sub-account ROAS below is **platform-claimed** (inflated ~49%). Use it to **rank**, never as an absolute.
+
+8. **⭐ The Quality Score scandal — NG has its worst QS on its own category.** Windsor reports QS ×10 (`90` = 9.0).
+
+   | Keyword | QS | 30d spend | ROAS (platform) |
+   |---|---|---|---|
+   | `ng earsafe` (brand) | **9.0** | ₹818 | 29.3× |
+   | `bone conduction headphones` | **9.0** | ₹628 | 11.8× |
+   | `open ear headphones` | **4.2** | ₹317 | 3.1× |
+   | `open ear bluetooth headphones` | **4.2** | ₹118 | **0×** |
+   | `open ear wireless headphones` | **0.8** | ₹7 | **0×** |
+   | `outside ear earbuds` | **0.0** | **₹958** | **0×** |
+
+   QS 9.0 on brand and on the *bone-conduction* framing; **QS ≤ 4.2 on every *open-ear* term.** Expected CTR is the most heavily weighted QS component and Ad Rank = Bid × QS × assets — so this is *simultaneously* why Search loses IS to **Rank** and why open-ear terms cost more and convert less. India's open-ear brand cannot win the open-ear auction. **`outside ear earbuds` alone burned ₹958 at QS 0.0 for ₹0.**
+
+9. **⭐ AI Max is ALREADY ON** (`Search-26 May 25` — `search_term_match_type = AI_MAX`). **This corrects the 2026-07-13 department-creation entry, which assumed it was off and made it the headline scale lever (P2-1).** It is on, and it is matching junk: `truth hear`, `tecno earbuds`, `finger earphone`, `wehear` — ~₹270/30d, **zero conversions**. The job is to **rein it in** (brand exclusions, negatives, text guidelines) or prove it earns its keep — **not to "enable" it.**
+
+10. **Shopping SKU mix is upside-down.** The highest-spending SKU has the worst return; the best-returning SKU gets the least budget.
+
+    | SKU | 30d spend | share | ROAS | CPA |
+    |---|---|---|---|---|
+    | NG EarSafe **Pro** | ₹18,088 | **50%** | **11.33×** ← worst | ₹315 |
+    | EarSafe **Comm 2.0** | ₹11,245 | 31% | 15.10× | ₹215 |
+    | NG x WeHear **SafeBuds** | ₹6,488 | 18% | **15.27×** ← best | **₹140** |
+
+11. **Tablet is a free kill.** ₹363 spent across every campaign, **0 conversions, ₹0 revenue**. Mobile 14.16×, Desktop 13.82×, Tablet 0×.
+
+12. **We bid against ourselves on brand.** Both `Search-26` and the Shopping campaign buy `ng earsafe`. Search returns 22.0×, Shopping 8.8× **on the same query**. Plus `ngearsafe`, `earsafe ng`, `ngsafe`, `ng earphone`, `earsafe bluetooth` — ~₹2,400/30d of brand spend split across two campaigns.
+
+13. **Conquest works and is starved.** `wehear earbuds` **45.7×** · `wehear safe buds` **53.9×** · `poly voyager free 60` **55.2×** — on ₹50–100 each. The best return in the account, on trivial spend. Meanwhile `shokz openrun pro 2` (₹48) returns 0×.
+
+14. **~₹1,168/30d of zero-conversion category search terms**: `open ear earbuds` (₹338), `bone conduction earphones` (₹229), `open ear headphones` (₹186 across both campaigns), `bone headphones`, `running earphones`, `best open ear earbuds`, `open ear tws`, `bone conduction earbuds`, `ear conduction headphones`, `earphones with mic and noise cancellation`.
+
+15. **Windsor field constraint:** `quality_score` **cannot** be queried together with impression-share fields (Google API restriction). They must be separate pulls. Attempting to merge them errors out.
+
 ## REJECTED / DEAD ENDS
 
 - **Candidate for rejection, pending the 19 Jul read:** *"Google Ads has headroom at ₹3,600/day."* Provisionally **rejected** on the 11–12 Jul evidence (marginal ROAS 0.86×), reconfirmed directionally on 2026-07-13 (recomputed at 1.15× from a fresh pull, same sub-floor conclusion) — but the read is still contaminated by the learning phase and still younger than the 7-day attribution period (only 2 of 7 days available). **Re-read 2026-07-19 before writing this down as final.**
