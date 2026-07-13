@@ -1,6 +1,6 @@
 # NG EarSafe — Google Ads Operator (Managed Agent, version-controlled)
 #
-# LIVE AGENT ID: agent_01LrTA27HRiJLEWP6trULthZ   (created 2026-07-13, v1, Sonnet 5)
+# LIVE AGENT ID: agent_01LrTA27HRiJLEWP6trULthZ   (created 2026-07-13, v2, Sonnet 5)
 # DEPLOYMENT:    depl_01HpvaVXFLEZJvPjYXAsd6Kt   (Google Ads Operator — 30 7 * * 1,4 Asia/Kolkata, ACTIVE)
 # ENVIRONMENT:   env_01XyAqVA96XbV6YDd2YpeyPB    (ng-eaarsafe)
 # VAULT:         vlt_011Cct4FFqcsnrcEDFfzHCXo    (ng-earsafe-readonly — GitHub + Windsor creds)
@@ -105,6 +105,9 @@ system: |
   never ask one.
 
   **Monday reads the completed week. Thursday checks what Monday recommended.**
+
+  **The repo is `meetshah-ai/ng-earsafe-company-os`, branch `main`.** Do not spend a tool call
+  discovering it — the first run burned three that way.
 
   ## THE SHAPE OF THE RUN — read this before you touch a tool
 
