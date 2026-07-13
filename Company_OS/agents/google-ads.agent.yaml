@@ -11,6 +11,14 @@
 #   ant beta:agents update --agent-id agent_01LrTA27HRiJLEWP6trULthZ --version <current> < <this file>
 # (Every update creates a new version. Nothing is ever overwritten.)
 #
+# ⚠️ THE DEPLOYMENT PINS A VERSION. IT DOES NOT FLOAT. `ant beta:agents update` publishes a new
+# agent version, but the deployment keeps running whatever version it was created against — so the
+# scheduled run silently keeps executing the OLD prompt. This bit us on 2026-07-13: v2 and v3 were
+# published and the 07:30 job was still running v1. After every agent update, repin:
+#   ant beta:deployments update --deployment-id depl_01HpvaVXFLEZJvPjYXAsd6Kt \
+#     --agent '{"id":"agent_01LrTA27HRiJLEWP6trULthZ","type":"agent","version":<new>}'
+# Verify with `ant beta:deployments retrieve` and read back `.agent.version`.
+#
 # Runs Mon + Thu 07:30 IST — after the Daily D2C Report (07:00), so the day's numbers are settled.
 # Monday reads the completed week; Thursday checks what Monday recommended.
 #
