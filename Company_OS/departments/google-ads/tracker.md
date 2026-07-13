@@ -1,94 +1,109 @@
 # Google Ads — Live Task Tracker
 
-> Read at the start of every Google Ads session, after `constitution.md`. Archive completed sprints to `learning-log.md` every 30 days.
+> Read at the start of every session, after `constitution.md`. Archive completed sprints to `learning-log.md` every 30 days.
 >
-> Last updated: **2026-07-13, 23:xx IST** — fourth Monday-read pass this calendar day (report: `Company_OS/google-ads/2026-07-12.md`). Re-verifies all three earlier passes; sanity anchor reproduced bit-for-bit a fourth time. New this pass: **GA-010 drafted** (86 more verified zero-conversion search-term negatives, ₹2,637.18 — non-budget) and **GA-005 put on hold** pending SH-GA-10 (a wider brand-term aggregation reverses GA-005's own stated ranking of Search-26 vs SC-All Range on brand). Sprint 1 seeded from the live account audit (30d window 13 Jun – 12 Jul 2026) + the Google Ads Mastery Guide 2026.
+> **Last updated: 2026-07-14** — Sprint rebuilt after **three findings were retracted as Windsor filter artifacts**. 99 negatives shipped live. Every number below comes from an **unfiltered** pull, reconciled to its parent total.
 
 ## PRIORITY SYSTEM
 - **P0** — this week. Blocks everything else, or is time-boxed by an external deadline.
-- **P1** — this sprint. The real scale levers.
-- **P2** — next sprint. Blocked on a P0.
-- **P3** — experiments / backlog.
+- **P1** — this sprint. The real levers.
+- **P2** — next sprint / blocked.
+- **P3** — backlog.
 
-## ⏳ THE COUNTDOWN — 17 AUG 2026 (35 days from 2026-07-13)
+---
 
-Google's Smart Bidding change: **budget-limited tROAS campaigns will be pulled DOWN toward their target instead of letting them overperform.** Our tROAS targets are **Search ad-group 9.0** / **Shopping campaign 8.0**, both set against the *inflated* conversion value; TRUE delivery is 9.38× (GA4) but platform-claimed is 13.93×. **Correction, 2026-07-13 22:26 IST:** only `Search-26 May 25` is genuinely Lost-IS-**Rank** limited (60.4% lost-rank); `SC - All Range` (79% of spend) is actually Lost-IS-**Budget** limited (49.0% lost-budget, only 7.4% lost-rank) — see P1-2 note below. **On 17 Aug, Google will spend harder to drag us toward a target that was never calibrated to reality.**
+## ⏳ THE COUNTDOWN — 17 AUG 2026 (34 days)
 
-**P0-1 → P0-2 must both land before 17 Aug.** This is the single hard deadline the department owns.
+Google's Smart Bidding change: **budget-limited tROAS campaigns get pulled DOWN toward their target instead of overperforming it.** Both our campaigns are constrained.
 
-## CURRENT SPRINT — Sprint 1, seeded 2026-07-13
+**⚠️ There are TWO targets, and they are different:**
 
-| # | Task | Target | Expected impact | Status | Result |
-|---|---|---|---|---|---|
-| **P0-1** | **Fix the duplicate purchase conversion action.** Two actions fire on the same orders; the higher-coverage Shopify-pixel `Purchase (1)` (489 orders / ₹14.5L) is **excluded from bidding** while the lower-coverage GA4 import counts. Ref `GoogleAds_Conversion_Tracking_Task.md`. | One purchase action, correct coverage, in the bidding goal | Closes the **49% overclaim**. Smart Bidding starts optimizing toward a real number. **Unblocks P0-2 and P2-1.** | 🔴 Not started | — |
-| **P0-2** | **Re-baseline tROAS** against the corrected conversion value. Walk in **≤15%/week** steps (guide Ch 10). | tROAS set from actual trailing-30d, ~10–20% above the 6.0 floor → **≈7.0–8.0** on corrected values | Removes the 17 Aug landmine. Google stops being able to "drag us down" to a target that no longer under-states reality. | ⬜ Blocked by P0-1 | — |
-| **P0-3** | **Revise GA-001 before approving.** The queued draft cuts ₹3,589/day → ₹1,800–2,000/day: a **~50% cut**, which triggers **another** learning phase on campaigns **already mid-learning** from the 11–12 Jul doubling. See the decision box below. | A stepped rollback (≤20%/step), or a hold-and-re-read on 19 Jul | Avoids paying the learning-phase tax twice in two weeks | 🟡 Pending in queue — **needs revision; reaffirmed hold FOUR times on 2026-07-13 (07:30, 22:02, 22:26, 23:xx IST), see run log below** | — |
-| **P0-4** | **Diagnose `Search \| SafeBuds \| OWS + Conquest`.** ₹1,011 spent, **12.57% CTR**, **0 conversions, ₹0 revenue**. High CTR + zero conversion = landing-page/intent mismatch (Ch 32/35), **not** a bidding problem. Check whether it points at the redirected legacy SafeBuds PDP (archived → `/products/ngwehear`, 2026-07-12). | Root cause named; fix or cut | Stops ₹1,011/mo of clicks that never buy | 🔴 Not started — **note: campaign spend has been at ₹0 since ~2026-06-22, so it is already dormant; formal pause drafted as GA-007 (pending); diagnosis still open before any reactivation** | — |
-| **P1-1** | **Enhanced Conversions.** SHA-256 first-party data at conversion time (Ch 1). Impact visible ~30 days after enabling. | Enabled + verified | Directly attacks the platform-vs-GA4 gap. Candidate co-cause alongside P0-1. | 🔴 Not started | — |
-| **P1-2** | **Search IS-Rank recovery** via Quality Score + assets, **not budget**. `Search-26 May 25` Lost IS (Rank) **60.4%** (confirmed 2026-07-13 22:26 IST and again 23:xx IST; `SC - All Range` is Lost-Budget 49.0% instead — see countdown note above, they are different problems). **QS on the open-ear terms is already good (7–10) per the retracted GA-008 finding, reconfirmed 4th pass** — so the residual Rank loss is bid/Ad-Strength, not QS. Excellent Ad Strength ≈ **+45% CTR** vs Poor (Ch 11), but Ad Strength itself is not directly measurable via current Windsor fields — data gap named. | Ad Strength → Good/Excellent on all ad groups; 8–10 headlines, 3–4 descriptions | Free impression share on Search. Higher QS lowers CPC *and* raises Ad Rank — but QS is not the current bottleneck. | 🟡 **GA-008 WITHDRAWN (premise false) — no live draft for this task; needs an Ad-Strength data source before any RSA spend** | — |
-| **P1-3** | **Shopping feed titles** — `SC - All Range` is **79% of spend** and feed-targeted; feed quality *is* the targeting (Ch 8). Title formula `[Brand] + [Product Type] + [Key Feature] + [Variant]`, front-load first 70 chars. | Titles rewritten + A/B tested via Merchant Center feed rules | The highest-leverage lever on 79% of spend | 🔴 Not started | — |
-| **P1-4** | **Negative-keyword prune.** Broad match + Smart Bidding + strong negatives is the 2026 posture (Ch 5). Search-terms review weekly. Source: `google_ads_exact_negatives.csv`. | Negatives applied; weekly search-terms review standing | Cuts waste; raises QS via relevance | 🟡 **GA-009 queued (9 terms, ₹1,154, pending) + GA-010 queued NEW 2026-07-13 23:xx IST (86 more terms, ₹2,637.18, pending)** | — |
-| **P0-5** | **`outside ear earbuds` — QS 0.0, ₹958 burned, ₹0 revenue.** The single worst keyword in the account. Kill or rebuild. | Killed, or QS ≥ 6 | Stops ₹958/30d of pure waste | 🟡 **Covered by GA-007** (formal campaign pause, pending) | — |
-| **P0-6** | **⭐ Quality Score on the open-ear category — RETRACTED, see learning-log #8.** NG does NOT have a QS problem; real daily QS is 7–10 across the open-ear cluster, reconfirmed a second time 2026-07-13 23:xx IST. GA-008 withdrawn. | — | — | ⬜ Closed — no QS problem exists | Retracted |
-| **P1-5** | **Rein in AI Max** (it is **already ON** on `Search-26` — see learning-log #9). Matching `truth hear`, `tecno earbuds`, `finger earphone`, plus 10 more AI_MAX terms found 2026-07-13 23:xx IST (`headphones`, `nb headphones`, `ultra thin foldable earbuds`, `audiocular iem`…) — ~₹440/30d combined, 0 conversions. Add brand exclusions + negatives + text guidelines, or prove it pays. | AI_MAX terms converting, or excluded | Stops junk matching; makes AI Max an asset not a leak | 🟡 **Covered by GA-009 (partial) + GA-010 (fuller AI_MAX list, NEW 2026-07-13)** | — |
-| **P1-6** | **Kill tablet.** ₹363/30d, **0 conversions, ₹0 revenue**, every campaign. Device bid adjustment −100%. Reconfirmed exactly ₹363.47 on the 4th pass. | Tablet excluded | Free ₹363/30d. No learning-phase cost. | 🟡 **Draft queued — GA-003** | — |
-| **P1-7** | **Shopping SKU mix is upside-down.** Pro takes **50% of Shopping spend at the worst ROAS (11.33×)**; SafeBuds gets 18% at the **best (15.27×, CPA ₹140)**. Rebalance via campaign priority / feed labels. Numbers reproduce exactly on the 4th pass. | Mix follows return | Higher blended Shopping ROAS at flat spend | 🟡 **Draft queued — GA-004** | — |
-| **P1-8** | **⚠️ REVISED 2026-07-13 23:xx IST — brand cannibalization direction is now in DOUBT.** GA-005 claimed Search-26 beats Shopping on brand (16.98× vs 12.60×, 6-term whitelist). A wider word-boundary brand aggregation this pass shows the opposite: Shopping 20.33× vs Search 13.66×. **GA-005 held — do not approve** until SH-GA-10 (learning-log backlog) reconciles which term set is authoritative. | One campaign owns brand — but which one is unresolved | Cheaper brand clicks; cleaner attribution — once the direction is actually known | 🟡 **GA-005 drafted but now ON HOLD, see flag in queue-inbox** | — |
-| **P1-9** | **Expand conquest — it's the best return in the account and it's starved.** `wehear earbuds` now 57.8× (fuller aggregate, 4th pass), `wehear safe buds` 26.7×, `poly voyager free 60` 55.2× — on ₹50–135 each. | Conquest cluster built + funded | Highest-ROAS lever available; small, testable spend | 🟡 **Draft queued — GA-006** | — |
-| **P1-10** | **⭐ Shopping is Budget-lost, not Rank-lost.** `SC - All Range` Lost-Budget 49.0% vs Lost-Rank 7.4% (IS 42.7%). Reconfirmed bit-for-bit 2026-07-13 23:xx IST. This means, once the marginal-ROAS gate clears, the next budget increment should target Shopping specifically, not the account broadly. | Confirm on next IS pull; hold as SH-GA-9 until gates clear | Correct lever gets the future budget dollar first | ⬜ Backlog — **double-gated behind 19 Jul re-read + ~26 Jul no-touch expiry** | — |
-| **P1-11** | **⭐ NEW 2026-07-13 23:xx IST — establish a fixed, documented, word-boundary-safe brand-term whitelist as a department standard.** Two honest analyses of the same 30d window disagreed on which campaign wins brand, purely because the term set differed. See learning-log #16 and SH-GA-10. | A single canonical brand-term list, versioned, reused by every future pull | Prevents this exact class of silent-methodology-drift error from recurring (same shape as the QS-summing scandal, caught earlier this time) | ⬜ Backlog — feeds directly into the GA-005 hold | GA-005 |
-| **P2-1** | **Conversion-tracking fix unblocks the tROAS re-baseline** (P0-1 → P0-2). Note: **AI Max is already live**, so it is NOT the blocked-behind-P0-1 scale lever it was seeded as — see P1-5. | — | — | ⬜ Superseded by P1-5 | — |
-| **P3-1** | **Geo/holdout incrementality test** — `GoogleAds_Measurement_Incrementality_Plan.md`. Measures total Shopify revenue, not platform claims. | Causal read on true incrementality | Would settle the overclaim question for good | ⬜ Backlog | — |
-| **P3-2** | **⭐ reconcile the 17–23 Jun best-week anomaly.** Rolling-7d scan found TRUE ROAS 16.35× at ~₹1,285/day (2026-06-17→06-23) — beats the logged "best week" of 11.50× at ₹1,801/day. Not yet explained. | Day-level pull for 17–23 Jun; check for a demand event vs a genuine low-spend efficiency point | Could revise the "₹1,800/day is optimal" pattern (learning-log #4) | ⬜ Backlog | — |
+| Campaign | tROAS | Set at |
+|---|---|---|
+| `SC - All Range` (`23278488657`) | **8.0** | campaign level |
+| `Search-26 May 25` (`22601036342`) | **9.0** | **ad-group** level (`178785500303`) |
 
-### ⚠️ P0-3 — the GA-001 decision (needs Meet)
+Both were set against the **inflated** conversion value. On 17 Aug, Google will spend harder to drag each toward a target that was never calibrated to reality. **P0-1 → P0-2 must both land first. This is the department's only hard deadline.**
 
-**The problem:** GA-001 as queued rolls ₹3,589/day → ₹1,800–2,000/day in one move. That is a **~50% cut**. Per guide Ch 10, a budget change **>20% in either direction triggers a new learning phase** — and these campaigns are *already inside* the 1–2 week learning phase triggered by the 11–12 Jul doubling. Approving it as written means **two learning resets in two weeks**, and destroys our ability to read whether the first one was recovering.
+*(Until 2026-07-14 the docs said "tROAS 9.0" for both. Wrong. They need separate corrected targets.)*
 
-**Option (a) — stepped rollback:** ₹3,589 → ~₹2,900 → ~₹2,300 → ~₹1,850 over three weeks. Each step ≤20%. Slower, but never resets learning.
+---
 
-**Option (b) — hold and re-read:** hold current spend through the no-touch window, **re-read on 19 Jul** once the 7-day attribution has matured, then step down. TRUE ROAS on 11–12 Jul was **6.20×** — *just above* the 6.0 floor, and it is a learning-phase number that may partially recover.
+## ✅ SHIPPED
 
-**Recommendation: (b), then (a).** The floor has not actually broken (6.20 > 6.0), the number we are reacting to is contaminated by a learning phase we caused, and the 7-day attribution window means we genuinely do not know yet. Re-read 19 Jul; if TRUE ROAS is still <9.0, begin the stepped rollback.
+| What | Result | Date |
+|---|---|---|
+| **GA-009 + GA-010 — 99 zero-conversion negative keywords (EXACT), campaign-level.** 30 on `Search-26`, 69 on `SC - All Range`. | **₹3,659/30d of waste removed.** Zero converting terms, zero brand, zero conquest — verified against an unfiltered aggregate *before* the push. `open ear headphones` deliberately **kept** (it converts: ₹5,331). List: `execute/GA-009_GA-010_negatives.json`. **Reversible.** | 2026-07-14 |
 
-**Run log — 2026-07-13 (Monday read):** fresh 30d pull reconfirms the sanity anchor (9.38× TRUE / 48.5% overclaim). Last-7d TRUE ROAS 8.19× — still above the 6.0 floor but noisy (contains the 07-09 data blackout, the near-dark 07-10, and the 11-12 Jul spike in the same window). Marginal ROAS on the spike recomputed at **1.15×** from this pull (vs 0.86× previously logged against a different baseline week) — same conclusion, still sub-floor, still only 2 days of post-change data. **Held. No new draft.** Re-read stays gated to 2026-07-19.
+**Read it 2026-07-21:** confirm spend on those 99 terms → ~₹0 with **zero conversion loss**. If any starts converting via a different match, remove that negative.
 
-**Run log — 2026-07-13, 22:02 IST (second pass, same day):** re-triggered decode, independent Windsor pull, same 30d window (unchanged since it ends "yesterday" = 12 Jul either way). Every figure reproduced bit-for-bit against the morning pass: spend ₹48,964.91, GA4 rev ₹4,59,163.75, TRUE ROAS 9.3774×, overclaim 48.5%, marginal ROAS 1.15×. No new information, no threshold moved. **Held again. No new draft.** Re-read still gated to 2026-07-19 — do not re-run this decode again before then unless a threshold is suspected of tripping intraday.
+---
 
-**Run log — 2026-07-13, 22:26 IST (third pass, same day):** third independent Windsor pull, sanity anchor reproduced bit-for-bit again (9.3774× / 48.5% / 133 txns). Marginal ROAS recomputed with a **clean** pre-spike baseline (06-29→07-05, avoiding the 07-09/07-10 blackout) at **1.43×** — a naive blackout-contaminated baseline (07-04→07-10) was tried first and gave a false 4.75×, discarded as corrupted. Three independent marginal-ROAS reads this week (0.86× / 1.15× / 1.43×) all land well under the 6.0 gate. **Held again. No budget draft.** New non-budget work this pass: **GA-008 drafted** (QS/RSA fix, P0-6/P1-2's first live draft) and the Shopping-is-Budget-lost nuance logged (P1-10, SH-GA-9). Re-read stays gated to 2026-07-19.
+## CURRENT SPRINT
 
-**Run log — 2026-07-13, 23:xx IST (fourth pass, same day):** fourth independent Windsor pull, all 7 pulls, sanity anchor reproduced bit-for-bit a fourth time (9.3774× / 48.5% / 133 txns). Marginal ROAS recomputed with the same clean baseline as pass 3: **1.43×**, identical. **GA-008's premise was already withdrawn (no QS problem) — this pass reconfirmed QS 7–10 directly from latest-day values, so P0-6 is now formally closed as retracted, not just withdrawn-in-queue.** New finding: a wider brand-term aggregation reverses GA-005's own stated ranking — **GA-005 held**, new hypothesis SH-GA-10 opened. Also found 86 additional zero-conversion search terms (₹2,637.18) beyond GA-009's 9 — drafted as **GA-010**. **Budget held a fourth time. No budget draft.** Re-read stays gated to 2026-07-19.
+| # | Task | Target | Why it matters | Status |
+|---|---|---|---|---|
+| **P0-1** | **Fix the duplicate purchase conversion action.** Two actions fire on the same orders; the higher-coverage Shopify-pixel `Purchase (1)` (489 orders / ₹14.5L) is **excluded from bidding** while the lower-coverage GA4 import counts. (`GoogleAds_Conversion_Tracking_Task.md`) | One purchase action, correct coverage, in the bidding goal | **Closes the 49% overclaim. Unblocks P0-2 and everything downstream.** Smart Bidding cannot optimise toward a number that is 49% wrong. | 🔴 Not started |
+| **P0-2** | **Re-baseline BOTH tROAS targets** against the corrected value. Walk each in **≤15%/week** steps. | Shopping and Search each get their *own* corrected target | Removes the 17 Aug landmine. | ⬜ Blocked by P0-1 |
+| **P0-3** | **Re-read the budget question.** GA-001 (₹3,589 → ₹1,800 rollback) was **rejected** — a ~50% cut trips a *second* learning phase. | Re-pull **2026-07-19**, once 7-day attribution has matured on the 11–12 Jul spike. Then step down **inside the 20% band** if TRUE ROAS is still < 9.0. | Marginal ROAS on the spike read 0.86× / 1.15× / 1.43× across three passes — all far below the 6.0 gate, but **all on a window younger than 7 days**. Not yet conclusive. | 🟡 Gated to 19 Jul |
+| **P0-4** | **Diagnose `Search \| SafeBuds \| OWS + Conquest`** (`23905187273`). ₹1,011 spent, **12.57% CTR, 0 conversions**. High CTR + zero conversion = **landing-page / intent mismatch**, not a bidding problem (Ch 32/35). Check whether it points at the legacy SafeBuds PDP, archived → `/products/ngwehear` on 2026-07-12. | Root cause named; fix or leave dark | Campaign is **already PAUSED** and dark since ~22 Jun — no urgency, but resolve before any relaunch. | 🔴 Not started |
+| **P1-1** | **Kill tablet.** −100% device bid adjustment, all campaigns. | Tablet excluded | ₹363/30d, **0 conversions, ₹0 revenue**, every campaign, every day. **Manual — Windsor has no device-bid action.** Free money. | 🔴 Not started *(was GA-003)* |
+| **P1-2** | **Exclude SafeBuds — Ivory** (`…51380726530327`) from `SC - All Range`. | Product-group exclusion | **9.05×, CPA ₹332 — the worst SKU in the campaign**, worse than Pro. ₹956/30d. One click, **no learning-phase cost** (exclusions work fine under Smart Bidding; only *bids* are locked). | 🔴 Not started |
+| **P1-3** | **Rein in AI Max** — already ON on `Search-26` (`search_term_match_type = AI_MAX`), matching `truth hear`, `tecno earbuds`, `finger earphone`. Brand exclusions + text guidelines, or prove it pays. | AI_MAX terms converting, or excluded | **Never draft "enable AI Max". It is on.** The 99 negatives already trimmed its junk — re-read 21 Jul for leakage. | 🔴 Not started |
+| **P1-4** | **Shopping feed titles.** `SC - All Range` is **79% of spend** and is feed-targeted — feed quality *is* the targeting (Ch 8). Title = `[Brand] + [Product Type] + [Key Feature] + [Variant]`, front-load first 70 chars. | Titles rewritten, A/B'd via Merchant Center feed rules | **Probably the largest un-pulled lever in the account.** Completely untouched. | 🔴 Not started |
+| **P1-5** | **Enhanced Conversions.** SHA-256 first-party data at conversion time (Ch 1). Impact visible ~30d after enabling. | Enabled + verified | Attacks the platform-vs-GA4 gap from the other side, alongside P0-1. | 🔴 Not started |
+| **P2-1** | **Build a conquest Search campaign** (SH-GA-11). `wehear earbuds` 45.7× · `wehear safe buds` 53.9× · `poly voyager free 60` 55.2× — on ₹50–130 each. | Dedicated Search campaign, conquest keywords | **Best return in the account, and starved.** ⚠️ These terms currently land in **Shopping — which has no keywords**, so there is no bid to raise. A new campaign is the *only* lever. Costs a fresh learning phase → **do it after 17 Aug.** | ⬜ Deferred |
+| **P3-1** | **Geo/holdout incrementality test** (`GoogleAds_Measurement_Incrementality_Plan.md`). | Causal read on true incrementality | Would settle the overclaim question for good. | ⬜ Backlog |
+
+---
+
+## ❌ RETRACTED — do not resurrect
+
+| Was | Why it's dead |
+|---|---|
+| **"The Quality Score scandal"** *(old P0-5/P0-6, GA-008)* | **FALSE.** Windsor **sums** `quality_score` across rows — a 30d pull without `date` returns a sum, not a score. Real daily QS: `ng earsafe` **10**, `open ear wireless headphones` **8**, `open ear headphones` **7**. **There is no QS problem.** |
+| **"Shopping SKU mix is upside-down"** *(old P1-7, GA-004)* | **FALSE.** A `spend > 200` filter dropped rows and an entire SKU. Truth: **four** SKUs; Pro is **47.0%** not 50.5%; **SafeBuds + Comm 2.0 already hold 53.0%** of Shopping spend. Gap is real but modest (Pro 11.31× vs core 15.01× = **1.33×**) — **not worth a re-learn.** Excluding SafeBuds Ivory (P1-2) is the sharp version. |
+| **"Raise conquest keyword bids"** *(GA-006)* | **IMPOSSIBLE.** The terms sit in a **Shopping** campaign — no keywords exist. Superseded by P2-1. |
+| **"Pause the dormant SafeBuds campaign"** *(GA-007)* | **NO-OP.** It is already `PAUSED`. |
+| **"Roll the budget back to ₹1,800/day"** *(GA-001)* | **REJECTED.** ~50% cut trips a second learning phase. Superseded by P0-3 (stepped, gated to 19 Jul). |
+
+**Also: do not "build a SafeBuds Shopping campaign."** One already exists — `Shopping | SafeBuds | 7th May'26` (`23830060744`), **PAUSED**, tROAS 10.0. So does `SC - All Range #2` (`23891088227`), PAUSED, tROAS 8.0.
+
+---
 
 ## PERFORMANCE TARGETS
 
-| Metric | Current (30d, 13 Jun–12 Jul) | Floor | 30-day target | 90-day target |
+| Metric | Current (30d, 13 Jun–12 Jul) | Floor | 30-day target | 90-day |
 |---|---|---|---|---|
-| **TRUE ROAS** (GA Ads spend ÷ GA4 google/cpc rev) | **9.38×** (reconfirmed 4×) | **6.0×** | ≥ 9.0× | 9–11× band held while spend compounds |
-| Best-week TRUE ROAS | 11.50× (wk3, ₹1,801/day) — **note: a rolling scan found 16.35× at 17–23 Jun, ~₹1,285/day; not yet reconciled, see P3-2** | — | Re-achieve | Beat, at higher spend |
-| Marginal ROAS (last increment) | **0.86× / 1.15× / 1.43× / 1.43×** (11–12 Jul, four independent computations, all consistent, all sub-floor) | **6.0×** | ≥ 6.0 before any scale | ≥ 6.0 sustained |
-| Platform overclaim | **48.5%** (30d, reconfirmed 4×) | 35–65% band | **< 20%** (after P0-1) | < 15% |
-| Spend | ₹48,965 (₹1,632/day) | — | Hold ~₹1,800/day | Compound via +20%/wk ratchet **only** when marginal ≥ 6.0 |
-| GA4 google-paid revenue | ₹4,59,164 | — | ≥ ₹4.6L | Up with spend at held ROAS |
-| Lost IS (Rank) — `Search-26 May 25` | 60.4% (confirmed 4×) | — | Down via Ad Strength/bid (NOT QS — QS is already 7-10), not budget | < 40% |
-| Lost IS (Budget) — `SC - All Range` | 49.0% (confirmed 4×) | — | Hold — budget move gated until marginal ROAS clears | < 30% |
+| **TRUE ROAS** (Google Ads spend ÷ GA4 `google/cpc` revenue) | **9.38×** | **6.0×** | ≥ 9.0× | 9–11× band held while spend compounds |
+| Best-week TRUE ROAS | 11.50× (wk3, ₹1,801/day) | — | Re-achieve | Beat, at higher spend |
+| Marginal ROAS (last increment) | **0.86–1.43×** (11–12 Jul, 3 reads) | **6.0×** | ≥ 6.0 before any scale | ≥ 6.0 sustained |
+| Platform overclaim | **49%** | 35–65% band | **< 20%** (after P0-1) | < 15% |
+| Spend | ₹48,965 (₹1,632/day) | — | Hold ~₹1,800/day | Compound via +20%/wk **only** when marginal ≥ 6.0 |
+| Zero-conversion waste | **~₹0** ✅ (99 negatives shipped) | — | Keep at ~₹0 via weekly prune | — |
+| Lost IS (Rank) — `Search-26` | **60.4%** (worsening from 47%) | — | Down via assets, **not budget** | < 40% |
 
-## STANDING TASKS
+---
 
-| Cadence | Task |
-|---|---|
-| **Daily (Tue–Sun, 07:30 IST)** | Guard run — TRUE ROAS 7d, floor check, pacing check, no-touch check. **Silence if nothing trips.** |
-| **Monday (07:30 IST)** | Full audit — campaigns, IS/Rank, feed, assets, thresholds, learning-phase state → drafts + learning-log entry |
-| Weekly | Search-terms report review → negatives |
-| Monthly | Asset performance review; replace "Low" assets (>5,000 impressions) |
+## DATA PULL SCHEDULE — 7 pulls, **NO metric filters, ever**
 
-## DATA PULL SCHEDULE
-- **Windsor `google_ads`** acct `508-958-3796` — `date, campaign, spend, clicks, impressions, conversions, conversions_value`
-- **Windsor `googleanalytics4`** property `299565498` — `date, source, medium, sessions, totalrevenue, transactions`, filtered `medium = cpc` (keeps the pull small; avoids the truncation trap)
-- Both: 30-day window, pulled every run.
+| # | Connector | What | Notes |
+|---|---|---|---|
+| 1 | `google_ads` | campaign × day | |
+| 2 | `googleanalytics4` (`299565498`) | `google/cpc` × day | `medium = cpc` is **the one legal filter** — a *dimension*, not a metric. Without it GA4 truncates. |
+| 3 | `google_ads` | keyword × Quality Score | **MUST include `date`.** QS is **summed** across rows. **Any QS > 10 is a sum — re-pull.** |
+| 4 | `google_ads` | search terms | |
+| 5 | `google_ads` | Shopping SKU | **FOUR SKUs.** Assert they sum to campaign spend. |
+| 6 | `google_ads` | device | |
+| 7 | `google_ads` | impression share | Cannot be queried alongside `quality_score` (Google API restriction) |
+
+> 🚨 **Never put `spend`, `conversions`, `impressions` or `clicks` in a `filters` argument.** Windsor filters at the **segmented-row** grain and silently drops rows — no error, just a smaller, plausible, wrong answer. **Three findings were corrupted this way on 13–14 Jul.** Pull everything, filter in code, and **assert every breakdown sums to its parent total.**
+
+---
 
 ## DEPENDENCIES / BLOCKERS
-- **P0-2, P2-1 are blocked by P0-1.** The conversion fix is the keystone — measurement must be right before bidding or AI Max can be trusted.
-- **P0-3 needs a human decision** (see box above) and is inside a no-touch window until ~19 Jul (re-read) / ~26 Jul (no-touch expiry from the 11–12 Jul spike).
-- P1-3 (feed titles) may need Merchant Center access beyond the Windsor read connector.
-- **P1-10 / SH-GA-9 is double-gated**: needs both the 19 Jul account-level marginal-ROAS re-read to clear 6.0, and the ~26 Jul no-touch expiry, before any Shopping-specific budget test can run.
-- **P1-8 / P1-11 / GA-005 is now gated on SH-GA-10** — a documented brand-term whitelist must exist before any brand-consolidation change executes.
+
+- **P0-2 is blocked by P0-1.** The conversion fix is the keystone — measurement must be right before bidding can be trusted.
+- **P0-3 is gated to 19 Jul** (7-day attribution on the 11–12 Jul spike).
+- **P1-1 (tablet) and P1-2 (SafeBuds Ivory) are manual, one-click, and free** — Windsor has no device-bid or product-group action, and neither costs a learning phase. **Do these first.**
+- **P2-1 (conquest campaign) is deferred past 17 Aug** — a new campaign starts a fresh learning phase, and P0-1/P0-2 need clean water to land in.
