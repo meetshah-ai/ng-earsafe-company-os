@@ -2,7 +2,7 @@
 
 > Read at the start of every Google Ads session, after `constitution.md`. Archive completed sprints to `learning-log.md` every 30 days.
 >
-> Last updated: **2026-07-13** — Monday read run (report: `Company_OS/google-ads/2026-07-12.md`). Sprint 1 seeded from the live account audit (30d window 13 Jun – 12 Jul 2026) + the Google Ads Mastery Guide 2026.
+> Last updated: **2026-07-13, 22:02 IST** — second Monday-read pass this calendar day (report: `Company_OS/google-ads/2026-07-12.md`). Re-verifies the morning run; every figure reproduced bit-for-bit. Sprint 1 seeded from the live account audit (30d window 13 Jun – 12 Jul 2026) + the Google Ads Mastery Guide 2026.
 
 ## PRIORITY SYSTEM
 - **P0** — this week. Blocks everything else, or is time-boxed by an external deadline.
@@ -22,7 +22,7 @@ Google's Smart Bidding change: **budget-limited tROAS campaigns will be pulled D
 |---|---|---|---|---|---|
 | **P0-1** | **Fix the duplicate purchase conversion action.** Two actions fire on the same orders; the higher-coverage Shopify-pixel `Purchase (1)` (489 orders / ₹14.5L) is **excluded from bidding** while the lower-coverage GA4 import counts. Ref `GoogleAds_Conversion_Tracking_Task.md`. | One purchase action, correct coverage, in the bidding goal | Closes the **49% overclaim**. Smart Bidding starts optimizing toward a real number. **Unblocks P0-2 and P2-1.** | 🔴 Not started | — |
 | **P0-2** | **Re-baseline tROAS** against the corrected conversion value. Walk in **≤15%/week** steps (guide Ch 10). | tROAS set from actual trailing-30d, ~10–20% above the 6.0 floor → **≈7.0–8.0** on corrected values | Removes the 17 Aug landmine. Google stops being able to "drag us down" to a target that no longer under-states reality. | ⬜ Blocked by P0-1 | — |
-| **P0-3** | **Revise GA-001 before approving.** The queued draft cuts ₹3,589/day → ₹1,800–2,000/day: a **~50% cut**, which triggers **another** learning phase on campaigns **already mid-learning** from the 11–12 Jul doubling. See the decision box below. | A stepped rollback (≤20%/step), or a hold-and-re-read on 19 Jul | Avoids paying the learning-phase tax twice in two weeks | 🟡 Pending in queue — **needs revision; reaffirmed hold on 2026-07-13, see run log below** | — |
+| **P0-3** | **Revise GA-001 before approving.** The queued draft cuts ₹3,589/day → ₹1,800–2,000/day: a **~50% cut**, which triggers **another** learning phase on campaigns **already mid-learning** from the 11–12 Jul doubling. See the decision box below. | A stepped rollback (≤20%/step), or a hold-and-re-read on 19 Jul | Avoids paying the learning-phase tax twice in two weeks | 🟡 Pending in queue — **needs revision; reaffirmed hold on 2026-07-13 (both the morning run and the 22:02 IST re-verification pass), see run log below** | — |
 | **P0-4** | **Diagnose `Search \| SafeBuds \| OWS + Conquest`.** ₹1,011 spent, **12.57% CTR**, **0 conversions, ₹0 revenue**. High CTR + zero conversion = landing-page/intent mismatch (Ch 32/35), **not** a bidding problem. Check whether it points at the redirected legacy SafeBuds PDP (archived → `/products/ngwehear`, 2026-07-12). | Root cause named; fix or cut | Stops ₹1,011/mo of clicks that never buy | 🔴 Not started — **note: campaign spend has been at ₹0 since ~2026-06-22, so it is already dormant; diagnosis still open before any reactivation** | — |
 | **P1-1** | **Enhanced Conversions.** SHA-256 first-party data at conversion time (Ch 1). Impact visible ~30 days after enabling. | Enabled + verified | Directly attacks the platform-vs-GA4 gap. Candidate co-cause alongside P0-1. | 🔴 Not started | — |
 | **P1-2** | **Search IS-Rank recovery** via Quality Score + assets, **not budget**. Lost IS (Rank) 76% / 47%. Excellent Ad Strength ≈ **+45% CTR** vs Poor (Ch 11). | Ad Strength → Good/Excellent on all ad groups; 8–10 headlines, 3–4 descriptions | Free impression share. Higher QS lowers CPC *and* raises Ad Rank. | 🔴 Not started | — |
@@ -50,13 +50,15 @@ Google's Smart Bidding change: **budget-limited tROAS campaigns will be pulled D
 
 **Run log — 2026-07-13 (Monday read):** fresh 30d pull reconfirms the sanity anchor (9.38× TRUE / 48.5% overclaim). Last-7d TRUE ROAS 8.19× — still above the 6.0 floor but noisy (contains the 07-09 data blackout, the near-dark 07-10, and the 11-12 Jul spike in the same window). Marginal ROAS on the spike recomputed at **1.15×** from this pull (vs 0.86× previously logged against a different baseline week) — same conclusion, still sub-floor, still only 2 days of post-change data. **Held. No new draft.** Re-read stays gated to 2026-07-19.
 
+**Run log — 2026-07-13, 22:02 IST (second pass, same day):** re-triggered decode, independent Windsor pull, same 30d window (unchanged since it ends "yesterday" = 12 Jul either way). Every figure reproduced bit-for-bit against the morning pass: spend ₹48,964.91, GA4 rev ₹4,59,163.75, TRUE ROAS 9.3774×, overclaim 48.5%, marginal ROAS 1.15×. No new information, no threshold moved. **Held again. No new draft.** Re-read still gated to 2026-07-19 — do not re-run this decode again before then unless a threshold is suspected of tripping intraday.
+
 ## PERFORMANCE TARGETS
 
 | Metric | Current (30d, 13 Jun–12 Jul) | Floor | 30-day target | 90-day target |
 |---|---|---|---|---|
 | **TRUE ROAS** (GA Ads spend ÷ GA4 google/cpc rev) | **9.38×** | **6.0×** | ≥ 9.0× | 9–11× band held while spend compounds |
 | Best-week TRUE ROAS | 11.50× (wk3, ₹1,801/day) | — | Re-achieve | Beat, at higher spend |
-| Marginal ROAS (last increment) | **0.86–1.15×** (11–12 Jul, two computations) | **6.0×** | ≥ 6.0 before any scale | ≥ 6.0 sustained |
+| Marginal ROAS (last increment) | **0.86–1.15×** (11–12 Jul, three computations, all consistent) | **6.0×** | ≥ 6.0 before any scale | ≥ 6.0 sustained |
 | Platform overclaim | **48.5%** (30d) | 35–65% band | **< 20%** (after P0-1) | < 15% |
 | Spend | ₹48,965 (₹1,632/day) | — | Hold ~₹1,800/day | Compound via +20%/wk ratchet **only** when marginal ≥ 6.0 |
 | GA4 google-paid revenue | ₹4,59,164 | — | ≥ ₹4.6L | Up with spend at held ROAS |
