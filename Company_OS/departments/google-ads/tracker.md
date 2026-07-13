@@ -2,7 +2,7 @@
 
 > Read at the start of every session, after `constitution.md`. Archive completed sprints to `learning-log.md` every 30 days.
 >
-> **Last updated: 2026-07-14** — Sprint rebuilt after **three findings were retracted as Windsor filter artifacts**. 99 negatives shipped live. Every number below comes from an **unfiltered** pull, reconciled to its parent total.
+> **Last updated: 2026-07-14** — Sprint rebuilt after **three findings were retracted as Windsor filter artifacts**. **₹4,978/30d of waste shipped: 99 negatives + tablet + SafeBuds Ivory.** Every number below comes from an **unfiltered** pull, reconciled to its parent total.
 
 ## PRIORITY SYSTEM
 - **P0** — this week. Blocks everything else, or is time-boxed by an external deadline.
@@ -34,8 +34,22 @@ Both were set against the **inflated** conversion value. On 17 Aug, Google will 
 | What | Result | Date |
 |---|---|---|
 | **GA-009 + GA-010 — 99 zero-conversion negative keywords (EXACT), campaign-level.** 30 on `Search-26`, 69 on `SC - All Range`. | **₹3,659/30d of waste removed.** Zero converting terms, zero brand, zero conquest — verified against an unfiltered aggregate *before* the push. `open ear headphones` deliberately **kept** (it converts: ₹5,331). List: `execute/GA-009_GA-010_negatives.json`. **Reversible.** | 2026-07-14 |
+| **P1-1 — Tablet excluded (−100% device bid), all campaigns.** | **₹363/30d recovered.** Tablet had **0 conversions, ₹0 revenue** across every campaign, every day of the 30d window. No learning-phase cost. **Reversible.** | 2026-07-14 |
+| **P1-2 — SafeBuds Ivory excluded** (`…51380726530327`) from `SC - All Range`. | **₹956/30d reallocated** away from the campaign's worst SKU (**9.05×, CPA ₹332** — worse than Pro). Its budget now flows to the three remaining SKUs, which average **13.5×**. Product-group exclusion, no learning-phase cost. **Reversible.** | 2026-07-14 |
 
-**Read it 2026-07-21:** confirm spend on those 99 terms → ~₹0 with **zero conversion loss**. If any starts converting via a different match, remove that negative.
+### 💰 Total shipped: **₹4,978/30d** of waste cut or reallocated — at flat spend, zero learning-phase cost, all reversible.
+
+**📅 THE READ — 2026-07-21 (7 days, one full attribution window).** Pull unfiltered, reconcile to parent, and check all four:
+
+| Check | Expect | Fail signal |
+|---|---|---|
+| Spend on the 99 negatived terms | **~₹0** | Any of them still spending → the negative didn't match; check match type |
+| Conversions lost to the negatives | **ZERO** | Any conversion appearing on a negatived term → **remove that negative immediately** |
+| Tablet spend | **₹0** | Non-zero → the bid adjustment didn't apply |
+| SafeBuds Ivory spend | **₹0** | Non-zero → the product-group exclusion didn't take |
+| **TRUE ROAS (7d)** | **≥ 9.4×, ideally rising** | **< 9.0× → something we cut was load-bearing. Investigate before cutting anything else.** |
+
+⚠️ **The TRUE ROAS row is the one that matters.** All four cuts *look* free. If TRUE ROAS falls anyway, one of them was carrying assisted conversions we couldn't see, and the answer is to reverse — not to cut deeper.
 
 ---
 
@@ -47,11 +61,9 @@ Both were set against the **inflated** conversion value. On 17 Aug, Google will 
 | **P0-2** | **Re-baseline BOTH tROAS targets** against the corrected value. Walk each in **≤15%/week** steps. | Shopping and Search each get their *own* corrected target | Removes the 17 Aug landmine. | ⬜ Blocked by P0-1 |
 | **P0-3** | **Re-read the budget question.** GA-001 (₹3,589 → ₹1,800 rollback) was **rejected** — a ~50% cut trips a *second* learning phase. | Re-pull **2026-07-19**, once 7-day attribution has matured on the 11–12 Jul spike. Then step down **inside the 20% band** if TRUE ROAS is still < 9.0. | Marginal ROAS on the spike read 0.86× / 1.15× / 1.43× across three passes — all far below the 6.0 gate, but **all on a window younger than 7 days**. Not yet conclusive. | 🟡 Gated to 19 Jul |
 | **P0-4** | **Diagnose `Search \| SafeBuds \| OWS + Conquest`** (`23905187273`). ₹1,011 spent, **12.57% CTR, 0 conversions**. High CTR + zero conversion = **landing-page / intent mismatch**, not a bidding problem (Ch 32/35). Check whether it points at the legacy SafeBuds PDP, archived → `/products/ngwehear` on 2026-07-12. | Root cause named; fix or leave dark | Campaign is **already PAUSED** and dark since ~22 Jun — no urgency, but resolve before any relaunch. | 🔴 Not started |
-| **P1-1** | **Kill tablet.** −100% device bid adjustment, all campaigns. | Tablet excluded | ₹363/30d, **0 conversions, ₹0 revenue**, every campaign, every day. **Manual — Windsor has no device-bid action.** Free money. | 🔴 Not started *(was GA-003)* |
-| **P1-2** | **Exclude SafeBuds — Ivory** (`…51380726530327`) from `SC - All Range`. | Product-group exclusion | **9.05×, CPA ₹332 — the worst SKU in the campaign**, worse than Pro. ₹956/30d. One click, **no learning-phase cost** (exclusions work fine under Smart Bidding; only *bids* are locked). | 🔴 Not started |
-| **P1-3** | **Rein in AI Max** — already ON on `Search-26` (`search_term_match_type = AI_MAX`), matching `truth hear`, `tecno earbuds`, `finger earphone`. Brand exclusions + text guidelines, or prove it pays. | AI_MAX terms converting, or excluded | **Never draft "enable AI Max". It is on.** The 99 negatives already trimmed its junk — re-read 21 Jul for leakage. | 🔴 Not started |
-| **P1-4** | **Shopping feed titles.** `SC - All Range` is **79% of spend** and is feed-targeted — feed quality *is* the targeting (Ch 8). Title = `[Brand] + [Product Type] + [Key Feature] + [Variant]`, front-load first 70 chars. | Titles rewritten, A/B'd via Merchant Center feed rules | **Probably the largest un-pulled lever in the account.** Completely untouched. | 🔴 Not started |
-| **P1-5** | **Enhanced Conversions.** SHA-256 first-party data at conversion time (Ch 1). Impact visible ~30d after enabling. | Enabled + verified | Attacks the platform-vs-GA4 gap from the other side, alongside P0-1. | 🔴 Not started |
+| **P1-1** | **Rein in AI Max** — already ON on `Search-26` (`search_term_match_type = AI_MAX`), matching `truth hear`, `tecno earbuds`, `finger earphone`. Brand exclusions + text guidelines, or prove it pays. | AI_MAX terms converting, or excluded | **Never draft "enable AI Max". It is on.** The 99 negatives already trimmed its junk — re-read 21 Jul for leakage. | 🔴 Not started |
+| **P1-2** | **Shopping feed titles.** `SC - All Range` is **79% of spend** and is feed-targeted — feed quality *is* the targeting (Ch 8). Title = `[Brand] + [Product Type] + [Key Feature] + [Variant]`, front-load first 70 chars. | Titles rewritten, A/B'd via Merchant Center feed rules | **Probably the largest un-pulled lever in the account.** Completely untouched. | 🔴 Not started |
+| **P1-3** | **Enhanced Conversions.** SHA-256 first-party data at conversion time (Ch 1). Impact visible ~30d after enabling. | Enabled + verified | Attacks the platform-vs-GA4 gap from the other side, alongside P0-1. | 🔴 Not started |
 | **P2-1** | **Build a conquest Search campaign** (SH-GA-11). `wehear earbuds` 45.7× · `wehear safe buds` 53.9× · `poly voyager free 60` 55.2× — on ₹50–130 each. | Dedicated Search campaign, conquest keywords | **Best return in the account, and starved.** ⚠️ These terms currently land in **Shopping — which has no keywords**, so there is no bid to raise. A new campaign is the *only* lever. Costs a fresh learning phase → **do it after 17 Aug.** | ⬜ Deferred |
 | **P3-1** | **Geo/holdout incrementality test** (`GoogleAds_Measurement_Incrementality_Plan.md`). | Causal read on true incrementality | Would settle the overclaim question for good. | ⬜ Backlog |
 
@@ -105,5 +117,5 @@ Both were set against the **inflated** conversion value. On 17 Aug, Google will 
 
 - **P0-2 is blocked by P0-1.** The conversion fix is the keystone — measurement must be right before bidding can be trusted.
 - **P0-3 is gated to 19 Jul** (7-day attribution on the 11–12 Jul spike).
-- **P1-1 (tablet) and P1-2 (SafeBuds Ivory) are manual, one-click, and free** — Windsor has no device-bid or product-group action, and neither costs a learning phase. **Do these first.**
+- **✅ Tablet and SafeBuds Ivory both shipped 2026-07-14.** ₹4,978/30d cut in total, at flat spend. **Read on 21 Jul — TRUE ROAS must hold ≥ 9.4×.**
 - **P2-1 (conquest campaign) is deferred past 17 Aug** — a new campaign starts a fresh learning phase, and P0-1/P0-2 need clean water to land in.

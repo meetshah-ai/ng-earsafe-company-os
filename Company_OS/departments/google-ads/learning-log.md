@@ -120,6 +120,7 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 
 | # | Hypothesis (metric + threshold) | Test (smallest move) | Status | Linked queue |
 |---|---|---|---|---|
+| **SH-GA-13** | Cutting ₹4,978/30d of zero-return spend at flat budget lifts TRUE ROAS from 9.38× toward the 9–11× band within one attribution window | Shipped 2026-07-14 (99 negatives + tablet + SafeBuds Ivory). **Falsifier: TRUE ROAS < 9.0 on 21 Jul → something cut was load-bearing → REVERSE, don't cut deeper.** | 🟡 **OPEN — read 2026-07-21** | shipped |
 | **SH-GA-1** | Fixing the duplicate conversion action closes the 49% overclaim to **<20%** | P0-1 — deduplicate, put the Shopify-pixel action in the bidding goal | ⬜ OPEN | — |
 | **SH-GA-2** | With corrected values, a tROAS re-baselined to **~7.0–8.0** holds TRUE ROAS ≥ 9.0 *and* survives the 17 Aug change | P0-2 — walk the target in ≤15%/week steps | ⬜ BLOCKED by SH-GA-1 | — |
 | **SH-GA-3** | **AI Max** delivers the guide's **+34% CVR** on `Search-26 May 25` | P2-1 — one-click experiment, 50/50, 2-week read | ⬜ BLOCKED by SH-GA-1 | — |
@@ -131,6 +132,27 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 | **SH-GA-10** | ⭐ NEW 2026-07-13 4th pass — A fixed, word-boundary-safe brand-term whitelist (documented once, reused every pull) will show SC-All Range's blended brand platform ROAS exceeding Search-26's by >20%, reversing GA-005's premise | Re-pull search-terms 2026-07-20 with the same fixed whitelist used in this pass's appendix; compare ₹2,338.94/20.33× (Shopping) vs ₹2,308.13/13.66× (Search). No new spend — measurement-consistency test that gates GA-005. | ⬜ OPEN — **GA-005 held pending this** | GA-005 |
 
 ## CYCLE LOG (most recent first)
+
+### 2026-07-14 — Waste cut complete: ₹4,978/30d, all reversible, zero learning-phase cost
+
+**Initiative:** Ship every free lever — cuts that reset no learning phase, need no no-touch window, and cost no incremental spend.
+
+**SHIPPED:**
+| Action | Saved | How |
+|---|---|---|
+| 99 zero-conversion negative keywords (EXACT) | **₹3,659/30d** | Windsor `push_negative_keywords`, campaign-level. 30 on `Search-26`, 69 on `SC - All Range`. |
+| Tablet excluded (−100% device bid) | **₹363/30d** | Manual (no Windsor action exists). 0 conversions, ₹0 revenue, every campaign, every day. |
+| SafeBuds Ivory excluded from Shopping | **₹956/30d** | Manual product-group exclusion. 9.05×, CPA ₹332 — the campaign's worst SKU, worse than Pro. |
+| **TOTAL** | **₹4,978/30d** | At **flat spend**. All reversible. |
+
+**Hypothesis (SH-GA-13, OPEN):** cutting ₹4,978/30d of zero-return spend, at flat budget, raises TRUE ROAS from **9.38×** toward the **9–11× operating band** within one attribution window — because the same money now flows to traffic that converts. **Read 2026-07-21.**
+
+**The falsification condition, stated up front:** if **TRUE ROAS falls below 9.0×** on the 21 Jul read, then something we cut was load-bearing — carrying assisted conversions invisible in a last-click search-term view. **The response is to REVERSE, not to cut deeper.** Negatives, device bids and product-group exclusions are all one-click reversible; that is precisely why they were chosen to go first.
+
+**Learning carried forward:**
+- **The free levers went first, deliberately.** Every one of these resets no learning phase, needs no no-touch window, and moves no budget — so they could all ship *during* an active learning phase, which the budget levers could not. **Sequencing by learning-phase cost, not by size of prize, is what let ₹4,978 move while the account was frozen.**
+- **Cheap and reversible beats big and sticky when your measurement is 49% wrong.** Until P0-1 lands, every "big" decision rests on a number we know to be inflated. Cuts that can be undone in one click are the only honest moves available.
+
 
 ### 2026-07-14 — GA-009/GA-010 EXECUTED · two structural discoveries
 
