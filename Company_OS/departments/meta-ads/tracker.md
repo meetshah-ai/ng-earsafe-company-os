@@ -1,19 +1,24 @@
 # Meta Ads — Live Task Tracker
 
-> Read at the start of every session. After a task: update status + result. Each 30-day cycle: archive completed into `learning-log.md`.
+> **This file + `learning-log.md` are the two live files the Meta Ads Operator reads at runtime**
+> (`Company_OS/agents/meta-ads.agent.yaml`; the managed agent runs **twice a week, Mon + Thu 08:00
+> IST**, and drafts to `queue-inbox.md`). Keep it current: after a task, update status + result; each
+> cycle, archive completed items into `learning-log.md`.
 > Last updated: 2026-07-03 (morning-loop cycle 4 — WoW read 7d Jun26-Jul2 vs Jun19-25; MA-004 scale confirmed working; MA-009 campaign found dark/paused despite "DONE" decision-log status; Retargeting freq now 2.89× — past gate; new ES Pro test campaign found active on deferred SKU)
 
 ## PRIORITY SYSTEM
 - **P0** — this week. **P1** — this month. **P2** — 30–60 days. **P3** — experiments.
 
-## ANALYSIS CADENCE (CEO mandate — COMPANY_STATE §5.6)
-**Weekly, week-over-week.** 30-day is context only. Kill/scale/rotate on the weekly trend.
+## ANALYSIS CADENCE (Meet, 2026-07-14)
+**Twice-weekly (Mon + Thu 08:00 IST).** Monday = full teardown of the completed week; Thursday =
+follow-up on Monday's calls. TRUE ROAS is read on the **trailing 7d**; 30-day is context only.
+Kill/scale/rotate on the weekly trend, not the 30-day average.
 
 ## STANDING WEEKLY TASKS
 | Task | Cadence | Output |
 |---|---|---|
 | **Weekly ad-level pull** — week-over-week CPP/ROAS/frequency/CTR/reach by creative, classify each by content type + angle | Weekly (every Mon/Tue) | weekly-analysis verdict table in `learning-log.md` |
-| **Competitor ad teardown** (Shokz, boAt, Noise, wecool + Mojawe/Oladence via Meta Ad Library) → classify content/caption/format/hook → NG action drafts | Weekly | counter-brief drafts in `APPROVALS_QUEUE.md` |
+| **Competitor ad teardown** (Shokz, boAt, Noise, wecool + Mojawe/Oladence via Meta Ad Library) → classify content/caption/format/hook → NG action drafts | On-demand (teardown subagent) | counter-brief drafts in `queue-inbox.md` |
 | **Test matrix review** — which experiments are open/confirmed/rejected this week; what's next up | Weekly | update TEST MATRIX table below + `learning-log.md` OPEN hypotheses |
 
 ---
