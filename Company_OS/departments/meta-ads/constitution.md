@@ -1,8 +1,10 @@
 # Meta Ads — Department Constitution
 
-> **Human-readable canon for the Meta Ads lane.** Version 4.0 · Owner: Meet Shah · Last updated
-> 2026-07-15 (moved to a **weekly Thursday** cadence + a full campaign-level week-over-week +
-> month-to-date performance audit; supersedes the v3.0 twice-weekly model).
+> **Human-readable canon for the Meta Ads lane.** Version 4.1 · Owner: Meet Shah · Last updated
+> 2026-07-15 (v4.1 adds the **Creative-Format Test Engine** §5d — always 2–3 format trials live from an
+> open format library — and reframes institutional truth #1: review/explainer is the validated anchor,
+> not the only converter. v4.0 moved to a **weekly Thursday** cadence + full campaign-level
+> week-over-week + month-to-date performance audit; supersedes the v3.0 twice-weekly model).
 
 ## 0. META-INSTRUCTION — how this lane runs (read this first)
 
@@ -85,8 +87,11 @@ Library** and analyse content type, caption, format, hook, offer — then state 
 improve or counter*. Log intel to the competitor ledger in `learning-log.md`.
 
 ## 4. INSTITUTIONAL TRUTHS (never relearn)
-1. **Only product-review / tech-explainer creative converts** (Gadgetbhai / Techopedia style).
-   Feature carousels, UGC, static specs = dead across all SKUs. (`[[ng-meta-ads-performance]]`)
+1. **Product-review / tech-explainer is the VALIDATED anchor** (Gadgetbhai / Techopedia style) — the
+   safe default primary converter. It is *not the only* format that can convert: other formats are
+   **unvalidated challengers, not dead** — the Creative-Format Test Engine (§5d) systematically tests
+   them to find additional winners we can scale into. Never make an unvalidated format the primary
+   converter until it's cleared the bar in a controlled test. (`[[ng-meta-ads-performance]]`)
 2. **Creative fatigues at frequency >2.5×.** Rotate before then; expand LAL 1% → 3–5% simultaneously.
    New creative every 4–6 weeks is non-negotiable. (ROAS decayed ₹163→₹674 CPP when ignored.)
 3. **~87.6% of buyers decide same-day** — the ad must carry "what is open ear + why this one" in 30s;
@@ -137,12 +142,26 @@ Invention is not.**
 `Angle: … | Format: review/explainer Reel | Hook (0–3s): … | Proof: … | Open-ear category beat: … |
 Why-NG beat: … | CTA: … | SKU/Tribe: … | Competitor gap it exploits: …`
 
+### 5d. Creative-Format Test Engine — always 2–3 format trials live
+Review/explainer is the confirmed anchor; the mission is to keep discovering **additional** winning
+formats to scale further, tap fresh audiences, and de-risk single-format dependency. The live home is
+the **`## CREATIVE-FORMAT TEST ENGINE` register in `learning-log.md`** (CF-# rows) — an **open, living
+library** (founder seed references + expert-added D2C formats + net-new bets the agent appends each
+cycle), not a fixed list. Rules:
+- **Keep 2–3 formats `IN TEST` at all times.** Fewer live → rotate the next `UNTESTED` CF-# in.
+- **Each trial = a challenger ad inside an existing winning ad set** (the SH-MA-7/8 mechanism), in NG's
+  converting voice, **vs a review-format control**, ~₹5K / 7-day read at ad level.
+- **Funded by reallocation off the CUT list — never net-new budget while TRUE ROAS < 6.0 floor.**
+- **Lifecycle:** UNTESTED → IN TEST → VALIDATED (clears control/8× bar, CPP ≤ SKU floor, freq < 2.5× on
+  ≥7d → promote + log an SH-MA-# scale bet) → REJECTED (log to DEAD ENDS with the number; never blindly
+  retry). An unvalidated format is a controlled challenger until it earns primary status.
+
 ## 6. STOP LIST / GUARDRAILS
 **Never:**
 - ❌ Add budget while TRUE ROAS is below the 6.0 floor, or while marginal ROAS < 6.0.
 - ❌ Move a budget/bid more than ±20% in one step, or inside a 2-week no-touch window.
 - ❌ Scale a creative past 2.5× frequency without rotation.
-- ❌ Ship a non-review / non-explainer creative as a primary converter.
+- ❌ Ship an **unvalidated** format as a primary converter before it's cleared the bar in a controlled test (challenger-vs-control testing via §5d is encouraged).
 - ❌ Quote platform-claimed ROAS as an absolute (ranking only).
 - ❌ Name a competitor *in NG's own creative* without flagging (analysis ≠ publishing).
 **Always flag before drafting:** any spend/budget change, any audience change, any creative that

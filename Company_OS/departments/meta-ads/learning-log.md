@@ -425,6 +425,81 @@ Blended lifetime: ~₹1.33L spend, 304 purchases, ~₹6.0L revenue across all Li
 
 ---
 
+## CREATIVE-FORMAT TEST ENGINE — the format library (always 2–3 trials live)
+
+> **Purpose:** review/explainer is a *confirmed* winner and our anchor — but not the only format that can convert. This engine keeps hunting for **additional** winning formats so we can scale further, tap fresh audiences, and de-risk single-format dependency. **This is an OPEN, living library, not a fixed list** — Block A is the founder's seed references, Block B is expert-added D2C direct-response formats, and **every cycle the agent appends ≥1 net-new format idea** (the "one new falsifiable bet" TEST verdict). The catalog grows; it is never "finished." Never delete a row — supersede it.
+>
+> **Engine rules (every weekly run):**
+> 1. **Keep 2–3 formats `IN TEST` at all times.** If fewer are live, rotate the next `UNTESTED` format(s) in as a TEST verdict; append any new format idea to the bottom of the table.
+> 2. **Each trial = a challenger ad inside an existing winning ad set** (the SH-MA-7/8 mechanism — an extra ad at small daily spend, read at ad level vs. the ad set's live controls), executed in NG's converting voice, **against a review-format control**. ~₹5,000 / 7-day read.
+> 3. **Funded by reallocation off the weekly CUT list — NEVER net-new budget while TRUE ROAS < 6.0 floor.** Always-on testing must stay floor-safe.
+> 4. **Lifecycle:** `UNTESTED → IN TEST → VALIDATED` (clears the control / scale bar: ROAS ≥ control-or-8×, CPP ≤ SKU floor, freq < 2.5× on ≥7-day read → promote to the winner rotation **and** log a new `SH-MA-#` scale bet in the backlog below) `→ REJECTED` (log to REJECTED / DEAD ENDS above with the number; never blindly retry).
+> 5. A format is only ever a **controlled challenger** until it earns primary status by clearing the bar — an unvalidated format is never made the primary converter.
+
+**Block A — founder seed references.**
+
+| # | Format | Angle / psych lever | Status | Best ROAS seen | Verdict / notes | Linked EXP/MA |
+|---|---|---|---|---|---|---|
+| CF-1 | One problem, one ad | Whole ad about a single painful problem | UNTESTED | — | — | — |
+| CF-2 | Buying-mistake warning | "Before you buy, here's the common mistake to avoid" | UNTESTED | — | — | — |
+| CF-3 | What no one tells you | Expose an uncomfortable category truth | UNTESTED | — | — | — |
+| CF-4 | Cost breakdown | Show where the money actually goes | UNTESTED | — | — | — |
+| CF-5 | Who this is NOT for | Disqualify aggressively to build trust | UNTESTED | — | — | — |
+| CF-6 | Day in the life | Product fitting naturally into a real day | UNTESTED | — | — | — |
+| CF-7 | Wrong way vs right way | Contrast the common mistake with our solution | UNTESTED | — | — | — |
+| CF-8 | Ingredient / material deep-dive | Why one component truly matters | UNTESTED | — | — | — |
+| CF-9 | Customer objection | Address the #1 hesitation head-on | UNTESTED | — | — | — |
+| CF-10 | The moment of switch | Why users left the alternative | UNTESTED | — | — | — |
+| CF-11 | Why we didn't make it cheaper | Why quality couldn't be compromised | UNTESTED | — | — | — |
+| CF-12 | Founder mistake story | A lesson learned the hard way | UNTESTED | — | — | — |
+| CF-13 | How long this actually lasts | Honest on durability / results | UNTESTED | — | — | — |
+| CF-14 | Unboxing with context | Why every element exists | UNTESTED | — | — | — |
+| CF-15 | "If you care about ___, watch this" | Anchor to a strong value | UNTESTED | — | — | — |
+| CF-16 | We almost didn't launch | What nearly stopped the brand | UNTESTED | — | — | — |
+| CF-17 | Comparison without naming competitors | Differentiate without calling names | UNTESTED | — | — | — |
+| CF-18 | First-time user POV | Genuine unscripted reactions | UNTESTED | — | — | — |
+| CF-19 | Results timeline | Set expectations for day 1 / 7 / 30 | UNTESTED | — | — | — |
+| CF-20 | Why we exist | The brand's reason for being | UNTESTED | — | — | — |
+| CF-21 | Expectation reset | Clearly state what the product will NOT do | UNTESTED | — | — | — |
+| CF-22 | One customer, one story | Deep-dive a single customer journey | UNTESTED | — | — | — |
+| CF-23 | Why it costs this much | Pricing explained simply | UNTESTED | — | — | — |
+| CF-24 | Old way vs new way | How the category has evolved | UNTESTED | — | — | — |
+| CF-25 | The silent upgrade | Benefits people feel over time | UNTESTED | — | — | — |
+| CF-26 | What we removed | What we intentionally excluded | UNTESTED | — | — | — |
+| CF-27 | The first ten customers | How early buyers shaped the product | UNTESTED | — | — | — |
+| CF-28 | Behind the test results | Demystify quality / safety testing | UNTESTED | — | — | — |
+| CF-29 | This shouldn't be normal | Call out broken category norms | UNTESTED | — | — | — |
+| CF-30 | Long-term cost | How cheap options cost more over time | UNTESTED | — | — | — |
+
+**Block B — expert-added D2C direct-response formats** (proven patterns, tuned to NG's open-ear hearing-health angle; grouped by the psychological lever they pull).
+
+| # | Format | Angle / psych lever | Status | Best ROAS seen | Verdict / notes | Linked EXP/MA |
+|---|---|---|---|---|---|---|
+| CF-31 | Expert / audiologist explainer | Authority — ENT/audiologist on "the science of open-ear" (strongest fit for NG's hearing-health moat) | UNTESTED | — | — | — |
+| CF-32 | Data / number hero | Authority — specificity heuristic ("94% stopped removing an earbud to hear traffic") | UNTESTED | — | — | — |
+| CF-33 | Demonstration / "watch it work" | Authority — show-don't-tell the open-ear mechanism | UNTESTED | — | — | — |
+| CF-34 | Review-wall montage | Social proof — rapid real-review screenshots | UNTESTED | — | — | — |
+| CF-35 | "X,000 Indians switched" | Social proof — bandwagon / safety-in-numbers | UNTESTED | — | — | — |
+| CF-36 | Skeptic-to-believer | Social proof — "I was sure open-ear was a gimmick…" | UNTESTED | — | — | — |
+| CF-37 | Fear-of-loss health hook | Loss aversion — "what sealed earbuds are doing to your hearing" (WHO-stat, on-brand) | UNTESTED | — | — | — |
+| CF-38 | Guarantee / risk-reversal | Loss aversion — money-back, "try it risk-free" | UNTESTED | — | — | — |
+| CF-39 | Open-loop hook | Curiosity — Zeigarnik ("the reason your ears ache by 4pm…") | UNTESTED | — | — | — |
+| CF-40 | Myth vs fact | Curiosity — correct a false category belief | UNTESTED | — | — | — |
+| CF-41 | Anti-ad / "this isn't an ad" | Pattern interrupt — novelty | UNTESTED | — | — | — |
+| CF-42 | Problem-Agitate-Solve (PAS) | DR framework — classic direct-response structure | UNTESTED | — | — | — |
+| CF-43 | 3-reasons listicle | DR framework — cognitive chunking | UNTESTED | — | — | — |
+| CF-44 | Before / after transformation | DR framework — contrast effect, visual proof | UNTESTED | — | — | — |
+| CF-45 | POV trend format | Native — relatable, platform-native | UNTESTED | — | — | — |
+| CF-46 | Green-screen creator reaction / stitch | Native — commentary on a claim | UNTESTED | — | — | — |
+| CF-47 | "Stop scrolling if you…" qualifier hook | Native — self-selection | UNTESTED | — | — | — |
+| CF-48 | "We spent 2 years tuning this driver" | Effort justification — labor-illusion | UNTESTED | — | — | — |
+| CF-49 | Founder reads a 1-star review | Objection / trust — vulnerability → reactance reversal | UNTESTED | — | — | — |
+| CF-50 | FAQ "you asked, we answered" | Objection handling — objections at scale | UNTESTED | — | — | — |
+
+*(Block B is a starting expansion, not exhaustive — append `CF-51+` as new formats are conceived each cycle.)*
+
+---
+
 ## SCALE HYPOTHESIS BACKLOG (per COMPANY_STATE §5.5 — test → validate → scale at constant ROAS)
 
 > Standing list of falsifiable scaling bets. Each must clear the Meta scale bar (ROAS ≥ 8×, CPP ≤ SKU floor, freq < 2.5×) on a small test before earning scale budget; each scaled lever gets a standing ROAS watch and reverts here on decay.
