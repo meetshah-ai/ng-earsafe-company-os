@@ -98,14 +98,19 @@ app.post("/slack/events", async (req, res) => {
   if (req.body.type === "url_verification") return res.send(req.body.challenge);
 
   // 2) Verify, then ACK within Slack's 3-second window before doing any slow work.
-  if (!verifySlack(req)) return res.status(401).send("bad signature");
+  if (!verifySlack(req)) {
+    console.warn("DROP: bad signature (check SLACK_SIGNING_SECRET)");
+    return res.status(401).send("bad signature");
+  }
   res.status(200).send();
 
   const e = req.body.event;
+  console.log(`event: type=${e?.type} subtype=${e?.subtype || "-"} channel=${e?.channel || "-"} bot=${e?.bot_id ? "yes" : "no"}`);
   if (!e || e.type !== "message") return;
   if (e.bot_id || e.subtype) return;                 // ignore bots / edits / joins
   const channelCfg = CHANNELS[e.channel];
-  if (!channelCfg) return;                            // only converse in configured channels
+  if (!channelCfg) { console.log(`DROP: channel ${e.channel} not in routes.json`); return; }
+  console.log(`routing message in ${e.channel} (home=${channelCfg.home})`);
   if (seenEvents.has(req.body.event_id)) return;     // dedup retries
   seenEvents.add(req.body.event_id);
   setTimeout(() => seenEvents.delete(req.body.event_id), 5 * 60 * 1000);
