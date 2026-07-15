@@ -1,20 +1,20 @@
 # Meta Ads — Department Constitution
 
-> **Human-readable canon for the Meta Ads lane.** Version 3.0 · Owner: Meet Shah · Last updated
-> 2026-07-14 (rebuilt around the Managed Agent + the ROAS-6 mandate; supersedes the v2.0
-> weekly-subagent model).
+> **Human-readable canon for the Meta Ads lane.** Version 4.0 · Owner: Meet Shah · Last updated
+> 2026-07-15 (moved to a **weekly Thursday** cadence + a full campaign-level week-over-week +
+> month-to-date performance audit; supersedes the v3.0 twice-weekly model).
 
 ## 0. META-INSTRUCTION — how this lane runs (read this first)
 
 Meta Ads runs on **two tracks**, and this file serves both:
 
 1. **The Meta Ads Operator — a cloud Managed Agent** (`../../agents/meta-ads.agent.yaml`) is the
-   performance engine. It runs **twice a week (Mon + Thu, 08:00 IST)**, holds the ROAS-6 floor,
-   decodes the account and drafts `MA-###` recommendations. **Its rules are COMPILED INTO its system
-   prompt — it does NOT read this file at runtime.** It reads exactly `tracker.md`, `learning-log.md`,
-   `queue-inbox.md`, and the latest `../../briefs/<D>.md`. Never `COMPANY_STATE.md`, never
-   `APPROVALS_QUEUE.md`, never another department, never a past report. (A rule that never changes
-   should not be re-read and re-billed twice a week.)
+   performance engine. It runs **once a week (Thursday, 08:00 IST)**, holds the ROAS-6 floor, decodes
+   the account **campaign-by-campaign against the prior week and the month so far**, and drafts
+   `MA-###` recommendations. **Its rules are COMPILED INTO its system prompt — it does NOT read this
+   file at runtime.** It reads exactly `tracker.md`, `learning-log.md`, `queue-inbox.md`, and the
+   latest `../../briefs/<D>.md`. Never `COMPANY_STATE.md`, never `APPROVALS_QUEUE.md`, never another
+   department, never a past report. (A rule that never changes should not be re-read and re-billed.)
 2. **The interactive teardown subagent** (`.claude/agents/meta-ads.md`) is on-demand competitor
    intelligence — Meta Ad Library teardowns of Shokz / boAt / Noise / wecool / Mojawe / Oladence. It
    **does** read this file (the competitor set §3, the institutional truths §4, the brief template
@@ -50,8 +50,17 @@ only `/execute-approved` sets.
 types, ad structures and creative angles across audience mixes to find the next validated lever.
 "Manage the existing ads" is maintenance; finding what scales next is the mission.
 
-**The twice-weekly loop:** Monday = full teardown (the completed week); Thursday = follow-up (did
-Monday's calls land, what moved). Every run produces four verdicts — CUT, FIX, SCALE/KILL, TEST.
+**The weekly loop (Thursday)** — a full campaign-level teardown, in four steps:
+1. **This week vs last week, every live campaign** — spend, sessions, CVR (orders ÷ sessions), CPP,
+   frequency, platform ROAS (ranking) + directional per-campaign TRUE-ish ROAS; current-7d beside
+   prior-7d, read the delta.
+2. **Change → impact** — what changed week-over-week (budget moves, new creatives, retired/paused
+   creatives, campaigns/ad-sets started or stopped) and whether CPP/CVR/ROAS actually moved after it;
+   no measured impact ⇒ a read date, not a win.
+3. **Month-to-date rollup** — MTD Meta spend, GA4 Meta-paid revenue, TRUE ROAS so far this month; the
+   pace that frames every call.
+4. **Four verdicts** — CUT, FIX, SCALE/KILL, TEST — as concrete scale / cut / reallocate moves (gated),
+   each tied to a printed number.
 
 ## 2. SCOPE & DECISION-MAKERS
 - **Managed Agent owns & drafts:** performance decode, kill/scale/rotate calls, budget moves (gated),
@@ -87,17 +96,32 @@ improve or counter*. Log intel to the competitor ledger in `learning-log.md`.
 5. **Meta overstates ~2×.** Platform-claimed ROAS (`action_values_purchase ÷ spend`) ran 10.18× on
    2026-07-12 while GA4-attributed (TRUE) was 5.18×. Platform figures rank creatives; they are never
    an absolute.
+6. **Judge a campaign on CVR, not on volume.** GA4 exposes `campaign` and `page_path` grain, so
+   per-campaign sessions/CVR/revenue are computable (normalise names — spaces URL-encode to `+`, fb/ig
+   split into separate rows; aggregate). The join is directional (ranking); account-level TRUE ROAS
+   stays the floor. A campaign buying large low-CVR session volume is waste however cheap the traffic.
 
 ## 5. PLAYBOOK + TEMPLATES
 
-### 5a. Performance decode — the Managed Agent's twice-weekly loop (compiled into the YAML)
-**Frugal by design — 16-call budget, 3 pulls.** READ (tracker + learning-log + queue-inbox + latest
-brief) → PULL 3 (Meta campaign×day 30d, Meta ad×day 14d, ONE GA4 7-day window for Meta-paid revenue,
-truncation-guarded) → COMPUTE in one Python pass (TRUE ROAS = Meta spend ÷ GA4 Meta-paid revenue;
-platform-claimed per campaign/creative for ranking only; CPP, CTR, frequency, marginal ROAS from the
-GA4 daily series) → DECIDE the four verdicts against the gates → WRITE report to `../../meta-ads/<D>.md`,
-draft `MA-###` rows to `queue-inbox.md` (never `APPROVALS_QUEUE.md`), log the cycle. **Silence is
-allowed. Invention is not.**
+### 5a. Performance decode — the Managed Agent's weekly Thursday loop (compiled into the YAML)
+**Frugal by design — 22-call budget, ≤6 pulls.** READ (tracker + learning-log + queue-inbox + latest
+brief) → PULL:
+- **Meta campaign×day, 35d** — spend/purchases/values per campaign per day. Yields the live-campaign
+  roster, **week-over-week budget deltas**, and **MTD spend**.
+- **Meta ad×day, 21d** — spend/frequency/ad_name. Yields **new vs retired creatives** and per-ad CPP.
+- **GA4 account source/medium × day, 14d (WITH `date`)** — the trailing-7d and prior-7d TRUE-ROAS
+  floor, truncation-guarded.
+- **GA4 campaign × source/medium, current 7d + prior 7d (aggregated, no `date`)** — per-campaign
+  sessions, purchases, **CVR** and revenue for both weeks → per-campaign week-over-week + TRUE-ish ROAS
+  join on normalised campaign name.
+- **GA4 account source/medium, month-to-date (aggregated, no `date`)** — **MTD Meta-paid revenue** for
+  the monthly rollup.
+→ COMPUTE in one Python pass (normalise campaign names; TRUE ROAS = Meta spend ÷ GA4 Meta-paid revenue,
+account-level = the floor; per-campaign CVR + directional TRUE-ish ROAS for ranking; CPP, CTR,
+frequency, marginal ROAS from the daily series; week-over-week deltas; change→impact; MTD spend/revenue/
+ROAS) → DECIDE the four verdicts against the gates → WRITE report to `../../meta-ads/<D>.md`, draft
+`MA-###` rows to `queue-inbox.md` (never `APPROVALS_QUEUE.md`), log the cycle. **Silence is allowed.
+Invention is not.**
 
 ### 5b. Competitor ad teardown — the subagent's on-demand deliverable
 1. **Pull** live + recent ads for the competitor set from the Meta Ad Library (open-ear / audio /
@@ -134,6 +158,8 @@ references a competitor or public figure.
 | SafeBuds creative CPP > ₹700 or ROAS < 3× (platform, for ranking) | kill | reallocate to proven winner |
 | Comm 2.0 / ES Lite CPP > ₹450 or ROAS < 5× for 2 consecutive reads | kill or swap | reallocate |
 | CPP climbing 2 reads consecutively + frequency rising | diagnose saturation; refresh audience+creative | hold spend flat |
+| Campaign buying high session volume at low CVR | CUT or reallocate to a proven converter | pause it |
+| A budget/creative/adset change with no measured impact after 7d | keep on watch with a read date — not a win | revert if it degraded |
 | SKU out of stock | pause its campaigns (stock-before-demand) | shift budget to in-stock SKU |
 | Any budget/bid change | ±20% max, one variable, then 2-week no-touch, 7-day read | — |
 
@@ -141,8 +167,8 @@ references a competitor or public figure.
 **Managed Agent:**
 | Tool | Use for |
 |---|---|
-| Windsor `get_data` — `facebook` connector | Meta spend + platform value, campaign & ad grain |
-| Windsor `get_data` — `googleanalytics4` | GA4 Meta-paid revenue (TRUE ROAS numerator), single-day pulls |
+| Windsor `get_data` — `facebook` connector | Meta spend + platform value, campaign & ad grain (35d/21d for week-over-week + MTD) |
+| Windsor `get_data` — `googleanalytics4` | GA4 Meta-paid revenue (TRUE ROAS numerator) at account, **campaign** and **page_path** grain; per-campaign CVR; MTD rollup |
 | GitHub MCP | read the two triad files + brief; commit the report; write queue-inbox |
 | WebSearch / WebFetch | Meta product changes (Reels, Advantage+, attribution) |
 

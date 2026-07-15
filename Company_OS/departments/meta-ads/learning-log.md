@@ -69,6 +69,19 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 
 ## CYCLE LOG (most recent first)
 
+### 2026-07-15 — PDP-CVR-by-campaign teardown (ad-hoc, CEO-run): the ThruPlay traffic flood
+**Initiative:** manual GA4-via-Windsor teardown of Comm 2.0 + SafeBuds PDP conversion by source/medium and by campaign, last 3M (15 Apr–14 Jul 2026). Validated the process now compiled into the weekly Thursday loop (per-campaign CVR, week/week, MTD).
+**Hypothesis:** the Comm 2.0 PDP blended CVR collapsing (April ~1.9% → July ~0.24%) is a page/creative problem.
+**Result: REJECTED — it's a traffic-mix problem, one objective-mismatched campaign cluster.**
+- Comm 2.0 PDP (`/products/…-comm-2-0`): 95,748 sessions → 425 orders → ₹14.3L, blended CVR **0.44%**. But two **"MOFU_PDP & Video Thruplay _24 May 26"** campaigns (+ "TOFU_Awareness_23 May 26" + the ThruPlay test-copy), all launched 23–24 May, ran **~75,700 sessions = 72% of all Meta paid traffic for ~7 orders (~0.01% CVR)** — exactly when blended CVR fell off the cliff. Root cause: **ThruPlay / video-view optimization buys the cheapest eyeballs, not buyers.**
+- Strip those 4 campaigns and **real Meta paid converts at ~2.1%** (28,713 sessions → 613 orders → ₹19.3L). The page isn't broken.
+- Proof that the fix is the objective, not the tag: **"ES Comm 2 – Max Conv Bidding" (2.29% CVR) beats standard "ES Comm 2" (1.90%)** on the same product/audience.
+- **safebuds_20Apr 26 is the engine** (272 orders, ₹8.0L, 2.62% CVR = 44% of all Meta paid revenue). Under-scaled winners: **Reel_Lite_Mr Lazy (6.43% CVR)**, 3D Video Comm (3.51%) — tiny session counts, worth deliberate budget tests.
+- SafeBuds PDP (`/products/ngwehear`): 20,379 sessions → 116 orders, CVR **0.57%**; NOT the same flood (ThruPlay only 17% of its traffic). Its June collapse (8,603 sessions → 14 orders) has a **stockout signature** (3–11 Jun: ~2,500 sessions, 0 orders) — availability, not marketing. Its Meta paid CVR (0.49%) is ~4× worse than Comm 2.0's clean Meta (1.88%) — a separate CRO/creative gap.
+**Learning carried forward:** (1) judge campaigns on CVR, not session volume — a cheap high-volume campaign can be pure waste and can bury a healthy page's blended CVR; (2) GA4 exposes `campaign` + `page_path`, so per-campaign CVR is computable (normalise names: fb/ig split + `+`-encoded spaces); (3) the ThruPlay cluster is being optimized already — this is a session finding, kept here, NOT written into the constitution. Method now lives as the weekly Thursday teardown steps.
+
+---
+
 ### 2026-07-14 — Cycle 5 (Monday teardown, run one day late on Tue; first cycle under the fixed TRUE-ROAS-vs-GA4 protocol set by Meet 2026-07-14)
 
 **Initiative:** First full teardown under the new mandate: TRUE ROAS = Meta spend ÷ GA4 Meta-paid
