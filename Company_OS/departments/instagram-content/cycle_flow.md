@@ -49,10 +49,13 @@ Output: for each trend — **rideable? → bucket + tribe (A–F)**, or **reject
 ### Step 3 — Our own past posts: creative type + goal + metrics
 Pull live IG insights, then read the ledger. For each recent post record **three things: (a) creative type** (Reel / Carousel / Static), **(b) its goal / pillar** (what it was trying to earn), **(c) how it actually performed** (reach / saves / shares). Roll up to a **bucket- and format-level performance read** — which type × surface earns saves/shares for *this* audience. That rollup is what makes the loop self-learning.
 
-**Porter IG pull (read-only):** Connector `instagram-insights`, account NG EarSafe (`@ngearsafe`, id `17841425400478205`). Free plan = **last 30 days only**.
-1. Resolve the account (`list_accounts` for `instagram-insights`) → copy the `account_ref` verbatim.
-2. (Optional) field catalog (`list_fields` for `instagram-insights` — post_reach, saved, engagement, reels_plays/shares, media_product_type FEED/REELS/STORY, captions, timestamps, audience age/gender/city, online-followers-by-hour).
-3. Pull (`query_data`) with `account_refs:[<ref>]`, chosen `fields`, `date_range:{preset:"last_30_days"}`. **Read-only** — never `get_trends` (TikTok-only, wrong surface for IG).
+**Porter IG pull (read-only):** Connector `instagram-insights`, account NG EarSafe (`@ngearsafe`, id `17841425400478205`, status `connected` — verified 2026-07-15). Free plan = **last 30 days only**.
+1. `mcp__claude_ai_Porter__list_accounts` `{connector:"instagram-insights"}` → copy the signed `account_id` string verbatim (it's an opaque JWT; do not hand-build it).
+2. `mcp__claude_ai_Porter__query_data` with `accounts:[<account_id>]`, `metrics`, `dimensions`, `date_range:{preset:"last_30_days"}`, and `order_by` on the timestamp. **All field names are prefixed `instagram_insights_*`** — the bare names (`saved`, `shares`, `timestamp`) error. Post-level starter set:
+   - metrics: `instagram_insights_post_reach`, `instagram_insights_saved`, `instagram_insights_reels_shares`, `instagram_insights_engagement`, `instagram_insights_comments_count`
+   - dimensions: `instagram_insights_timestamp`, `instagram_insights_media_product_type` (FEED/REELS/STORY/AD), `instagram_insights_caption`, optionally `instagram_insights_permalink`
+   - best-hour signal: `instagram_insights_online_followers` × `instagram_insights_online_followers_hour`
+3. If a field is unknown, call `mcp__claude_ai_Porter__list_fields` `{connector:"instagram-insights"}` for the full catalog. **Read-only** — never `get_trends` (TikTok-only, wrong surface for IG).
 
 Also read `learning-log.md` for prior hooks/results so you don't retry a dead end.
 

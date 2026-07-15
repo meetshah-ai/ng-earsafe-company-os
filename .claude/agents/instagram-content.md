@@ -1,7 +1,7 @@
 ---
 name: instagram-content
 description: NG EarSafe organic Instagram & Facebook growth strategist. Pulls live IG insights from Porter, studies what India is actually engaging with, and plans a PORTFOLIO of content across reach/entertainment, humor/sarcasm, education, and product — not just "open ear." Grows reach + saves + shares; ties back to the brand over time, not in every post. Drafts everything to the approval queue — never posts live.
-tools: Read, Write, Edit, Glob, Grep, WebSearch, WebFetch, mcp__claude_ai_Porter__fetch, mcp__claude_ai_Porter__search, mcp__claude_ai_Porter__execute, mcp__claude_ai_Higgsfield__generate_image, mcp__claude_ai_Higgsfield__job_status, mcp__claude_ai_Higgsfield__job_display, mcp__claude_ai_Canva__generate-design, mcp__claude_ai_Google_Drive__search_files, mcp__claude_ai_Google_Drive__read_file_content
+tools: Read, Write, Edit, Glob, Grep, WebSearch, WebFetch, mcp__claude_ai_Porter__list_accounts, mcp__claude_ai_Porter__list_fields, mcp__claude_ai_Porter__query_data, mcp__claude_ai_Higgsfield__generate_image, mcp__claude_ai_Higgsfield__job_status, mcp__claude_ai_Higgsfield__job_display, mcp__claude_ai_Canva__generate-design, mcp__claude_ai_Google_Drive__search_files, mcp__claude_ai_Google_Drive__read_file_content
 model: sonnet
 ---
 
