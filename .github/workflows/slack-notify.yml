@@ -1,15 +1,30 @@
 name: Post reports to Slack
 
-# When the CoS commits a commercial brief, or the Social agent commits content suggestions,
-# post it to Slack — a header, a readable excerpt, and a link to the full report on GitHub.
-# One-way (agent -> Slack). Replying in Slack does nothing yet; that needs a relay service.
+# When any department agent commits its report, post it to the matching Slack channel —
+# a header, a readable excerpt, and a link to the full report on GitHub.
+# One-way (agent -> Slack). Replying in a channel is handled by the relay service
+# (Company_OS/platform/slack-relay/), not here.
 # Uses the same commit-triggers-a-workflow pattern as the email workflows.
+#
+# Per-channel routing: each report path maps to its own channel via its own incoming
+# webhook secret. A report type whose webhook secret is unset is skipped silently, so
+# you can roll channels out one at a time.
+#
+#   Path                     Channel        Webhook secret (GitHub Actions)
+#   Company_OS/briefs/       #daily-brief    SLACK_WEBHOOK_BRIEF
+#   Company_OS/meta-ads/     #meta-ads       SLACK_WEBHOOK_META
+#   Company_OS/google-ads/   #google-ads     SLACK_WEBHOOK_GOOGLE
+#   Company_OS/linkedin/     #linkedin       SLACK_WEBHOOK_LINKEDIN
+#   Company_OS/social/       #social         SLACK_WEBHOOK_CONTENT
 
 on:
   push:
     branches: [main]
     paths:
       - 'Company_OS/briefs/**'
+      - 'Company_OS/meta-ads/**'
+      - 'Company_OS/google-ads/**'
+      - 'Company_OS/linkedin/**'
       - 'Company_OS/social/**'
 
 jobs:
@@ -23,12 +38,18 @@ jobs:
       - name: Post the newest report to Slack
         env:
           SLACK_WEBHOOK_BRIEF: ${{ secrets.SLACK_WEBHOOK_BRIEF }}
+          SLACK_WEBHOOK_META: ${{ secrets.SLACK_WEBHOOK_META }}
+          SLACK_WEBHOOK_GOOGLE: ${{ secrets.SLACK_WEBHOOK_GOOGLE }}
+          SLACK_WEBHOOK_LINKEDIN: ${{ secrets.SLACK_WEBHOOK_LINKEDIN }}
           SLACK_WEBHOOK_CONTENT: ${{ secrets.SLACK_WEBHOOK_CONTENT }}
         run: |
           set -euo pipefail
-          file=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- 'Company_OS/briefs/*.md' 'Company_OS/social/*.md' 2>/dev/null | tail -n1 || true)
+          file=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- \
+            'Company_OS/briefs/*.md' 'Company_OS/meta-ads/*.md' 'Company_OS/google-ads/*.md' \
+            'Company_OS/linkedin/*.md' 'Company_OS/social/*.md' 2>/dev/null | tail -n1 || true)
           if [ -z "${file:-}" ] || [ ! -f "$file" ]; then
-            file=$(ls -t Company_OS/briefs/*.md Company_OS/social/*.md 2>/dev/null | head -n1 || true)
+            file=$(ls -t Company_OS/briefs/*.md Company_OS/meta-ads/*.md Company_OS/google-ads/*.md \
+              Company_OS/linkedin/*.md Company_OS/social/*.md 2>/dev/null | head -n1 || true)
           fi
           if [ -z "${file:-}" ] || [ ! -f "$file" ]; then
             echo "No report to post."; exit 0
@@ -36,12 +57,15 @@ jobs:
 
           # Route each report type to its own channel (its own webhook).
           case "$file" in
-            *briefs*) title="📊 Daily Commercial Brief";    hook="$SLACK_WEBHOOK_BRIEF" ;;
-            *social*) title="📱 Daily Content Suggestions"; hook="$SLACK_WEBHOOK_CONTENT" ;;
-            *)        echo "Unknown report path; skipping."; exit 0 ;;
+            *briefs*)     title="📊 Daily Commercial Brief";    hook="$SLACK_WEBHOOK_BRIEF" ;;
+            *meta-ads*)   title="📈 Meta Ads — Weekly Teardown"; hook="$SLACK_WEBHOOK_META" ;;
+            *google-ads*) title="🔍 Google Ads — Operator";      hook="$SLACK_WEBHOOK_GOOGLE" ;;
+            *linkedin*)   title="💼 LinkedIn — Content Cycle";    hook="$SLACK_WEBHOOK_LINKEDIN" ;;
+            *social*)     title="📱 Daily Content Suggestions";  hook="$SLACK_WEBHOOK_CONTENT" ;;
+            *)            echo "Unknown report path; skipping."; exit 0 ;;
           esac
           if [ -z "${hook:-}" ]; then
-            echo "No webhook configured for this report type; skipping."; exit 0
+            echo "No webhook configured for this report type yet; skipping."; exit 0
           fi
           date=$(basename "$file" .md)
           url="${{ github.server_url }}/${{ github.repository }}/blob/main/${file}"

@@ -1,59 +1,80 @@
-# Slack ⇆ Chief-of-Staff relay (daily-brief conversation)
+# Slack ⇆ Managed-Agent convening relay (Phase 2)
 
-Reply in the daily-brief Slack thread → the CoS agent reads the brief, pulls live data if needed,
-and answers in the same thread. One-way posting (brief → Slack) is already handled by the GitHub
-Action; this service adds the reply direction. **It runs on the read-only vault — it can analyse
-and explain, never execute.**
+Reply in any agent's Slack channel and that channel's **home agent** answers in-thread —
+reads its latest report, pulls live data, revises a draft if you ask. Prefix a message with
+one or more `@aliases` to **convene** other agents into the thread; each replies under its
+own name. Address `@cos` with an audit verb to get a Chief-of-Staff **decision verdict**.
 
-This is the one piece that needs a small always-on server. ~120 lines; deploy in ~15 minutes.
+One-way posting (report → channel) is the GitHub Action; this service adds the reply
+direction + convening. **It runs on the read-only vault — it can analyse, explain, and revise
+a draft, never approve or go live.**
+
+~230 lines, one small always-on server. Routing lives in `routes.json`.
 
 ---
 
-## 1. Slack app setup
+## What you can type
 
-Use the same Slack app you made for the incoming webhook (or a new one).
+| In a channel… | What happens |
+|---|---|
+| `what's driving the ROAS dip this week?` | The channel's **home** agent answers (Meta in #meta-ads, etc.) |
+| `@cos audit — is +20% on SafeBuds right given the EBITDA floor?` | Chief of Staff judges the **decision**, ends with `CoS VERDICT: …` |
+| `@cos @google-ads does this conflict with the Google budget?` | Both agents answer in-thread, each under its own name |
+| `revise MA-027 to a 15% cut` (in #meta-ads) | Meta agent edits its **draft** row in queue-inbox.md and commits |
 
-- **Bot token:** OAuth & Permissions → Scopes → add `chat:write` → Install to Workspace → copy the
-  Bot User OAuth Token (`xoxb-…`).
-- **Event subscriptions:** Event Subscriptions → On. Request URL = `https://<your-host>/slack/events`
-  (Slack will call it once to verify — the service answers the handshake automatically). Under
-  **Subscribe to bot events**, add `message.channels`. Save.
-- **Invite the bot** to the brief channel: in Slack, `/invite @NG EarSafe Reports`.
-- **Channel ID:** open the brief channel → channel name → About → copy the Channel ID (`C…`).
+A thread keeps context per agent (each `thread × agent` is its own session). A new thread
+starts fresh. The in-memory session map resets on redeploy — the next reply just opens a new
+session, no data lost.
 
-## 2. Host it
+---
 
-Any always-on host works (Railway, Fly.io, Render **paid** — avoid free tiers that sleep, or the
-first Slack reply after idle will time out). Point it at this folder; start command `npm start`.
+## 1. routes.json (once)
 
-## 3. Environment variables (set on the host)
+`cp routes.example.json routes.json`, then fill the five `C_FILL_*` keys with your real
+Slack channel IDs (Slack → open the channel → its name → **About** → **Channel ID**, `C…`).
+The agent IDs are already filled in. Commit `routes.json` — IDs are not secrets; the
+read-only vault is the safety net.
+
+## 2. Slack app (reuse the one from Phase 1)
+
+- **OAuth & Permissions → Bot Token Scopes:** add `chat:write`, `channels:history` (public
+  channels) and/or `groups:history` (private channels) → **Install to Workspace** → copy the
+  **Bot User OAuth Token** (`xoxb-…`).
+- **Basic Information:** copy the **Signing Secret**.
+- **Invite the bot** into every routed channel: `/invite @NG EarSafe Reports`.
+- **Event Subscriptions:** toggle **On** → Request URL `https://<your-host>/slack/events`
+  (the service answers the verification handshake automatically) → under **Subscribe to bot
+  events** add `message.channels` (public) and/or `message.groups` (private) → **Save**.
+
+## 3. Host it
+
+Any always-on host (Railway / Fly / Render **paid** — avoid free tiers that sleep, or the
+first reply after idle times out). Root directory = this folder; start command `npm start`.
+
+## 4. Environment variables (`.env.example`)
 
 | Var | Value |
 |---|---|
 | `SLACK_SIGNING_SECRET` | Slack app → Basic Information → Signing Secret |
 | `SLACK_BOT_TOKEN` | the `xoxb-…` bot token |
-| `ANTHROPIC_API_KEY` | an Anthropic API key with access to your workspace |
-| `COS_AGENT_ID` | the CoS agent id (`agent_…`) — `ant beta:agents list` |
-| `ENVIRONMENT_ID` | `ng-earsafe` environment id (`env_…`) |
+| `ANTHROPIC_API_KEY` | Anthropic API key with access to your workspace |
+| `ENVIRONMENT_ID` | `ng-eaarsafe` (`env_…`) — already in `.env.example` |
 | `VAULT_ID` | **`ng-earsafe-readonly` only** (`vlt_…`) — never a write vault |
-| `BRIEF_CHANNEL_ID` | the brief channel id (`C…`) — the relay ignores every other channel |
 
-## 4. Test
+## 5. Test
 
-Post any message in the brief channel (or reply in a brief's thread). The bot replies
-"_On it — pulling the numbers…_", then posts the CoS answer in-thread a minute or two later.
+In a routed channel: `@cos are we on pace for the month?` → the bot posts
+"_On it — Chief of Staff is looking…_", then the answer lands in-thread in a minute or two.
 
 ---
 
 ## What it does and doesn't do
 
-- **One session per thread.** Each Slack thread maps to one CoS session, so a back-and-forth keeps
-  context. A new thread starts fresh. (The map is in-memory — a redeploy resets it; the next reply
-  just opens a new session, no data lost.)
-- **Read-only, inherited.** It attaches the read-only vault, so a Slack conversation has exactly the
-  CoS's powers: read data, read the repo, reason. It cannot change a budget or a listing — that
-  still lives only in human-started executor sessions.
-- **Not an approval interface.** This is Q&A about the brief. Approving/executing actions is a
-  separate, more careful build (buttons + an executor agent) — do that only after this is proven.
-- **Single instance.** Good for a founding team. If you scale to many concurrent threads, move the
-  dedup set + thread map to a shared store (Redis/KV).
+- **Read-only, inherited.** Every session attaches the read-only vault, so a Slack
+  conversation has exactly the agents' powers: read data, read the repo, reason, revise a
+  *draft* row. It cannot change a budget or a listing — live writes stay in human-started
+  `/execute-approved` sessions.
+- **Not an approval interface.** Buttons to approve/reject/execute a drafted row are Phase 3
+  (they cross into the live-write path) — build only after this is proven.
+- **Single instance.** Fine for a founding team. To scale to many concurrent threads, move
+  the dedup set + session map to a shared store (Redis/KV).

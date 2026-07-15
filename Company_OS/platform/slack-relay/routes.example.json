@@ -1,0 +1,25 @@
+{
+  "_comment": "NG EarSafe Slack relay routing. IDs are live agent resource IDs (not secrets). Fill the C... channel IDs from Slack (channel -> About -> Channel ID), then rename this file to routes.json. The relay reads it at boot.",
+
+  "agents": {
+    "cos":        { "id": "agent_01KWvWKXHRrCBRQsy33Pbfck", "display": "Chief of Staff", "icon": ":compass:",                 "model": "opus-4.8",  "aliases": ["cos", "chief", "chief-of-staff", "strategist"] },
+    "meta-ads":   { "id": "agent_013SVt96xW4URuuQ4CkfQXd9", "display": "Meta Ads",       "icon": ":chart_with_upwards_trend:", "model": "sonnet-5",  "aliases": ["meta", "meta-ads", "fb"] },
+    "google-ads": { "id": "agent_01LrTA27HRiJLEWP6trULthZ", "display": "Google Ads",     "icon": ":mag:",                      "model": "sonnet-5",  "aliases": ["google", "google-ads", "gads"] },
+    "linkedin":   { "id": "agent_0119BswBnem6JbKHfJ8iihtv", "display": "LinkedIn",        "icon": ":briefcase:",                "model": "sonnet-5",  "aliases": ["linkedin", "li"] },
+    "social":     { "id": "agent_018eaUhFQKkjVHhMRNAPMVTS", "display": "Social",          "icon": ":iphone:",                   "model": "sonnet-5",  "aliases": ["social", "ig", "instagram"] }
+  },
+
+  "channels": {
+    "C_FILL_META":     { "home": "meta-ads",   "reportDir": "Company_OS/meta-ads",   "queue": "Company_OS/departments/meta-ads/queue-inbox.md" },
+    "C_FILL_GOOGLE":   { "home": "google-ads", "reportDir": "Company_OS/google-ads", "queue": "Company_OS/departments/google-ads/queue-inbox.md" },
+    "C_FILL_LINKEDIN": { "home": "linkedin",   "reportDir": "Company_OS/linkedin" },
+    "C_FILL_BRIEF":    { "home": "cos",        "reportDir": "Company_OS/briefs" },
+    "C_FILL_SOCIAL":   { "home": "social",     "reportDir": "Company_OS/social" }
+  },
+
+  "convene": {
+    "_comment": "Un-addressed reply -> the channel's home agent. Prefix a message with one or more @aliases to summon those agents into the thread instead; each runs its own session on the thread and replies under its own name. Example in #meta-ads: '@cos @google-ads does scaling SafeBuds +20% conflict with the Google budget or the EBITDA floor?'",
+    "mentionPrefix": "@",
+    "auditVerbs": ["audit", "review", "verdict", "gut-check"]
+  }
+}
