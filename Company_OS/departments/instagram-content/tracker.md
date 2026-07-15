@@ -6,10 +6,10 @@
 ## PRIORITY SYSTEM
 - **P0** — this week. **P1** — this month. **P2** — 30–60 days. **P3** — experiments.
 
-## STANDING DAILY TASK
+## STANDING TASK — run the cycle (`cycle_flow.md`)
 | Task | Cadence | Output |
 |---|---|---|
-| **Daily trending-topic test** (scan today + 7-day rideable, score reach/safety/linkage, convert to hooks, queue) | Every session / daily | 1–3 trend-ride drafts in `APPROVALS_QUEUE.md`, tagged `[brand]`/`[category]` |
+| **The 9-step cycle** (trends 7/15/30d → bucket correlation → our past posts → competitive pool → summary table → audience → 3 options → visual → draft) | Every posting cycle | 3 options (one Static, one Carousel, one Reel) as `IC-###` rows in `queue-inbox.md`, each with hook/body/payoff/type/bucket/tribe/metric target |
 
 ## CURRENT SPRINT — Sprint 2 (2026-06-28 to 2026-07-11)
 
