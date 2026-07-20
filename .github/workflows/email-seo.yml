@@ -1,0 +1,77 @@
+name: Email the SEO/AEO report
+
+# Fires when the SEO/AEO Operator (Company_OS/agents/seo-aeo.agent.yaml) commits its weekly report
+# (Monday 08:00 IST). Emails Meet + Riya from Meet's Gmail over authenticated SMTP.
+#
+# Information + recommendations — but nothing here executes. The agent's proposals land as SEO-###
+# rows in Company_OS/departments/seo-aeo/queue-inbox.md; Meet approves via /approvals and executes
+# via /execute-approved.
+#
+# Reuses .github/scripts/render_daily_brief_email.py (it is report-agnostic: it splits at the
+# "<!-- APPENDIX — not emailed -->" marker, renders the tables as real HTML, and exits 2 on a stub
+# commit so a placeholder can never be mailed).
+#
+# ⚠️ This is the ONLY workflow allowed to watch Company_OS/seo-aeo/**. A second one on the same
+# path means two emails per commit. Add nothing here.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Company_OS/seo-aeo/**'
+
+jobs:
+  email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Find the report and render it
+        id: report
+        run: |
+          set -euo pipefail
+          file=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- 'Company_OS/seo-aeo/*.md' 2>/dev/null | tail -n1 || true)
+          if [ -z "${file:-}" ] || [ ! -f "$file" ]; then
+            file=$(ls -t Company_OS/seo-aeo/*.md 2>/dev/null | head -n1 || true)
+          fi
+          if [ -z "${file:-}" ] || [ ! -f "$file" ]; then
+            echo "No report found; nothing to email."
+            echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+
+          # The renderer exits 2 on a stub commit. A placeholder must never be mailed.
+          if ! python3 .github/scripts/render_daily_brief_email.py "$file" > report_body.html; then
+            echo "Report is a stub ($(wc -c < "$file") bytes) — not emailing."
+            echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+
+          # A degraded run carries a "> ⚠️ PARTIAL" banner. Surface it in the subject so a report
+          # with a dead connector can never be mistaken for a clean one.
+          tag=""
+          if grep -qi '^> *⚠\?.*PARTIAL' "$file"; then
+            tag="[PARTIAL] "
+            echo "Report is marked PARTIAL — flagging the subject."
+          fi
+
+          echo "skip=false"                     >> "$GITHUB_OUTPUT"
+          echo "path=$file"                     >> "$GITHUB_OUTPUT"
+          echo "date=$(basename "$file" .md)"   >> "$GITHUB_OUTPUT"
+          echo "tag=$tag"                       >> "$GITHUB_OUTPUT"
+
+      - name: Send it
+        if: steps.report.outputs.skip == 'false'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          from: NG EarSafe SEO <${{ secrets.MAIL_USERNAME }}>
+          to: meetshah@ngearsafe.com, riyashah@ngearsafe.com
+          subject: "${{ steps.report.outputs.tag }}SEO/AEO — ${{ steps.report.outputs.date }}"
+          html_body: file://report_body.html
+          attachments: ${{ steps.report.outputs.path }}
