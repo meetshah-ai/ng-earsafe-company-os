@@ -2,6 +2,11 @@
 
 > Read at the start of every SEO session to resume instantly. After a task: update status + result. Each 30-day cycle: archive completed into `learning-log.md` and reset.
 > Last updated: 2026-07-03 (morning loop cycle 3 — post-execution verification pull)
+>
+> **⚙️ Managed-agent cadence (since 2026-07-17):** the `seo-aeo` managed agent runs every **Monday
+> 08:00 IST**, reads this file + `learning-log.md`, and drafts `SEO-###` rows to `queue-inbox.md`
+> (this department's private inbox — the agent never touches `APPROVALS_QUEUE.md`). New IDs continue
+> from **SEO-013** (SEO-001…012 + OW-001 are taken). Weekly report: `Company_OS/seo-aeo/<D>.md`.
 
 ## LIVE STATUS SNAPSHOT (2026-07-03)
 - SEO-001, SEO-002, SEO-003, SEO-007, SEO-008 — **EXECUTED 2026-07-01**, verified live on-site (title tags confirmed via direct WebFetch). Too early to read CTR/position impact (1-2 days old). **First valid 30-day read: 2026-07-31.**

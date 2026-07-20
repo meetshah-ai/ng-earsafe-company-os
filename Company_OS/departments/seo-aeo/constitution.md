@@ -2,7 +2,17 @@
 
 > **Read at the start of every SEO/AEO session, after `COMPANY_STATE.md`.** Paired files: `tracker.md`, `learning-log.md`, the seo-aeo row in `../../SKILLS_MATRIX.md`, and the SEO memories `[[ng-seo-aeo-task-tracker]]`, `[[ng-seo-aeo-baseline]]`, `[[ng-seo-aeo-learning-log]]`. Q3 content plan: `Q3_2026_Content_Calendar_Automation.md` (root).
 >
-> Version 1.0 · Owner: Meet Shah · Last updated: 2026-06-25.
+> Version 1.1 · Owner: Meet Shah · Last updated: 2026-07-17.
+
+> **⚙️ SEO/AEO RUNS AS A MANAGED AGENT ONLY (since 2026-07-17).** The interactive `seo-aeo`
+> subagent was retired — SEO now runs unattended as a scheduled managed agent, exactly like Google
+> Ads. Spec: `Company_OS/agents/seo-aeo.agent.yaml` (Sonnet 5). Cadence: **every Monday 08:00 IST**
+> (`0 8 * * 1` Asia/Kolkata). It reads only `tracker.md` + `learning-log.md` at runtime — all rules
+> below are compiled into its system prompt, so **this file is the human-readable canon: change a
+> rule here, change it in the agent YAML, and repin the deployment.** Output: commits
+> `Company_OS/seo-aeo/<D>.md` → emailed to Meet + Riya + posted to Slack `#seo`. Drafts land as
+> `SEO-###` rows in `queue-inbox.md` (never in `APPROVALS_QUEUE.md`). Agent/deployment IDs are
+> recorded in the YAML header once created.
 
 ## 0. META-INSTRUCTION
 - Load order: `COMPANY_STATE.md` → this file → `tracker.md` → `learning-log.md` → the SEO memories.

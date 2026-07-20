@@ -21,10 +21,8 @@
       "departments/meta-ads/tracker.md",
       "departments/meta-ads/learning-log.md"
     ],
+    "_seo-aeo_note": "seo-aeo runs as a MANAGED AGENT ONLY (since 2026-07-17): Company_OS/agents/seo-aeo.agent.yaml, Mon 08:00 IST. It runs on the managed-agents cloud (outside these local hooks), reads only the two files below at runtime (rules are compiled into its system prompt), drafts to departments/seo-aeo/queue-inbox.md, and commits the weekly report to Company_OS/seo-aeo/<D>.md.",
     "seo-aeo": [
-      "CLAUDE.md",
-      "COMPANY_STATE.md",
-      "departments/seo-aeo/constitution.md",
       "departments/seo-aeo/tracker.md",
       "departments/seo-aeo/learning-log.md"
     ],
