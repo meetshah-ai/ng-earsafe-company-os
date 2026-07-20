@@ -2,24 +2,51 @@
 #
 # LIVE AGENT ID: agent_01LrTA27HRiJLEWP6trULthZ   (Sonnet 5)
 #
-# 🚨 DEPLOYMENT IS PAUSED (2026-07-13). The live agent is pinned to v4, which still contains the
-# two data traps that nearly negatived the brand (see the retraction in the learning log). THIS
-# FILE is v5 — it fixes them — but `ant beta:agents update` FAILED: "Your credit balance is too
-# low to access the Anthropic API."
+# ── LIVE STATE — reconciled against the API 2026-07-20 ────────────────────────────────────────
+# The block that used to sit here said "DEPLOYMENT IS PAUSED, pinned to v4, do NOT unpause".
+# Both claims were false by 2026-07-20 (active, on v6). Never act on this header alone — run
+# `ant beta:deployments retrieve --deployment-id depl_01HpvaVXFLEZJvPjYXAsd6Kt` first.
 #
-# BEFORE UNPAUSING, in this order:
-#   1. Top up Anthropic API credits.
-#   2. ant beta:agents update --agent-id agent_01LrTA27HRiJLEWP6trULthZ --version 4 < this file
-#   3. ant beta:deployments update --deployment-id depl_01HpvaVXFLEZJvPjYXAsd6Kt \
-#        --agent '{"id":"agent_01LrTA27HRiJLEWP6trULthZ","type":"agent","version":5}'
-#   4. ant beta:deployments unpause --deployment-id depl_01HpvaVXFLEZJvPjYXAsd6Kt
-#   5. Verify: retrieve the deployment, confirm .agent.version == 5.
-# Do NOT unpause on v4.
-# DEPLOYMENT:    depl_01HpvaVXFLEZJvPjYXAsd6Kt   (Google Ads Operator — 30 7 * * 1,4 Asia/Kolkata, ACTIVE)
+# DEPLOYMENT:    depl_01HpvaVXFLEZJvPjYXAsd6Kt   (Google Ads Operator)
+#                ACTIVE · pinned to agent v6 · cron `30 7 * * 3` = Wednesday 07:30 IST.
+#                ⚠️ Becomes `30 7 * * 1,4` (Mon + Thu) at the next repin — founder confirmed
+#                Mon+Thu on 2026-07-20. This file and the memory both claimed Mon+Thu while the
+#                deployment actually ran Wednesday; Mon+Thu is the intended cadence.
+#
+# 🚨 BROKEN AS OF 2026-07-20 — SIX OF SEVEN PULLS ARE DEAD.
+#    Windsor's `google_ads` connector no longer exists on this account:
+#      "No google_ads account for user adminngearsafecom was found"
+#    `get_connectors` returns `googleanalytics4` ONLY. This fails LOUDLY (explicit error, not the
+#    silent quota poison row), so past reports flagged PARTIAL rather than inventing numbers.
+#    Reconnecting Windsor is NOT the fix — the free tier allows one account and GA4 occupies it.
+#
+#    MIGRATION IN FLIGHT: Google Ads moves to the **direct Google Ads API**. GA4 STAYS on Windsor
+#    (verified working 2026-07-20 — 477 real rows). Blocked on a developer token with BASIC
+#    access: applied for, in review with Google. A fresh token reaches TEST accounts only, so it
+#    cannot query 508-958-3796 until Basic is granted.
+#
+#    Call shape once the token lands:
+#      endpoint  https://googleads.googleapis.com/v21/customers/5089583796/googleAds:searchStream
+#      headers   Authorization: Bearer <access_token from the refresh-token exchange>
+#                developer-token:   <from MCC API Center — vault, HEADER-injected>
+#                login-customer-id: 9828833176     ← MCC 982-883-3176, REQUIRED
+#    Ads account 508-958-3796 sits under MCC 982-883-3176. Strip dashes in both IDs. Omitting
+#    login-customer-id fails with an error that reads like a scope problem, not a routing one —
+#    that misdiagnosis costs hours, so set it before debugging anything else.
+#
 # ENVIRONMENT:   env_01XyAqVA96XbV6YDd2YpeyPB    (ng-eaarsafe)
-# VAULT:         vlt_011Cct4FFqcsnrcEDFfzHCXo    (ng-earsafe-readonly — GitHub + Windsor creds)
+# VAULT:         vlt_011Cct4FFqcsnrcEDFfzHCXo    (ng-earsafe-readonly)
+#                  · GitHub + Windsor MCP credentials
+#                  · GADS_CLIENT_ID / GADS_CLIENT_SECRET / GADS_REFRESH_TOKEN — environment_variable,
+#                    `adwords` scope, egress-scoped to oauth2.googleapis.com, BODY-injected.
+#                    NOTE: Google offers no reporting-only Ads scope, so the grant is read/write.
+#                    Write protection is the tool grant + approval queue, NOT the OAuth scope.
+#                  · developer token (pending) — environment_variable, scoped to
+#                    googleads.googleapis.com, **HEADER-injected** (different shape from the rest).
 #
-# First scheduled run: Thu 2026-07-16 07:30 IST. Then every Mon + Thu.
+# ⚠️ HISTORICAL GOTCHA, still true: `ant beta:agents update` fails outright when the Anthropic
+#    credit balance is low, and the deployment keeps running its old pinned version silently —
+#    a failed update looks like a no-op. Always re-retrieve and confirm `.agent.version` after.
 #
 # Edit this file, then push the change live with:
 #   ant beta:agents update --agent-id agent_01LrTA27HRiJLEWP6trULthZ --version <current> < <this file>
