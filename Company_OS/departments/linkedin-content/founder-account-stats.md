@@ -13,7 +13,7 @@
 | Windsor `metricool` / `sproutsocial` | Would work — Metricool does connect personal profiles | ❌ **Rejected: paid tools.** (Meet, 2026-07-13) |
 | `captain_data` / `apify_dataset` scrapers | Would work | ❌ **Rejected: violates LinkedIn ToS and risks the account the whole strategy rests on.** Never do this. |
 | Fetching `linkedin.com/in/meet-shah-9065505a` | — | ❌ Returns HTTP **999** (LinkedIn's bot block). |
-| **Web search + fetching individual post URLs** | **Post text, reactions, comments, date** | ⚠️ **THE METHOD — but fetch access failed on every URL tested 2026-07-13 (see below).** |
+| **`curl` on individual post URLs** | **Post text, reactions, comments, date** | ✅ **THE METHOD — confirmed working again 2026-07-21** (see below). |
 
 ## ⚡ POSTS TO TRACK — paste new post URLs here the moment they go live
 
@@ -25,9 +25,12 @@ it every cycle and watches the reactions and comments climb.
 https://www.linkedin.com/posts/meet-shah-9065505a_metaads-performancemarketing-d2c-activity-7482365486110871552-6eHs
 ```
 
+*(No new post URLs added 2026-07-21 — nothing new was published on the founder account between*
+*2026-07-13 and 2026-07-21 per this ledger.)*
+
 ---
 
-## THE METHOD (how the agent reads this account each cycle) — CORRECTED 2026-07-13
+## THE METHOD (how the agent reads this account each cycle) — RE-CONFIRMED 2026-07-21
 
 **The `web_fetch` tool is blocked on linkedin.com (`url_not_allowed`) and always will be. `curl` is
 not.** Post pages return HTTP 200 with the numbers sitting in the HTML. This is a tooling limit, not a
@@ -41,32 +44,24 @@ grep -o '<meta property="og:description" content="[^"]*"' /tmp/p.html   # the po
 ```
 
 Verified 2026-07-13 on the kaan-dard post: returned 22 reactions / 3 comments — the exact numbers.
+**Re-verified 2026-07-21 on the 2026-07-13 post itself:** curl returned HTTP 200 and the correct block —
+`data-num-reactions="10"`, `data-num-comments="1"` on the matching `data-activity-urn`. **Caution for
+future cycles:** the post page also embeds LinkedIn's own "related posts" feed (10+ other unrelated
+posts with their own reaction/comment counts on the same HTML page) — always match the count to the
+specific `data-activity-urn` block for the URL you fetched, not just the first `data-num-reactions` hit
+in the file, or you'll read someone else's numbers.
 
 **The profile page and `/recent-activity/` both return HTTP 999.** Don't waste a call on them.
-
-### The old (superseded) description
-
-1. **Enumerate posts:** search `site:linkedin.com/posts meet-shah-9065505a`.
-2. **Fetch each post URL.** Individual post pages are *supposed to be* publicly readable (unlike the profile page).
-   Returns the **full post text**, the **reaction count** and the **comment count** — when the fetch succeeds.
-3. **Derive the date from the URL.** LinkedIn's `activity-<id>` number is a snowflake: the exact
-   post timestamp is `(id >> 22)` milliseconds since epoch. No guessing required. **Verified again 2026-07-13** —
-   decoding the 6 known ledger post IDs reproduced their logged dates exactly.
 
 **Impressions are NOT obtainable.** LinkedIn shows them only to the account owner. So:
 - **The scoreboard is reactions + comments** (the numerator), not engagement rate.
 - Engagement *rate* can only be filled in by Meet, by hand, from his own analytics screen. Optional —
   the system works without it.
 
-⚠️ **2026-07-13 update — fetch step is currently broken.** `web_fetch` returned `url_not_allowed` on
-**every** `linkedin.com/posts/...` URL tried this session, including the reference kaan-dard post
-(`activity-7369264407924649985`) whose numbers were already on file. Enumeration via `site:linkedin.com/posts`
-search still works fine and still returns full post URLs + hashtag titles; it is specifically the **fetch**
-of the individual post page that failed, for every URL, not just new ones. Per the standing rule, this was
-**not** re-attempted repeatedly or worked around with a scraper — the existing ledger numbers below were
-carried forward unchanged (not re-verified), and no new reaction/comment data was added this cycle.
-**If this repeats next cycle, treat it as confirmed-broken (not transient) and stop spending a fetch attempt
-on it every time — note it as unavailable and move straight to the enumeration-only data (dates, hashtags).**
+**2026-07-13 note (superseded):** `web_fetch` failed with `url_not_allowed` on every `linkedin.com/posts/...`
+URL that session. **This was a `web_fetch`-specific failure, not a `curl` failure** — `curl` was not tried
+that session on this account. 2026-07-21 confirms `curl` works cleanly; the standing instruction remains
+**never use `web_fetch` on linkedin.com, always use `curl`.**
 
 **Discipline — this is a rule, not a preference.** A handful of fetches per cycle, never a crawl.
 If fetches start failing, the agent writes **"founder post data unavailable this cycle"** and moves on. It never
@@ -79,15 +74,15 @@ account — the single asset this entire strategy depends on — to save a human
 
 | Posted | Post (first line / topic) | Bucket | Reactions | Comments | Note |
 |---|---|---|---|---|---|
-| **2026-07-13** 09:29 UTC | **"We scaled a Meta ad's budget 35% and its cost-per-purchase went DOWN 39%. Here's the account structure that made that possible."** | **P2 Meta Ads playbook** | *(too new)* | *(too new)* | 🟢 **THE FIRST POST THIS SYSTEM EVER SHIPPED.** CYCLE-002, Option B — Meet's pick. First time NG's real paid-media numbers have been made public. **Read reactions + comments every cycle from here.** This is the P2-vs-P3 head-to-head: does a real number beat a human story? The kaan-dard post (22 reactions / 3 comments) is the bar. |
-| 2025-09-04 | *"A few days ago, I was standing outside our office on a call…"* — the delivery-boy who couldn't work for 3 days because his neckband hurt his ears. Made him try EarSafe, helped him order on Amazon. | P3 founder | **22** | **3** | **The register that works.** A real, specific, human story with a validated-hypothesis payoff. No pitch. This is the reference post. Not re-fetched 2026-07-13 (fetch blocked) — figure carried forward from a prior cycle, unverified this session. |
+| **2026-07-13** 09:29 UTC | **"We scaled a Meta ad's budget 35% and its cost-per-purchase went DOWN 39%. Here's the account structure that made that possible."** | **P2 Meta Ads playbook** | **10** | **1** | 🔴 **RESOLVED, Day 8 (read 2026-07-21 via curl).** CYCLE-002, Option B — Meet's pick. This is the P2-vs-P3 head-to-head result: a real, counter-intuitive number in the hook landed 10 reactions / 1 comment — well below both P3 story-register comparables below (22/3 and 48/5). **The numbers-only register did not beat the human-story bar.** See `cycle-log.md` CYCLE-002 for the learning this drives into CYCLE-003. |
+| 2025-09-04 | *"A few days ago, I was standing outside our office on a call…"* — the delivery-boy who couldn't work for 3 days because his neckband hurt his ears. Made him try EarSafe, helped him order on Amazon. | P3 founder | **22** | **3** | **The register that works.** A real, specific, human story with a validated-hypothesis payoff. No pitch. This is the reference post. Not re-fetched 2026-07-21 (no URL on file for it — only the 2026-07-13 post is in the tracked-URL list above); figure carried forward unverified this session. |
 | 2025-04-09 | #offline #retail #startupstories | — | — | — | not yet fetched. Date confirmed by activity-ID decode 2026-07-13 (`activity-7315680353275260928` → 2025-04-09). |
 | 2025-03-28 | #startuplife #openearheadphones #ngearsafe #shokz | — | — | — | not yet fetched. Date confirmed by activity-ID decode 2026-07-13 (`activity-7311400417773428737` → 2025-03-28). |
-| 2024-11-25 | IPV Wealth Wise Summit — "conversations when you interact with your consumers directly are always a great learning" | P3 founder | **48** | **5** | Highest reactions found so far. Event + direct-consumer-contact register. Not re-fetched 2026-07-13 (fetch blocked) — figure carried forward, unverified this session. Note: a *different*, lower-numbers company-page share about the same summit exists too (Windsor `linkedin_organic`: 9 likes / 1 comment / 16 impressions) — don't conflate the two; this ledger row is the founder's personal post specifically. |
+| 2024-11-25 | IPV Wealth Wise Summit — "conversations when you interact with your consumers directly are always a great learning" | P3 founder | **48** | **5** | Highest reactions found so far. Event + direct-consumer-contact register. Not re-fetched 2026-07-21 (no URL on file); figure carried forward, unverified this session. Note: a *different*, lower-numbers company-page share about the same summit exists too (Windsor `linkedin_organic`: 9 likes / 1 comment / 16 impressions) — don't conflate the two; this ledger row is the founder's personal post specifically. |
 | 2024-06-28 | "We at NG India EarSafe are deeply committed to promoting…" | — | — | — | not yet fetched |
 | 2024-05-18 | #openear #startuplife #ngearsafe | — | — | — | not yet fetched |
 | 2023-06-21 | "How NG is revolutionizing the headphone industry" | — | — | — | not yet fetched |
-| 2021-12-20 | "innovation #future #entrepreneurship" (`activity-6878608200258654208`) | — | — | — | **New find, 2026-07-13.** Surfaced by the standard `site:linkedin.com/posts meet-shah-9065505a` search; not previously in this ledger. Date by activity-ID decode. Likely predates NG EarSafe's D2C pivot — low priority to fetch, but listed for completeness. |
+| 2021-12-20 | "innovation #future #entrepreneurship" (`activity-6878608200258654208`) | — | — | — | Surfaced 2026-07-13 by the standard `site:linkedin.com/posts meet-shah-9065505a` search. Date by activity-ID decode. Likely predates NG EarSafe's D2C pivot — low priority to fetch, but listed for completeness. |
 
 ---
 
@@ -102,25 +97,28 @@ page between 2024-07-30 and 2026-06-19 — not 4. Of those, **10 have 1+ comment
 not done here.
 
 **The thesis still holds, on the corrected numbers.** The company page's single best post ever (4 comments)
-still trails what one of Meet's posts pulled (3 comments, on presumably a small fraction of the founder
-account's total post count, and via a genuinely personal story rather than a template). A brand page
+still trails what one of Meet's *story-register* posts pulled (3 comments, on presumably a small fraction of
+the founder account's total post count, via a genuinely personal story rather than a template). A brand page
 occasionally gets a comment when it's unusually human (the office opening, a family photo); a person gets
 one almost by default. That's the real, corrected version of the argument — measured, not assumed, and now
 accurate.
 
-**The founder account gets comments on every post we've been able to read** (3, then 5) — still true, still
-based on only 2 of 7 known posts having been fetched.
+**Update 2026-07-21:** the founder account's *numbers-only* register (the 2026-07-13 post, 10/1) actually
+underperforms the company page's own best post (4 comments) on comments, and sits well below both P3
+story-register posts on file. **The founder-vs-brand-page thesis is really a story-vs-broadcast thesis, not
+simply a founder-account-vs-company-page one** — the account matters, but the register matters more. Worth
+carrying into how future options are weighted.
 
 ## WHAT WE'RE WATCHING
-- **Reactions + comments per founder post**, by bucket — does P2 (real Meta Ads numbers) beat P3
-  (founder story)? The "kaan dard" post says a specific human story is very hard to beat. CYCLE-002
-  (2026-07-13) tests a P2 Meta-Ads-near-miss story against a P3 confession post in the same cycle —
-  first real head-to-head once Day-7 numbers are in.
+- **Reactions + comments per founder post, by bucket — RESOLVED this cycle (2026-07-21):** does P2 (real
+  Meta Ads numbers) beat P3 (founder story)? **No.** The 2026-07-13 P2 post (10/1) fell well short of both
+  P3 comparables on file (kaan-dard 22/3, IPV summit 48/5). CYCLE-003's recommended option returns to the
+  story register on the strength of this result.
 - **Does the company page resharing / commenting within the first hour move the founder post's
-  numbers?** Untested.
-- **Fetch reliability of individual `linkedin.com/posts/...` pages** — broken as of 2026-07-13 for every
-  URL tried. Watch whether this is transient or permanent; don't keep spending fetch attempts on it if it
-  repeats.
+  numbers?** Still untested — no evidence either way was gathered this cycle.
+- **Fetch reliability of individual `linkedin.com/posts/...` pages via `curl`** — confirmed working cleanly
+  2026-07-21 (HTTP 200, correct block matched by `data-activity-urn`). The 2026-07-13 `web_fetch` failure
+  was tool-specific, not a LinkedIn-side block on `curl`.
 - **Impressions** — blank unless Meet fills them in. Not required. Don't block on it.
 
 ## OPTIONAL — impressions, if Meet ever wants to add them
