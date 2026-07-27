@@ -39,6 +39,19 @@
 | WFH / teaching | "best headphones work from home india", "online teaching" | buy | guide → product |
 | Running / safety | "best running headphones india", safety | buy | guide → product |
 | Hearing health | "earphones hurting ears", vertigo, hearing loss | informational → CTA | blog + CTA |
+| **Wired open-ear (budget conquest)** | "open ear wired earphones", "wired earphones with mic type c", "budget open ear earphones india" | buy (price-anchored) | collection + PDP |
+
+### 3a. Per-product PDP cluster tracking (added 2026-07-22, SEO-019 — executed; see DECISION_LOG.md)
+Two tiers, both reported every weekly cycle: (1) the thematic clusters above, tracked site-wide; (2) each active product's **own PDP** tracked against its own keyword set, so a product's ranking can't fall through the gap between thematic clusters the way OpenWire's did for three weeks. Money keywords below are **provisional** — PDP title/prior-signal based, not yet confirmed by a dedicated pull; the first real numbers land with each product's first cluster-tagged GSC pull (same treatment as SEO-019's OpenWire baseline).
+
+| Product | PDP | Provisional money keywords |
+|---|---|---|
+| OpenWire (₹799) | `/products/open-ear-headphones-wired-ng-earsafe` | see Wired open-ear row above |
+| Comm 2.0 (₹3,499) | `/products/noise-cancelling-open-ear-headphones-with-mic-ng-ear-safe-comm-2-0` | "open ear headphones with mic india", "boom mic open ear headset" |
+| SafeBuds (₹2,999) | `/products/ngwehear` | "open ear wireless earbuds india", "open ear earbuds AI translation" (SphereLingo), "wehear" — WeHear is NG's own co-brand partner (NG x WeHear SafeBuds), so this is an owned/branded-adjacent query, not a competitor term (correction 2026-07-22 — superseding an earlier learning-log note that mischaracterized it) |
+| ES Lite (₹1,799) | `/products/open-ear-wireless-headphones-ng-ear-safe-lite` | "open ear wireless headphones india", "open ear earphones under 2000" |
+
+**ES Pro / Pro Mini deliberately excluded** — COMPANY_STATE §2 marks both "⬛ Deferred, no demand"; the stock-before-demand gate (§6/§7 below) applies to keyword-cluster work exactly as it does to paid demand. "Pro" (the ₹4,999 bone-conduction swimming PDP, a different SKU from "ES Pro") already has real tracked numbers under the Bone-conduction cluster (30,935 impr/30d, pos 4.16 per SEO-013) — no new row needed.
 
 ## 4. INSTITUTIONAL TRUTHS (never relearn)
 1. Non-branded CTR is the crisis metric: **0.48%** baseline vs 3–5% industry. Thousands of keywords sit at pos 4–10 with high impressions and ~1.1% CTR — title/meta rewrites are the fastest revenue.

@@ -16,6 +16,15 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 - Rank gains do not automatically convert to clicks — position can beat target while CTR on the
   same query falls (confirmed again 2026-07-27: "open ear headphones" pos 8.59 vs 8.64 prior, CTR
   0.29% vs 0.61% prior). CTR-FIX work is the lever, not rank alone.
+- **WebFetch silently strips `<script>` tags — it will false-negative on any JSON-LD/schema check.**
+  Confirmed repeatedly (SEO-002 07-03, SEO-011/013 07-21). Never conclude "schema missing" from a
+  WebFetch read; use raw `curl` or a Rich Results Test. This single tool limitation produced two
+  false-premise queue rows (SEO-011's "4 SKUs missing schema" and SEO-013's "still missing Product
+  JSON-LD") before it was diagnosed.
+- **Any `/execute-approved` run must commit+push tracker.md/queue-inbox.md/learning-log.md in the
+  same session.** Local-only status updates are invisible to the managed agent, which reads only
+  GitHub — see the 2026-07-27 sync-gap entry below for what happens when this is skipped (three
+  cycles of a fixed page getting re-flagged as broken).
 
 ## KEYWORD MOVEMENT LOG (update each 30-day pull)
 | Date | Keyword | Position before | Position after | CTR before | CTR after | Note |
@@ -43,11 +52,59 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 | 2026-07-27 | "open ear vs in ear headphones" | **Regressed** — own page did NOT surface in this cycle's top-10 (did in 07-20); GSC page position (6.28) unchanged, so likely SERP-snapshot volatility not a real drop. Re-check 2026-08-03. | No | web_search proxy |
 
 ## REJECTED / DEAD ENDS
-- (none yet — add with the number that proves it)
+- **Assuming a local `/execute-approved` session's file updates reach the managed agent
+  automatically — REJECTED 2026-07-27.** They don't; the agent only ever sees what's on GitHub.
+  Three human-approved-and-shipped fixes (SEO-013/014/016, plus the OpenWire title swap and the
+  PDP structural change) got silently re-flagged as unaddressed for a full cycle because the local
+  updates to tracker.md/queue-inbox.md were never committed+pushed. See the 2026-07-27 sync-gap
+  postmortem cycle entry for the full account. Always push after `/execute-approved`.
 
 ---
 
 ## CYCLE LOG (most recent first)
+
+### 2026-07-27 — Sync-gap postmortem: three cycles of duplicate drafts, root cause + fix
+
+**What happened:** `/execute-approved` sessions on 2026-07-21 and 2026-07-22 executed SEO-013
+through SEO-019 live (5 Shopify writes + 1 structural doc change), and updated
+`APPROVALS_QUEUE.md`, `DECISION_LOG.md`, `tracker.md`, `queue-inbox.md`, and this file locally —
+but those file changes were never committed and pushed to GitHub. The managed agent reads only
+`tracker.md` + `learning-log.md` from GitHub (by design, for token discipline) — it had no way to
+know any of that work happened. Its 2026-07-27 run, working from a tracker that still said "start
+at SEO-013," drafted new content and mislabeled it SEO-017 through SEO-020. Three of those four
+collided with IDs already used by real, executed work: SEO-017 (draft: re-do the Pro Swimming
+CTR-FIX, real: internal links into the Shokz article), SEO-018 (draft: re-do the WFH harmonization,
+real: the OpenWire title swap), SEO-019 (draft: re-write the Shokz Alternatives article, real: the
+PDP Cluster Tracker structural change). The SEO-017 draft, if approved at face value, would have
+shipped a **duplicate, conflicting Product JSON-LD block** — a real regression risk, not just
+wasted effort.
+
+**Root cause:** a broken feedback loop, not an agent error. The agent followed its instructions
+correctly given what it could see; the instructions correctly say never to read
+`APPROVALS_QUEUE.md`/`DECISION_LOG.md` (token discipline, by design); but nothing enforced that a
+human `/execute-approved` session pushes its tracker/queue-inbox/learning-log updates back to
+GitHub before the next scheduled agent run. Three weekly cycles' worth of real execution history
+(07-21, 07-22, and this file's own missing entries) sat local-only until this correction found it.
+
+**Fix applied this session:** `tracker.md` corrected (SEO-013/014/015/016/017/018/019 marked
+executed, not queued; the three 07-27 duplicate drafts marked VOID with the reason);
+`queue-inbox.md` corrected the same way, with VOID rows kept (not deleted) so the ID collision is
+visible in history, never reused; `constitution.md` §3a (PDP tracker) and `seo-aeo.agent.yaml`
+(PDP OUTPUT section, ID-sequence comments) brought in from where they'd been sitting uncommitted;
+`APPROVALS_QUEUE.md`/`DECISION_LOG.md` pushed in full (they were stale for every department, not
+just this one, since 2026-07-13).
+
+**Process learning carried forward:** any `/execute-approved` run touching a managed-agent
+department must commit+push that department's tracker.md/queue-inbox.md/learning-log.md (and the
+shared APPROVALS_QUEUE.md/DECISION_LOG.md rows) in the same session, before the next scheduled
+agent run. A local-only execution is invisible to every automated agent and will get silently
+re-flagged as unaddressed within one cycle. Treat "did I push?" as part of the execution checklist,
+not an afterthought.
+
+**Next sprint change triggered:** none new — this cycle is corrective, not additive. SEO-020
+(the one genuine new item from 07-27) carries forward unchanged.
+
+---
 
 ### 2026-07-27 — Weekly managed-agent cycle: GSC + GA4 direct-API pulls, 5 AEO checks + 1 competitor-SERP check
 
@@ -114,6 +171,129 @@ larger numbers), SEO-018 (WFH harmonization, 4th re-surface, escalated urgency),
 alternatives WRITE brief, 2nd confirmation), SEO-020 (new AEO fix — "are open ear headphones
 safe" via the dormant bone-conduction-safety page). SEO-005, SEO-009, and SEO-016 re-flagged,
 still undecided/unexecuted. SEO-001/002/003/007/008 remain PENDING-READ until 2026-07-31.
+
+---
+
+### 2026-07-22 — Structural: PDP cluster tracking added (SEO-019); two corrections superseded
+
+**Initiative:** Traced why OpenWire's OW-001 sat `pending` for three weeks despite the work
+shipping (via CRO-014), and why its "possible duplicate PDP" flag was never closed. Root cause: no
+keyword cluster or PDP-level tracking existed for OpenWire (or any non-"category" product), so
+nothing triggered a weekly look at it. Added PDP-level cluster tracking for OpenWire, Comm 2.0,
+SafeBuds, ES Lite to `constitution.md` §3a and the agent yaml (SEO-019) — see
+`APPROVALS_QUEUE.md`/`DECISION_LOG.md` SEO-019 for full detail. Also executed **SEO-018**: rewrote
+the OpenWire PDP's title tag to the OW-001 spec ("Open Ear Wired Earphones with Mic (Type-C) | NG
+EarSafe OpenWire") — the one piece of OW-001 that had never landed.
+
+**CONFIRMED — the duplicate-PDP flag was a false alarm.** `/products/ng-earsafe-openwire` carries
+a real, working `301` to the canonical `/products/open-ear-headphones-wired-ng-earsafe` (verified
+via `curl -D-`, not just WebFetch, which silently follows redirects and had made it look like two
+live pages). No action needed; tracker.md's flag is closed.
+
+**SUPERSEDING NOTE — the 2026-06-27 cycle-2 entry mischaracterized "wehear" as an irrelevant OEM/
+competitor query.** That entry read: *"'wehear' query: 1,016 impressions, 1 click. WeHear is the
+SafeBuds OEM... competitor brand searches that NG accidentally ranks for. Not a priority to
+optimize."* Correction (Meet, 2026-07-22): WeHear is NG's own co-brand partner — the product is
+sold as "NG x WeHear SafeBuds" — so "wehear" is an owned/branded-adjacent query, not a competitor
+term. Do not deprioritize it as accidental; track it as part of the SafeBuds PDP cluster going
+forward. The original entry is left in place per the never-delete rule; this note supersedes its
+conclusion.
+
+**Next sprint change triggered:** first dedicated GSC pull for all 4 PDP clusters (OpenWire, Comm
+2.0, SafeBuds, ES Lite) — was meant for the 2026-07-27 managed-agent cycle but the spec update
+wasn't pushed in time (see the 2026-07-27 sync-gap postmortem at the top of this log); now due
+2026-08-03.
+
+---
+
+### 2026-07-21 — Execution wrap: SEO-013/014/015/016/017 all shipped live
+
+**Initiative:** `/execute-approved` ran on the five SEO-013…016 rows approved 2026-07-20, plus
+SEO-017 (internal links) approved the same day it was drafted. All five executed successfully;
+one (SEO-011, product schema) halted on a disproven premise.
+
+**EXECUTED — SEO-013 (Pro Swimming PDP CTR-FIX).** Shopify `productUpdate` on Product
+9035015258391. `seo.title` → "NG EarSafe Pro Swimming — Waterproof Bone Conduction Headphones
+India 2026"; `seo.description` → IP68/price/ENT meta, 154 chars. **JSON-LD half NOT executed —
+premise false.** Raw-HTML inspection (curl, not WebFetch) found the PDP already serves complete
+Product JSON-LD (aggregateRating 3.78/122, offers ₹4,999 InStock) — a second block would have
+created duplicate conflicting schema. Read plan: D+30 (2026-08-19).
+
+**EXECUTED 2026-07-20 — SEO-014 (WFH page harmonization).** Shopify Article 751516680471,
+`articleUpdate`, exact strings in `SEO-014_execution_spec.md`. H1 harmonized to the live
+`title_tag`, 2 visible Q&As appended, 6-Q FAQPage JSON-LD block appended. `title_tag`/
+`description_tag` deliberately NOT touched. Baseline at execution: 1,296 impr, 1 click, 0.077%
+CTR, pos 6.31 — third consecutive worsening cycle. First valid read: 2026-08-19.
+
+**EXECUTION LEARNING — Shopify article body preserves `<script type="application/ld+json">`.**
+The JSON-LD block was written as part of `article.body` via `articleUpdate` and survived the
+sanitizer intact on post-write re-query. Cheapest schema-injection path for blog articles — no
+theme edit needed. Companion regression check now standard: re-query `metafields(namespace:
+"global")` after any article mutation and confirm `title_tag`/`description_tag` are byte-identical.
+
+**⚠️ OPEN FLAG raised during SEO-014 execution (NOT actioned, still needs its own row).** The
+`description_tag` promises "the honest WFH headset comparison for Indian professionals — with a
+clear pick for every use case." The body delivers no comparison: no competitor named, no pricing,
+no use-case matrix. Plausibly a **larger** relevance drag than the H1 mismatch SEO-014 fixed —
+which would explain why position kept falling for a 4th cycle even after the fix landed (see the
+2026-07-27 entries above). Deliberately kept OUT of SEO-014 to keep the D+30 read clean on the H1
+variable. Still unassigned as of 2026-07-27 — highest-priority next draft.
+
+**PUBLISHED 2026-07-21 — SEO-015 ("Shokz Alternatives in India (2026): An Honest Comparison").**
+New article, Shopify Article 753805951255, `/blogs/open-ear-headphones/shokz-alternatives-india`,
+~2,500 words, 7 visible Q&As + matching FAQPage JSON-LD, comparison table, internal links to Pro /
+Comm 2.0 / Lite / OpenWire PDPs. Full copy in `SEO-015_execution_spec.md`. First NG conquest
+content targeting the Shokz cluster, where NG previously had zero presence. First valid read:
+2026-08-19 — judge on indexation and first impressions, NOT revenue (the ₹1.9L/yr projection is
+explicitly ungrounded, no keyword-volume connector).
+
+**EXECUTION LEARNING — verify competitor pricing against the marketplace, never an aggregator.**
+The first draft was built on Smartprix figures that turned out wrong/speculative. Direct WebFetch
+of Amazon.in is blocked (503/500 anti-bot). **Working path: Porter
+`seo.merchant_amazon_products_live_advanced`** (keyword + `location_name: "India"`; rejects
+`language_code`). Reusable for any future competitor-price content.
+
+**NEW SIGNAL — the Shokz/NG price ranges do not overlap.** Amazon.in 2026-07-21: Shokz spans
+₹9,999–₹18,999; NG spans ₹799–₹4,999. NG is not a cheaper Shokz, it is a different market —
+reframes NG-vs-Shokz positioning beyond SEO (relevant to meta-ads, amazon, CRO messaging).
+
+**⚠️ CROSS-LANE FINDING — belongs to the amazon lane, not actioned here.** Same pull: NG EarSafe
+Lite already ranks #7 organically on the keyword "shokz" on Amazon.in (ASIN B0CYLBDFZ5, ₹1,999,
+3.5★/491 reviews) — winning Shokz-conquest traffic on Amazon while ranking nowhere for it on
+Google. Needs a proper read by the amazon agent.
+
+**EXECUTED 2026-07-21 — SEO-016 (vertigo blog AEO FAQ expansion).** Article 751492890903,
+`articleUpdate`. **Merged into the existing 6-Q FAQPage block (→10 questions), not appended as a
+second block** — the page already carried a block from SEO-007, and a second `FAQPage` risks
+Google discarding both. Also added a direct-answer "Short answer:" opening paragraph. Post-write
+verification: body SHA256 byte-identical to intended, exactly 1 FAQPage block, 10 questions in
+schema, 10 visible `<h3>` Q&As. Read plan: D+14 (2026-08-03) AEO citation re-check.
+
+**EXECUTED 2026-07-21 — SEO-017 (internal links into the new Shokz-alternatives article).** All 3
+inbound links live: bone-conduction collection, Pro PDP (as a new paragraph — the description was
+a bare spec table with no prose to link from), vertigo blog. ⚠️ Self-caught regression: the first
+vertigo write dropped `;font-weight:600` from the CTA headline style (hand-transcription error in
+a 20KB body) — caught by a post-write SHA diff, repaired, re-verified byte-exact. **Learning:
+never hand-transcribe a large body — generate it programmatically and gate every full-body write
+on a pre-computed SHA.** Read: D+14 (2026-08-04) index check, D+30 (2026-08-19) with SEO-015.
+
+**HALTED — SEO-011 (product schema, 4 SKUs), premise disproven.** Basis rested on a WebFetch
+check; WebFetch strips `<script>` tags. Raw-HTML (curl) inspection of all 4 PDPs found Comm 2.0,
+Pro, and ES Lite already carry live, accurate Product JSON-LD. **Only `/products/ngwehear`
+(SafeBuds) genuinely lacks it** — 1 of 4, not 4. Blocked on an unresolved review-rating source
+(Judge.me 4.67★/3, Audien metafield 4.9★/17, Ryviu another figure all disagree) and a
+rendering-path gap (the metafield that would carry it is dead, unrendered by the theme). Needs a
+founder call before re-queueing as a SafeBuds-only row.
+
+**CROSS-DEPT — CEO price-accuracy directive (2026-07-21), touches SEO-tracked pages.** Meet
+directed a same-day fix of every stale price string across live pages (Pro ₹4,999, Comm 2.0
+₹3,499, ES Lite ₹1,799, SafeBuds ₹2,999) — 4 writes, including the vertigo blog's CTA (₹3,299 →
+₹3,499). Relevant here because it touches a page this department tracks; owned jointly with
+cro-product-pages. Full detail in `DECISION_LOG.md` (CEO-2026-07-21-a).
+
+**Next sprint change triggered:** SEO-018 (OpenWire title swap, queued next day), SEO-019 (PDP
+cluster tracking, queued next day). The WFH content↔promise mismatch flagged above is the
+highest-priority undraft item carried into every subsequent cycle until it's written.
 
 ---
 
