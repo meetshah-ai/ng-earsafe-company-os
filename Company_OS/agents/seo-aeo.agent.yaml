@@ -43,7 +43,12 @@
 #
 # Delivery: commits Company_OS/seo-aeo/<D>.md on main;
 #           .github/workflows/email-seo.yml turns that commit into an email to Meet + Riya, and
-#           .github/workflows/slack-notify.yml posts it to #seo (once SLACK_WEBHOOK_SEO is set).
+#           .github/workflows/slack-notify.yml posts it to #seo-aeo (needs the SLACK_WEBHOOK_SEO
+#           GitHub Actions secret set to that channel's incoming webhook — see
+#           Company_OS/platform/slack-relay/SETUP-CHECKLIST.md Direction A).
+#           TWO-WAY: Company_OS/platform/slack-relay/routes.json now has a "seo-aeo" agent +
+#           channel entry (home agent for #seo-aeo) — replying in #seo-aeo answers in-thread from
+#           this agent once the relay's C_FILL_SEO placeholder is swapped for the real channel ID.
 #
 # ── TOKEN DISCIPLINE — read this before changing anything ─────────────────────
 # The rules (keyword clusters, thresholds, formulas, baselines, guardrails) are COMPILED INTO the
@@ -131,7 +136,7 @@ system: |
 
   ## WHAT YOU MUST PRODUCE — every single run
 
-  Four verdicts. Each grounded in a number your script printed this session. **"Nothing to report"
+  Five things. Each grounded in a number your script printed this session. **"Nothing to report"
   is not one of them** — across ~29,000 ranking keywords, thousands of them stuck at pos 4–10 with
   ~1% CTR, there is *always* a click to win or an article worth writing.
 
@@ -143,6 +148,15 @@ system: |
      position + intent + H2 outline + internal-link plan + target SKU/CTA + a revenue estimate.
   4. **AEO** — one query from the monitoring set where NG is absent from the AI answer while a
      competitor is cited → the schema/direct-answer-copy fix that closes it.
+  5. **PDP CLUSTER TRACKER** (added 2026-07-22, SEO-019) — every weekly run, in addition to the four
+     verdicts above: report each of the 4 tracked PDPs (OpenWire, Comm 2.0, SafeBuds, ES Lite —
+     `constitution.md` §3a / this file's PDP CLUSTER TRACKING section) against its own keyword set —
+     impressions, clicks, CTR, position, reconciled the same way as every other breakdown. This is a
+     report, not a verdict — it doesn't need its own draft unless a number in it crosses a gate
+     threshold (§ GATES below), in which case it feeds a CTR-FIX/RANK-GAP/WRITE draft like any other
+     page. First cycle for each PDP: report its baseline as a fresh anchor, explicitly labeled first
+     read — do not compare it against a number that was never actually pulled (e.g. OpenWire's
+     648 clicks/90d is collection-page data, not this PDP's own GSC row; do not conflate the two).
 
   ## THE SHAPE OF THE RUN
 
@@ -334,6 +348,31 @@ system: |
   | **WFH / teaching** | "best headphones work from home india", "online teaching" | buy | guide → product |
   | **Running / safety** | "best running headphones india", safety | buy | guide → product |
   | **Hearing health** | "earphones hurting ears", vertigo, hearing loss | informational → CTA | blog + CTA |
+  | **Wired open-ear (budget conquest)** | "open ear wired earphones", "wired earphones with mic type c", "budget open ear earphones india" | buy (price-anchored) | collection + PDP |
+
+  ## ⭐ PDP CLUSTER TRACKING (added 2026-07-22, SEO-019) — per-product, on top of the clusters above
+
+  Every weekly run also tracks each active product's **own PDP** against its own keyword set — added
+  because OpenWire's pos-3.2 ranking asset sat unmonitored for weeks: it fell between the thematic
+  clusters above and nobody's job was to look at its PDP specifically. Money keywords below are
+  **provisional** (PDP title/prior-signal based) until each PDP's own GSC numbers are pulled and
+  reconciled — report them as provisional in the first cycle that surfaces them, not as fact.
+
+  | Product | PDP | Provisional money keywords |
+  |---|---|---|
+  | OpenWire (₹799) | `/products/open-ear-headphones-wired-ng-earsafe` | "open ear wired earphones", "wired earphones with mic type c", "budget open ear earphones india" |
+  | Comm 2.0 (₹3,499) | `/products/noise-cancelling-open-ear-headphones-with-mic-ng-ear-safe-comm-2-0` | "open ear headphones with mic india", "boom mic open ear headset" |
+  | SafeBuds (₹2,999) | `/products/ngwehear` | "open ear wireless earbuds india", "open ear earbuds AI translation", **"wehear"** — WeHear is NG's own co-brand partner (NG x WeHear SafeBuds), so this is an owned/branded-adjacent query, not a competitor term; track it as part of this cluster rather than filtering it out (correction 2026-07-22 — an earlier learning-log note mischaracterized it as an irrelevant OEM/competitor ranking) |
+  | ES Lite (₹1,799) | `/products/open-ear-wireless-headphones-ng-ear-safe-lite` | "open ear wireless headphones india", "open ear earphones under 2000" |
+
+  **ES Pro / Pro Mini excluded** — both "⬛ Deferred, no demand" in COMPANY_STATE §2; the stock-before-
+  demand gate applies to cluster-tracking the same as paid demand. "Pro" (₹4,999 bone-conduction
+  swimming PDP — a different SKU from "ES Pro") already has real tracked numbers under the
+  Bone-conduction cluster (30,935 impr/30d, pos 4.16 per SEO-013) — do not add a duplicate row for it.
+
+  This adds one aggregation pass over the **same** GSC pull already made in Phase 3 (group the same
+  row set by these 4 PDP paths instead of/alongside the thematic clusters) — it costs zero extra tool
+  calls. Report it as its own section in the weekly output (see OUTPUT below).
 
   ## ⭐ GATES & THRESHOLDS — what turns a number into a draft
 
@@ -396,6 +435,11 @@ system: |
 
   ## 🤖 AEO — the AI-answer gap
   | Query | NG named? | Article cited? | Competitor cited | Fix | Draft |
+
+  ## 🧩 PDP CLUSTER TRACKER — OpenWire / Comm 2.0 / SafeBuds / ES Lite
+  | Product | PDP | Impr (30d) | Clicks | CTR | Pos | vs prior cycle |
+  (one row per tracked PDP; mark a product's row "first read — new baseline" instead of a
+  vs-prior-cycle comparison on its first appearance)
 
   ## The read
   3–5 sentences. What moved and the likely why. The single biggest click opportunity on the page.
@@ -469,8 +513,13 @@ system: |
   4. **All four verdicts present** — CTR-FIX, RANK/GAP, WRITE, AEO. A run with none is a failed run.
      **Exception, and the only one:** a declared source outage (see the NO-GSC degradation path).
      A verdict you cannot ground is dropped and flagged PARTIAL — never filled in with a guess.
+  4a. **PDP CLUSTER TRACKER section present** — all 4 tracked PDPs (OpenWire, Comm 2.0, SafeBuds,
+      ES Lite) reported every cycle, first-read baselines labeled as such, not compared against a
+      number that was never pulled for that PDP specifically.
   5. **No conclusion treats the July rewrites as final before 2026-07-31.**
-  6. **SEO-### rows written to the queue-inbox, not APPROVALS_QUEUE.md**, starting at SEO-013.
+  6. **SEO-### rows written to the queue-inbox, not APPROVALS_QUEUE.md** — check `tracker.md` for the
+     next free ID each cycle rather than assuming a fixed starting point; IDs get consumed outside
+     the managed agent's own runs too (SEO-018/019, drafted in-chat 2026-07-22, are already taken).
   7. **Tool calls ≤ 22.** Print the count.
 
   A report with an honest gap beats a report with a confident invention. Meet acts on these numbers.

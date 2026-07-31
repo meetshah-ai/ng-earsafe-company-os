@@ -21,6 +21,7 @@ The GitHub Action `.github/workflows/slack-notify.yml` already does this. It jus
 - [ ] GitHub → your repo → **Settings → Secrets and variables → Actions → New repository secret**:
       name `SLACK_WEBHOOK_BRIEF`, value = the webhook URL. Save.
 - [ ] (Optional) repeat for `SLACK_WEBHOOK_CONTENT` if you want content suggestions in another channel.
+- [ ] For SEO/AEO: repeat with the `#seo-aeo` channel → webhook → GitHub secret `SLACK_WEBHOOK_SEO`.
 - [ ] Test: next time the 07:00 brief commits (or push any edit under `Company_OS/briefs/`), it posts.
 
 Done → briefs land in Slack automatically. Now make them talk back.
@@ -35,6 +36,9 @@ Reuse the SAME Slack app from Direction A.
 - [ ] **Basic Information** → copy the **Signing Secret**.
 - [ ] In Slack, open your brief channel → type `/invite @NG EarSafe Reports` so the bot can read/post.
 - [ ] Brief channel → click its name → **About** → copy the **Channel ID** (`C…`).
+- [ ] Repeat the invite + Channel-ID copy for every other routed channel (e.g. `#seo-aeo`), then
+      paste each real ID into `routes.json` in place of its `C_FILL_*` placeholder — `routes.json`
+      already has a `seo-aeo` agent entry and a `C_FILL_SEO` channel slot waiting to be filled.
 
 ### B2. Anthropic API key
 - [ ] https://console.anthropic.com → **API Keys** → **Create Key** → copy it (`sk-ant-…`).

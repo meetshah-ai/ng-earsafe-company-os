@@ -2,7 +2,18 @@
 
 > **Read at the start of every SEO/AEO session, after `COMPANY_STATE.md`.** Paired files: `tracker.md`, `learning-log.md`, the seo-aeo row in `../../SKILLS_MATRIX.md`, and the SEO memories `[[ng-seo-aeo-task-tracker]]`, `[[ng-seo-aeo-baseline]]`, `[[ng-seo-aeo-learning-log]]`. Q3 content plan: `Q3_2026_Content_Calendar_Automation.md` (root).
 >
-> Version 1.0 · Owner: Meet Shah · Last updated: 2026-06-25.
+> Version 1.1 · Owner: Meet Shah · Last updated: 2026-07-17.
+
+> **⚙️ SEO/AEO RUNS AS A MANAGED AGENT ONLY (since 2026-07-17).** The interactive `seo-aeo`
+> subagent was retired — SEO now runs unattended as a scheduled managed agent, exactly like Google
+> Ads. Spec: `Company_OS/agents/seo-aeo.agent.yaml` (Sonnet 5). Cadence: **every Monday 08:00 IST**
+> (`0 8 * * 1` Asia/Kolkata). It reads only `tracker.md` + `learning-log.md` at runtime — all rules
+> below are compiled into its system prompt, so **this file is the human-readable canon: change a
+> rule here, change it in the agent YAML, and repin the deployment.** Output: commits
+> `Company_OS/seo-aeo/<D>.md` → emailed to Meet + Riya + posted to Slack `#seo-aeo`. Two-way: reply
+> in `#seo-aeo` and the SEO/AEO agent answers in-thread (`Company_OS/platform/slack-relay/routes.json`).
+> Drafts land as `SEO-###` rows in `queue-inbox.md` (never in `APPROVALS_QUEUE.md`). Agent/deployment
+> IDs are recorded in the YAML header once created.
 
 ## 0. META-INSTRUCTION
 - Load order: `COMPANY_STATE.md` → this file → `tracker.md` → `learning-log.md` → the SEO memories.
@@ -29,6 +40,19 @@
 | WFH / teaching | "best headphones work from home india", "online teaching" | buy | guide → product |
 | Running / safety | "best running headphones india", safety | buy | guide → product |
 | Hearing health | "earphones hurting ears", vertigo, hearing loss | informational → CTA | blog + CTA |
+| **Wired open-ear (budget conquest)** | "open ear wired earphones", "wired earphones with mic type c", "budget open ear earphones india" | buy (price-anchored) | collection + PDP |
+
+### 3a. Per-product PDP cluster tracking (added 2026-07-22, SEO-019)
+Two tiers, both reported every weekly cycle: (1) the thematic clusters above, tracked site-wide; (2) each active product's **own PDP** tracked against its own keyword set, so a product's ranking can't fall through the gap between thematic clusters the way OpenWire's did for three weeks. Money keywords below are **provisional** — PDP title/prior-signal based, not yet confirmed by a dedicated pull; the first real numbers land with each product's first cluster-tagged GSC pull (same treatment as SEO-019's OpenWire baseline).
+
+| Product | PDP | Provisional money keywords |
+|---|---|---|
+| OpenWire (₹799) | `/products/open-ear-headphones-wired-ng-earsafe` | see Wired open-ear row above |
+| Comm 2.0 (₹3,499) | `/products/noise-cancelling-open-ear-headphones-with-mic-ng-ear-safe-comm-2-0` | "open ear headphones with mic india", "boom mic open ear headset" |
+| SafeBuds (₹2,999) | `/products/ngwehear` | "open ear wireless earbuds india", "open ear earbuds AI translation" (SphereLingo), "wehear" — WeHear is NG's own co-brand partner (NG x WeHear SafeBuds), so this is an owned/branded-adjacent query, not a competitor term (correction 2026-07-22 — superseding an earlier learning-log note that mischaracterized it) |
+| ES Lite (₹1,799) | `/products/open-ear-wireless-headphones-ng-ear-safe-lite` | "open ear wireless headphones india", "open ear earphones under 2000" |
+
+**ES Pro / Pro Mini deliberately excluded** — COMPANY_STATE §2 marks both "⬛ Deferred, no demand"; the stock-before-demand gate (§6/§7 below) applies to keyword-cluster work exactly as it does to paid demand. "Pro" (the ₹4,999 bone-conduction swimming PDP, a different SKU from "ES Pro") already has real tracked numbers under the Bone-conduction cluster (30,935 impr/30d, pos 4.16 per SEO-013) — no new row needed.
 
 ## 4. INSTITUTIONAL TRUTHS (never relearn)
 1. Non-branded CTR is the crisis metric: **0.48%** baseline vs 3–5% industry. Thousands of keywords sit at pos 4–10 with high impressions and ~1.1% CTR — title/meta rewrites are the fastest revenue.

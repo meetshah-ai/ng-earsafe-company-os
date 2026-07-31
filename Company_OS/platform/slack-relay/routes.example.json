@@ -6,7 +6,8 @@
     "meta-ads":   { "id": "agent_013SVt96xW4URuuQ4CkfQXd9", "display": "Meta Ads",       "icon": ":chart_with_upwards_trend:", "model": "sonnet-5",  "aliases": ["meta", "meta-ads", "fb"] },
     "google-ads": { "id": "agent_01LrTA27HRiJLEWP6trULthZ", "display": "Google Ads",     "icon": ":mag:",                      "model": "sonnet-5",  "aliases": ["google", "google-ads", "gads"] },
     "linkedin":   { "id": "agent_0119BswBnem6JbKHfJ8iihtv", "display": "LinkedIn",        "icon": ":briefcase:",                "model": "sonnet-5",  "aliases": ["linkedin", "li"] },
-    "social":     { "id": "agent_018eaUhFQKkjVHhMRNAPMVTS", "display": "Social",          "icon": ":iphone:",                   "model": "sonnet-5",  "aliases": ["social", "ig", "instagram"] }
+    "social":     { "id": "agent_018eaUhFQKkjVHhMRNAPMVTS", "display": "Social",          "icon": ":iphone:",                   "model": "sonnet-5",  "aliases": ["social", "ig", "instagram"] },
+    "seo-aeo":    { "id": "agent_015rJeVMajEoywaMThwaeynU", "display": "SEO/AEO",         "icon": ":mag_right:",                "model": "sonnet-5",  "aliases": ["seo", "seo-aeo", "aeo", "organic"] }
   },
 
   "channels": {
@@ -14,7 +15,8 @@
     "C_FILL_GOOGLE":   { "home": "google-ads", "reportDir": "Company_OS/google-ads", "queue": "Company_OS/departments/google-ads/queue-inbox.md" },
     "C_FILL_LINKEDIN": { "home": "linkedin",   "reportDir": "Company_OS/linkedin" },
     "C_FILL_BRIEF":    { "home": "cos",        "reportDir": "Company_OS/briefs" },
-    "C_FILL_SOCIAL":   { "home": "social",     "reportDir": "Company_OS/social" }
+    "C_FILL_SOCIAL":   { "home": "social",     "reportDir": "Company_OS/social" },
+    "C_FILL_SEO":      { "home": "seo-aeo",    "reportDir": "Company_OS/seo-aeo",    "queue": "Company_OS/departments/seo-aeo/queue-inbox.md" }
   },
 
   "convene": {
