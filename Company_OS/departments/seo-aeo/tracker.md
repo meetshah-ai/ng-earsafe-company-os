@@ -8,7 +8,8 @@
 > (this department's private inbox — the agent never touches `APPROVALS_QUEUE.md`). **New IDs
 > continue from SEO-028** (SEO-001…027 + OW-001 are taken as of this cycle).
 
-## LIVE STATUS SNAPSHOT (2026-08-03)
+## LIVE STATUS SNAPSHOT (2026-08-03 · 2026-08-04 /approvals update)
+- **2026-08-04 /approvals:** SEO-020, SEO-021 (now urgent), SEO-022, SEO-024, SEO-025, SEO-026, SEO-027 **APPROVED by Meet, awaiting `/execute-approved`.** SEO-023 marked **EXECUTED (per Meet)** — do not re-check as pending. Full detail in `queue-inbox.md`.
 - **No new ⚠️ SYNC CORRECTION this cycle.** queue-inbox.md read directly before drafting anything —
   confirmed SEO-020 through SEO-024 all still pending, zero collisions. The 2026-07-27 sync
   correction (SEO-017/018/019 VOID duplicates) remains the only incident on record; see

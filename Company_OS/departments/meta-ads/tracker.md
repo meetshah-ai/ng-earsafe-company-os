@@ -11,6 +11,9 @@
 > (MA-029). Regional-language tests (MA-024 Gujarati SafeBuds, MA-025 Telugu Comm 2.0) launched on
 > schedule 2026-07-13 — day-1 only, too early to read.)
 
+## 2026-08-04 /approvals UPDATE
+MA-031, MA-032, MA-033, MA-036, MA-037, MA-038 (the MOFU campaign pause, Telugu delivery diagnostic, Gujarati creative-priority shift, ES Comm 2 +20% budget step, the UTM tag-mismatch fix, and the Gadgetbhai/Merged rebalance) **marked EXECUTED (per Meet)**. MA-034 (CF-31 audiologist-explainer test) is **still pending — blocked on Meet's compliance call** on the presenter-credential framing (see the row's own COMPLIANCE FLAG). MA-035 not yet decided.
+
 ## PRIORITY SYSTEM
 - **P0** — this week. **P1** — this month. **P2** — 30–60 days. **P3** — experiments.
 
