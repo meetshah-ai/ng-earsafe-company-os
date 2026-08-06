@@ -109,13 +109,17 @@ improve or counter*. Log intel to the competitor ledger in `learning-log.md`.
 ## 5. PLAYBOOK + TEMPLATES
 
 ### 5a. Performance decode — the Managed Agent's weekly Thursday loop (compiled into the YAML)
-**Frugal by design — 22-call budget, ≤6 pulls.** READ (tracker + learning-log + queue-inbox + latest
-brief) → PULL:
+**Frugal by design — 22-call budget, 2 Windsor pulls.** READ (tracker + learning-log + queue-inbox +
+latest brief) → PULL (Windsor, Meta only):
 - **Meta campaign×day, 35d** — spend/purchases/values per campaign per day. Yields the live-campaign
   roster, **week-over-week budget deltas**, and **MTD spend**.
 - **Meta ad×day, 21d** — spend/frequency/ad_name. Yields **new vs retired creatives** and per-ad CPP.
-- **GA4 account source/medium × day, 14d (WITH `date`)** — the trailing-7d and prior-7d TRUE-ROAS
-  floor, truncation-guarded.
+
+GA4 (the Meta-paid revenue side of TRUE ROAS) is **no longer a Windsor pull** — since 2026-08-06 it's a
+direct call to the Analytics Data API inside the COMPUTE script (0 tool calls), using the
+`GA4_CLIENT_ID`/`GA4_CLIENT_SECRET`/`GA4_REFRESH_TOKEN` vault credential shared with the Google Ads
+Operator. It fetches the same three shapes as before, truncation-guarded via the response's `rowCount`:
+- **GA4 account source/medium × day, 14d (WITH `date`)** — the trailing-7d and prior-7d TRUE-ROAS floor.
 - **GA4 campaign × source/medium, current 7d + prior 7d (aggregated, no `date`)** — per-campaign
   sessions, purchases, **CVR** and revenue for both weeks → per-campaign week-over-week + TRUE-ish ROAS
   join on normalised campaign name.
@@ -187,7 +191,7 @@ references a competitor or public figure.
 | Tool | Use for |
 |---|---|
 | Windsor `get_data` — `facebook` connector | Meta spend + platform value, campaign & ad grain (35d/21d for week-over-week + MTD) |
-| Windsor `get_data` — `googleanalytics4` | GA4 Meta-paid revenue (TRUE ROAS numerator) at account, **campaign** and **page_path** grain; per-campaign CVR; MTD rollup |
+| GA4 Analytics Data API — **direct, since 2026-08-06** (was Windsor `googleanalytics4`) | GA4 Meta-paid revenue (TRUE ROAS numerator) at account, **campaign** and **page_path** grain; per-campaign CVR; MTD rollup. Vault credential `GA4_CLIENT_ID`/`GA4_CLIENT_SECRET`/`GA4_REFRESH_TOKEN`, shared with the Google Ads Operator. |
 | GitHub MCP | read the two triad files + brief; commit the report; write queue-inbox |
 | WebSearch / WebFetch | Meta product changes (Reels, Advantage+, attribution) |
 
