@@ -17,6 +17,9 @@ name: Post reports to Slack
 #   Company_OS/linkedin/     #linkedin       SLACK_WEBHOOK_LINKEDIN
 #   Company_OS/social/       #social         SLACK_WEBHOOK_CONTENT
 #   Company_OS/seo-aeo/      #seo-aeo        SLACK_WEBHOOK_SEO
+#   Company_OS/amazon-ads/   #amazon-ads     SLACK_WEBHOOK_AMAZONADS
+#     (amazon-ads: no reports land here until the Amazon Ads Operator is deployed — see
+#      Company_OS/agents/amazon-ads.agent.yaml header. Wired ahead of time; harmless until then.)
 
 on:
   push:
@@ -28,6 +31,7 @@ on:
       - 'Company_OS/linkedin/**'
       - 'Company_OS/social/**'
       - 'Company_OS/seo-aeo/**'
+      - 'Company_OS/amazon-ads/**'
 
 jobs:
   post:
@@ -45,14 +49,17 @@ jobs:
           SLACK_WEBHOOK_LINKEDIN: ${{ secrets.SLACK_WEBHOOK_LINKEDIN }}
           SLACK_WEBHOOK_CONTENT: ${{ secrets.SLACK_WEBHOOK_CONTENT }}
           SLACK_WEBHOOK_SEO: ${{ secrets.SLACK_WEBHOOK_SEO }}
+          SLACK_WEBHOOK_AMAZONADS: ${{ secrets.SLACK_WEBHOOK_AMAZONADS }}
         run: |
           set -euo pipefail
           file=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- \
             'Company_OS/briefs/*.md' 'Company_OS/meta-ads/*.md' 'Company_OS/google-ads/*.md' \
-            'Company_OS/linkedin/*.md' 'Company_OS/social/*.md' 'Company_OS/seo-aeo/*.md' 2>/dev/null | tail -n1 || true)
+            'Company_OS/linkedin/*.md' 'Company_OS/social/*.md' 'Company_OS/seo-aeo/*.md' \
+            'Company_OS/amazon-ads/*.md' 2>/dev/null | tail -n1 || true)
           if [ -z "${file:-}" ] || [ ! -f "$file" ]; then
             file=$(ls -t Company_OS/briefs/*.md Company_OS/meta-ads/*.md Company_OS/google-ads/*.md \
-              Company_OS/linkedin/*.md Company_OS/social/*.md Company_OS/seo-aeo/*.md 2>/dev/null | head -n1 || true)
+              Company_OS/linkedin/*.md Company_OS/social/*.md Company_OS/seo-aeo/*.md \
+              Company_OS/amazon-ads/*.md 2>/dev/null | head -n1 || true)
           fi
           if [ -z "${file:-}" ] || [ ! -f "$file" ]; then
             echo "No report to post."; exit 0
@@ -66,6 +73,7 @@ jobs:
             *linkedin*)   title="💼 LinkedIn — Content Cycle";    hook="$SLACK_WEBHOOK_LINKEDIN" ;;
             *social*)     title="📱 Daily Content Suggestions";  hook="$SLACK_WEBHOOK_CONTENT" ;;
             *seo-aeo*)    title="🔎 SEO/AEO — Weekly";           hook="$SLACK_WEBHOOK_SEO" ;;
+            *amazon-ads*) title="📦 Amazon Ads — Operator";      hook="$SLACK_WEBHOOK_AMAZONADS" ;;
             *)            echo "Unknown report path; skipping."; exit 0 ;;
           esac
           if [ -z "${hook:-}" ]; then

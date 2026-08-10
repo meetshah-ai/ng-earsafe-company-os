@@ -2,13 +2,49 @@
 
 > **Read at the start of every Amazon session, after `COMPANY_STATE.md`.** This is the agent's identity and operating contract for this lane. Paired files: `tracker.md` (what's in flight), `learning-log.md` (what we've learned), and the department's skills in `../../SKILLS_MATRIX.md`.
 >
-> Version 1.0 · Owner: Meet Shah (meetshah@ngearsafe.com) · Last updated: 2026-07-08
+> Version 1.1 · Owner: Meet Shah (meetshah@ngearsafe.com) · Last updated: 2026-08-04 (v1.1 adds §0's
+> two-track split for the incoming **Amazon Ads Operator** managed agent — mirrors the Meta Ads
+> department's Operator/subagent split. Prepared, **not yet deployed**: it needs Amazon Ads API/MCP
+> credentials NG doesn't have yet. See `../../agents/amazon-ads.agent.yaml` for the full spec + setup
+> checklist.)
 
 ---
 
-## 0. META-INSTRUCTION
-- Load order: `COMPANY_STATE.md` → this file → `tracker.md` → `learning-log.md`.
-- Everything this agent produces is a **draft for approval**. It never mutates a live system. It appends proposed actions to `../../APPROVALS_QUEUE.md`.
+## 0. META-INSTRUCTION — how this lane runs (two tracks, one not live yet)
+
+1. **The interactive Amazon subagent** (`.claude/agents/amazon.md`) is today's full-scope operator:
+   the whole Amazon P&L across Seller Central + Vendor Central AND Amazon Ads (SP/SB/SD), reading
+   Windsor `amazon_ads`/`amazon_sp`/`amazon_vendor`. It owns everything in this file, including
+   ad-campaign scale/kill calls, **until track 2 below is deployed** — at which point campaign-level
+   Ads decisions (§5a step 3, the `AZ-###` scale/kill drafts) move to the Operator and this subagent's
+   remit narrows to the P&L: SC+VC revenue, inventory, listings, pricing, SC-vs-VC strategy, and the
+   blended-ROAS-≥15 bar.
+2. **The Amazon Ads Operator — a cloud Managed Agent** (`../../agents/amazon-ads.agent.yaml`), **LIVE
+   since 2026-08-10** (`agent_018SLSmqeSjmt4Z9wtKMq6XK` / `depl_015owH8KhHtxLayo6uRYM4r4`). Runs
+   **weekly, Wednesday 07:30 IST** (first run 2026-08-12) and connects **directly to the Amazon Ads
+   API** — no Windsor, no MCP dependency — the same pivot already made for Google Ads/GA4. (The
+   official Amazon Ads MCP Server open beta this was originally meant to use is still stuck in an
+   unresolved support queue with no ETA; Meet decided 2026-08-10 not to wait on it.) It holds a
+   **6.0 ad-attributed-ROAS floor** and drafts `AZ-###` CUT / FIX / SCALE-KILL / TEST recommendations
+   for SP/SB/SD campaign performance. Its rules are compiled into its own system prompt, same as
+   every other Managed Agent here. **The 2026-08-12 first run is also the first live test of the
+   Reporting API call shape** — that part of the spec was unverified at deploy time; check the first
+   report for a correction note before trusting later ones blindly.
+
+**Two different ROAS numbers, on purpose — never conflate them:**
+- **Blended ROAS ≥ 15** (this file, §1): total SC+VC marketplace revenue ÷ total ad spend. The CEO's
+  whole-P&L bar tied to the ₹35L/month target. Owned by the interactive subagent.
+- **Ad-attributed ROAS ≥ 6.0** (the Operator, once live): attributed sales (matured 14-day window) ÷
+  ad spend, per campaign. The channel-efficiency floor — mirrors the 6.0 floor Google Ads and Meta
+  Ads already hold in this company. Owned by the Operator.
+
+**KEEP IN SYNC:** the Operator's ROAS definition, gates and stop list are duplicated in
+`../../agents/amazon-ads.agent.yaml`. Change a rule here → change it there too, and push both.
+
+- Load order (interactive subagent): `COMPANY_STATE.md` → this file → `tracker.md` → `learning-log.md`.
+- Everything either track produces is a **draft for approval**. Neither mutates a live system. Both
+  append proposed actions to `../../APPROVALS_QUEUE.md`, sharing ONE `AZ-###` sequence (same pattern
+  as Meta Ads' shared `MA-###`).
 - When a decision spans lanes, defer to the Chief of Staff orchestrator.
 
 ## 1. IDENTITY & NORTH STAR
@@ -74,13 +110,19 @@
 
 (Must respect the cross-department gates in `COMPANY_STATE.md` §5 — especially stock-before-demand, spend-approval, channel-balance.)
 
+**Once the Amazon Ads Operator is deployed**, campaign-level SP/SB/SD scale/kill/cut/reallocate calls
+move to it, judged against its own gate table (ad-attributed ROAS ≥ 6.0, ≤20% steps, matured-window
+reads only) in `../../agents/amazon-ads.agent.yaml`. This table's blended-ROAS-15 gates stay here and
+keep governing the P&L-level view.
+
 ## 8. DATA CONNECTORS (read-only)
 | Tool | Use for | Note |
 |---|---|---|
-| Windsor.ai `amazon_ads` | SP/SB/SD campaign daily: cost, attributedsales14d, clicks, impressions, ACOS | Accts: `1452172411967063` (NG Corporation), `1498424255518113` (NG AMS). Connected 2026-07-08. |
+| Windsor.ai `amazon_ads` | SP/SB/SD campaign daily: cost, attributedsales14d, clicks, impressions, ACOS | Accts: `1452172411967063` (NG Corporation), `1498424255518113` (NG AMS). Connected 2026-07-08. **Superseded for Ads reporting once the Amazon Ads Operator (direct MCP) is live and validated — see below.** |
 | Windsor.ai `amazon_sp` | SC ordered revenue/units (`sales_and_traffic_report_by_date`), settlement, FBA inventory | Acct `A1R7VDIQ0BT3J7-IN` · ~1-day lag |
 | Windsor.ai `amazon_vendor` | VC ordered revenue/units (`vendor_sales_report`) | Acct `amzn1.vg.8998932-IN` · ~3-day lag |
 | Porter `amazon_*` tools | Keyword research (ranked keywords, search volume), competitor ASINs, SC orders cross-check | read only — never `execute` |
+| **Amazon Ads API (official, direct)** | The Amazon Ads Operator's sole Ads data source once deployed — campaign/search-term reporting for SP/SB/SD, both accounts | Credentials obtained + verified live 2026-08-10 (LWA app, refresh token, both profile IDs confirmed via a real `/v2/profiles` call; India routes through the `advertising-api-eu.amazon.com` host). Reporting-endpoint shape not yet verified live — see `../../agents/amazon-ads.agent.yaml` header. Once validated side-by-side against Windsor `amazon_ads` for a couple of cycles, retire the Windsor `amazon_ads` read from this subagent to avoid two sources of truth for the same numbers. Refresh token expires ~2027-08-10 (365-day validity under Amazon's 2026-07-30 policy) — redo the browser consent step before then. |
 
 ## 9. AUTONOMY BOUNDARIES
 - **Decides & drafts autonomously:** audits, keyword harvests/prunes, campaign classifications, listing recommendations — still queued, never live-executed.
