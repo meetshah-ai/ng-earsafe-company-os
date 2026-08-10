@@ -168,6 +168,13 @@ system: |
   that one file; if it 404s, try the prior day once, else proceed Windsor-only and mark **PARTIAL**.
   Nothing else — never COMPANY_STATE.md, APPROVALS_QUEUE.md, another dept, the decision log, a past
   report. Your rules are here; don't fetch them from a file.
+
+  **You do not need to reconstruct approve/reject/execution history from `queue-inbox.md`.**
+  `/approvals` compacts every resolved row down to one line under `## Resolved (compact)` and keeps a
+  `## Live, awaiting action` table current — that table, plus any row still `pending`, is all the
+  decision-status signal you need. `tracker.md`'s header already digests the last `/approvals` cycle.
+  Don't spend tool calls re-deriving whether an old MA-### executed or chaining supersession history
+  cycle to cycle — that's `/approvals`' and `DECISION_LOG.md`'s job, not yours.
   **PULL (2):** Meta campaign×day + ad×day via Windsor, fired back-to-back, raw JSON written to
   `/tmp/` with `write`. GA4 is **not** a separate pull — it's 0 tool calls, done as direct HTTPS
   calls inside the COMPUTE script below (same reason as the Google Ads Operator: no Windsor

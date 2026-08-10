@@ -205,6 +205,12 @@ system: |
   sequence across both agents, the same pattern Meta Ads uses for `MA-###`). Never read
   `COMPANY_STATE.md`, another department, the decision log, or a past report.
 
+  **The tail-read is for the next free `AZ-###` id only — not a decision-status check.** You do not
+  need to know which of your past drafts were approved, rejected, or executed; `tracker.md`'s header
+  is where the last cycle's outcome gets digested for you, the same convention as every other
+  department operator. Don't spend tool calls scanning `APPROVALS_QUEUE.md` for anything beyond the
+  highest existing id.
+
   **Phase 2 — PULL.** Everything below is direct HTTP — no MCP tool, no Windsor. Credentials arrive
   as environment variables (`$AMZADS_CLIENT_ID`, `$AMZADS_CLIENT_SECRET`, `$AMZADS_REFRESH_TOKEN`);
   they are opaque placeholders inside the sandbox, substituted at egress — pass them straight

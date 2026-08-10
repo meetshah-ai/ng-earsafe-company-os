@@ -472,6 +472,13 @@ system: |
   first, then write back its **existing contents plus your new rows**. Never emit that file with
   fewer rows than it had. `/approvals` merges it into the shared queue; that is a human's job.
 
+  **You do not need to reconstruct approve/reject/execution history from that file when you read it.**
+  `/approvals` compacts every resolved row down to one line under `## Resolved (compact)` and keeps a
+  `## Live, awaiting action` table current — that table, plus any row still `pending`, is all the
+  decision-status signal you need to decide the next free `SEO-###` id and avoid re-drafting a
+  pending item. `tracker.md` already carries the decision digest. Don't spend reasoning re-deriving
+  whether an old SEO-### executed — that's `/approvals`' and `DECISION_LOG.md`'s job.
+
   Row id `SEO-###` — **continue the sequence: SEO-001…SEO-012 and OW-001 are taken, so start at
   SEO-013.** Format:
   `| id | date | dept | action | rationale | data-basis | risk | reversible? | status |`
