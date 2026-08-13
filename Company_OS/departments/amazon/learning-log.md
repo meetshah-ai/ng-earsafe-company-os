@@ -13,14 +13,27 @@ Be specific and quantified. A learning that can't change a future decision isn't
 ---
 
 ## CONFIRMED PATTERNS (promote proven learnings here)
-- *(none yet — department opened 2026-07-08)*
+- **Pre-flight canary before spending the report budget** (confirmed 2026-08-13, first proposed 2026-08-10): a single cheap `GET /v2/profiles` call correctly predicts whether a full SP/SB/SD + search-term report sequence is worth attempting. Applied this cycle: capped the session at 4 diagnostic calls instead of a full blocked sequence across every ad product and profile. Promote to a standing rule for every future cycle (see AZ-012).
 
 ## REJECTED / DEAD ENDS (don't retry these)
-- *(none yet)*
+- Re-testing host choice (EU vs NA) or the `Amazon-Advertising-API-Scope` header presence/absence as the cause of the `clientId does not match token` 401 — ruled out twice now (2026-08-10, 2026-08-13), identical signature both times, both hosts, with/without scope. The fix is upstream credential provisioning, not call shape. Do not spend a future cycle's budget re-testing this.
 
 ---
 
 ## CYCLE LOG (most recent first)
+
+### 2026-08-13 — Blocked cycle #2: same Ads API authentication failure, now escalated
+**Initiative:** Weekly ad-attributed-ROAS cycle, direct-API pull (no Windsor), both accounts, SP/SB/SD + SP search-term/targeting report, 30-day window (matured cutoff 2026-07-30).
+**Hypothesis:** N/A this cycle — pre-flight canary (see below) stopped the pull before report requests were attempted.
+**Result (REJECTED — infrastructure, not a performance finding, identical to 2026-08-10):** LWA token exchange (`POST /auth/o2/token`) succeeded (HTTP 200, valid `access_token`, 785 chars, `Atza|...` format). Pre-flight canary `GET /v2/profiles` on both profiles → HTTP 401 `UNAUTHORIZED`. Escalation canary `POST /reporting/reports` (real SP-campaign body, `groupBy` included per the documented shape) on both profiles → HTTP 401 `"Unauthorized exception while handling 3P Request: clientId does not match token"`. 0/4 resource calls succeeded. No `reportId` issued; SB/SD and search-term reports were not attempted — the canary already confirmed the identical 2026-08-10 failure signature, so the report-request budget was not spent chasing a result already known.
+**Learning carried forward:**
+1. The pre-flight-canary skill signal logged 2026-08-10 worked exactly as intended: this cycle cost 4 diagnostic calls instead of the ~12+ a full blocked SP+SB+SD+search-term sequence would have cost. Promoted to CONFIRMED PATTERNS above.
+2. This is the **2nd consecutive live-tested cycle** with the exact same failure signature — narrows the cause from "unknown" to "Security-Profile/client-authorization mismatch": the LWA token mint keeps succeeding (so `AMZADS_REFRESH_TOKEN` + `AMZADS_CLIENT_SECRET` are valid together), but the resource server rejects `AMZADS_CLIENT_ID` against that same token's Security Profile. This is now specific enough to hand to IT as a concrete diagnostic, not just "auth is broken."
+3. **P1-1 (search-term harvest) has now missed 3 consecutive cycles** for three nominally-different reasons (Windsor sync, API auth 2026-08-10, API auth again 2026-08-13) — crossing the line this department set for itself on 2026-08-10 ("if a third cycle also fails ... the blocker is itself the story"). Escalated explicitly in this cycle's report and in AZ-009, rather than logged as a routine repeat flag.
+4. Re-checked pending-item age against today's date (2026-08-13) per the 2026-08-10 rule, even with the fresh pull blocked: AZ-001..004 are now 36 days pending (was 33 on 2026-08-10); AZ-003's stated read date is now 25 days overdue (was 22). Sized the cost of AZ-001's continued inaction using the campaign's own last-confirmed burn rate: ≈₹12,000–13,000 of plausible additional waste since the 2026-07-08 read, clearly flagged as an estimate, not a fresh number.
+5. Explicitly held AZ-003's scale step rather than either executing it blind or silently dropping it — 36-day-old evidence does not satisfy the matured-window-evidence gate for a NEW budget increment, even though the evidence was strong when it was fresh.
+**Next-sprint change triggered:** tracker P0-0 escalated (2nd consecutive confirmed cycle, diagnostic narrowed); AZ-009 (escalated infra ask, supersedes AZ-005's urgency level), AZ-010 (CUT reaffirm with updated cost estimate, supersedes AZ-006), AZ-011 (explicit SCALE-HOLD, supersedes AZ-007), AZ-012 (formalize the canary rule, supersedes AZ-008's blocked status note) added. `queue-inbox.md` created this cycle (did not exist before, despite AZ-001..008 already being referenced in tracker/learning-log) — reconstructed rows 001–008 from this file's and tracker's own text so the ID sequence has one home going forward.
+**Skill signal:** the pre-flight canary is no longer a proposal — it ran and worked this cycle. Next refinement: if a 3rd consecutive live cycle also gets `clientId does not match token`, stop trying to diagnose further from this side entirely and treat it as a pure IT ticket with no ads-agent action possible until resolved (don't re-derive the same diagnostic a 3rd time).
 
 ### 2026-08-10 — Blocked cycle: Ads API authentication failure
 **Initiative:** Weekly ad-attributed-ROAS cycle, first fully-direct-API pull (no Windsor), both accounts, SP/SB/SD + SP search-term/targeting report, 30-day window (matured cutoff 2026-07-27).
