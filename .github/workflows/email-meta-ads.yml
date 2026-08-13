@@ -71,7 +71,7 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           from: NG EarSafe Meta Ads <${{ secrets.MAIL_USERNAME }}>
-          to: meetshah@ngearsafe.com
+          to: meetshah@ngearsafe.com, riyashah@ngearsafe.com
           subject: "${{ steps.report.outputs.tag }}Meta Ads — ${{ steps.report.outputs.date }}"
           html_body: file://report_body.html
           attachments: ${{ steps.report.outputs.path }}

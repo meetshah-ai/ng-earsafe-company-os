@@ -1,10 +1,14 @@
 # Meta Ads — Department Constitution
 
-> **Human-readable canon for the Meta Ads lane.** Version 4.1 · Owner: Meet Shah · Last updated
-> 2026-07-15 (v4.1 adds the **Creative-Format Test Engine** §5d — always 2–3 format trials live from an
-> open format library — and reframes institutional truth #1: review/explainer is the validated anchor,
-> not the only converter. v4.0 moved to a **weekly Thursday** cadence + full campaign-level
-> week-over-week + month-to-date performance audit; supersedes the v3.0 twice-weekly model).
+> **Human-readable canon for the Meta Ads lane.** Version 4.2 · Owner: Meet Shah · Last updated
+> 2026-08-13 (v4.2 drops Windsor entirely — Meta now direct via the Marketing API, same as GA4 — and
+> adds four deeper diagnostics only possible since: auction quality/engagement/conversion ranking,
+> video hook/retention curve, placement waste, and the on-site funnel for Meta-attributed traffic;
+> see §1a step 5 and §8. v4.1 adds the **Creative-Format Test Engine** §5d — always 2–3 format trials
+> live from an open format library — and reframes institutional truth #1: review/explainer is the
+> validated anchor, not the only converter. v4.0 moved to a **weekly Thursday** cadence + full
+> campaign-level week-over-week + month-to-date performance audit; supersedes the v3.0 twice-weekly
+> model).
 
 ## 0. META-INSTRUCTION — how this lane runs (read this first)
 
@@ -63,6 +67,16 @@ types, ad structures and creative angles across audience mixes to find the next 
    pace that frames every call.
 4. **Four verdicts** — CUT, FIX, SCALE/KILL, TEST — as concrete scale / cut / reallocate moves (gated),
    each tied to a printed number.
+5. **Deeper diagnostics (added 2026-08-13)** — since the direct-API migration, four additional current-
+   week-only lenses feed into the same four verdicts rather than a separate report: **auction
+   quality/engagement/conversion ranking** per ad (Meta's own competitiveness signal — catches a
+   creative/relevance penalty before it shows up in CPP); **video hook/retention curve** (p25/p75/
+   ThruPlay — tests institutional truth #3 against real data instead of asserting it); **placement
+   waste** (Feed/Reels/Audience Network spend vs conversion, a placement-exclusion lever, not gated
+   by the budget ratchet); **on-site funnel breakdown** for Meta-attributed traffic via GA4
+   (session→ATC→checkout→purchase) — names the specific stage a campaign is losing people at instead
+   of a vague "conversion is down." Full call shapes and landmines are compiled into the Managed
+   Agent YAML, same as everything else in this section.
 
 ## 2. SCOPE & DECISION-MAKERS
 - **Managed Agent owns & drafts:** performance decode, kill/scale/rotate calls, budget moves (gated),
@@ -109,13 +123,19 @@ improve or counter*. Log intel to the competitor ledger in `learning-log.md`.
 ## 5. PLAYBOOK + TEMPLATES
 
 ### 5a. Performance decode — the Managed Agent's weekly Thursday loop (compiled into the YAML)
-**Frugal by design — 22-call budget, ≤6 pulls.** READ (tracker + learning-log + queue-inbox + latest
-brief) → PULL:
-- **Meta campaign×day, 35d** — spend/purchases/values per campaign per day. Yields the live-campaign
-  roster, **week-over-week budget deltas**, and **MTD spend**.
-- **Meta ad×day, 21d** — spend/frequency/ad_name. Yields **new vs retired creatives** and per-ad CPP.
-- **GA4 account source/medium × day, 14d (WITH `date`)** — the trailing-7d and prior-7d TRUE-ROAS
-  floor, truncation-guarded.
+**Frugal by design — 14-call budget, zero Windsor/MCP pulls.** READ (tracker + learning-log +
+queue-inbox + latest brief) → PULL, both direct HTTPS calls inside the COMPUTE script (0 tool calls):
+- **Meta campaign×day, 35d** — spend/purchases/values per campaign per day, direct from the Meta
+  Marketing API (`graph.facebook.com`, `META_ACCESS_TOKEN` credential) since 2026-08-13. Yields the
+  live-campaign roster, **week-over-week budget deltas**, and **MTD spend**.
+- **Meta ad×day, 21d** — spend/frequency/ad_name, same API. Yields **new vs retired creatives** and
+  per-ad CPP.
+
+GA4 (the Meta-paid revenue side of TRUE ROAS) is also direct — since 2026-08-06 it's a
+direct call to the Analytics Data API inside the same COMPUTE script (0 tool calls), using the
+`GA4_CLIENT_ID`/`GA4_CLIENT_SECRET`/`GA4_REFRESH_TOKEN` vault credential shared with the Google Ads
+Operator. It fetches the same three shapes as before, truncation-guarded via the response's `rowCount`:
+- **GA4 account source/medium × day, 14d (WITH `date`)** — the trailing-7d and prior-7d TRUE-ROAS floor.
 - **GA4 campaign × source/medium, current 7d + prior 7d (aggregated, no `date`)** — per-campaign
   sessions, purchases, **CVR** and revenue for both weeks → per-campaign week-over-week + TRUE-ish ROAS
   join on normalised campaign name.
@@ -186,17 +206,22 @@ references a competitor or public figure.
 **Managed Agent:**
 | Tool | Use for |
 |---|---|
-| Windsor `get_data` — `facebook` connector | Meta spend + platform value, campaign & ad grain (35d/21d for week-over-week + MTD) |
-| Windsor `get_data` — `googleanalytics4` | GA4 Meta-paid revenue (TRUE ROAS numerator) at account, **campaign** and **page_path** grain; per-campaign CVR; MTD rollup |
+| Meta Marketing API — **direct, since 2026-08-13** (was Windsor `facebook` connector) | Meta spend + platform value, campaign & ad grain (35d/21d for week-over-week + MTD); **since 2026-08-13, also** ad-level auction quality/engagement/conversion ranking + video retention, and campaign×placement breakdown, both current-week-only. Vault credential `META_ACCESS_TOKEN` (System User, never-expires, `ads_read` requested, account role Analyst/view-only), egress-scoped to `graph.facebook.com`. |
+| GA4 Analytics Data API — **direct, since 2026-08-06** (was Windsor `googleanalytics4`) | GA4 Meta-paid revenue (TRUE ROAS numerator) at account, **campaign** and **page_path** grain; per-campaign CVR; MTD rollup; **since 2026-08-13, also** `addToCarts`/`checkouts` for the on-site funnel (session→ATC→checkout→purchase) on Meta-attributed traffic — field names not yet independently verified live, see the YAML's landmine note. Vault credential `GA4_CLIENT_ID`/`GA4_CLIENT_SECRET`/`GA4_REFRESH_TOKEN`, shared with the Google Ads Operator. |
 | GitHub MCP | read the two triad files + brief; commit the report; write queue-inbox |
 | WebSearch / WebFetch | Meta product changes (Reels, Advantage+, attribution) |
 
-**Teardown subagent:** Meta Ads MCP (`ads_library_search`, insights, creatives, benchmarks) +
-WebSearch/WebFetch. Windsor `get_data` for cross-checking blended ROAS.
+No Windsor dependency remains in this lane as of 2026-08-13 — Meta was the last connector still
+routed through it.
 
-Writes (create/update campaigns, budgets, audiences via Meta MCP or Windsor `execute_action`) are
-**gated** on both tracks — draft only; execution via `/execute-approved`. The Managed Agent isn't even
-granted a write tool (`execute_action` + `list_actions` disabled; no Meta Ads MCP).
+**Teardown subagent:** Meta Ads MCP (`ads_library_search`, insights, creatives, benchmarks) +
+WebSearch/WebFetch.
+
+Writes (create/update campaigns, budgets, audiences) are **gated** on both tracks — draft only;
+execution via `/execute-approved`. The Managed Agent holds no write path by construction: its
+`META_ACCESS_TOKEN` System User is scoped to the Analyst (view-only) role on the ad account, so Meta
+itself refuses a write call regardless of what the token's OAuth scopes technically include, and this
+agent's instructions only ever issue GET requests. No Meta Ads MCP either.
 
 ## 9. AUTONOMY BOUNDARIES
 - **Decides & drafts:** performance kill/scale/rotate, budget proposals (gated), audience/placement
