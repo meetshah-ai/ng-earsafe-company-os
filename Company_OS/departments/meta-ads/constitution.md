@@ -1,11 +1,13 @@
 # Meta Ads — Department Constitution
 
-> **Human-readable canon for the Meta Ads lane.** Version 4.2 · Owner: Meet Shah · Last updated
-> 2026-08-13 (v4.2 drops Windsor entirely — Meta now direct via the Marketing API, same as GA4 — and
-> adds four deeper diagnostics only possible since: auction quality/engagement/conversion ranking,
-> video hook/retention curve, placement waste, and the on-site funnel for Meta-attributed traffic;
-> see §1a step 5 and §8. v4.1 adds the **Creative-Format Test Engine** §5d — always 2–3 format trials
-> live from an open format library — and reframes institutional truth #1: review/explainer is the
+> **Human-readable canon for the Meta Ads lane.** Version 4.3 · Owner: Meet Shah · Last updated
+> 2026-08-13 (v4.3 same-day cost correction: the four deep diagnostics added in v4.2 cost more on
+> their first live run than the file-trim fix saved — moved to biweekly/`DEEP_WEEK` only, core loop
+> stays weekly; see §1a step 5. v4.2 dropped Windsor entirely — Meta now direct via the Marketing
+> API, same as GA4 — and added the four deeper diagnostics: auction quality/engagement/conversion
+> ranking, video hook/retention curve, placement waste, and the on-site funnel for Meta-attributed
+> traffic; see §8. v4.1 adds the **Creative-Format Test Engine** §5d — always 2–3 format trials live
+> from an open format library — and reframes institutional truth #1: review/explainer is the
 > validated anchor, not the only converter. v4.0 moved to a **weekly Thursday** cadence + full
 > campaign-level week-over-week + month-to-date performance audit; supersedes the v3.0 twice-weekly
 > model).
@@ -67,16 +69,21 @@ types, ad structures and creative angles across audience mixes to find the next 
    pace that frames every call.
 4. **Four verdicts** — CUT, FIX, SCALE/KILL, TEST — as concrete scale / cut / reallocate moves (gated),
    each tied to a printed number.
-5. **Deeper diagnostics (added 2026-08-13)** — since the direct-API migration, four additional current-
-   week-only lenses feed into the same four verdicts rather than a separate report: **auction
-   quality/engagement/conversion ranking** per ad (Meta's own competitiveness signal — catches a
-   creative/relevance penalty before it shows up in CPP); **video hook/retention curve** (p25/p75/
-   ThruPlay — tests institutional truth #3 against real data instead of asserting it); **placement
-   waste** (Feed/Reels/Audience Network spend vs conversion, a placement-exclusion lever, not gated
-   by the budget ratchet); **on-site funnel breakdown** for Meta-attributed traffic via GA4
-   (session→ATC→checkout→purchase) — names the specific stage a campaign is losing people at instead
-   of a vague "conversion is down." Full call shapes and landmines are compiled into the Managed
-   Agent YAML, same as everything else in this section.
+5. **Deeper diagnostics (added 2026-08-13, cadence corrected same day) — BIWEEKLY, not every cycle.**
+   Since the direct-API migration, four additional lenses feed into the same four verdicts rather
+   than a separate report: **auction quality/engagement/conversion ranking** per ad (Meta's own
+   competitiveness signal — catches a creative/relevance penalty before it shows up in CPP);
+   **video hook/retention curve** (p25/p75/ThruPlay — tests institutional truth #3 against real data
+   instead of asserting it); **placement waste** (Feed/Reels/Audience Network spend vs conversion, a
+   placement-exclusion lever, not gated by the budget ratchet); **on-site funnel breakdown** for
+   Meta-attributed traffic via GA4 (session→ATC→checkout→purchase) — names the specific stage a
+   campaign is losing people at instead of a vague "conversion is down." The first live run cost
+   $7.29 — more than the file-size trim (§8) saved — because these four signals are structurally
+   slow-moving for a ~5-campaign account and don't need weekly re-computation. **Now gated to even
+   ISO weeks only** (`DEEP_WEEK`, computed from the date, zero extra cost); the core ROAS/CVR/CPP/
+   CTR/CPC/CPM loop above stays weekly, uncut. On an off-week the report carries a one-line note
+   instead of the section. Full call shapes, the cadence gate, and landmines are compiled into the
+   Managed Agent YAML, same as everything else in this section.
 
 ## 2. SCOPE & DECISION-MAKERS
 - **Managed Agent owns & drafts:** performance decode, kill/scale/rotate calls, budget moves (gated),
