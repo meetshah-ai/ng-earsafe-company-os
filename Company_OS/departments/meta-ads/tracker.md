@@ -4,6 +4,16 @@
 > (`Company_OS/agents/meta-ads.agent.yaml`; the managed agent runs **twice a week, Mon + Thu 08:00
 > IST**, and drafts to `queue-inbox.md`). Keep it current: after a task, update status + result; each
 > cycle, archive completed items into `learning-log.md`.
+>
+> **2026-08-25 `/approvals` maintenance pass (token-cost compaction, no new decisions):** matched this
+> department to the pattern already running on `google-ads`. `queue-inbox.md`: 19 terminal rows
+> (executed/resolved/superseded/downgraded, nothing further pending) compacted into a new `## Resolved
+> (compact)` section; a `## 📌 Live, awaiting action` index added for the 28 rows still genuinely open;
+> MA-028/029/030 (drafted 2026-07-14, never decided by Meet) flagged STALE in place, not silently
+> closed — 86.7KB → 64.5KB. `learning-log.md`: cycles 7–9 (2026-08-06/08-13) moved to
+> `learning-log-archive.md`, which the agent never reads (cycles 10–11 plus all standing sections kept
+> live) — 92.5KB → 65.4KB. Nothing was approved, rejected, or executed in this pass — every open row's
+> full text and status is unchanged, just relocated into the Live-awaiting-action index.
 > Last updated: 2026-08-20 (cycle 11 — Thursday teardown, DEEP_WEEK/biweekly deep-diagnostics. Account
 > clears the 6.0 TRUE-ROAS floor on the reliable matured read (7.58× cur6d matured, 7.80× prior7d;
 > raw headline 6.48× depressed by a 74.6% `(not set)` spike on the newest day, same recurring D+2
