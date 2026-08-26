@@ -1,0 +1,184 @@
+{
+  "project_name": "NG EarSafe Premium Redesign",
+  "theme": "dark",
+  "typography": {
+    "headings": {
+      "font": "Cabinet Grotesk, sans-serif",
+      "style": "High impact, wide, geometric, strong tracking-tight for H1-H3 to look expensive.",
+      "scales": {
+        "h1": "text-5xl md:text-7xl font-black tracking-tighter uppercase",
+        "h2": "text-4xl md:text-5xl font-bold tracking-tight",
+        "h3": "text-2xl md:text-3xl font-semibold"
+      }
+    },
+    "body": {
+      "font": "Satoshi, sans-serif",
+      "style": "Clean, highly legible, objective.",
+      "scales": {
+        "large": "text-lg md:text-xl leading-relaxed text-white/80",
+        "base": "text-base leading-relaxed text-white/70",
+        "small_labels": "text-xs tracking-[0.2em] uppercase font-bold text-[#3fb8c4]"
+      }
+    }
+  },
+  "colors": {
+    "backgrounds": {
+      "base": "#050B14",
+      "surface": "#0A1526",
+      "surface_elevated": "#0F2A44"
+    },
+    "brand": {
+      "primary_navy": "#0F2A44",
+      "accent_cyan": "#3FB8C4"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "rgba(255,255,255,0.7)",
+      "muted": "rgba(255,255,255,0.4)"
+    },
+    "borders": {
+      "subtle": "rgba(255,255,255,0.1)",
+      "focus": "#3FB8C4"
+    }
+  },
+  "layouts": {
+    "container": "max-w-[1440px] mx-auto px-6 md:px-12",
+    "spacing": {
+      "section_y": "py-24 md:py-32",
+      "element_gap": "gap-8 md:gap-12"
+    },
+    "bento_grid": {
+      "description": "Asymmetrical Tetris grid for Category Showcase",
+      "structure": "grid grid-cols-1 md:grid-cols-12 gap-6",
+      "spans": {
+        "hero_category": "md:col-span-8 row-span-2",
+        "tall_category": "md:col-span-4 row-span-2",
+        "square_category": "md:col-span-4 row-span-1"
+      }
+    }
+  },
+  "motion": {
+    "smooth_scroll": "Lenis (momentum scrolling, premium weight)",
+    "hero_reveal": "Framer Motion: Staggered line-by-line text reveal (y: 100% to 0, opacity 0 to 1, clip-path mask).",
+    "image_hover": "Scale image to 1.05 with transition-transform duration-700 ease-out.",
+    "parallax": "Subtle y-axis translate on hero product image based on scroll position."
+  },
+  "components": {
+    "buttons": {
+      "primary": "Ghost style: transparent fill, 1px solid #3FB8C4 border, text #3FB8C4. rounded-full px-8 py-3. Hover: bg-[#3FB8C4] text-[#050B14] transition-all.",
+      "secondary": "Text link with animated #3FB8C4 underline."
+    },
+    "product_cards": {
+      "style": "Museum/Gallery approach. 0px padding, no borders, no visible card box. Images sit directly on the dark background.",
+      "image_container": "bg-[#0A1526] rounded-2xl overflow-hidden aspect-square flex items-center justify-center p-8",
+      "text_layout": "mt-6 flex flex-col gap-1 items-start",
+      "price_layout": "flex items-center gap-3"
+    },
+    "marquee": {
+      "style": "Slow, editorial drift. text-xs tracking-[0.2em] font-bold border-y border-white/10 py-4. Use react-fast-marquee."
+    },
+    "manifesto_chapters": {
+      "style": "Large hollow/stroke numbers (01, 02...). Thin borders separating rows (border-b border-white/10). Hovering a row highlights it."
+    }
+  },
+  "sections_blueprint": [
+    {
+      "name": "Navigation",
+      "style": "Sticky, backdrop-blur-xl bg-[#050B14]/80, border-b border-white/10. Logo left, Links center, CTA right."
+    },
+    {
+      "name": "Hero",
+      "style": "Kinetic Text Reveal + 3D/Parallax Product Spotlight. Text: 'HEAR EVERYTHING. FEEL NOTHING.' Product floats in center with #3FB8C4 radial glow behind it."
+    },
+    {
+      "name": "Editorial Marquee",
+      "style": "Slow continuous scroll with brand pillars (ENT-CERTIFIED OPEN EAR AUDIO • SITUATIONAL AWARENESS • ZERO EAR FATIGUE)."
+    },
+    {
+      "name": "Category Expansion Bento",
+      "style": "Title: 'BEYOND AUDIO'. Grid showing Wearables (tall), Beauty Tech (square), Car Tech (square). High contrast images on #0A1526 backgrounds."
+    },
+    {
+      "name": "Flagship Audio Carousel",
+      "style": "Title: 'THE OPEN EAR REVOLUTION'. Real product cards for Comm 2.0, EarSafe Pro, etc. Invisible card boundaries, sculptural focus."
+    },
+    {
+      "name": "Numbered Manifesto",
+      "style": "Title: 'WHY OPEN EAR?'. Rows for Safety, Comfort, ENT-Certified. High typographic contrast with huge stroke text numbers."
+    },
+    {
+      "name": "Editorial Stats",
+      "style": "Title: 'DID YOU KNOW?'. Massive typography for statistics."
+    },
+    {
+      "name": "In-Media Logos",
+      "style": "Opacity-reduced partner logos placed in a minimal horizontal flex layout."
+    },
+    {
+      "name": "Footer",
+      "style": "Massive 'NG EARSAFE' text at the bottom. Links above it. Deep navy background."
+    }
+  ],
+  "media": {
+    "hero_audio": {
+      "url": "https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg",
+      "description": "Close up black over-ear/open-ear headphones for hero parallax."
+    },
+    "products": [
+      {
+        "name": "NG EarSafe Comm 2.0",
+        "url": "https://images.unsplash.com/photo-1637780852590-8ab27248ec41",
+        "price": "₹3,999",
+        "mrp": "₹7,999"
+      },
+      {
+        "name": "NG EarSafe Pro",
+        "url": "https://images.unsplash.com/photo-1723961617032-ef69c454cb31",
+        "price": "₹5,499",
+        "mrp": "₹9,999"
+      },
+      {
+        "name": "NG x Wehear Safebuds",
+        "url": "https://images.unsplash.com/photo-1657223143970-08cc5afe9943",
+        "price": "₹2,999",
+        "mrp": "₹4,999"
+      }
+    ],
+    "categories": {
+      "wearables": "https://images.pexels.com/photos/13598510/pexels-photo-13598510.jpeg",
+      "beauty_tech": "https://images.pexels.com/photos/6963134/pexels-photo-6963134.jpeg",
+      "car_tech": "https://images.pexels.com/photos/22043568/pexels-photo-22043568.jpeg"
+    },
+    "logos": [
+      "https://images.pexels.com/photos/7661185/pexels-photo-7661185.jpeg"
+    ]
+  },
+  "instructions_to_main_agent": [
+    "The project uses .js/.jsx extensions. DO NOT create or use .tsx files.",
+    "Strictly follow the Bang & Olufsen museum-style aesthetic. Products must look like sculptures on a dark velvet pedestal.",
+    "Do NOT use standard white/light grey cards for products. Cards must have NO background or a very subtle #0A1526, NO borders, and NO drop shadows.",
+    "Use Framer Motion for the hero text reveal. Wrap lines in overflow-hidden divs and translate Y from 100% to 0%.",
+    "Primary background MUST be #050B14 (Deep Midnight Navy), not pure #000000. It ties into the brand's navy logo.",
+    "Use #3FB8C4 (Teal/Cyan) VERY sparingly as a laser-like accent (button borders, active states, glowing blurred blobs behind hero products).",
+    "Typography: Use Cabinet Grotesk for headings and Satoshi for body (import via Fontshare or use similar geometric/grotesque web fonts).",
+    "Ensure all images are wrapped in a div with 'overflow-hidden' so that scale-on-hover animations do not break container boundaries.",
+    "DO NOT use a complete transparent background in header or dropdowns over imagery. Use backdrop-blur-xl and semi-transparent colors (e.g., bg-[#050B14]/80)."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as standard linear gradients.",
+    "Don't make generic centered layouts. Use asymmetrical bento grids and strong left/right typographic alignments.",
+    "Create depth through layered design elements with z-index hierarchy and soft radial glows.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur) for sticky navs and floating elements.",
+    "You MUST NOT apply universal transition (e.g., 'transition: all'). Always add transitions for specific interactive elements to prevent transform conflicts.",
+    "You MUST NOT center align the app container, ie do not add .App { text-align: center; } in the css file.",
+    "Always use modern button styles like pill-shaped ghost buttons with interaction animations.",
+    "NEVER use AI assistant Emoji characters (🤖🧠💭💡🔮🎯) for icons.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Subtle grain textures, custom cursors, and loading animations separate good from extraordinary.",
+    "Main agent relies on these image URLs. Missing categories = main agent will use placeholder text which is FORBIDDEN.",
+    "Prioritize using pre-existing components from src/components/ui when applicable.",
+    "All interactive and key informational elements MUST include a data-testid attribute to facilitate robust automated testing."
+  ]
+}

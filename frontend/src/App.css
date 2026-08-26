@@ -1,0 +1,5 @@
+/* NG EarSafe — global app styles */
+.App {
+  min-height: 100vh;
+  background-color: var(--ng-base);
+}
