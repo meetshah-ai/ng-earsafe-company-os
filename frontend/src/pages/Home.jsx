@@ -5,6 +5,7 @@ import Hero from "../components/site/Hero";
 import Marquee from "../components/site/Marquee";
 import Flagship from "../components/site/Flagship";
 import CategoryShowcase from "../components/site/CategoryShowcase";
+import Reels from "../components/site/Reels";
 import Manifesto from "../components/site/Manifesto";
 import DidYouKnow from "../components/site/DidYouKnow";
 import MediaLogos from "../components/site/MediaLogos";
@@ -18,7 +19,7 @@ export default function Home() {
   return (
     <WishlistProvider>
       <QuickViewProvider>
-        <div className="grain relative min-h-screen bg-[#050b14] text-white font-body">
+        <div className="grain relative min-h-screen bg-[#f4f1ea] text-[#0f2a44] font-body">
           <AnnouncementBar onVisibilityChange={setBarVisible} />
           <Navbar barVisible={barVisible} />
           <main>
@@ -26,6 +27,7 @@ export default function Home() {
             <Marquee />
             <Flagship />
             <CategoryShowcase />
+            <Reels />
             <Manifesto />
             <DidYouKnow />
             <MediaLogos />

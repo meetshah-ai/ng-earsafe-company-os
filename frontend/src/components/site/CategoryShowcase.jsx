@@ -14,22 +14,21 @@ export default function CategoryShowcase() {
     <section
       id="categories"
       data-testid="categories-section"
-      className="relative py-24 md:py-32 bg-[#070f1b]"
+      className="relative py-24 md:py-32 bg-[#ece7dd]"
     >
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-        {/* header */}
         <div className="mb-10 max-w-2xl">
           <Reveal>
             <p className="eyebrow mb-4">The range is growing</p>
           </Reveal>
-          <h2 className="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.95]">
+          <h2 className="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.95] text-[#0f2a44]">
             <MaskLine>Beyond</MaskLine>
             <MaskLine delay={0.08} className="text-[#3fb8c4]">
               Audio
             </MaskLine>
           </h2>
           <Reveal delay={0.2}>
-            <p className="mt-6 text-lg text-white/65">
+            <p className="mt-6 text-lg text-[#0f2a44]/65">
               Same obsession with comfort and craft — now across wearables,
               beauty tech, massagers and everyday accessories for your car and
               phone.
@@ -37,7 +36,6 @@ export default function CategoryShowcase() {
           </Reveal>
         </div>
 
-        {/* category pills */}
         <Reveal delay={0.1}>
           <div className="mb-16 flex flex-wrap gap-3">
             {catalog.map((c) => (
@@ -45,7 +43,7 @@ export default function CategoryShowcase() {
                 key={c.id}
                 onClick={() => scrollTo(c.id)}
                 data-testid={`category-pill-${c.id}`}
-                className="rounded-full border hairline px-5 py-2.5 text-sm text-white/75 transition-colors duration-300 hover:border-[#3fb8c4] hover:text-white"
+                className="rounded-full border hairline bg-white/50 px-5 py-2.5 text-sm text-[#0f2a44]/75 transition-colors duration-300 hover:border-[#3fb8c4] hover:text-[#0f2a44]"
               >
                 {c.name}
               </button>
@@ -53,7 +51,6 @@ export default function CategoryShowcase() {
           </div>
         </Reveal>
 
-        {/* category slider rows */}
         <div className="flex flex-col gap-20 md:gap-28">
           {catalog.map((c) => (
             <div key={c.id} id={`cat-${c.id}`} data-testid={`category-row-${c.id}`}>
@@ -68,20 +65,22 @@ export default function CategoryShowcase() {
                   >
                     Top selling
                   </motion.p>
-                  <h3 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-white">
+                  <h3 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-[#0f2a44]">
                     {c.name}
                   </h3>
-                  <p className="mt-2 max-w-md text-sm text-white/55">{c.blurb}</p>
+                  <p className="mt-2 max-w-md text-sm text-[#0f2a44]/55">
+                    {c.blurb}
+                  </p>
                 </div>
                 <a
                   href={c.href}
                   target="_blank"
                   rel="noreferrer"
                   data-testid={`category-viewall-${c.id}`}
-                  className="group inline-flex items-center gap-2 text-sm font-medium text-white/75 hover:text-white"
+                  className="group inline-flex items-center gap-2 text-sm font-medium text-[#0f2a44]/75 hover:text-[#0f2a44]"
                 >
                   Shop {c.name}
-                  <span className="grid h-9 w-9 place-items-center rounded-full border hairline transition-colors duration-300 group-hover:border-[#3fb8c4] group-hover:bg-[#3fb8c4] group-hover:text-[#050b14]">
+                  <span className="grid h-9 w-9 place-items-center rounded-full border hairline transition-colors duration-300 group-hover:border-[#3fb8c4] group-hover:bg-[#3fb8c4] group-hover:text-[#052832]">
                     <ArrowUpRight size={16} />
                   </span>
                 </a>

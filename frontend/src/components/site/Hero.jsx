@@ -30,9 +30,9 @@ export default function Hero() {
       data-testid="hero-section"
       className="relative min-h-[100svh] overflow-hidden pt-28"
     >
-      {/* ambient background glows */}
-      <div className="pointer-events-none absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full glow-cyan blur-2xl opacity-70" />
-      <div className="pointer-events-none absolute top-1/3 -right-24 h-[380px] w-[380px] rounded-full bg-[#0f2a44]/60 blur-3xl" />
+      {/* ambient glows */}
+      <div className="pointer-events-none absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full glow-cyan blur-2xl opacity-80" />
+      <div className="pointer-events-none absolute top-1/3 -right-24 h-[420px] w-[420px] rounded-full bg-[#ece7dd] blur-3xl" />
 
       <div className="relative max-w-[1440px] mx-auto px-6 md:px-12 grid lg:grid-cols-12 gap-10 items-center min-h-[calc(100svh-7rem)]">
         {/* Copy */}
@@ -51,7 +51,7 @@ export default function Hero() {
             variants={lineParent}
             initial="hidden"
             animate="show"
-            className="font-display font-black uppercase leading-[0.92] tracking-tighter text-5xl sm:text-6xl md:text-7xl xl:text-[5.5rem]"
+            className="font-display font-black uppercase leading-[0.92] tracking-tighter text-5xl sm:text-6xl md:text-7xl xl:text-[5.5rem] text-[#0f2a44]"
           >
             <span className="block overflow-hidden">
               <motion.span variants={lineChild} className="block">
@@ -74,7 +74,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.8 }}
-            className="mt-8 max-w-md text-lg leading-relaxed text-white/70"
+            className="mt-8 max-w-md text-lg leading-relaxed text-[#0f2a44]/65"
           >
             Open-ear audio that leaves your ears free and your senses switched
             on. And now — a whole new range of tech to move, recover and live
@@ -90,7 +90,7 @@ export default function Hero() {
             <a
               href="#flagship"
               data-testid="hero-primary-cta"
-              className="group inline-flex items-center gap-2 rounded-full bg-[#3fb8c4] px-8 py-4 text-sm font-semibold text-[#050b14] hover:bg-white transition-colors duration-300"
+              className="group inline-flex items-center gap-2 rounded-full bg-[#0f2a44] px-8 py-4 text-sm font-semibold text-white hover:bg-[#3fb8c4] hover:text-[#052832] transition-colors duration-300"
             >
               Shop Open-Ear
               <ArrowUpRight
@@ -101,7 +101,7 @@ export default function Hero() {
             <a
               href="#categories"
               data-testid="hero-secondary-cta"
-              className="group inline-flex items-center gap-2 rounded-full border hairline px-8 py-4 text-sm font-medium text-white/85 hover:border-[#3fb8c4] hover:text-white transition-colors duration-300"
+              className="group inline-flex items-center gap-2 rounded-full border hairline px-8 py-4 text-sm font-medium text-[#0f2a44] hover:border-[#3fb8c4] transition-colors duration-300"
             >
               Explore Beyond Audio
             </a>
@@ -119,14 +119,14 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 w-[86%] max-w-[560px] overflow-hidden rounded-[2rem] border hairline bg-gradient-to-b from-[#eef2f6] to-[#d5dde6] shadow-[0_40px_100px_rgba(0,0,0,0.55)]"
+            className="relative z-10 w-[86%] max-w-[560px] overflow-hidden rounded-[2rem] border hairline bg-white card-shadow"
           >
             <img
               src={heroProduct.image}
               alt={heroProduct.name}
               className="w-full object-contain"
             />
-            <div className="absolute bottom-4 left-4 rounded-full bg-[#0f2a44]/90 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[#3fb8c4] backdrop-blur">
+            <div className="absolute bottom-4 left-4 rounded-full bg-[#0f2a44] px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[#3fb8c4]">
               {heroProduct.name}
             </div>
           </motion.div>
@@ -138,7 +138,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[0.65rem] tracking-[0.25em] uppercase text-white/50"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[0.65rem] tracking-[0.25em] uppercase text-[#0f2a44]/50"
       >
         Scroll to discover
         <ArrowDown size={16} className="animate-bounce text-[#3fb8c4]" />

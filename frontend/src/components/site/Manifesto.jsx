@@ -10,14 +10,14 @@ export default function Manifesto() {
     <section
       id="manifesto"
       data-testid="manifesto-section"
-      className="relative py-24 md:py-32"
+      className="relative py-24 md:py-32 bg-white"
     >
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 grid lg:grid-cols-12 gap-12">
         <div className="lg:col-span-4">
           <Reveal>
             <p className="eyebrow mb-4">The manifesto</p>
           </Reveal>
-          <h2 className="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.95]">
+          <h2 className="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.95] text-[#0f2a44]">
             <MaskLine>Why</MaskLine>
             <MaskLine delay={0.08}>Open</MaskLine>
             <MaskLine delay={0.16} className="text-[#3fb8c4]">
@@ -25,7 +25,7 @@ export default function Manifesto() {
             </MaskLine>
           </h2>
           <Reveal delay={0.2}>
-            <p className="mt-6 max-w-xs text-white/60">
+            <p className="mt-6 max-w-xs text-[#0f2a44]/60">
               A safer, more natural way to listen — engineered with ENT
               specialists, built for real life.
             </p>
@@ -42,9 +42,7 @@ export default function Manifesto() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.6, delay: i * 0.06 }}
-              className={`group grid grid-cols-[auto_1fr] items-start gap-6 border-b hairline py-8 transition-colors duration-500 md:gap-10 ${
-                active === i ? "" : ""
-              }`}
+              className="group grid grid-cols-[auto_1fr] items-start gap-6 border-b hairline py-8 md:gap-10"
             >
               <span
                 className={`font-display text-4xl md:text-6xl font-black transition-all duration-500 ${
@@ -56,17 +54,15 @@ export default function Manifesto() {
               <div className="pt-1">
                 <h3
                   className={`font-display text-2xl md:text-3xl font-semibold tracking-tight transition-colors duration-300 ${
-                    active === i ? "text-white" : "text-white/70"
+                    active === i ? "text-[#0f2a44]" : "text-[#0f2a44]/70"
                   }`}
                 >
                   {m.title}
                 </h3>
                 <motion.p
                   initial={false}
-                  animate={{
-                    opacity: active === i ? 1 : 0.55,
-                  }}
-                  className="mt-3 max-w-xl text-white/55"
+                  animate={{ opacity: active === i ? 1 : 0.6 }}
+                  className="mt-3 max-w-xl text-[#0f2a44]/60"
                 >
                   {m.body}
                 </motion.p>

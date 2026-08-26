@@ -25,7 +25,7 @@ export default function ProductSlider({ products, testId = "product-slider" }) {
 
   return (
     <div className="relative" data-testid={testId}>
-      <div className="overflow-hidden" ref={emblaRef}>
+      <div className="overflow-hidden grab-cursor" ref={emblaRef}>
         <div className="flex gap-5 md:gap-6">
           {products.map((p, i) => (
             <div
@@ -43,7 +43,7 @@ export default function ProductSlider({ products, testId = "product-slider" }) {
           onClick={() => emblaApi?.scrollPrev()}
           disabled={!canPrev}
           data-testid={`${testId}-prev`}
-          className="grid h-11 w-11 place-items-center rounded-full border hairline text-white transition-all duration-300 enabled:hover:border-[#3fb8c4] enabled:hover:text-[#3fb8c4] disabled:opacity-30"
+          className="grid h-11 w-11 place-items-center rounded-full border hairline text-[#0f2a44] transition-all duration-300 enabled:hover:border-[#3fb8c4] enabled:hover:text-[#3fb8c4] disabled:opacity-25"
           aria-label="Previous"
         >
           <ArrowLeft size={18} />
@@ -52,11 +52,14 @@ export default function ProductSlider({ products, testId = "product-slider" }) {
           onClick={() => emblaApi?.scrollNext()}
           disabled={!canNext}
           data-testid={`${testId}-next`}
-          className="grid h-11 w-11 place-items-center rounded-full border hairline text-white transition-all duration-300 enabled:hover:border-[#3fb8c4] enabled:hover:text-[#3fb8c4] disabled:opacity-30"
+          className="grid h-11 w-11 place-items-center rounded-full border hairline text-[#0f2a44] transition-all duration-300 enabled:hover:border-[#3fb8c4] enabled:hover:text-[#3fb8c4] disabled:opacity-25"
           aria-label="Next"
         >
           <ArrowRight size={18} />
         </button>
+        <span className="ml-2 text-xs uppercase tracking-[0.2em] text-[#0f2a44]/35">
+          Swipe
+        </span>
       </div>
     </div>
   );

@@ -186,3 +186,61 @@ export const announcements = [
   "New drop — NG x Wehear Safebuds now live",
   "1-year warranty + easy 7-day returns on everything",
 ];
+
+// Social reels — vertical lifestyle clips (image-driven cards).
+export const reels = [
+  {
+    id: "reel-run",
+    caption: "Morning miles, ears wide open.",
+    tag: "Comm 2.0",
+    likes: "12.4k",
+    comments: "318",
+    image:
+      "https://images.unsplash.com/photo-1758506971986-b0d0edebd8d5?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+  },
+  {
+    id: "reel-gym",
+    caption: "Push harder, stay aware.",
+    tag: "Safebuds",
+    likes: "9.1k",
+    comments: "204",
+    image:
+      "https://images.unsplash.com/photo-1574680088814-c9e8a10d8a4d?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+  },
+  {
+    id: "reel-cycle",
+    caption: "Sunrise rides hit different.",
+    tag: "EarSafe Pro",
+    likes: "15.7k",
+    comments: "421",
+    image:
+      "https://images.unsplash.com/photo-1606224547099-b15c94ca5ef2?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+  },
+  {
+    id: "reel-street",
+    caption: "Your city, your soundtrack.",
+    tag: "EarSafe Lite",
+    likes: "7.8k",
+    comments: "156",
+    image:
+      "https://images.unsplash.com/photo-1490476323407-63a2b2baa393?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+  },
+  {
+    id: "reel-runher",
+    caption: "No canal. No compromise.",
+    tag: "Comm 2.0",
+    likes: "20.2k",
+    comments: "512",
+    image:
+      "https://images.unsplash.com/photo-1558442156-06a7f01d9ae8?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+  },
+  {
+    id: "reel-commute",
+    caption: "Tune in without tuning out.",
+    tag: "OpenWire",
+    likes: "6.3k",
+    comments: "98",
+    image:
+      "https://images.unsplash.com/photo-1542397656-5dfd6adec561?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+  },
+];

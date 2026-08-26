@@ -8,7 +8,7 @@ export default function Flagship() {
     <section
       id="flagship"
       data-testid="flagship-section"
-      className="relative py-24 md:py-32"
+      className="relative py-24 md:py-32 bg-[#f4f1ea]"
     >
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         <div className="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -16,7 +16,7 @@ export default function Flagship() {
             <Reveal>
               <p className="eyebrow mb-4">The flagship range · open-ear audio</p>
             </Reveal>
-            <h2 className="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.95]">
+            <h2 className="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.95] text-[#0f2a44]">
               <MaskLine>The Open-Ear</MaskLine>
               <MaskLine delay={0.08} className="text-[#3fb8c4]">
                 Revolution
@@ -29,10 +29,10 @@ export default function Flagship() {
               target="_blank"
               rel="noreferrer"
               data-testid="flagship-viewall"
-              className="group inline-flex items-center gap-2 text-sm font-medium text-white/80 hover:text-white"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-[#0f2a44]/80 hover:text-[#0f2a44]"
             >
               View all products
-              <span className="grid h-9 w-9 place-items-center rounded-full border hairline transition-colors duration-300 group-hover:border-[#3fb8c4] group-hover:bg-[#3fb8c4] group-hover:text-[#050b14]">
+              <span className="grid h-9 w-9 place-items-center rounded-full border hairline transition-colors duration-300 group-hover:border-[#3fb8c4] group-hover:bg-[#3fb8c4] group-hover:text-[#052832]">
                 <ArrowUpRight size={16} />
               </span>
             </a>

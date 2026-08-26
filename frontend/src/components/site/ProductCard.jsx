@@ -31,21 +31,21 @@ export default function ProductCard({ product, index = 0, animate = true }) {
       className="group block cursor-pointer"
     >
       <div
-        className={`relative aspect-[4/5] overflow-hidden rounded-2xl border hairline ${
+        className={`relative aspect-[4/5] overflow-hidden rounded-2xl border hairline transition-shadow duration-500 group-hover:card-shadow ${
           light
-            ? "bg-gradient-to-b from-[#eef2f6] to-[#d5dde6]"
-            : "bg-[#0a1526]"
+            ? "bg-gradient-to-b from-white to-[#eef0f3]"
+            : "bg-[#0f2a44]"
         }`}
       >
         {light && (
-          <div className="absolute left-1/2 top-0 h-40 w-64 -translate-x-1/2 rounded-full bg-white/70 blur-2xl opacity-80" />
+          <div className="absolute left-1/2 top-0 h-40 w-64 -translate-x-1/2 rounded-full bg-[#3fb8c4]/15 blur-2xl opacity-90" />
         )}
         {product.badge && (
           <span
             className={`absolute left-4 top-4 z-20 rounded-full px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.15em] ${
               light
                 ? "bg-[#0f2a44] text-[#3fb8c4]"
-                : "border border-[#3fb8c4]/40 bg-[#050b14]/60 text-[#3fb8c4] backdrop-blur"
+                : "border border-[#3fb8c4]/50 bg-[#0f2a44]/70 text-[#3fb8c4] backdrop-blur"
             }`}
           >
             {product.badge}
@@ -60,8 +60,10 @@ export default function ProductCard({ product, index = 0, animate = true }) {
           aria-label={saved ? "Remove from wishlist" : "Save to wishlist"}
           className={`absolute right-4 top-4 z-20 grid h-10 w-10 place-items-center rounded-full border backdrop-blur transition-all duration-300 ${
             saved
-              ? "border-[#3fb8c4] bg-[#3fb8c4] text-[#050b14]"
-              : "hairline bg-[#050b14]/50 text-white hover:border-[#3fb8c4] hover:text-[#3fb8c4]"
+              ? "border-[#3fb8c4] bg-[#3fb8c4] text-[#052832]"
+              : light
+              ? "border-[#0f2a44]/15 bg-white/70 text-[#0f2a44] hover:border-[#3fb8c4] hover:text-[#3fb8c4]"
+              : "border-white/25 bg-[#0f2a44]/40 text-white hover:border-[#3fb8c4] hover:text-[#3fb8c4]"
           }`}
         >
           <Heart size={16} fill={saved ? "currentColor" : "none"} />
@@ -75,24 +77,24 @@ export default function ProductCard({ product, index = 0, animate = true }) {
           }`}
         />
         {!light && (
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050b14]/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0f2a44]/50 to-transparent" />
         )}
-        <div className="absolute inset-x-4 bottom-4 z-20 flex translate-y-3 items-center justify-center gap-2 rounded-full border hairline bg-[#050b14]/70 px-5 py-3 opacity-0 backdrop-blur transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+        <div className="absolute inset-x-4 bottom-4 z-20 flex translate-y-3 items-center justify-center gap-2 rounded-full border border-white/40 bg-white/85 px-5 py-3 opacity-0 backdrop-blur transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
           <Eye size={15} className="text-[#3fb8c4]" />
-          <span className="text-xs font-semibold uppercase tracking-[0.15em] text-white">
+          <span className="text-xs font-semibold uppercase tracking-[0.15em] text-[#0f2a44]">
             Quick view
           </span>
         </div>
       </div>
 
       <div className="mt-5 flex flex-col gap-1">
-        <p className="eyebrow !text-white/40">{product.tagline}</p>
-        <h3 className="font-display text-lg font-semibold tracking-tight text-white">
+        <p className="eyebrow !text-[#0f2a44]/40">{product.tagline}</p>
+        <h3 className="font-display text-lg font-semibold tracking-tight text-[#0f2a44]">
           {product.name}
         </h3>
         <div className="mt-1 flex items-center gap-3">
-          <span className="font-semibold text-[#3fb8c4]">{product.price}</span>
-          <span className="text-sm text-white/40 line-through">
+          <span className="font-semibold text-[#0f2a44]">{product.price}</span>
+          <span className="text-sm text-[#0f2a44]/40 line-through">
             {product.mrp}
           </span>
         </div>

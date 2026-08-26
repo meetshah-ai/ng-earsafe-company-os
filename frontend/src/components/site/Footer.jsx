@@ -37,7 +37,7 @@ const cols = [
 
 export default function Footer() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
 
   const submit = async (e) => {
@@ -58,11 +58,10 @@ export default function Footer() {
   return (
     <footer
       data-testid="site-footer"
-      className="relative border-t hairline bg-[#070f1b] pt-20"
+      className="relative bg-[#0f2a44] pt-20 text-white"
     >
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-        {/* CTA / newsletter */}
-        <div className="grid gap-12 lg:grid-cols-12 pb-16 border-b hairline">
+        <div className="grid gap-12 lg:grid-cols-12 pb-16 border-b border-white/10">
           <div className="lg:col-span-6">
             <Reveal>
               <h3 className="font-display text-3xl md:text-5xl font-black uppercase tracking-tighter leading-[0.95]">
@@ -78,7 +77,7 @@ export default function Footer() {
             <form
               onSubmit={submit}
               data-testid="newsletter-form"
-              className="flex w-full items-center gap-3 rounded-full border hairline bg-[#050b14] p-2 pl-6 focus-within:border-[#3fb8c4] transition-colors duration-300"
+              className="flex w-full items-center gap-3 rounded-full border border-white/15 bg-white/5 p-2 pl-6 focus-within:border-[#3fb8c4] transition-colors duration-300"
             >
               <input
                 type="email"
@@ -93,7 +92,7 @@ export default function Footer() {
                 type="submit"
                 disabled={status === "loading"}
                 data-testid="newsletter-submit"
-                className="inline-flex items-center gap-2 rounded-full bg-[#3fb8c4] px-6 py-3 text-sm font-semibold text-[#050b14] hover:bg-white transition-colors duration-300 disabled:opacity-70"
+                className="inline-flex items-center gap-2 rounded-full bg-[#3fb8c4] px-6 py-3 text-sm font-semibold text-[#052832] hover:bg-white transition-colors duration-300 disabled:opacity-70"
               >
                 {status === "loading" ? (
                   <Loader2 size={16} className="animate-spin" />
@@ -109,7 +108,7 @@ export default function Footer() {
               <p
                 data-testid="newsletter-message"
                 className={`pl-6 text-sm ${
-                  status === "error" ? "text-red-400" : "text-[#3fb8c4]"
+                  status === "error" ? "text-red-300" : "text-[#3fb8c4]"
                 }`}
               >
                 {message}
@@ -118,7 +117,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Links */}
         <div className="grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-3">
@@ -139,7 +137,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   data-testid={`footer-social-${i}`}
-                  className="grid h-10 w-10 place-items-center rounded-full border hairline text-white/70 transition-colors duration-300 hover:border-[#3fb8c4] hover:text-[#3fb8c4]"
+                  className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white/70 transition-colors duration-300 hover:border-[#3fb8c4] hover:text-[#3fb8c4]"
                 >
                   <Icon size={16} />
                 </a>
@@ -169,14 +167,13 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Massive brand word */}
       <div className="overflow-hidden px-6 md:px-12">
         <h2 className="select-none font-display font-black uppercase tracking-tighter text-white/[0.06] leading-[0.8] text-[22vw] text-center whitespace-nowrap">
           NG EARSAFE
         </h2>
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 py-8 flex flex-col md:flex-row items-center justify-between gap-3 border-t hairline">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12 py-8 flex flex-col md:flex-row items-center justify-between gap-3 border-t border-white/10">
         <p className="text-xs text-white/40">
           © {new Date().getFullYear()} NG EarSafe. All rights reserved.
         </p>

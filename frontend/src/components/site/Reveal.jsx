@@ -16,19 +16,25 @@ export function Reveal({ children, delay = 0, y = 28, className = "", ...rest })
   );
 }
 
-// Masked line-by-line reveal for headings.
+// Masked line reveal for headings. The whileInView trigger lives on the
+// stationary outer span so the IntersectionObserver fires reliably; the inner
+// span (which is translated out of the clip box) animates via variants.
 export function MaskLine({ children, delay = 0, className = "" }) {
   return (
-    <span className="block overflow-hidden">
+    <motion.span
+      className="block overflow-hidden"
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={{ hidden: {}, show: {} }}
+    >
       <motion.span
         className={"block " + className}
-        initial={{ y: "110%" }}
-        whileInView={{ y: "0%" }}
-        viewport={{ once: true }}
+        variants={{ hidden: { y: "110%" }, show: { y: "0%" } }}
         transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
       >
         {children}
       </motion.span>
-    </span>
+    </motion.span>
   );
 }
