@@ -93,13 +93,23 @@ export const reviewSummary = { rating: 4.6, total: 305, breakdown: [
 ] };
 
 export const reviews = [
-  { name: 'Aditi Sharma', city: 'Bengaluru', rating: 5, date: '2 weeks ago', verified: true, title: 'Genuinely relaxing after a long day', body: 'I use it for 10 minutes every night with rosemary oil. The kneading is so soothing and my scalp feels far less tight. Battery easily lasts me two weeks.' },
-  { name: 'Rohan Mehta', city: 'Mumbai', rating: 5, date: '3 weeks ago', verified: true, title: 'Hair-fall has visibly reduced', body: 'Been using the red light mode daily for a month. Noticeably less hair in the shower drain and my partner says the crown area looks fuller.' },
+  { name: 'Aditi Sharma', city: 'Bengaluru', rating: 5, date: '2 weeks ago', verified: true, title: 'Genuinely relaxing after a long day', body: 'I use it for 10 minutes every night with rosemary oil. The kneading is so soothing and my scalp feels far less tight. Battery easily lasts me two weeks.', photos: [{ label: 'Before', url: 'https://sc04.alicdn.com/kf/A66a11054a73c4735847f9e8d98578ec6w.jpg' }, { label: 'After', url: 'https://sc04.alicdn.com/kf/H61efd26a43074745ac32b49d5167744c0.jpg' }] },
+  { name: 'Rohan Mehta', city: 'Mumbai', rating: 5, date: '3 weeks ago', verified: true, title: 'Hair-fall has visibly reduced', body: 'Been using the red light mode daily for a month. Noticeably less hair in the shower drain and my partner says the crown area looks fuller.', photos: [{ label: 'Week 1', url: 'https://sc04.alicdn.com/kf/A01cc23b324f4475d83ec01d26ae0b6a4B.jpg' }, { label: 'Week 4', url: 'https://sc04.alicdn.com/kf/Hbf0fe1af18e444f9a10fd02f415095904.jpg' }] },
   { name: 'Priya Nair', city: 'Kochi', rating: 4, date: '1 month ago', verified: true, title: 'Love the liquid infusion idea', body: 'The oil actually reaches the scalp instead of just sitting on the hair. Wish the tank was slightly bigger, but otherwise brilliant.' },
   { name: 'Karan Singh', city: 'Delhi', rating: 5, date: '1 month ago', verified: true, title: 'Battery lasts forever', body: 'Charged it once when it arrived and still going strong three weeks later. Feels premium and the grip is really comfortable.' },
-  { name: 'Sneha Iyer', city: 'Pune', rating: 5, date: '2 months ago', verified: true, title: 'Salon feel at home', body: 'Honestly better than the head massage I get at the salon. The blue light plus kneading combo before a wash is my new ritual.' },
+  { name: 'Sneha Iyer', city: 'Pune', rating: 5, date: '2 months ago', verified: true, title: 'Salon feel at home', body: 'Honestly better than the head massage I get at the salon. The blue light plus kneading combo before a wash is my new ritual.', photos: [{ label: 'Before', url: 'https://sc04.alicdn.com/kf/H7bbf819e194345b2afe60fb66a2a02153.jpg' }, { label: 'After', url: 'https://sc04.alicdn.com/kf/He5f0fd4d2a6e4874b8046f827a7942306.jpg' }] },
   { name: 'Vikram Reddy', city: 'Hyderabad', rating: 4, date: '2 months ago', verified: true, title: 'Great gift, well packaged', body: 'Bought one for my mom and ended up ordering a second for myself. Splash-proof so she uses it in the shower with conditioner.' },
 ];
+
+// Frequently Bought Together bundle. Prices in INR. Combo saving applied on top.
+export const bundle = {
+  extraSavingPct: 10, // extra combo discount on add-on items
+  items: [
+    { id: 'ng-root-revive', name: 'NG Root Revive Scalp Massager', tag: 'This item', price: 2999, mrp: 4999, required: true, image: 'https://s.alicdn.com/@sc04/kf/Hcec8c8f14e214f74ae949c1e99ef63d9h.jpg_960x960q80.jpg' },
+    { id: 'ng-rosemary-oil', name: 'NG Rosemary Growth Oil', tag: 'Best pairing', price: 499, mrp: 799, required: false, image: 'https://images.unsplash.com/photo-1699373381541-8508168f82ca?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjd8MHwxfHNlYXJjaHw0fHxoYWlyJTIwb2lsJTIwYm90dGxlfGVufDB8fHx8MTc4Nzc0MjIwMnww&ixlib=rb-4.1.0&q=85' },
+    { id: 'ng-scalp-serum', name: 'NG Scalp Detox Serum', tag: 'Add-on', price: 699, mrp: 999, required: false, image: 'https://images.unsplash.com/photo-1710410815589-dd83514104d0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzN8MHwxfHNlYXJjaHwzfHxzZXJ1bSUyMGRyb3BwZXJ8ZW58MHx8fHwxNzg3NzQyMjAzfDA&ixlib=rb-4.1.0&q=85' },
+  ],
+};
 
 export const faqs = [
   { q: 'Can I use my own hair oil or serum?', a: 'Absolutely. The 3ml refillable tank is compatible with virtually any hair oil, serum or scalp treatment liquid — rosemary, argan, onion, minoxidil-based tonics and more.' },

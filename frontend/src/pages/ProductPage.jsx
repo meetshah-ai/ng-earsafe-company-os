@@ -10,6 +10,7 @@ import HowItWorks from '../components/pdp/HowItWorks';
 import Specs from '../components/pdp/Specs';
 import Reviews from '../components/pdp/Reviews';
 import FAQ from '../components/pdp/FAQ';
+import BundleOffer from '../components/pdp/BundleOffer';
 import Footer from '../components/pdp/Footer';
 import StickyBar from '../components/pdp/StickyBar';
 import { product, relatedProducts } from '../mock/mock';
@@ -71,6 +72,13 @@ const ProductPage = () => {
     });
   };
 
+  const handleAddBundle = (items) => {
+    setCartCount((c) => c + items.length);
+    toast.success('Bundle added to cart', {
+      description: `${items.length} items \u2014 combo saving applied (demo)`,
+    });
+  };
+
   return (
     <div className="App bg-ng-cream min-h-screen">
       <Header cartCount={cartCount} wishCount={wishlisted ? 1 : 0} />
@@ -102,6 +110,7 @@ const ProductPage = () => {
       </section>
 
       <Marquee items={product.marquee} />
+      <BundleOffer onAddBundle={handleAddBundle} />
       <Features />
       <HowItWorks />
       <Specs />
