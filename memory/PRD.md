@@ -17,21 +17,21 @@ Redesign the homepage of ngearsafe.com. Brand is an India-based open-ear audio c
 - Data in `src/data/site.js` (real products, categories, manifesto, stats, media).
 
 ## Implemented (2026-06)
-- Sticky glass navbar with logo, section links, Shop CTA, mobile menu.
-- Kinetic hero: masked line-by-line reveal "Hear Everything. Feel Nothing." + parallax framed product spotlight (real Comm 2.0).
-- Editorial marquee of brand pillars.
-- "The Open-Ear Revolution" flagship grid — 4 real products (Comm 2.0, Safebuds, Lite, OpenWire) with INR price/MRP on lit display-case cards linking to real product pages.
-- "Beyond Audio" bento grid — 5 new categories (Wearables, Beauty Tech, Massagers, Car Tech, Mobile Accessories).
-- Numbered manifesto "Why Open Ear?" with hover-active stroke numbers.
-- "Did You Know?" stats + parallax lifestyle image.
-- In-media logos strip.
-- Footer: newsletter (static), link columns, socials, giant NG EARSAFE wordmark.
+- Sticky glass navbar (offsets below announcement bar), kinetic hero, editorial marquee.
+- "The Open-Ear Revolution" flagship grid — 4 real audio products on lit display-case cards.
+- **Announcement bar**: slim rotating top banner (free shipping / new drop / warranty), dismissible.
+- **Category sliders** (`CategoryShowcase`): "Beyond Audio" with category pills + one embla slider per category (Wearables, Beauty Tech, Massagers, Car Tech, Mobile Accessories), each showing top-selling products.
+- **Quick View** (`QuickView` context + modal): click any product card → modal with large image, price/MRP, description, spec list, and "View on store" CTA.
+- **Live newsletter**: footer form → `POST /api/newsletter/subscribe` → stores subscriber in Mongo, sends owner notification + branded welcome via Emergent-managed Resend. Best-effort email (signup always succeeds once captured); dedupe + email validation.
+- Numbered manifesto, "Did You Know?" parallax stats, in-media logos, footer with giant wordmark.
+
+## Backend
+- `POST /api/newsletter/subscribe` (server.py): Subscriber model, Mongo `subscribers` collection, Resend send via guardrail gate. Config in .env: EMERGENT_EMAIL_KEY, EMAIL_FROM_NAME=NG EarSafe, OWNER_EMAIL, EMAIL_REPLY_TO.
 
 ## Notes
-- New-category imagery uses premium stock (brand has no photos yet for these lines).
-- Newsletter form is front-end only (no email backend).
+- New-category products & imagery are realistic PLACEHOLDERS (brand has no live SKUs yet) — swap in site.js `catalog`.
+- Owner-notification deliverability depends on a real inbox: OWNER_EMAIL currently defaults to placeholder `hello@ngearsafe.com` (Resend may block undeliverable placeholders). Set a real inbox in backend/.env to receive alerts.
 
 ## Backlog / Next
-- P1: Wire newsletter to a real provider (Resend) + capture leads.
-- P1: Add real product images/prices for new categories once brand supplies them.
-- P2: Product quick-view modal; per-category landing sections.
+- P1: Set real OWNER_EMAIL inbox; add real product images/prices for new categories.
+- P2: Per-category landing pages; wishlist; cart.

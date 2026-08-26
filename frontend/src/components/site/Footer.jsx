@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { ArrowUpRight, Instagram, Youtube, Facebook } from "lucide-react";
+import axios from "axios";
+import { ArrowUpRight, Instagram, Youtube, Facebook, Loader2 } from "lucide-react";
 import { Reveal } from "./Reveal";
+
+const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const cols = [
   {
@@ -34,13 +37,21 @@ const cols = [
 
 export default function Footer() {
   const [email, setEmail] = useState("");
-  const [done, setDone] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const [message, setMessage] = useState("");
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    if (email.includes("@")) {
-      setDone(true);
+    if (!email.includes("@")) return;
+    setStatus("loading");
+    try {
+      const { data } = await axios.post(`${API}/newsletter/subscribe`, { email });
+      setStatus("success");
+      setMessage(data.message || "You're in! Check your inbox.");
       setEmail("");
+    } catch (err) {
+      setStatus("error");
+      setMessage("Something went wrong. Please try again.");
     }
   };
 
@@ -63,7 +74,7 @@ export default function Footer() {
               </p>
             </Reveal>
           </div>
-          <div className="lg:col-span-6 flex items-center">
+          <div className="lg:col-span-6 flex flex-col justify-center gap-3">
             <form
               onSubmit={submit}
               data-testid="newsletter-form"
@@ -80,13 +91,30 @@ export default function Footer() {
               />
               <button
                 type="submit"
+                disabled={status === "loading"}
                 data-testid="newsletter-submit"
-                className="inline-flex items-center gap-2 rounded-full bg-[#3fb8c4] px-6 py-3 text-sm font-semibold text-[#050b14] hover:bg-white transition-colors duration-300"
+                className="inline-flex items-center gap-2 rounded-full bg-[#3fb8c4] px-6 py-3 text-sm font-semibold text-[#050b14] hover:bg-white transition-colors duration-300 disabled:opacity-70"
               >
-                {done ? "Subscribed" : "Subscribe"}
-                <ArrowUpRight size={16} />
+                {status === "loading" ? (
+                  <Loader2 size={16} className="animate-spin" />
+                ) : (
+                  <>
+                    {status === "success" ? "Subscribed" : "Subscribe"}
+                    <ArrowUpRight size={16} />
+                  </>
+                )}
               </button>
             </form>
+            {message && (
+              <p
+                data-testid="newsletter-message"
+                className={`pl-6 text-sm ${
+                  status === "error" ? "text-red-400" : "text-[#3fb8c4]"
+                }`}
+              >
+                {message}
+              </p>
+            )}
           </div>
         </div>
 

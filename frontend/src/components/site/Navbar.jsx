@@ -9,7 +9,7 @@ const links = [
   { label: "Our Story", href: "#story" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ barVisible = false }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -25,7 +25,8 @@ export default function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,padding] duration-500 ${
+      style={{ top: barVisible && !scrolled ? "2.25rem" : "0px" }}
+      className={`fixed inset-x-0 z-50 transition-[background-color,border-color,padding,top] duration-500 ${
         scrolled
           ? "bg-[#050b14]/80 backdrop-blur-xl border-b hairline py-3"
           : "bg-transparent border-b border-transparent py-5"
