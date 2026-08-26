@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { X, Check, ArrowUpRight } from "lucide-react";
+import { X, Check, ArrowUpRight, Heart } from "lucide-react";
+import { useWishlist } from "./Wishlist";
 
 const QuickViewContext = createContext(null);
 
@@ -26,6 +27,8 @@ export function QuickViewProvider({ children }) {
 
 function QuickViewModal({ product, onClose }) {
   const light = product.stage === "light";
+  const { isSaved, toggle } = useWishlist();
+  const saved = isSaved(product.id);
   return (
     <motion.div
       data-testid="quickview-overlay"
@@ -103,19 +106,33 @@ function QuickViewModal({ product, onClose }) {
             ))}
           </ul>
 
-          <a
-            href={product.href}
-            target="_blank"
-            rel="noreferrer"
-            data-testid="quickview-cta"
-            className="group mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-[#3fb8c4] px-8 py-4 text-sm font-semibold text-[#050b14] transition-colors duration-300 hover:bg-white"
-          >
-            View on store
-            <ArrowUpRight
-              size={18}
-              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            />
-          </a>
+          <div className="mt-8 flex items-center gap-3">
+            <a
+              href={product.href}
+              target="_blank"
+              rel="noreferrer"
+              data-testid="quickview-cta"
+              className="group inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-[#3fb8c4] px-8 py-4 text-sm font-semibold text-[#050b14] transition-colors duration-300 hover:bg-white"
+            >
+              View on store
+              <ArrowUpRight
+                size={18}
+                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </a>
+            <button
+              onClick={() => toggle(product)}
+              data-testid="quickview-wishlist"
+              aria-label={saved ? "Remove from wishlist" : "Save to wishlist"}
+              className={`grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full border transition-all duration-300 ${
+                saved
+                  ? "border-[#3fb8c4] bg-[#3fb8c4] text-[#050b14]"
+                  : "hairline text-white hover:border-[#3fb8c4] hover:text-[#3fb8c4]"
+              }`}
+            >
+              <Heart size={18} fill={saved ? "currentColor" : "none"} />
+            </button>
+          </div>
         </div>
       </motion.div>
     </motion.div>

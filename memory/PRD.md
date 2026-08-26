@@ -24,6 +24,7 @@ Redesign the homepage of ngearsafe.com. Brand is an India-based open-ear audio c
 - **Quick View** (`QuickView` context + modal): click any product card → modal with large image, price/MRP, description, spec list, and "View on store" CTA.
 - **Live newsletter**: footer form → `POST /api/newsletter/subscribe` → stores subscriber in Mongo, sends owner notification + branded welcome via Emergent-managed Resend. Best-effort email (signup always succeeds once captured); dedupe + email validation.
 - Numbered manifesto, "Did You Know?" parallax stats, in-media logos, footer with giant wordmark.
+- **Wishlist** (`Wishlist` context): heart toggle on every product card + quick view, navbar heart with live count badge, slide-in drawer to revisit saved items (View/Remove), persisted in localStorage.
 
 ## Backend
 - `POST /api/newsletter/subscribe` (server.py): Subscriber model, Mongo `subscribers` collection, Resend send via guardrail gate. Config in .env: EMERGENT_EMAIL_KEY, EMAIL_FROM_NAME=NG EarSafe, OWNER_EMAIL, EMAIL_REPLY_TO.

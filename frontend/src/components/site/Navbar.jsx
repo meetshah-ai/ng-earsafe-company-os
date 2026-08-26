@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ShoppingBag } from "lucide-react";
+import { Menu, X, ShoppingBag, Heart } from "lucide-react";
+import { useWishlist } from "./Wishlist";
 
 const links = [
   { label: "Open-Ear Audio", href: "#flagship" },
@@ -12,6 +13,7 @@ const links = [
 export default function Navbar({ barVisible = false }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { count, openDrawer } = useWishlist();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -63,6 +65,22 @@ export default function Navbar({ barVisible = false }) {
         </div>
 
         <div className="flex items-center gap-3">
+          <button
+            onClick={openDrawer}
+            data-testid="nav-wishlist-btn"
+            aria-label="Open wishlist"
+            className="relative grid h-10 w-10 place-items-center rounded-full border hairline text-white transition-colors duration-300 hover:border-[#3fb8c4] hover:text-[#3fb8c4]"
+          >
+            <Heart size={17} />
+            {count > 0 && (
+              <span
+                data-testid="nav-wishlist-count"
+                className="absolute -right-1 -top-1 grid h-5 min-w-[1.25rem] place-items-center rounded-full bg-[#3fb8c4] px-1 text-[0.65rem] font-bold text-[#050b14]"
+              >
+                {count}
+              </span>
+            )}
+          </button>
           <a
             href="https://ngearsafe.com/collections/all"
             target="_blank"

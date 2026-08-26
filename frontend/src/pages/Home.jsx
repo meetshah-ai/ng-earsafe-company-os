@@ -10,26 +10,29 @@ import DidYouKnow from "../components/site/DidYouKnow";
 import MediaLogos from "../components/site/MediaLogos";
 import Footer from "../components/site/Footer";
 import { QuickViewProvider } from "../components/site/QuickView";
+import { WishlistProvider } from "../components/site/Wishlist";
 
 export default function Home() {
   const [barVisible, setBarVisible] = useState(true);
 
   return (
-    <QuickViewProvider>
-      <div className="grain relative min-h-screen bg-[#050b14] text-white font-body">
-        <AnnouncementBar onVisibilityChange={setBarVisible} />
-        <Navbar barVisible={barVisible} />
-        <main>
-          <Hero />
-          <Marquee />
-          <Flagship />
-          <CategoryShowcase />
-          <Manifesto />
-          <DidYouKnow />
-          <MediaLogos />
-        </main>
-        <Footer />
-      </div>
-    </QuickViewProvider>
+    <WishlistProvider>
+      <QuickViewProvider>
+        <div className="grain relative min-h-screen bg-[#050b14] text-white font-body">
+          <AnnouncementBar onVisibilityChange={setBarVisible} />
+          <Navbar barVisible={barVisible} />
+          <main>
+            <Hero />
+            <Marquee />
+            <Flagship />
+            <CategoryShowcase />
+            <Manifesto />
+            <DidYouKnow />
+            <MediaLogos />
+          </main>
+          <Footer />
+        </div>
+      </QuickViewProvider>
+    </WishlistProvider>
   );
 }
