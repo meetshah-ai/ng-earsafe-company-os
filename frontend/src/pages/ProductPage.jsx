@@ -10,7 +10,8 @@ import HowItWorks from '../components/pdp/HowItWorks';
 import Specs from '../components/pdp/Specs';
 import Reviews from '../components/pdp/Reviews';
 import FAQ from '../components/pdp/FAQ';
-import BundleOffer from '../components/pdp/BundleOffer';
+import Reels from '../components/pdp/Reels';
+import CartDrawer from '../components/pdp/CartDrawer';
 import Footer from '../components/pdp/Footer';
 import StickyBar from '../components/pdp/StickyBar';
 import { product, relatedProducts } from '../mock/mock';
@@ -46,23 +47,45 @@ const RelatedProducts = () => (
 );
 
 const ProductPage = () => {
-  const [cartCount, setCartCount] = useState(0);
+  const [cartItems, setCartItems] = useState([]);
+  const [cartOpen, setCartOpen] = useState(false);
   const [wishlisted, setWishlisted] = useState(false);
   const [galleryIdx, setGalleryIdx] = useState(0);
 
+  const cartCount = cartItems.reduce((s, it) => s + it.qty, 0);
+
+  const addItem = (qty, colorIdx) => {
+    const color = product.colors[colorIdx] || product.colors[0];
+    const key = `${product.id}-${color.name}`;
+    setCartItems((prev) => {
+      const existing = prev.find((it) => it.key === key);
+      if (existing) return prev.map((it) => (it.key === key ? { ...it, qty: it.qty + qty } : it));
+      return [...prev, { key, name: product.name, color: color.name, price: product.price, mrp: product.mrp, image: product.gallery[0], qty }];
+    });
+  };
+
   const handleAddToCart = (qty = 1, colorIdx = 0) => {
-    setCartCount((c) => c + qty);
+    addItem(qty, colorIdx);
+    setCartOpen(true);
     toast.success('Added to cart', {
       description: `${qty} × ${product.name} — ${product.colors[colorIdx]?.name || product.colors[0].name}`,
     });
   };
 
   const handleBuyNow = (qty = 1, colorIdx = 0) => {
-    setCartCount((c) => c + qty);
-    toast('Redirecting to checkout…', {
+    addItem(qty, colorIdx);
+    setCartOpen(true);
+    toast('Ready to checkout', {
       description: `${product.currency}${inr(product.price * qty)} · Free shipping · COD available (demo)`,
     });
   };
+
+  const updateQty = (key, qty) => {
+    if (qty < 1) { setCartItems((prev) => prev.filter((it) => it.key !== key)); return; }
+    setCartItems((prev) => prev.map((it) => (it.key === key ? { ...it, qty } : it)));
+  };
+
+  const removeItem = (key) => setCartItems((prev) => prev.filter((it) => it.key !== key));
 
   const handleWishlist = () => {
     setWishlisted((w) => {
@@ -72,16 +95,9 @@ const ProductPage = () => {
     });
   };
 
-  const handleAddBundle = (items) => {
-    setCartCount((c) => c + items.length);
-    toast.success('Bundle added to cart', {
-      description: `${items.length} items \u2014 combo saving applied (demo)`,
-    });
-  };
-
   return (
     <div className="App bg-ng-cream min-h-screen">
-      <Header cartCount={cartCount} wishCount={wishlisted ? 1 : 0} />
+      <Header cartCount={cartCount} wishCount={wishlisted ? 1 : 0} onCartClick={() => setCartOpen(true)} />
 
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 pt-5">
@@ -110,8 +126,8 @@ const ProductPage = () => {
       </section>
 
       <Marquee items={product.marquee} />
-      <BundleOffer onAddBundle={handleAddBundle} />
       <Features />
+      <Reels />
       <HowItWorks />
       <Specs />
       <Reviews />
@@ -120,6 +136,15 @@ const ProductPage = () => {
       <Footer />
 
       <StickyBar product={product} onAddToCart={handleAddToCart} onBuyNow={handleBuyNow} />
+
+      <CartDrawer
+        open={cartOpen}
+        onOpenChange={setCartOpen}
+        items={cartItems}
+        onQty={updateQty}
+        onRemove={removeItem}
+        currency={product.currency}
+      />
     </div>
   );
 };

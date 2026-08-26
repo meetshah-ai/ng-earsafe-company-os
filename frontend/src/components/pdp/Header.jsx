@@ -9,7 +9,7 @@ const Logo = () => (
   </div>
 );
 
-const Header = ({ cartCount = 0, wishCount = 0 }) => {
+const Header = ({ cartCount = 0, wishCount = 0, onCartClick }) => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -38,7 +38,7 @@ const Header = ({ cartCount = 0, wishCount = 0 }) => {
               <Heart size={18} className={wishCount ? 'fill-ng-navy' : ''} />
               {wishCount > 0 && <span className="absolute -top-1 -right-1 bg-ng-cyan text-ng-navy text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">{wishCount}</span>}
             </button>
-            <button className="relative flex items-center gap-2 bg-ng-navy text-white rounded-full h-10 pl-4 pr-4 font-semibold text-sm hover:bg-ng-navy-dark transition-colors" aria-label="Cart">
+            <button onClick={onCartClick} className="relative flex items-center gap-2 bg-ng-navy text-white rounded-full h-10 pl-4 pr-4 font-semibold text-sm hover:bg-ng-navy-dark transition-colors" aria-label="Cart">
               <ShoppingCart size={16} /> <span className="hidden sm:inline">Cart</span>
               {cartCount > 0 && <span className="bg-ng-cyan text-ng-navy text-[11px] font-bold rounded-full w-5 h-5 flex items-center justify-center">{cartCount}</span>}
             </button>

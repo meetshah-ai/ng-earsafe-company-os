@@ -101,6 +101,16 @@ export const reviews = [
   { name: 'Vikram Reddy', city: 'Hyderabad', rating: 4, date: '2 months ago', verified: true, title: 'Great gift, well packaged', body: 'Bought one for my mom and ended up ordering a second for myself. Splash-proof so she uses it in the shower with conditioner.' },
 ];
 
+// Instagram-style Reels (demo). Videos link to YouTube and open in an in-app viewer.
+export const reels = [
+  { id: 'r1', tag: 'Root Revive', caption: '10-minute scalp reset before bed.', likes: '14.2k', comments: '412', image: 'https://images.unsplash.com/photo-1706795034830-de41aee06afa?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAxODF8MHwxfHNlYXJjaHw0fHxzY2FscCUyMG1hc3NhZ2V8ZW58MHx8fHwxNzg3NzQyNjk0fDA&ixlib=rb-4.1.0&q=85', youtubeId: 'inpok4MKVLM' },
+  { id: 'r2', tag: 'Oil Ritual', caption: 'Rosemary oil, straight to the roots.', likes: '9.8k', comments: '208', image: 'https://images.unsplash.com/photo-1564141696939-9eb6e957ccfc?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwyfHxoYWlyJTIwY2FyZXxlbnwwfHx8fDE3ODc3NDI2OTR8MA&ixlib=rb-4.1.0&q=85', youtubeId: '1ZYbU82GVz4' },
+  { id: 'r3', tag: 'Red Light', caption: 'Why red light is my new obsession.', likes: '21.6k', comments: '533', image: 'https://images.unsplash.com/photo-1556229165-8aa0ceaa93a7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDJ8MHwxfHNlYXJjaHwzfHxzaGlueSUyMGhhaXJ8ZW58MHx8fHwxNzg3NzQyNjk0fDA&ixlib=rb-4.1.0&q=85', youtubeId: 'ZToicYcHIOU' },
+  { id: 'r4', tag: 'Wash Day', caption: 'Prepping my scalp before wash day.', likes: '7.3k', comments: '156', image: 'https://images.unsplash.com/photo-1581182800629-7d90925ad072?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHxoYWlyJTIwY2FyZXxlbnwwfHx8fDE3ODc3NDI2OTR8MA&ixlib=rb-4.1.0&q=85', youtubeId: 'aXItOY0sLRY' },
+  { id: 'r5', tag: 'Self Care', caption: 'Sunday self-care, sorted.', likes: '11.9k', comments: '287', image: 'https://images.unsplash.com/photo-1573461160327-b450ce3d8e7f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwzfHxoYWlyJTIwY2FyZXxlbnwwfHx8fDE3ODc3NDI2OTR8MA&ixlib=rb-4.1.0&q=85', youtubeId: '2OEL4P1Rz04' },
+  { id: 'r6', tag: 'Results', caption: 'Fuller-looking crown in 6 weeks.', likes: '18.4k', comments: '471', image: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAxODF8MHwxfHNlYXJjaHwxfHxzY2FscCUyMG1hc3NhZ2V8ZW58MHx8fHwxNzg3NzQyNjk0fDA&ixlib=rb-4.1.0&q=85', youtubeId: 'UfcAVejslrU' },
+];
+
 // Frequently Bought Together bundle. Prices in INR. Combo saving applied on top.
 export const bundle = {
   extraSavingPct: 10, // extra combo discount on add-on items
