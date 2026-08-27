@@ -5,9 +5,6 @@ import { useCart } from "../../context/CartContext";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import {
-  Accordion, AccordionContent, AccordionItem, AccordionTrigger,
-} from "../ui/accordion";
-import {
   Zap, Gauge, ShieldCheck, Feather, Cable, Gem, CircuitBoard,
   Smartphone, Layers, Plug, Check, Star, ArrowRight, ShoppingCart,
 } from "lucide-react";
@@ -139,47 +136,12 @@ export default function PdpSections({ p }) {
         </div>
       </section>
 
-      {/* How it works */}
-      <section className="bg-[#F4F1EA]">
-        <div className="max-w-7xl mx-auto px-6 py-20">
-          <SectionLabel kicker="How it works" title="Charge in three easy steps" />
-          <div className="grid md:grid-cols-3 gap-6">
-            {p.steps.map((s) => {
-              const Icon = ICONS[s.icon] || Check;
-              return (
-                <div key={s.n} className="bg-white rounded-3xl p-8 relative">
-                  <span className="absolute top-6 right-6 font-display text-6xl text-black/5">{s.n}</span>
-                  <div className="w-12 h-12 rounded-2xl bg-[#35B9CE] flex items-center justify-center mb-5">
-                    <Icon className="w-6 h-6 text-[#0E2233]" />
-                  </div>
-                  <h3 className="font-display text-xl text-[#0E2233]">{s.title}</h3>
-                  <p className="text-sm text-[#4b5563] mt-2 leading-relaxed">{s.text}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Specifications */}
-      <section className="max-w-3xl mx-auto px-6 py-20">
-        <SectionLabel kicker="Specifications" title="The fine print" />
-        <div className="rounded-3xl bg-white overflow-hidden">
-          {p.specs.map(([k, v], i) => (
-            <div key={k} className={`flex items-start justify-between gap-6 px-6 py-4 ${i % 2 ? "bg-[#faf9f5]" : "bg-white"}`}>
-              <span className="text-sm text-gray-500 font-medium">{k}</span>
-              <span className="text-sm font-bold text-[#0E2233] text-right max-w-[60%]">{v}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Reviews */}
-      <section className="bg-white">
+      <section className="bg-[#F4F1EA]">
         <div className="max-w-5xl mx-auto px-6 py-20">
           <SectionLabel kicker="From our travellers" title="Reviews" />
           <div className="grid md:grid-cols-3 gap-6 items-start">
-            <div className="bg-[#F4F1EA] rounded-3xl p-6 text-center">
+            <div className="bg-white rounded-3xl p-6 text-center">
               <p className="font-display text-6xl text-[#0E2233]">{p.rating}</p>
               <div className="flex items-center justify-center gap-1 my-2">
                 {[...Array(5)].map((_, i) => (
@@ -207,7 +169,7 @@ export default function PdpSections({ p }) {
 
             <div className="md:col-span-2 space-y-4">
               {p.reviews.map((r, i) => (
-                <div key={i} className="bg-[#F4F1EA] rounded-3xl p-5">
+                <div key={i} className="bg-white rounded-3xl p-5">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-[#0E2233] text-white flex items-center justify-center font-display text-lg">
@@ -231,21 +193,6 @@ export default function PdpSections({ p }) {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="max-w-3xl mx-auto px-6 py-20">
-        <SectionLabel kicker="Good to know" title="Questions, answered" />
-        <Accordion type="single" collapsible className="space-y-3">
-          {p.faqs.map((f, i) => (
-            <AccordionItem key={i} value={`item-${i}`} className="border-0 rounded-2xl px-5 bg-white">
-              <AccordionTrigger className="text-left font-bold text-[#0E2233] hover:no-underline py-4">
-                {f.q}
-              </AccordionTrigger>
-              <AccordionContent className="text-[#4b5563] leading-relaxed">{f.a}</AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
       </section>
 
       {/* Related */}
