@@ -41,7 +41,7 @@ export default function ProductPage() {
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-6 pt-5">
         <div className="flex items-center gap-1.5 text-xs text-gray-500">
-          <Link to="/" className="hover:text-[#0E2233]">Home</Link>
+          <Link to="/store" className="hover:text-[#0E2233]">Home</Link>
           <ChevronRight className="w-3 h-3" />
           <span className="hover:text-[#0E2233]">Beauty Tech</span>
           <ChevronRight className="w-3 h-3" />

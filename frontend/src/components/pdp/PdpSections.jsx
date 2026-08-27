@@ -95,53 +95,12 @@ export default function PdpSections({ p }) {
         </div>
       </section>
 
-      {/* Product Description / In Detail */}
-      <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-6 py-20">
-          <SectionLabel kicker="Product description" title="A closer look" />
-          <div className="space-y-14">
-            {[
-              {
-                img: p.images[1],
-                tag: "The kit",
-                head: "Six connectors, one tidy case",
-                body: "The NG Nomad folds USB-C, Micro-USB and Lightning tips into a single brushed metal case the size of a car key. Flip out the tip you need, charge, then snap it shut — no loose cables, no tangles, no hunting through your bag at the airport.",
-              },
-              {
-                img: p.images[2],
-                tag: "The performance",
-                head: "3A fast charge, pure-copper core",
-                body: "A low-resistance tinned pure-copper core carries a steady 3A current for genuinely quick top-ups, and handles USB 2.0 data sync between your phone and laptop just as happily. Efficient, stable and ready whenever you are.",
-                reverse: true,
-              },
-              {
-                img: p.images[3],
-                tag: "The build",
-                head: "Aircraft-grade aluminium, built to travel",
-                body: "The CNC aluminium-alloy shell and flexible TPE cable shrug off the daily tugs, drops and packing that destroy ordinary cables. At just 52g and 0.3m, the whole kit rides on your keyring — light enough to forget, tough enough to trust.",
-              },
-            ].map((b, i) => (
-              <div key={i} className={`grid md:grid-cols-2 gap-8 md:gap-14 items-center ${b.reverse ? "md:[direction:rtl]" : ""}`}>
-                <div className="bg-[#f6f5f1] rounded-3xl aspect-[4/3] overflow-hidden md:[direction:ltr]">
-                  <img src={b.img} alt={b.head} className="w-full h-full object-contain p-8" />
-                </div>
-                <div className="md:[direction:ltr]">
-                  <p className="text-[#2BB0C6] font-semibold text-xs uppercase tracking-[0.2em] mb-3">{b.tag}</p>
-                  <h3 className="font-display text-3xl md:text-4xl text-[#0E2233] leading-[1]">{b.head}</h3>
-                  <p className="text-[#4b5563] mt-4 leading-relaxed">{b.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Reviews */}
-      <section className="bg-[#F4F1EA]">
+      <section className="bg-white">
         <div className="max-w-5xl mx-auto px-6 py-20">
           <SectionLabel kicker="From our travellers" title="Reviews" />
           <div className="grid md:grid-cols-3 gap-6 items-start">
-            <div className="bg-white rounded-3xl p-6 text-center">
+            <div className="bg-[#F4F1EA] rounded-3xl p-6 text-center">
               <p className="font-display text-6xl text-[#0E2233]">{p.rating}</p>
               <div className="flex items-center justify-center gap-1 my-2">
                 {[...Array(5)].map((_, i) => (
@@ -169,7 +128,7 @@ export default function PdpSections({ p }) {
 
             <div className="md:col-span-2 space-y-4">
               {p.reviews.map((r, i) => (
-                <div key={i} className="bg-white rounded-3xl p-5">
+                <div key={i} className="bg-[#F4F1EA] rounded-3xl p-5">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-[#0E2233] text-white flex items-center justify-center font-display text-lg">

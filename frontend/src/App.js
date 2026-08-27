@@ -14,8 +14,8 @@ function App() {
         <BrowserRouter>
           <ScrollToTop />
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/products/ng-nomad-6-in-1" element={<ProductPage />} />
+            <Route path="/" element={<ProductPage />} />
+            <Route path="/store" element={<Home />} />
             <Route path="/products/:slug" element={<ProductPage />} />
           </Routes>
           <Toaster position="top-center" richColors />

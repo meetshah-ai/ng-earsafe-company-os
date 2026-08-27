@@ -39,7 +39,7 @@ export default function Header() {
             <button className="lg:hidden p-2 -ml-2" onClick={() => setMobileOpen(true)} aria-label="Menu">
               <Menu className="w-5 h-5" />
             </button>
-            <Link to="/" className="flex items-center gap-2">
+            <Link to="/store" className="flex items-center gap-2">
               <span className="font-display text-2xl leading-none text-[#35B9CE] lowercase" style={{textTransform:'lowercase'}}>ng</span>
               <span className="font-display text-xl tracking-tight text-[#0E2233]">NG Earsafe</span>
             </Link>
