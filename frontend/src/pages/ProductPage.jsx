@@ -39,8 +39,8 @@ export default function ProductPage() {
       <Header />
 
       {/* Breadcrumb */}
-      <div className="max-w-7xl mx-auto px-6 pt-5">
-        <div className="flex items-center gap-1.5 text-xs text-gray-500">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-5">
+        <div className="flex items-center gap-1.5 text-xs text-gray-500 flex-wrap">
           <Link to="/store" className="hover:text-[#0E2233]">Home</Link>
           <ChevronRight className="w-3 h-3" />
           <span className="hover:text-[#0E2233]">Beauty Tech</span>
@@ -50,9 +50,9 @@ export default function ProductPage() {
       </div>
 
       {/* Main grid */}
-      <section className="max-w-7xl mx-auto px-6 py-8 grid lg:grid-cols-2 gap-10 lg:gap-14">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-8 grid lg:grid-cols-2 gap-8 lg:gap-14 overflow-hidden">
         {/* Gallery */}
-        <div className="lg:sticky lg:top-24 self-start">
+        <div className="lg:sticky lg:top-24 self-start w-full max-w-full min-w-0">
           <div className="relative bg-white rounded-3xl overflow-hidden aspect-square shadow-sm">
             <span className="absolute top-4 left-4 z-10 bg-[#0E2233] text-white text-[11px] font-bold px-3 py-1.5 rounded-full tracking-wider uppercase">
               New Launch
@@ -86,16 +86,16 @@ export default function ProductPage() {
 
         {/* Buy box */}
         <div>
-          <div className="flex items-center gap-2.5 mb-3">
+          <div className="flex items-center gap-2.5 mb-3 flex-wrap">
             <span className="bg-[#0E2233] text-white text-[11px] font-bold px-3 py-1 rounded-full tracking-wider uppercase">Bestseller</span>
             <span className="text-[12px] font-semibold tracking-[0.15em] text-gray-500 uppercase">{p.brandTag}</span>
           </div>
-          <h1 className="font-display text-4xl md:text-[52px] leading-[0.98] text-[#0E2233]">
+          <h1 className="font-display text-[30px] sm:text-4xl md:text-[52px] leading-[1.02] md:leading-[0.98] text-[#0E2233] break-words">
             {p.name}
           </h1>
-          <p className="font-display text-lg md:text-xl text-[#2BB0C6] mt-3">{p.tagline}</p>
+          <p className="font-display text-base sm:text-lg md:text-xl text-[#2BB0C6] mt-3">{p.tagline}</p>
 
-          <div className="flex items-center gap-3 mt-4">
+          <div className="flex items-center gap-x-3 gap-y-1 mt-4 flex-wrap">
             <div className="flex items-center gap-1">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className={`w-[18px] h-[18px] ${i < Math.round(p.rating) ? "fill-[#35B9CE] text-[#35B9CE]" : "text-gray-300"}`} />

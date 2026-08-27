@@ -14,9 +14,9 @@ const rupee = (n) => `₹${n.toLocaleString("en-IN")}`;
 
 function SectionLabel({ kicker, title, sub, light }) {
   return (
-    <div className="text-center max-w-2xl mx-auto mb-12">
+    <div className="text-center max-w-2xl mx-auto mb-10 md:mb-12">
       <p className="text-[#2BB0C6] font-semibold text-sm mb-3 uppercase tracking-[0.2em]">{kicker}</p>
-      <h2 className={`font-display text-4xl md:text-[52px] leading-[0.98] ${light ? "text-white" : "text-[#0E2233]"}`}>{title}</h2>
+      <h2 className={`font-display text-[30px] sm:text-4xl md:text-[52px] leading-[1.02] md:leading-[0.98] ${light ? "text-white" : "text-[#0E2233]"}`}>{title}</h2>
       {sub && <p className={`mt-4 leading-relaxed ${light ? "text-white/60" : "text-[#4b5563]"}`}>{sub}</p>}
     </div>
   );
@@ -28,7 +28,7 @@ export default function PdpSections({ p }) {
   return (
     <div>
       {/* Benefits */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-14 md:py-20">
         <SectionLabel kicker="Why it works" title="Made for life on the move" />
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
           {p.benefits.map((b) => {
@@ -48,7 +48,7 @@ export default function PdpSections({ p }) {
 
       {/* Results stats */}
       <section className="bg-[#0E2233] text-white">
-        <div className="max-w-7xl mx-auto px-6 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-14 md:py-20">
           <SectionLabel light kicker="Real traveller results" title="The numbers speak"
             sub="*Based on a survey of 515 NG Nomad owners across 12 weeks of daily travel use." />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
@@ -58,7 +58,7 @@ export default function PdpSections({ p }) {
               ["97%", "would recommend the Nomad to a fellow traveller"],
             ].map(([n, t]) => (
               <div key={n} className="border border-white/10 rounded-3xl py-10 px-6 hover:border-[#35B9CE]/60 transition-colors">
-                <p className="font-display text-6xl md:text-7xl text-[#35B9CE]">{n}</p>
+                <p className="font-display text-5xl md:text-7xl text-[#35B9CE]">{n}</p>
                 <p className="text-white/70 mt-3 max-w-[220px] mx-auto">{t}</p>
               </div>
             ))}
@@ -67,7 +67,7 @@ export default function PdpSections({ p }) {
       </section>
 
       {/* Feature grid */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-14 md:py-20">
         <SectionLabel kicker="How it helps" title="Built to charge anything" />
         <div className="grid md:grid-cols-3 gap-5">
           {p.features.map((f) => {
@@ -97,7 +97,7 @@ export default function PdpSections({ p }) {
 
       {/* Reviews */}
       <section className="bg-white">
-        <div className="max-w-5xl mx-auto px-6 py-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-14 md:py-20">
           <SectionLabel kicker="From our travellers" title="Reviews" />
           <div className="grid md:grid-cols-3 gap-6 items-start">
             <div className="bg-[#F4F1EA] rounded-3xl p-6 text-center">
@@ -155,7 +155,7 @@ export default function PdpSections({ p }) {
       </section>
 
       {/* Related */}
-      <section className="max-w-7xl mx-auto px-6 pb-24">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-24">
         <SectionLabel kicker="Complete your kit" title="You may also like" />
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {RELATED.map((r) => {
