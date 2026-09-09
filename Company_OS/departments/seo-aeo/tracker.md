@@ -3,6 +3,8 @@
 > Read at the start of every SEO session to resume instantly. After a task: update status + result. Each 30-day cycle: archive completed into `learning-log.md` and reset.
 > Last updated: 2026-08-17 (weekly managed-agent cycle — 2 new drafts (SEO-032/033), WFH 7th straight decline, SEO-026 D+14 checkpoint missed with fix still unexecuted)
 >
+> **2026-09-09 (/approvals decisions):** SEO-028/029/032/034 (retitles), SEO-030/033/035 (new articles), SEO-031 (FAQ expansion), SEO-009 (UTM investigation), SEO-010 (writer reassignment) all APPROVED — awaiting `/execute-approved`. Note: SEO-020..027 remain approved-but-unexecuted from prior cycles (20+ days) — that's an `/execute-approved` gap, not a new decision.
+>
 > **⚙️ Managed-agent cadence (since 2026-07-17):** the `seo-aeo` managed agent runs every **Monday
 > 08:00 IST**, reads this file + `learning-log.md`, and drafts `SEO-###` rows to `queue-inbox.md`
 > (this department's private inbox — the agent never touches `APPROVALS_QUEUE.md`). **New IDs

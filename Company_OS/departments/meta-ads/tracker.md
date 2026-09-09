@@ -5,6 +5,8 @@
 > IST**, and drafts to `queue-inbox.md`). Keep it current: after a task, update status + result; each
 > cycle, archive completed items into `learning-log.md`.
 >
+> **2026-09-09 (/approvals decisions):** MA-080/081/082 (cuts), MA-083 (account-wide budget hold), MA-087 (WhatsApp/CTWA formalize), MA-077 (UTM fix) all APPROVED — awaiting `/execute-approved`. MA-055/056/057/059 ACKNOWLEDGED/CLOSED — Meet investigating the unexplained spend stoppages and creative-approval bottleneck directly, not agent-actionable; stop re-escalating these specific items. MA-034/035 FLAGGED — collision vs APPROVALS_QUEUE's MA-042/043 (marked EXECUTED); Meet is verifying whether CF-31/CF-37 actually delivered before this is decided — do not touch MA-03x numbering.
+>
 > **2026-09-03 cycle 13 update (Thursday teardown, DEEP_WEEK — ISO week 36 is even):**
 > Account's TRUE ROAS falls below the 6.0 floor for the FIRST TIME on both the raw (5.32×) and the
 > matured (5.76×) read — the margin-narrowing trend flagged in cycles 11/12 has become an outright

@@ -4,6 +4,8 @@
 >
 > Last updated: 2026-09-09 (cycle #8 — 5th consecutive clean pull; account matured ROAS 7.54×→11.66× on a further -14.3% spend contraction; AZ-074's account-recovery test FAILED and escalated to a hard blocker (AZ-084); first genuine post-AZ-073 SCALE clearance on real spend growth, 2 campaigns (AZ-076/077))
 > **Queue-inbox note:** `queue-inbox.md` holds rows AZ-001..AZ-091 — **next free ID is AZ-092.**
+>
+> **2026-09-09 (/approvals decisions):** AZ-076, AZ-077 (paired with AZ-079's carve-out), AZ-079, AZ-082, AZ-085 all APPROVED — awaiting `/execute-approved`. AZ-084 ACKNOWLEDGED/CLOSED — Meet checking Seller/Vendor Central directly, not agent-actionable. AZ-086 (kill/reallocate 4 dead SB campaigns) ON HOLD — Meet wants more context before deciding, keep open. AZ-001..003 REJECTED as obsolete (campaigns no longer exist), AZ-004 CLOSED (already answered). Do not re-draft any of the above.
 
 ## PRIORITY SYSTEM
 - **P0** — this week. No new work starts until P0s clear.

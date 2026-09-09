@@ -2,6 +2,8 @@
 
 > Read at the start of every session. After a task: update status + result. Each 30-day cycle: archive completed into `learning-log.md` and reset.
 > Last updated: 2026-06-27 (cycle 3 — CEO mandate: 3x/week IG+FB, Porter analytics audit, IC-005 hero frame generated)
+>
+> ⚠️ **2026-09-09 (/approvals decision): DEPARTMENT PAUSED — Meet no longer needs agent help for Instagram content.** All pending drafts (IC-015..017, IC-025..033) REJECTED on this basis, not content quality. **Do not draft further Instagram content until Meet re-opens this lane.**
 
 ## PRIORITY SYSTEM
 - **P0** — this week. **P1** — this month. **P2** — 30–60 days. **P3** — experiments.
