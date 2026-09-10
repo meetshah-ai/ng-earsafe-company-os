@@ -80,6 +80,20 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
   that were converting are actively breaking (revenue -12.6%/day on flat spend). Treat a negative
   marginal ROAS on flat spend as an efficiency-collapse alarm distinct from "we scaled too far,"
   and go straight to per-campaign/per-ad diagnostics rather than assuming a budget-side cause.
+- **NEW (2026-09-10, cycle 14):** a campaign can go from "efficiency decline" to "fully dark" within a
+  single week, and the two look very different in the raw pull — a day with spend ₹0.00 is not the
+  same signal as a day the campaign is entirely absent from the API response. This cycle
+  safebuds_20Apr went from a ₹5,130/week hero-ad floor breach (cycle 13) to zero spend on 4 days and
+  literal absence from the pull on 2 more — a materially more urgent finding than an efficiency
+  problem, and one that a "spend fell X%" framing alone would have understated. Always check for
+  "days entirely absent from the pull" as its own signal, distinct from "days present at ₹0," on every
+  live campaign each cycle.
+- **NEW (2026-09-10, cycle 14):** when one campaign is cut/paused/decays away, the account's remaining
+  spend can concentrate hard into whichever campaign is still healthy — this cycle Broad Interest went
+  to 79% of the account's live spend purely because safebuds_20Apr and ES Comm 2 both went dark, not
+  because Broad Interest itself scaled. A campaign-level concentration risk can emerge passively, the
+  same way the safebuds hero-ad's ad-level concentration risk did in cycle 9 — watch the account's
+  spend distribution across campaigns every cycle, not just each campaign's own trend.
 
 ## COMPETITOR INTEL LEDGER (build from each weekly teardown)
 | Date | Competitor | Ad type / format | Hook | Apparent longevity | NG counter-action |
@@ -106,7 +120,7 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 1. Account Simplification — proof: 19% lower CPA when ad sets exit learning phase. **NG gap: 7 fragmented campaigns / overlapping LAL audiences (constitution + performance memory) repeatedly re-enter learning phase.** Action lens: consolidate before adding new campaigns; batch-edit, don't drip-edit.
 2. Automation (ASC) — proof: +32% ROAS. **NG has never run Advantage+ Shopping.** Net-new lever to test, not yet evidenced for us.
 3. Creative Diversification — proof: +32% efficiency when creatives are visually distinct (only +2% if too similar); +9% incremental reach. **Directly validates our institutional truth: review/explainer beats feature/UGC because it's a genuinely different route (educational, not showcase) — not just a different edit of the same idea.** Also flags a NEW risk: our current 2 winners (Gadgetbhai, Techopedia) may look too similar to each other (both reviewer-POV) — diversify the *routes*, not just produce more of the same reviewer format.
-4. Data Quality (CAPI + Pixel, high-match params, dedupe) — proof: 13% cost-per-result improvement. **NG has a confirmed, quantified problem here: 138x Meta/GA4 discrepancy from broken UTM tags (`ng-product-page-cro`), and Meta-claimed ROAS 9.1x vs GA4 last-click 1.6x vs true estimate ~4.5-5.5x (`ng-paid-marketing-performance-jan-may26`). This is the single highest-leverage, most evidenced fix in the whole guidebook for us.** **Cycle 5 (2026-07-14) update: this exact failure mode recurred — 2026-07-13 GA4 traffic had 70.3% of session revenue land as `(not set)/(not set)`, the same tagging-break pattern, now affecting the live TRUE ROAS floor read directly (see cycle 5 entry below). This is no longer a historical data-quality note — it is actively distorting the account's most important number in real time.** **Cycle 6 (2026-07-16) update: recurred a THIRD time — 2026-07-15 landed 60.3% of that day's session revenue as `(not set)/(not set)` (₹32,878 of ₹54,520). This week's TRUE ROAS verdict (6.65×) already clears the floor including the bad day, so it didn't flip a decision this time, but the pattern is now recurring roughly weekly — MA-029's escalation stands, unresolved.** **Cycle 7 (2026-08-06, morning) update: escalated further still — the GA4 connector itself was fully disconnected in Windsor (zero configured accounts, not a tagging break), blocking every GA4-based number that cycle entirely. See MA-039.** **Cycle 8 (2026-08-06, same-day correction) update: RESOLVED architecturally — GA4 access moved to a direct Analytics Data API call, bypassing Windsor entirely. All 4 GA4 pulls this cycle succeeded, truncation guards passed, reconciliations matched exactly. The specific ES Comm 2 UTM-tag mismatch (MA-037) is, however, still unresolved — prior-week revenue is still landing under the stale "Comm LAL 1% 13 Nov 25" tag, confirmed directly via the new direct-API pull.** **Cycle 9 (2026-08-13) update: MA-037's mismatch is STILL unresolved — this cycle's GA4 pull again shows the bulk of ES Comm 2's real revenue landing under the "Comm LAL 1% 13 Nov 25" tag. Separately, a NEW tagging bug found this cycle: `{{campaign.name}}`/`{{ad.name}}` unresolved dynamic-UTM template variables are losing real Meta revenue (₹7,058 cur7d, ₹5,798+₹1,829 prior7d) to an unattributable bucket — distinct from the known ES Comm 2 and ES Lite (ad-name-as-campaign) tagging bugs. Also confirmed the GA4 attribution-maturity lag (~D+2, already known from the daily brief's "matured D−2" framing) materially affects the newest day in any trailing-7d GA4 window — 2026-08-12 carried 55.1% (not set)/(not set) share vs <5% every other day pulled, dragging the naive marginal-ROAS calc to a misleading 1.56× vs a matured 7.04×. Recommend the compute script always report both the headline and a matured (excl. last day) recompute going forward.** **Cycle 10 (2026-08-13, same day, live re-pull) update: this session's own live pull shows NO material `(not set)` spike anywhere in the 14-day window (max 3.5% on 08-04, 08-12 itself at 0.0%) — a materially cleaner read than cycle 9's logged 55.1% figure for the same calendar day. Both cycle 9's and this cycle's numbers are independently sourced from live pulls at different times of day; treat the discrepancy as evidence the `(not set)` share on a given day can itself keep resolving/maturing intraday (attribution catching up), not as a contradiction to flag as broken — re-affirms why the matured recompute convention should stay standard practice.** **Cycle 11 (2026-08-20) update: recurred again, larger — 19 Aug (the newest day in this cycle's trailing-7d window) carried 74.6% of that day's GA4 session revenue as `(not set)/(not set)`, vs ≤2.5% every other day in the 14-day pull. Same structural D+2 pattern, not new — the matured 6-day recompute (7.58× TRUE ROAS) was used as the reliable read instead of the raw headline (6.48×), consistent with the cycle 9/10 convention.** **Cycle 12 (2026-08-27) update: recurred again — 26 Aug (newest day) carried 64.6% `(not set)` share vs ≤3.3% every other day; matured 6d TRUE ROAS 6.63× used as the reliable read (vs raw 5.90×), same convention. Separately, this cycle found the campaign-tag mismatch problem (distinct from the `(not set)` maturity issue) has spread beyond ES Comm 2 to Openwire and Broad Interest — see the new CONFIRMED PATTERN entry above and MA-076/077.** **Cycle 13 (2026-09-03) update: recurred yet again — 2 Sep (newest day) carried 46.3% `(not set)` share vs ≤3.3% every other day in the 14-day window; matured 6d TRUE ROAS used as the reliable read (5.76×, vs raw 5.32×) per convention. For the first time, the matured read itself is BELOW the 6.0 floor — this is not a maturity artifact masking a healthy account, the underlying efficiency problem is real (see the new CONFIRMED PATTERN entries on the safebuds hero-ad decay and negative marginal ROAS).**
+4. Data Quality (CAPI + Pixel, high-match params, dedupe) — proof: 13% cost-per-result improvement. **NG has a confirmed, quantified problem here: 138x Meta/GA4 discrepancy from broken UTM tags (`ng-product-page-cro`), and Meta-claimed ROAS 9.1x vs GA4 last-click 1.6x vs true estimate ~4.5-5.5x (`ng-paid-marketing-performance-jan-may26`). This is the single highest-leverage, most evidenced fix in the whole guidebook for us.** **Cycle 5 (2026-07-14) update: this exact failure mode recurred — 2026-07-13 GA4 traffic had 70.3% of session revenue land as `(not set)/(not set)`, the same tagging-break pattern, now affecting the live TRUE ROAS floor read directly (see cycle 5 entry below). This is no longer a historical data-quality note — it is actively distorting the account's most important number in real time.** **Cycle 6 (2026-07-16) update: recurred a THIRD time — 2026-07-15 landed 60.3% of that day's session revenue as `(not set)/(not set)` (₹32,878 of ₹54,520). This week's TRUE ROAS verdict (6.65×) already clears the floor including the bad day, so it didn't flip a decision this time, but the pattern is now recurring roughly weekly — MA-029's escalation stands, unresolved.** **Cycle 7 (2026-08-06, morning) update: escalated further still — the GA4 connector itself was fully disconnected in Windsor (zero configured accounts, not a tagging break), blocking every GA4-based number that cycle entirely. See MA-039.** **Cycle 8 (2026-08-06, same-day correction) update: RESOLVED architecturally — GA4 access moved to a direct Analytics Data API call, bypassing Windsor entirely. All 4 GA4 pulls this cycle succeeded, truncation guards passed, reconciliations matched exactly. The specific ES Comm 2 UTM-tag mismatch (MA-037) is, however, still unresolved — prior-week revenue is still landing under the stale "Comm LAL 1% 13 Nov 25" tag, confirmed directly via the new direct-API pull.** **Cycle 9 (2026-08-13) update: MA-037's mismatch is STILL unresolved — this cycle's GA4 pull again shows the bulk of ES Comm 2's real revenue landing under the "Comm LAL 1% 13 Nov 25" tag. Separately, a NEW tagging bug found this cycle: `{{campaign.name}}`/`{{ad.name}}` unresolved dynamic-UTM template variables are losing real Meta revenue (₹7,058 cur7d, ₹5,798+₹1,829 prior7d) to an unattributable bucket — distinct from the known ES Comm 2 and ES Lite (ad-name-as-campaign) tagging bugs. Also confirmed the GA4 attribution-maturity lag (~D+2, already known from the daily brief's "matured D−2" framing) materially affects the newest day in any trailing-7d GA4 window — 2026-08-12 carried 55.1% (not set)/(not set) share vs <5% every other day pulled, dragging the naive marginal-ROAS calc to a misleading 1.56× vs a matured 7.04×. Recommend the compute script always report both the headline and a matured (excl. last day) recompute going forward.** **Cycle 10 (2026-08-13, same day, live re-pull) update: this session's own live pull shows NO material `(not set)` spike anywhere in the 14-day window (max 3.5% on 08-04, 08-12 itself at 0.0%) — a materially cleaner read than cycle 9's logged 55.1% figure for the same calendar day. Both cycle 9's and this cycle's numbers are independently sourced from live pulls at different times of day; treat the discrepancy as evidence the `(not set)` share on a given day can itself keep resolving/maturing intraday (attribution catching up), not as a contradiction to flag as broken — re-affirms why the matured recompute convention should stay standard practice.** **Cycle 11 (2026-08-20) update: recurred again, larger — 19 Aug (the newest day in this cycle's trailing-7d window) carried 74.6% of that day's GA4 session revenue as `(not set)/(not set)`, vs ≤2.5% every other day in the 14-day pull. Same structural D+2 pattern, not new — the matured 6-day recompute (7.58× TRUE ROAS) was used as the reliable read instead of the raw headline (6.48×), consistent with the cycle 9/10 convention.** **Cycle 12 (2026-08-27) update: recurred again — 26 Aug (newest day) carried 64.6% `(not set)` share vs ≤3.3% every other day; matured 6d TRUE ROAS 6.63× used as the reliable read (vs raw 5.90×), same convention. Separately, this cycle found the campaign-tag mismatch problem (distinct from the `(not set)` maturity issue) has spread beyond ES Comm 2 to Openwire and Broad Interest — see the new CONFIRMED PATTERN entry above and MA-076/077.** **Cycle 13 (2026-09-03) update: recurred yet again — 2 Sep (newest day) carried 46.3% `(not set)` share vs ≤3.3% every other day in the 14-day window; matured 6d TRUE ROAS used as the reliable read (5.76×, vs raw 5.32×) per convention. For the first time, the matured read itself is BELOW the 6.0 floor — this is not a maturity artifact masking a healthy account, the underlying efficiency problem is real (see the new CONFIRMED PATTERN entries on the safebuds hero-ad decay and negative marginal ROAS).** **Cycle 14 (2026-09-10) update: recurred yet again — 9 Sep (newest day) carried 59.9% `(not set)` share vs ≤3.0% every other day; matured 6d TRUE ROAS 5.65× used as the reliable read (vs raw 5.69×) — still below floor and slightly worse than cycle 13's matured 5.76×, the 4th consecutive cycle below floor.**
 5. Results Validation (A/B, lift, MMM) — proof: orgs investing in measurement 44% more likely to exceed revenue goals. **NG has zero formal lift/MMM testing — the 3-month test matrix (EXP-001–008) is directionally this, but reads are CPP/ROAS trend, not incrementality.**
 
 **Reels Creative Essentials:**
@@ -116,7 +130,7 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 **Business Messaging / WhatsApp — highest-relevance chapter for NG right now:**
 - 86% of Indian online adults message a business weekly; WhatsApp full-funnel (CTWA discovery → guided shopping → reminders → utility purchase msgs → personalized re-engagement) shows +61% avg ROAS in Meta cases.
 - **NG's own data already proves this channel: WhatsApp/Bitespeed CVR is 4.93% — the single best-converting channel on the entire account, beating Meta paid social, Google, even organic search** (`ng-paid-marketing-performance-jan-may26`). And there are 1,111 unworked abandoned checkouts (₹36.8L) with zero retargeting follow-up for most of the period.
-- **This is the guidebook chapter with the clearest, most evidenced NG action: build CTWA ads that route cold/warm Meta traffic into WhatsApp instead of (or alongside) the website, and pair with a WhatsApp abandoned-checkout recovery sequence.** This was flagged as Top-7 Problem #2 in the paid-performance memory and has not yet been executed as a Meta creative/campaign structure. **Cycle 13 (2026-09-03) update: for the first time, two "WA Review Ad" creatives (WhatsApp-routed) appeared organically this week, unbriefed by this lane — formalized a read-plan (MA-087) rather than let them run untracked. Still not a deliberate, planned CTWA build-out, but the first concrete live signal in this direction.**
+- **This is the guidebook chapter with the clearest, most evidenced NG action: build CTWA ads that route cold/warm Meta traffic into WhatsApp instead of (or alongside) the website, and pair with a WhatsApp abandoned-checkout recovery sequence.** This was flagged as Top-7 Problem #2 in the paid-performance memory and has not yet been executed as a Meta creative/campaign structure. **Cycle 13 (2026-09-03) update: for the first time, two "WA Review Ad" creatives (WhatsApp-routed) appeared organically this week, unbriefed by this lane — formalized a read-plan (MA-087) rather than let them run untracked. Still not a deliberate, planned CTWA build-out, but the first concrete live signal in this direction.** **Cycle 14 (2026-09-10) update: MA-087's read-plan hit its D+7 decision date with 0 purchases on trivial spend (₹295.59/21d) — extended rather than rejected, since WhatsApp-routed conversions may not attribute as a Meta purchase at all; the next check should look at WhatsApp/Bitespeed conversation counts directly, not Meta purchase data.**
 
 **Full-Funnel:**
 - Blending upper+mid+lower funnel: +70% ROI (adding upper to mid), Reach-alongside-DR: +2x reach / +31% incremental sales at +25% spend. **NG currently has almost no TOFU layer** (learning-log cycle 1: "No TOFU layer... all campaigns are conversion objective on cold/warm LAL"). One awareness exception — "Kannada office reel_Safebuds_Live translation" at 3.42M reach, ₹0.025/thruplay — is working as an unintentional TOFU test.
@@ -129,6 +143,7 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 - **Cycle 11 (2026-08-20) update:** Retargeting still effectively collapsed relative to its historical baseline (₹905.70/7d off a tiny base, 57 GA4 sessions, ₹0 GA4-tagged revenue) — MA-055 still unresolved, now a 3rd consecutive cycle with no cause logged.
 - **Cycle 12 (2026-08-27) update:** Retargeting is now fully dark — ₹0.00 spend cur7d, a 4th consecutive cycle with no cause logged. MA-055 still unresolved.
 - **Cycle 13 (2026-09-03) update:** Retargeting_26May 26_PDP View,ATC,30D does not appear at all in this cycle's live campaign pull (35d window) — still fully dark or dropped out entirely. MA-055 still unresolved, now a 5th+ consecutive cycle.
+- **Cycle 14 (2026-09-10) update:** closed via `/approvals` 2026-09-09 (MA-055) — Meet acknowledged, investigating directly, not agent-actionable; not re-escalated this cycle.
 
 **Explicitly DEFERRED for NG's stage (do not action, re-evaluate only when triggers hit):**
 - Cross-border chapter (Bid Multiplier, Multi-Language Ads, Web2App, Dynamic Ads by country/language) — only relevant once the UAE demand test (`ng-uae-market-context`) passes pass/fail thresholds. Until then, India-only.
@@ -140,6 +155,8 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 ## REJECTED / DEAD ENDS
 - Non-Techopedia SafeBuds creatives — ₹4,075 spent, ROAS <3× or zero. Do not retry feature/UGC/static for SafeBuds.
 - Dayparting / time-based budget redistribution (founder hypothesis, Jul-9-2026) — rejected on hourly data. Spend is NOT front-loading before 11 AM (Meta 27–35%, Google 28–37% of daily spend pre-11AM; Meta's heaviest hours are 8–11 PM). Pre/post-11AM ROAS flips daily on 10–15 orders/day — no stable hour-of-day edge to exploit. See 2026-07-09 cycle entry. Re-open only with a 14–30 day hourly aggregate showing a persistent gap.
+- Broad Sales Campaign A+ Catalogue | 2 Sep 26 — closed 2026-09-10 (MA-091) as REJECTED-on-non-delivery, not performance — 0 purchases across its entire ~6-day lifetime, dark since 09-04. If retried, needs a deliberate relaunch, not a reopening of this campaign.
+- Revive Massager | 28 Aug 26 — closed 2026-09-10 (MA-092) as REJECTED-on-non-delivery, not performance — only ever ran 2 days total, ₹50.71 lifetime spend. If this SKU is meant to launch, it needs a fresh, deliberate relaunch.
 
 ---
 
@@ -150,6 +167,109 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 > that still matters is already carried forward in the standing sections above (CONFIRMED PATTERNS,
 > COMPETITOR INTEL LEDGER, REJECTED/DEAD ENDS) and below (CREATIVE-FORMAT TEST ENGINE, SCALE
 > HYPOTHESIS BACKLOG). The managed agent never reads the archive file.
+
+### 2026-09-10 — Cycle 14 (Thursday teardown, off-week — core loop only, ISO week 37 is odd): account still below the 6.0 floor for a 4th consecutive cycle; safebuds_20Apr found fully dark 6 consecutive days
+
+**Initiative:** Weekly campaign-level teardown per the standing Thursday cadence. `DEEP_WEEK` computed
+first (ISO week 37, odd → core-loop-only cycle) — pulls 7/8 (auction-quality/hook-retention,
+placement) and the GA4 `addToCarts`/`checkouts` funnel metrics were correctly NOT requested this
+cycle. Pulls, all direct HTTPS inside one COMPUTE script (0 Windsor/MCP calls, run twice locally while
+building — once to fix a GA4 date-key format mismatch, `20260909` vs `2026-09-09`, that was silently
+zeroing the account-level revenue join): Meta campaign×day 35d (2026-08-06→2026-09-09, 153 rows, 1
+page), Meta ad×day 21d (2026-08-20→2026-09-09, 317 rows, 1 page), GA4 account src/medium×day 14d
+(2026-08-27→2026-09-09, 435 rows, rowCount 435, PASS), GA4 campaign×src/medium cur7d (2026-09-03→
+2026-09-09, 95 rows, rowCount 95, PASS) and prior7d (2026-08-27→2026-09-02, 127 rows, rowCount 127,
+PASS), GA4 account src/medium MTD (2026-09-01→2026-09-09, 57 rows, rowCount 57, PASS). Purchase
+action-type sanity check: `omni_purchase`, `offsite_conversion.fb_pixel_purchase`,
+`web_in_store_purchase` all summed to an identical 956.00 on the 35d campaign pull — no divergence.
+Ad-level 21d spend reconciled to campaign-level 21d spend within ₹0.20 (rounding). GA4 campaign
+sessions reconciled exactly both weeks (cur7d 10,768.00 = 10,768.00; prior7d 13,412.00 = 13,412.00).
+
+**Hypotheses tested / findings:**
+
+1. **Does the account clear the 6.0 floor and marginal-ROAS gate this week?**
+   **Result: NO — still below floor, 4th consecutive cycle, margin worse than last cycle.** Raw cur7d
+   (03–09 Sep): spend ₹32,504.07, GA4 Meta-paid revenue ₹1,84,954.20 → TRUE ROAS **5.69×**. 09 Sep
+   (newest day) carried a 59.9% `(not set)` share vs ≤3.0% every other day — matured 6d (03–08 Sep):
+   spend ₹28,019.55, revenue ₹1,58,412.10 → TRUE ROAS **5.65×** (prior matured, cycle 13: 5.76×) —
+   still below floor and slightly worse. Marginal ROAS (matured-vs-matured): Δspend/day −₹2,897.87
+   (−38.3%), Δrevenue/day −₹17,198.45 (−39.4%) → 5.93×/incremental-rupee, but this reflects a spend
+   CONTRACTION, not a scale test — the rupees that left were converting near the account average
+   (itself under floor). MTD (1–9 Sep): spend ₹48,485.79, revenue ₹3,10,254.60, TRUE ROAS 6.40× —
+   above floor only because early-September days pulled the average up before this week's
+   contraction. Platform overclaim 74.6% cur7d — within the normal 40–120% band, no attribution break.
+2. **What's driving the contraction — is it market-wide or concentrated?**
+   **Result: concentrated in two campaigns, safebuds_20Apr (near-total stoppage) and ES Comm 2
+   (continuing collapse); Broad Interest and Pulse both held or improved.** Broad Interest is flat WoW
+   (+0.1%) at ₹25,686.66, now 79% of the account's live spend — the sole real floor-clearer (platform
+   10.46×, GA4-dir 6.32×). Pulse Fitness Band's economics improved further (CPP ₹212.82, platform
+   16.25×, GA4-dir 11.65×) though its own spend fell -37.5%.
+3. **New this cycle — does the account have a campaign that's gone from "declining" to "dark"?**
+   **Result: yes — safebuds_20Apr 26 has gone fully dark for 6 consecutive days.** Spend ₹929.95 on
+   09-03, then ₹0.00 on 09-04 through 09-07, then **entirely absent from the Meta Marketing API**
+   (not a zero row — no row at all) on 09-08 and 09-09. This predates and is independent of MA-080
+   (hero-ad pause) and MA-081 (Facebook Reels exclusion), both approved 2026-09-09 but still awaiting
+   `/execute-approved` — the stoppage is not those drafts taking effect. Escalated as **MA-089** (high
+   risk, top priority). Every safebuds-specific open item from cycle 13 (MA-058, MA-070, MA-072,
+   MA-075, MA-084, MA-088) is now MOOT/OVERTAKEN until the campaign resumes — marked inline on each.
+4. **ES Comm 2 — still unstable?**
+   **Result: yes, a 5th consecutive collapse.** Spend -44.3% (₹753.98→₹419.76), 0 purchases, GA4-dir
+   ROAS 0.00×. MA-085's dated creative-retirement correlation (~22-23 Aug) is still unconfirmed by
+   Meet — re-escalated with no new facts this cycle.
+5. **Openwire — has the UTM-tag mismatch (MA-076/077) resolved, and where does it read now?**
+   **Result: still below floor, fix still not shipped.** Own-tag GA4-dir ROAS 4.99× this week (spend
+   -64.4%, platform ROAS 6.06×) — last cycle's combined-tag read was 6.09× (above floor); the
+   MA-077 UTM fix is approved but still awaiting `/execute-approved`, so this week's own-tag number
+   may still be an undercount rather than a genuine re-reversal.
+6. **New-campaign read-plans (MA-086) — did either clear its decision date?**
+   **Result: both missed on zero real delivery, not a thin-sample miss.** Broad Sales Campaign A+
+   Catalogue: 0 purchases across its entire ~6-day lifetime (₹2,570 total spend), dark since 09-04 —
+   closed as REJECTED-on-non-delivery (**MA-091**). Revive Massager: only ever ran 2 days total
+   (₹50.71 lifetime spend), dark since 08-29 — closed as REJECTED-on-non-delivery (**MA-092**).
+7. **Zero-purchase check (21d ad pull) — anything new?**
+   **Result: 5 new zero-purchase ads, ₹1,598.01/21d combined.** Gadgetbhai Comm reel_Broad_2 Sep 26
+   (₹983.53, Broad Sales Campaign), Techopedia Safebuds Reel_24 Jul 26 – SME Owner Aud (₹279.57, Broad
+   Interest), Influencer_Shahroz_13 Aug_Comm (₹188.20, ES Comm 2), Comm_ASMR Reel_Unboxing_12 Aug 26 –
+   Copy (₹86.32, ES Comm 2), Influencer_IND Unboxer_Comm_Problem Hook (₹60.33, ES Comm 2). CUT drafted
+   (**MA-090**).
+8. **MA-087's WhatsApp/CTWA read-plan — hit its D+7 decision date, what's the verdict?**
+   **Result: extend, don't reject.** "WA Review Ad | Safebuds LAL | 2 Sep 26" still shows ₹295.59/21d,
+   0 purchases — but WhatsApp-routed conversions may not land as a Meta-attributed purchase at all;
+   recommend checking WhatsApp/Bitespeed conversation counts directly next cycle instead of relying on
+   Meta purchase attribution.
+9. **Format engine — any change?** **Result: no, still the standing 6 (CF-31/37/51/54/55/56) IN TEST,
+   not delivering** — closed to a standing Meet agenda item via `/approvals` (MA-059), not re-drafted
+   weekly. Appended net-new format **CF-59 "Silent Subtitle Testimonial"** (MA-093), motivated by
+   Broad Interest now being the only campaign with enough real volume to safely host a new challenger
+   test.
+
+**Actions this cycle:** MA-089 (FIX, safebuds_20Apr fully dark 6 days — top priority, high risk);
+MA-090 (CUT, 5 zero-purchase ads, ₹1,598.01/21d); MA-091 (KILL, close Broad Sales Campaign A+
+Catalogue on non-delivery); MA-092 (KILL, close Revive Massager on non-delivery); MA-093 (TEST, append
+CF-59); D+7 status updates on MA-076 (Openwire, still below floor), MA-078 (Pulse, re-confirmed
+VALIDATED), MA-080/081/082 (approved, still awaiting execute), MA-083 (HOLD re-confirmed, 4th cycle
+below floor), MA-085 (ES Comm 2, still unconfirmed, collapsed further), MA-087 (extend); MA-058/070/
+072/075/084/088 all marked MOOT/OVERTAKEN pending MA-089's resolution.
+
+**Learning carried forward:**
+- **"Absent from the pull" and "present at ₹0" are different signals, and only one of them was being
+  checked closely before this cycle.** safebuds_20Apr's stoppage would have looked like "just another
+  spend decline" if only the ₹0.00 days had been counted — the campaign's total absence from the API
+  on 09-08/09-09 is a materially more urgent finding (likely a policy, payment, or platform-side block,
+  not a soft efficiency problem) and deserves its own explicit check every cycle on every live
+  campaign, not just a spend-percentage-change framing.
+- **Account-level spend concentration can emerge passively, the same way ad-level concentration did.**
+  Broad Interest reaching 79% of the account's live spend wasn't a deliberate scale decision — it's
+  what's left once safebuds_20Apr and ES Comm 2 both went dark. Watch the account's spend distribution
+  across campaigns every cycle as its own signal, the same way MA-058 flagged ad-level concentration
+  inside a single adset back in cycle 9.
+- **A read-plan hitting its decision date on thin volume with the "wrong" attribution mechanism (e.g.
+  a WhatsApp-routed ad judged only on Meta purchase data) needs a channel-appropriate extension, not a
+  same-metric REJECTED verdict** — MA-087's WA Review Ad test is the first time this lane has drafted
+  a Meta ad whose real conversion event likely happens off-platform; the standard CPP/ROAS read-plan
+  mechanism may simply be the wrong instrument for it.
+
+---
 
 ### 2026-09-03 — Cycle 13 (Thursday teardown, DEEP_WEEK — biweekly deep-diagnostics): account TRUE ROAS falls below the 6.0 floor on both raw and matured reads for the first time, safebuds_20Apr's decayed hero ad + bad placement + checkout collapse identified as the proximate cause
 
@@ -266,211 +386,6 @@ MA-078 marked VALIDATED (budget step gated behind MA-083); MA-074 marked confirm
 
 ---
 
-### 2026-08-27 — Cycle 12 (Thursday teardown, off-week — core loop only, ISO week 35 is odd): margin narrows further, spend contracts, a structural GA4 campaign-tagging problem surfaces
-
-**Initiative:** Weekly campaign-level teardown per the standing Thursday cadence. `DEEP_WEEK` computed
-first (ISO week 35, odd → core-loop-only cycle) — pulls 7/8 (auction-quality/hook-retention,
-placement) and the GA4 `addToCarts`/`checkouts` funnel metrics were correctly NOT requested this
-cycle. Pulls, all direct HTTPS inside one COMPUTE script (0 Windsor/MCP calls): Meta campaign×day 35d
-(2026-07-23→08-26, 153 rows), Meta ad×day 21d (2026-08-06→08-26, 247 rows), GA4 account src/medium×day
-14d (450 rows, rowCount 450, PASS), GA4 campaign×src/medium cur7d (106 rows, PASS) and prior7d (97
-rows, PASS), GA4 account src/medium MTD (93 rows, PASS). Purchase action-type sanity check:
-`omni_purchase`, `offsite_conversion.fb_pixel_purchase`, `web_in_store_purchase` all summed to an
-identical 981.00 on the campaign pull — no divergence. Ad-level 21d spend reconciled exactly to
-campaign-level spend for the identical window (₹1,79,523.62 both sides). GA4 campaign session sum
-reconciled exactly to the raw pull (21,326.00 both sides, cur7d).
-
-**Hypotheses tested / findings:**
-
-1. **Does the account clear the 6.0 floor and marginal-ROAS gate this week?**
-   **Result: yes on the matured read, with the margin narrowing a second cycle running.** Raw cur7d
-   (20–26 Aug): spend ₹52,933.16, GA4 Meta-paid revenue ₹3,12,437.60 → TRUE ROAS **5.90×** — below
-   floor on the raw headline. 26 Aug (newest day) carried 64.6% of its GA4 session revenue as
-   `(not set)/(not set)` vs ≤3.3% every other day — the same recurring D+2 maturity spike. Matured 6d
-   (20–25 Aug): spend ₹45,114.33, revenue ₹2,99,224.60 → TRUE ROAS **6.63×** (prior matured 7.58×) —
-   clears the floor but the margin has now narrowed two cycles running. MTD (1–26 Aug): spend
-   ₹2,11,730, revenue ₹15,41,797, TRUE ROAS **7.28×** — on pace for the month.
-2. **Is this week a scale opportunity or a contraction?**
-   **Result: a contraction, and marginal-ROAS math needs care here.** Both spend (-20.2% matured) and
-   revenue (-30.2% matured) fell WoW. Mechanically dividing the deltas gives 11.31× — read correctly,
-   this means the rupees that left the account were converting well above the 6.0 floor, i.e. the
-   pullback cut into above-floor spend rather than waste. Two campaigns account for most of the
-   contraction: safebuds_20Apr (-40.7% spend) and ES Comm 2 (-73.0% spend), neither with a logged
-   budget-step draft — most likely Meta's own delivery algorithm reacting to weakening efficiency
-   signals on both.
-3. **safebuds_20Apr's floor breach (MA-070, first flagged cycle 11) — better or worse?**
-   **Result: worse.** GA4-directional ROAS fell 6.84×(2 cycles ago)→5.89×(last cycle)→**4.12×** this
-   cycle, while spend to the campaign was cut -40.7% with no logged reason and CVR fell 2.32%→1.57%.
-   The landing-page/creative-interest audit MA-065/070 requested has still never happened. Escalated
-   as **MA-075**.
-4. **NEW this cycle: is the GA4 campaign-tag mismatch problem (previously only ES Comm 2, MA-037)
-   isolated or spreading?** **Result: spreading — now a confirmed 3-campaign, structural pattern.**
-   Openwire's real GA4 revenue lands on a *different* tag (`Openwire LAL 1%_5 Aug 26`), not the
-   campaign name — own-tag matching was reading a false "near-zero, collapsed" signal (2 sessions/₹0)
-   when the combined-tag reality is 1,651 sessions/₹37,924 revenue, GA4-dir ROAS 5.56× (prior 6.31×) —
-   still below floor but a controlled decline, not the "reversed to near-zero" read cycle 11 logged.
-   Escalated as **MA-076**. Worse: Broad Interest's real conversion signal (₹1,76,959 cur7d revenue)
-   sits inside a **3-way merged tag** shared with ES Comm 2 and safebuds
-   (`ES Comm, Safebuds - Broad Interest Based- 24 Jul 26`) — unlike the other two, this one can't be
-   cleanly split back to one campaign. Broad Interest's own-tag reading (523 sessions) is a severe
-   undercount, and its apparent +43% organic spend growth with an 11.57× platform ROAS this week
-   **cannot currently be verified as a real scale opportunity.** Escalated as **MA-077**, recommending
-   a full account-wide UTM-taxonomy audit rather than continued per-campaign patching.
-5. **ES Comm 2 — stable after last cycle's "first near-full clean week," or still unstable?**
-   **Result: unstable a third time.** Spend fell -73.0% (₹10,447.71→₹2,823.33) and combined-tag
-   GA4-directional ROAS fell 8.23×→5.00× (below floor). The "one more clean week before any budget
-   conversation" (MA-057) never arrived — restated with this cycle's numbers.
-6. **Retargeting — still near-zero, or worse?** **Result: now fully dark.** ₹0.00 spend cur7d (from
-   ₹905.70 last cycle), a 4th consecutive cycle with no cause logged (MA-055).
-7. **Zero-purchase check (21d ad pull) — anything new, and does the standing CUT backlog still hold?**
-   **Result: five new/continuing trivial finds, and the entire standing backlog has self-resolved.**
-   New: "Before After Static Ad_Comm_21 Aug 26 – Copy" (₹253.77), "Safebuds_Unboxing Reel_28 May 26"
-   (₹189.38), "Techopedia Safebuds Reel_24 Jul 26 – SME Owner Aud" (₹128.78), plus 2 trivial (₹15.90
-   combined) — ₹587.83/21d total, drafted as **MA-074**. Separately: MA-042, MA-043, MA-051, MA-063,
-   and MA-068 — carried 2 to 7+ cycles as "still not executed" — **no longer appear anywhere in this
-   cycle's live 21-day ad pull at all.** All five have dropped out of delivery entirely on their own.
-   Recommending these be closed as self-resolved.
-8. **A new campaign, "Pulse Fitness Band | 24 Aug 26," appeared in the pull with no prior read-plan.**
-   Launched ~24 Aug. Early read: CPP ₹408.53, GA4-dir ROAS 8.64× (own-tag, exact match, reliable) on
-   ₹1,225.59 spend, CVR 0.82%. Set a formal threshold — CPP ≤₹450, ROAS ≥8× by D+7 (31 Aug) — as
-   **MA-078**, same mechanism as MA-047's Openwire read-plan.
-9. **Format engine — any change?** **Result: no, still 0/5 delivering, 8th straight cycle.** No
-   CF-31/37/51/54/55 ad names anywhere in the live 21-day ad list — re-confirmed MA-059 without a new
-   draft. **Net-new format appended: CF-57 "Ambient ASMR Unboxing"** (MA-079), motivated by "Unboxing
-   ASMR Vid | Comm | 25 Aug 26" (Broad Interest) already reading an 18.00× platform ROAS on a thin
-   ₹196.11/21d sample — too small to validate, formalized into the register to watch.
-
-**Actions this cycle:** MA-074 (CUT, 5 zero-purchase ads, ₹587.83/21d); MA-075 (FIX, escalates MA-070
-with worse safebuds_20Apr evidence); MA-076 (FIX, new Openwire tag mismatch); MA-077 (FIX, new,
-structural — Broad Interest's 3-way merged tag); MA-078 (TEST, new-SKU read-plan — Pulse Fitness
-Band); MA-079 (TEST, append CF-57); MA-042/043/051/063/068 marked self-resolved (no longer in live
-pull); MA-044 marked resolved (reallocation held). No budget moves — every candidate campaign was
-either below floor, dark, or GA4-directionally unverifiable this cycle.
-
-**Learning carried forward:**
-- **GA4 campaign-tag mismatches are not a one-off ES Comm 2 problem — they are structural and
-  spreading.** Three campaigns now confirmed affected in different ways (wrong tag entirely, a
-  differently-named tag, and an unresolvable 3-way merge). Every per-campaign directional read from
-  here forward should be treated as provisional until a full UTM audit runs, not just for the
-  campaigns already flagged.
-- **A spend contraction is not automatically good news even when the account still clears its floor.**
-  This cycle's marginal-ROAS math (11.31×) reflects rupees that were converting well above 6.0 leaving
-  the account, unexplained, on two of its largest campaigns simultaneously — worth investigating as
-  hard as a floor breach would be.
-- **The standing CUT backlog can self-resolve without ever being formally executed** — ads drop out of
-  delivery on their own (algorithm cutting spend to zero-purchase ads, or manual pauses done outside
-  this queue's tracking). Always re-verify a stale CUT draft against the live pull before assuming it
-  still needs action, and close it out once confirmed gone rather than re-drafting indefinitely.
-
----
-
-### 2026-08-20 — Cycle 11 (Thursday teardown, DEEP_WEEK — biweekly deep-diagnostics): margin narrows, two campaigns fall under the floor directionally, checkout collapse shared across campaigns
-
-**Initiative:** Weekly campaign-level teardown per the standing Thursday cadence. `DEEP_WEEK` computed
-first (ISO week 34, even → deep-dive cycle). Pulls, all direct HTTPS inside one COMPUTE script (0
-Windsor/MCP calls): Meta campaign×day 35d (2026-07-16→08-19, 155 rows), Meta ad×day 21d (2026-07-30→
-08-19, 247 rows), Meta ad-diagnostics cur7d agg (15 rows, DEEP_WEEK), Meta campaign×placement cur7d agg
-(66 rows, DEEP_WEEK), GA4 account src/medium×day 14d with `addToCarts`/`checkouts` (413 rows, rowCount
-413, PASS), GA4 campaign×src/medium cur7d (101 rows, PASS) and prior7d (91 rows, PASS) with funnel
-metrics, GA4 account src/medium MTD (83 rows, PASS). Purchase action-type sanity check: `omni_purchase`,
-`offsite_conversion.fb_pixel_purchase`, `web_in_store_purchase` all summed to an identical 951.00 on the
-campaign pull — no divergence. Campaign-level spend reconciled exactly to account spend; placement-sum
-reconciled to campaign spend within ₹0.10 (rounding) on all 5 live campaigns.
-
-**Hypotheses tested / findings:**
-
-1. **Does the account clear the 6.0 floor and marginal-ROAS gate this week?**
-   **Result: yes on the reliable read, with a narrower margin.** Raw cur7d (13–19 Aug): spend
-   ₹67,189.36, GA4 Meta-paid revenue ₹4,35,310.75 → TRUE ROAS **6.48×** (prior7d 7.80×). 19 Aug (newest
-   day) carried 74.6% of its GA4 session revenue as `(not set)/(not set)` vs ≤2.5% every other day —
-   the same recurring D+2 maturity spike. Matured 6d (13–18 Aug): spend ₹56,557.78, revenue ₹4,28,683.75
-   → TRUE ROAS **7.58×**, the basis for every call this cycle. Marginal ROAS: naive raw-window figure is
-   a nonsensical −3.54× (same artifact); matured-vs-matured (6-day clean windows both sides): Δspend/day
-   ₹1,452.75, Δrevenue/day ₹10,711.02 → **7.37×**, clears the gate. MTD (1–19 Aug): spend ₹1,58,772.61,
-   revenue ₹11,50,664.05, TRUE ROAS **7.25×** — on pace for the month.
-2. **Are all campaigns still clearing 6.0 on a GA4-directional basis, or is platform ROAS hiding a
-   breach?** **Result: no — two are not, for the first time.** safebuds_20Apr 26 (48.6% of cur7d Meta
-   spend, the account's largest campaign) reads platform ROAS 8.15× but GA4-directional ROAS **5.89×**
-   (prior 6.38×) — below the floor. Openwire_5 Aug 26 reads platform ROAS 6.35× but GA4-directional
-   **5.42×** (prior 8.78×, a hard reversal from last cycle's scale-ready read) — also below the floor.
-   Both platform numbers looked fine; only the GA4-directional cross-check caught the breach — the
-   exact blind spot cycle 8's Retargeting finding first warned about. Escalated safebuds as MA-070
-   (restates/escalates MA-065 with floor-breach evidence) and downgraded MA-062 to HOLD (Openwire).
-3. **What changed to cause Openwire's reversal, and did the account scale into it?**
-   **Result: nothing was scaled — the pending budget step never executed, and that discipline paid
-   off.** MA-062's +20% step (drafted cycle 9/10, "strongly recommend executing") sat pending. This
-   week Openwire's CPP worsened +30.9% (₹96.17→₹125.89), platform ROAS fell 8.72×→6.35×, GA4-directional
-   fell 8.78×→5.42×. Had the step executed, the account would have scaled budget directly into this
-   decline. Downgraded MA-062 to HOLD; do not scale until 7 clean days re-clear the floor directionally.
-4. **Broad Interest's 2-week no-touch window (from MA-048) expired today (2026-08-20) — does the
-   account step again?** **Result: no — HOLD.** GA4-directional ROAS kept falling (10.00×→7.75×,
-   still >6.0) and CPP rose +19.0%. A no-touch window expiring is not itself a reason to step; the
-   week's own read has to justify it, and this week's doesn't.
-5. **New diagnostic pulls (ad-diagnostics + campaign×placement, both DEEP_WEEK) — what did they find,
-   and does last cycle's MA-064 placement finding still hold?**
-   **Result: MA-064's basis flipped — a different placement is this week's real problem.**
-   safebuds_20Apr's Instagram Feed (flagged as the worst placement last cycle, CPP ₹536.41, MA-064
-   drafted to exclude it, never executed) recovered to CPP ₹301.92 this week — *better* than the
-   adset's own blend (₹340.39). Marked MA-064 DO NOT EXECUTE. The real placement problem this week:
-   **Broad Interest's Instagram Reels** — ₹7,384.56 (46.6% of campaign spend) at CPP ₹410.25, 29.4%
-   worse than the campaign's blend (₹317.20). New placement CUT drafted (MA-069). **Auction quality:
-   clean** — no `BELOW_AVERAGE` ranking on any of the 9 ads spending ≥₹500 this week. **Hook
-   retention:** Openwire's hero ad still has a strong hook (p25 = 10.1% of impressions) but its
-   body-retention slipped further (p75/p25 now 21.5%, down from 24.0% last cycle) — MA-066's re-edit
-   test remains unproduced and is now more urgent given the ad's broader reversal.
-6. **Funnel diagnostic (funnel metrics, DEEP_WEEK) — any specific broken stage?**
-   **Result: two distinct leaks.** (a) safebuds_20Apr's own funnel keeps softening at the top —
-   session→ATC 10.8%→10.1%, ATC→checkout 51.4%→49.7% (checkout→purchase actually improved,
-   41.2%→42.6%) — restates and escalates MA-065 with this cycle's floor-breach evidence (MA-070). (b)
-   **New finding: checkout→purchase collapsed simultaneously in Broad Interest (41.8%→31.9%) and
-   Openwire (27.1%→19.3%)** while both campaigns' upstream funnel stages (session→ATC, ATC→checkout)
-   held or improved — pointing at a shared checkout-stage problem (payment/trust/technical), not a
-   landing-page mismatch. Escalated as a checkout-flow technical/UX audit request (MA-071).
-7. **MA-061's Tamil/Kannada SafeBuds read-plan hit its 2026-08-19 decision date — VALIDATED or
-   REJECTED?** **Result: neither — uninterpretable.** Delivery collapsed this week to ₹196.27 (Tamil,
-   1 purchase) and ₹42.97 (Kannada, 0 purchases), both far below their spend 1–2 weeks prior — the same
-   under-delivery failure mode already correctly diagnosed for Telugu Comm (MA-032). Extended the
-   read-plan and requested a delivery diagnostic (MA-072) rather than closing on a thin sample.
-8. **Zero-purchase check (21d ad pull) — anything new, and does the standing backlog still hold?**
-   **Result: two new trivial finds, backlog re-confirmed.** New: "Tech in Gujarati_Safebuds Reel_13
-   Jul 26 – SME Owner campaign" (₹3.76/21d) and "Reel_TVC" (₹1.46/21d), both 0 purchases (MA-068). The
-   MA-042/043/051/063 cluster all re-confirm zero purchases again (₹691.56/₹90.87/₹33.56/₹22.17),
-   combined named waste this cycle ₹843.38/21d (~₹281/week) — now sitting unexecuted for 2 to 7+ cycles.
-9. **MA-058's hero-adset rebalance — did it work?** **Result: partial.** Techopedia_17May26's
-   concentration improved 88.3%→71.6%, Nobody Tech's share grew 7.3%→27.6% — a genuine positive move.
-   But "Tech in Gujarati_Safebuds Reel_13 Jul 26," which delivered ₹5,812.28/18 purchases/8.19× ROAS
-   over the prior ~2 weeks per the 21d pull, is dark again THIS week specifically (₹0 cur7d) — an
-   intermittent on/off delivery pattern, not a clean fix. Kept the delivery-diagnostic ask open.
-10. **Format engine — any change?** **Result: no, worse — now 0/5, 7th straight cycle.** CF-31, CF-37,
-    CF-51, CF-54, CF-55 all show zero impressions again. Re-confirmed MA-059, recommended it become a
-    standing Meet agenda item rather than a weekly repeat draft. Appended net-new format **CF-56
-    "Checkout-Trust Overlay"** (MA-073), directly motivated by this cycle's own checkout→purchase
-    collapse finding (MA-071) — a specific trust/guarantee card timed at the exact leaking funnel stage.
-
-**Actions this cycle:** MA-068 (CUT, 2 new trivial zero-purchase ads), MA-069 (CUT, Broad Interest IG
-Reels placement exclusion), MA-070 (FIX, safebuds_20Apr floor breach, escalates MA-065), MA-071 (FIX,
-shared checkout→purchase collapse), MA-072 (FIX/TEST, extend MA-061's read-plan), MA-073 (TEST, append
-CF-56); MA-062 downgraded to HOLD (Openwire reversal); MA-064 marked DO NOT EXECUTE (stale basis);
-MA-042/043/051/054/055/056/057/058/059/061/065/066 all re-confirmed/updated inline with fresh numbers.
-
-**Learning carried forward:**
-- **Platform ROAS masking a GA4-directional floor breach isn't limited to small/declining campaigns —
-  it hit the account's single LARGEST campaign this cycle** (safebuds_20Apr, 48.6% of spend). Always
-  run the GA4-directional check on every live campaign every cycle, not just ones that already look
-  weak on platform numbers.
-- **A pending, unexecuted budget-step draft is not neutral — it's a hedge.** Openwire's MA-062 step
-  would have added budget directly into a week where the campaign's own margin collapsed below the
-  floor. The ratchet discipline (never scale on a stale read, always re-verify before executing) is
-  what prevented that this cycle, not luck.
-- **Placement-exclusion and zero-purchase-cut staleness are the same failure mode** — re-verify both
-  fresh every cycle before executing; a "worst placement" or "confirmed cut" from one cycle can flip
-  or resolve within a single week.
-- **A funnel-diagnostic signature (upstream stages flat/improving, only the final stage moving) shared
-  across multiple otherwise-unrelated campaigns is a strong signal of a shared, non-creative root
-  cause** — worth escalating as a technical audit rather than diagnosing each campaign separately.
-
----
-
 ## CREATIVE-FORMAT TEST ENGINE — the format library (always 2–3 trials live)
 
 > **Purpose:** review/explainer is a *confirmed* winner and our anchor — but not the only format that can convert. This engine keeps hunting for **additional** winning formats so we can scale further, tap fresh audiences, and de-risk single-format dependency. **This is an OPEN, living library, not a fixed list** — Block A is the founder's seed references, Block B is expert-added D2C direct-response formats, and **every cycle the agent appends ≥1 net-new format idea** (the "one new falsifiable bet" TEST verdict). The catalog grows; it is never "finished." Never delete a row — supersede it.
@@ -481,6 +396,12 @@ MA-042/043/051/054/055/056/057/058/059/061/065/066 all re-confirmed/updated inli
 > 3. **Funded by reallocation off the weekly CUT list — NEVER net-new budget while TRUE ROAS < 6.0 floor.** Always-on testing must stay floor-safe.
 > 4. **Lifecycle:** `UNTESTED → IN TEST → VALIDATED` (clears the control / scale bar: ROAS ≥ control-or-8×, CPP ≤ SKU floor, freq < 2.5× on ≥7-day read → promote to the winner rotation **and** log a new `SH-MA-#` scale bet in the backlog below) `→ REJECTED` (log to REJECTED / DEAD ENDS above with the number; never blindly retry).
 > 5. A format is only ever a **controlled challenger** until it earns primary status by clearing the bar — an unvalidated format is never made the primary converter.
+>
+> **Cycle 14 (2026-09-10) note:** CF-31/37/51/54/55/56 confirmed still 0/6 delivering — this item is now
+> a standing Meet agenda item (MA-059, closed via `/approvals` 2026-09-09), not re-drafted weekly.
+> Appended net-new format **CF-59 "Silent Subtitle Testimonial"** (MA-093) — a muted-autoplay-safe
+> lever, motivated by Broad Interest now carrying 79% of the account's live spend and being the only
+> safe host for a new challenger test this cycle.
 >
 > **Cycle 13 (2026-09-03) note:** CF-31/37/51/54/55/56 confirmed still 0/6 delivering — 9th straight
 > cycle. Appended net-new format **CF-58 "ASMR Unboxing — SafeBuds"** (MA-088) — a second, independent
@@ -557,36 +478,37 @@ MA-042/043/051/054/055/056/057/058/059/061/065/066 all re-confirmed/updated inli
 
 | # | Format | Angle / psych lever | Status | Best ROAS seen | Verdict / notes | Linked EXP/MA |
 |---|---|---|---|---|---|---|
-| CF-31 | Expert / audiologist explainer | Authority — ENT/audiologist on "the science of open-ear" (strongest fit for NG's hearing-health moat) | **IN TEST (since cycle 6) — NOT DELIVERING, 9 straight cycles (0 impressions)** | — | Blocked on Meet's compliance call re: presenter-credential framing, unresolved 8+ weeks. | MA-034, MA-046, MA-052, MA-059 |
+| CF-31 | Expert / audiologist explainer | Authority — ENT/audiologist on "the science of open-ear" (strongest fit for NG's hearing-health moat) | **IN TEST (since cycle 6) — NOT DELIVERING, 10 straight cycles (0 impressions)** | — | Blocked on Meet's compliance call re: presenter-credential framing, unresolved 8+ weeks. Standing Meet agenda item (MA-059), not re-drafted weekly. | MA-034, MA-046, MA-052, MA-059 |
 | CF-32 | Data / number hero | Authority — specificity heuristic ("94% stopped removing an earbud to hear traffic") | UNTESTED | — | — | — |
 | CF-33 | Demonstration / "watch it work" | Authority — show-don't-tell the open-ear mechanism | UNTESTED | — | — | — |
 | CF-34 | Review-wall montage | Social proof — rapid real-review screenshots | UNTESTED | — | — | — |
 | CF-35 | "X,000 Indians switched" | Social proof — bandwagon / safety-in-numbers | UNTESTED | — | — | — |
 | CF-36 | Skeptic-to-believer | Social proof — "I was sure open-ear was a gimmick…" | UNTESTED | — | — | — |
-| CF-37 | Fear-of-loss health hook | Loss aversion — "what sealed earbuds are doing to your hearing" (WHO-stat, on-brand) | **IN TEST (since cycle 6) — NOT DELIVERING, 9 straight cycles (0 impressions); host adset ES Comm 2 is unstable (dark→restart→collapse cycle, now tied to a dated creative-retirement, MA-085)** | — | No stated production blocker, host adset instability may be a factor. | MA-035, MA-046, MA-052, MA-059 |
+| CF-37 | Fear-of-loss health hook | Loss aversion — "what sealed earbuds are doing to your hearing" (WHO-stat, on-brand) | **IN TEST (since cycle 6) — NOT DELIVERING, 10 straight cycles (0 impressions); host adset ES Comm 2 has now collapsed a 5th consecutive cycle** | — | No stated production blocker, host adset instability may be a factor. Standing Meet agenda item (MA-059). | MA-035, MA-046, MA-052, MA-059 |
 | CF-38 | Guarantee / risk-reversal | Loss aversion — money-back, "try it risk-free" | UNTESTED | — | — | — |
 | CF-39 | Open-loop hook | Curiosity — Zeigarnik ("the reason your ears ache by 4pm…") | UNTESTED | — | — | — |
 | CF-40 | Myth vs fact | Curiosity — correct a false category belief | UNTESTED | — | — | — |
 | CF-41 | Anti-ad / "this isn't an ad" | Pattern interrupt — novelty | UNTESTED | — | — | — |
 | CF-42 | Problem-Agitate-Solve (PAS) | DR framework — classic direct-response structure | UNTESTED | — | — | — |
 | CF-43 | 3-reasons listicle | DR framework — cognitive chunking | UNTESTED | — | — | — |
-| CF-44 | Before / after transformation | DR framework — contrast effect, visual proof | UNTESTED | — | — | Ad-hoc org ads "Before After Static Ad_Comm_21 Aug 26" (Broad Interest) and its variants already live — one now BREACHES the Comm 2.0 floor (see MA-082), a mixed early signal for this angle even though CF-44 itself is still UNTESTED as a controlled trial. |
+| CF-44 | Before / after transformation | DR framework — contrast effect, visual proof | UNTESTED | — | — | Ad-hoc org ads "Before After Static Ad_Comm_21 Aug 26" (Broad Interest) and its variants already live — one breached the Comm 2.0 floor (MA-082), a mixed early signal for this angle even though CF-44 itself is still UNTESTED as a controlled trial. |
 | CF-45 | POV trend format | Native — relatable, platform-native | UNTESTED | — | — | — |
 | CF-46 | Green-screen creator reaction / stitch | Native — commentary on a claim | UNTESTED | — | — | — |
 | CF-47 | "Stop scrolling if you…" qualifier hook | Native — self-selection | UNTESTED | — | — | — |
 | CF-48 | "We spent 2 years tuning this driver" | Effort justification — labor-illusion | UNTESTED | — | — | — |
 | CF-49 | Founder reads a 1-star review | Objection / trust — vulnerability → reactance reversal | UNTESTED | — | — | — |
 | CF-50 | FAQ "you asked, we answered" | Objection handling — objections at scale | UNTESTED | — | — | — |
-| CF-51 | Silent Sensory Demo (cycle 6) | Demonstration route, no voiceover — captions + ambient sound close-up of the open-ear driver/mechanism; answers the DNB-guidebook risk that NG's two winners (Gadgetbhai, Techopedia) are both reviewer-POV and may look visually too similar to each other | **IN TEST (rotated in cycle 7, 2026-08-06) — NOT DELIVERING, 9 straight cycles (0 impressions, brief still pending production)** | — | Was rotated in specifically because CF-31/CF-37 weren't delivering; it also isn't delivering. See MA-059. | MA-045, MA-052, MA-059 |
+| CF-51 | Silent Sensory Demo (cycle 6) | Demonstration route, no voiceover — captions + ambient sound close-up of the open-ear driver/mechanism; answers the DNB-guidebook risk that NG's two winners (Gadgetbhai, Techopedia) are both reviewer-POV and may look visually too similar to each other | **IN TEST (rotated in cycle 7, 2026-08-06) — NOT DELIVERING, 10 straight cycles (0 impressions, brief still pending production); host adset (safebuds_20Apr) has since gone fully dark (MA-089)** | — | Was rotated in specifically because CF-31/CF-37 weren't delivering; it also isn't delivering, and its host is now dark. See MA-059/MA-089. | MA-045, MA-052, MA-059 |
 | CF-52 | Commute Noise-Test (cycle 7) | Demonstration lever — presenter walks through a loud outdoor environment (traffic/metro) showing open-ear lets you hear surroundings while sealed buds don't; visually distinct outdoor setting from Gadgetbhai/Techopedia's indoor tech-review setting and from CF-31's clinical setting | UNTESTED | — | Appended 2026-08-06 (cycle 7); next in line once a slot frees. | — |
 | CF-53 | Live A/B Mirror (cycle 8) | Comparison/contrast lever — two presenters side-by-side, one wearing sealed earbuds, one wearing SafeBuds, both react in real time to the same ambient cue (doorbell/car horn/name-call); the first dual-presenter/split-screen format in the register, demonstrating the benefit instantly without narration-heavy setup | UNTESTED | — | Appended 2026-08-06 (cycle 8); next in line once a slot frees. | MA-053 |
 | CF-54 | Rapid-Fire Speed Review (cycle 9) | Pacing/density lever — compress problem-hook + demo + proof + CTA into ≤15 seconds total via 4–5 rapid micro-cuts, roughly half the runtime of every existing format's 20–32s structure; tests whether NG's own "~87.6% same-day decider" institutional truth means a much denser/faster cut converts better, motivated directly by SafeBuds PDP's persistently low CVR (0.26–0.75% in recent daily briefs) despite running the account's most-validated review format | UNTESTED | — | Appended 2026-08-13 (cycle 9); next in line once a slot frees. | MA-060 |
 | CF-55 | Silent Scroll-Stopper (cycle 10) | Pattern-interrupt lever — a 0–2s non-verbal, motion-graphics visual disruption (no voiceover, no captions) immediately preceding the standard review-format body; isolates "hook craft" as its own testable variable, independent of language/presenter/dub, distinct from every existing register entry | UNTESTED | — | Appended 2026-08-13 (cycle 10), motivated directly by that cycle's ad-diagnostics finding of a 4× hook-landing spread (p25/impressions 3.07%–12.7%) across live ads with no format-level lever yet tested for it; next in line once a slot frees. | MA-067 |
 | CF-56 | Checkout-Trust Overlay (cycle 11) | Trust/guarantee lever — a specific proof card (COD availability, return-window length, warranty terms) shown immediately before the CTA in the final 3–5 seconds, distinct from CF-38's broader/earlier-placed risk-reversal messaging by targeting the exact funnel stage this cycle's data shows leaking | UNTESTED | — | Appended 2026-08-20 (cycle 11), motivated directly by that cycle's funnel diagnostic finding a checkout→purchase collapse shared across Broad Interest and Openwire (MA-071); that original collapse has since RECOVERED (cycle 13) but the format idea itself remains valid — checkout-stage trust reinforcement is a generally useful lever, not tied to one incident. Next in line once a slot frees. | MA-073 |
-| CF-57 | Ambient ASMR Unboxing (cycle 12) | Sensory/ASMR lever — product-sound-only unboxing (rustling packaging, driver click, case snap) with no voiceover or music, distinct from CF-51's silent visual demo by leaning on audio texture/ASMR rather than a silent visual close-up of the mechanism | UNTESTED | — | Appended 2026-08-27 (cycle 12), motivated by an ad-hoc, un-registered ad ("Unboxing ASMR Vid | Comm | 25 Aug 26") already reading an 18.00× platform ROAS on a thin ₹196.11/21d, 1-purchase sample. **Cycle 13 update: a second, independent instance of this same lever (this time on SafeBuds) shows the account's best hook (17.45% of impressions) AND best retention (46.3% p75/p25) this cycle — see CF-58. Recommend CF-57/58 jump the rotation queue ahead of the older, still-blocked CF-31/37/51.** | MA-079 |
-| CF-58 | ASMR Unboxing — SafeBuds (NEW, cycle 13) | Same sensory/ASMR-unboxing lever as CF-57, built natively for SafeBuds rather than Comm — a second, independent SKU application of the same format idea | UNTESTED | — | Appended 2026-09-03 (cycle 13), motivated by "ASMR Unboxing Vid | Safebuds | 31 Aug 26" — best hook (17.45% of impressions) AND best retention (46.3% p75/p25) of any ad diagnosed this cycle, on a thin ₹1,191.56/21d, 2-purchase sample. Recommend prioritizing CF-57/58 ahead of CF-31/37/51 for the next open test slot. | MA-088 |
+| CF-57 | Ambient ASMR Unboxing (cycle 12) | Sensory/ASMR lever — product-sound-only unboxing (rustling packaging, driver click, case snap) with no voiceover or music, distinct from CF-51's silent visual demo by leaning on audio texture/ASMR rather than a silent visual close-up of the mechanism | UNTESTED | — | Appended 2026-08-27 (cycle 12), motivated by an ad-hoc, un-registered ad ("Unboxing ASMR Vid | Comm | 25 Aug 26") already reading an 18.00× platform ROAS on a thin ₹196.11/21d, 1-purchase sample. Cycle 13: a second, independent instance (SafeBuds) shows the account's best hook (17.45% of impressions) AND best retention (46.3% p75/p25) — see CF-58. Recommend CF-57/58 jump the rotation queue ahead of the older, still-blocked CF-31/37/51. | MA-079 |
+| CF-58 | ASMR Unboxing — SafeBuds (cycle 13) | Same sensory/ASMR-unboxing lever as CF-57, built natively for SafeBuds rather than Comm — a second, independent SKU application of the same format idea | UNTESTED | — | Appended 2026-09-03 (cycle 13), motivated by "ASMR Unboxing Vid | Safebuds | 31 Aug 26" — best hook (17.45% of impressions) AND best retention (46.3% p75/p25) of any ad diagnosed this cycle, on a thin ₹1,191.56/21d, 2-purchase sample. **Cycle 14 update: this motivating ad's host campaign (safebuds_20Apr) has since gone fully dark (MA-089) — the ad no longer appears in the live pull. CF-58 stays UNTESTED in the register regardless.** | MA-088 |
+| CF-59 | Silent Subtitle Testimonial (NEW, cycle 14) | A muted-autoplay-safe lever — bold on-screen captioned testimonial (real customer language, no voiceover reliance, no ASMR/sound-texture dependence), distinct from CF-51 (silent product demo, not a testimonial) and CF-57/58 (sound-reliant ASMR-unboxing) | UNTESTED | — | Appended 2026-09-10 (cycle 14), motivated by Broad Interest now carrying 79% of the account's live spend — the only campaign with enough real volume to safely host a new challenger test this cycle. Next in line once a slot frees. | MA-093 |
 
-*(Block B is a starting expansion, not exhaustive — append `CF-59+` as new formats are conceived each cycle.)*
+*(Block B is a starting expansion, not exhaustive — append `CF-60+` as new formats are conceived each cycle.)*
 
 ---
 
@@ -596,25 +518,26 @@ MA-042/043/051/054/055/056/057/058/059/061/065/066 all re-confirmed/updated inli
 
 | # | Hypothesis (metric + threshold) | Test (smallest move) | Status | Linked queue |
 |---|---|---|---|---|
-| SH-MA-1 | LAL campaign (52576570206220) re-launch with Gadgetbhai creative only. | Removed from active pursuit — MA-012 rejected 2026-06-30. **Cycle 4 update:** the campaign is now PAUSED with zero delivery regardless of creative mix (see MA-018) — the creative-mix question is moot until the campaign is confirmed running again. | STALLED — campaign dark, not a creative-mix problem right now. Still dark as of cycle 13. | MA-012, MA-018 |
-| SH-MA-2 | A new review/explainer Comm 2.0 creative beats the Custom Reel's ROAS and clears the 8× bar. | **Cycle 4 update: hypothesis partially overtaken by events.** Custom Reel itself recovered to 10.50× ROAS this week (from 4.95× the prior week) without any creative swap — it now clears the 8× bar on its own. Hold off shipping a replacement creative until a second consecutive weak week confirms real decay (see cycle-4 learning: single-week dips on <₹3K/week spend are noisy). **Cycle 5 update: decayed again (CPP ₹437, ROAS 7.56×, weakest in its adset) — RE-OPENED, non-budget rotation drafted (MA-030). Cycle 6 update: recovered again (CPP ₹352, ROAS 9.38×) — third decay/recovery cycle logged, MA-030 stays queued but not urgent.** | WATCHING — ES Comm 2 collapsed again this cycle (-73.3% spend), now tied to a dated creative retirement (MA-085); Custom Reel doesn't reappear distinctly in cycle 13's ad-level data. Re-assess creative mix once the campaign's instability is resolved. | MA-003, MA-006, MA-012, MA-030 |
-| SH-MA-3 | boAt clip-on open-ear ads on Meta India do NOT erode NG SafeBuds CPP over 4 weeks — health/education hook stays differentiated from boAt's lifestyle/feature framing. | Watch SafeBuds CPP/ROAS week-on-week alongside boAt ad longevity check. | CONFIRMED so far — 10+ consecutive weeks; the current cycle's SafeBuds CPP erosion (hero ad ₹1,026.02) is a self-inflicted decay/rotation problem (MA-080), not a boAt-driven CPP shift. Keep watching. | MA-004 |
-| SH-MA-4 | Broad audience (no LAL constraint) with Techopedia SafeBuds review creative achieves CPP ≤ ₹291 and ROAS ≥ 8× within 7 days (EXP-002). Meta Andromeda 2026 signal: creative IS the targeting. | ₹10K test, 7-day read, broad India interest layer only. | **VALIDATED (cycle 8). Still unverifiable, cycle 13 — Broad Interest's own directional ROAS sits inside a 3-way merged UTM tag shared with ES Comm 2 and safebuds (MA-077, unchanged this cycle). Platform ROAS reads 9.44× this week (down from 11.56×) but cannot be credited as a confirmed scale signal until the tagging issue is fixed.** | MA-013, MA-048 |
-| SH-MA-5 | ES Lite review Reel (EXP-003) achieves CPP ≤ ₹265 and ROAS ≥ 8× within 7 days on fresh interest audience. Unlocks a third revenue line now stock is cleared. | ₹10K test, 7-day read, ES Lite interest audience. | **STILL STALLED, cycle 13 — absent entirely from the 35-day campaign pull, 6th consecutive cycle this ask has gone unanswered.** No reliable GA4 campaign-level tag exists for ES Lite either (separate tagging issue). | MA-014, MA-021, MA-022, MA-041, MA-056 |
-| SH-MA-6 | SafeBuds LAL 3–5% expansion with health/education hook (EXP-004) holds ROAS ≥ 10× and CPP ≤ ₹350 within 7 days — validating both the audience expansion AND the health-hook creative together. | ₹12K test, 7-day read, LAL 3–5% + new health-hook creative. | OPEN — not re-queued; safebuds_20Apr 26 has a bigger, more urgent problem this cycle — its decayed hero ad breached the SafeBuds kill floor outright (MA-080) and the account's own TRUE ROAS fell below the 6.0 floor (MA-083) — audience expansion is not the right lever until both are resolved. | MA-015 |
-| SH-MA-7 | (EXP-006) Gujarati-voiceover SafeBuds review Reel, added as a 3rd ad inside the existing SafeBuds LAL 1% ad set (no new ad set, no geo constraint), matches/beats the ad set's blended CPP ₹258.08 and clears ROAS ≥8× within 7 days at ₹800/day. NET-NEW BET — no prior Purchase-optimized regional-language creative; only adjacent, non-predictive signal is the Kannada awareness reel (THRUPLAY, no purchase data). | ₹5,600 test (₹800/day × 7d), read at ad level vs. the two live SafeBuds controls. | **STILL INTERMITTENT — absent from this cycle's live ad list, unchanged since cycle 11/12.** | MA-024, MA-033, MA-058 |
-| SH-MA-8 | (EXP-007) Telugu-voiceover Comm 2.0 review Reel, added as a 5th ad inside the existing Comm 2.0 LAL 1% ad set (no new ad set, no geo constraint), matches/beats the ad set's blended CPP ₹242.21 and clears ROAS ≥8× within 7 days at ₹600/day. PURE NET-NEW BET — Comm 2.0 has zero prior regional-language creative of any kind (not even an awareness precedent). | ₹4,200 test (₹600/day × 7d), read at ad level vs. the three live Comm 2.0 controls. | **Host campaign (ES Comm 2) unstable — collapsed again this cycle (-73.3% spend), now tied to a dated creative retirement (MA-085). Re-assess once the host campaign stabilizes.** | MA-025, MA-032, MA-057 |
-| SH-MA-9 | Pausing the TOFU Kannada office reel (zero platform-attributed purchases, now several consecutive weeks) does not measurably shrink the Retargeting campaign's reach/pool health, and blended TRUE ROAS improves by narrowing the gap to the 6.0 floor — testing whether the institutionally-assumed "TOFU feeds the retargeting pool" role is actually true or just an untested assumption carried since cycle 1 (2026-06-27). | Pause the single ad for 7–14 days; no budget redeployed elsewhere. Re-read Retargeting reach/frequency and blended TRUE ROAS at D+7 and D+14. | **MOOT — Retargeting doesn't appear at all in this cycle's 35-day campaign pull, 5th+ consecutive cycle unresolved; cannot isolate the Kannada-reel question from the campaign's own status.** | MA-028, MA-055 |
-| SH-MA-10 | MOFU_PDP & Video Thruplay _24 May 26 campaign, once fully paused, frees ₹3,492.64/week with zero measurable loss to any converting funnel stage (it has driven 0 purchases 2 straight weeks) — the freed spend funds SH-MA-7 reallocation + the CF-31/CF-37 format tests without needing net-new budget. | Pause the full campaign (MA-031); confirm at D+7 spend→₹0 and no revenue/CVR impact elsewhere. | **CONFIRMED HELD** — the campaign no longer appears at all in the 35-day campaign pull, re-confirmed again this cycle (cycle 13). | MA-031 |
-| SH-MA-11 | CF-31 "Expert/audiologist explainer" challenger ad inside the safebuds_20Apr 26 LAL adset clears the review-format control (CPP ≤ ₹380, ROAS ≥ 8×, freq < 2.5×) within a 7-day read at ~₹5,000 spend. | ₹5,000 test, 7-day read, funded by MOFU-cut reallocation (MA-031). | **STALLED 9 cycles running — blocked on Meet's compliance call, 0 impressions delivered.** Re-confirmed cycle 13 (MA-059). | MA-034, MA-046, MA-052, MA-059 |
-| SH-MA-12 | CF-37 "Fear-of-loss health hook" challenger ad inside the ES Comm 2 adset clears the review-format control (CPP ≤ ₹450, ROAS ≥ 8×, freq < 2.5×) within a 7-day read at ~₹5,000 spend. | ₹5,000 test, 7-day read, funded by MOFU-cut reallocation (MA-031). | **STALLED — 0 impressions delivered; host adset (ES Comm 2) remains unstable (collapsed again this cycle, now tied to a dated creative retirement, MA-085).** Re-confirmed cycle 13 (MA-059). | MA-035, MA-046, MA-052, MA-059 |
-| SH-MA-13 | CF-51 "Silent Sensory Demo" challenger ad inside the safebuds_20Apr 26 hero adset clears the review-format control (CPP ≤ ₹380, ROAS ≥ 8×, freq < 2.5×) within a 7-day read at ~₹5,000 spend. | ₹5,000 test, 7-day read, funded by MA-042/043 reallocation (~₹1,036/14d) — no net-new spend. | **STALLED — brief still not produced, 9 cycles after being rotated in.** Re-confirmed cycle 13 as part of MA-059's broader pipeline flag. | MA-045, MA-052, MA-059 |
-| SH-MA-14 | Openwire (Type-C wired) campaign clears CPP ≤ ₹350 and platform ROAS ≥ 8× by 2026-08-12 (7-day read from its 2026-08-05 launch), consistent with the 2026-08-05 daily brief's 5.17% PDP CVR signal (vs SafeBuds' 0.75%). | No change — campaign already live at its current small spend; this is a read-plan/threshold only. | **VALIDATED cycle 10. REVERSED cycle 11 (naive own-tag read). Cycle 12: partly a tagging artifact — combined-tag GA4-dir ROAS 5.56×, controlled decline not collapse. Cycle 13 update: combined-tag GA4-dir ROAS IMPROVED to 6.09× — back above the 6.0 floor, though thin margin. MA-062's budget step can be reconsidered once this holds for a full clean week; not this cycle (account-wide budget HOLD, MA-083).** | MA-047, MA-062, MA-076 |
-| SH-MA-15 | "Broad Interest Based-24 Jul 26" campaign's +20% budget step (MA-048) holds GA4-directional ROAS ≥8× and platform CPP ≤₹380 within a 7-day read, confirming the organic-growth signal was real and not a one-week artifact. | +20% budget step, ~₹1,515/day → ~₹1,818/day, 7-day read. | **UNVERIFIABLE, cycle 13 — unchanged — this campaign's real GA4 conversion signal still sits inside a 3-way merged UTM tag shared with ES Comm 2 and safebuds (MA-077); cannot independently confirm or reject this cycle's own-tag reading until the tagging issue is resolved.** | MA-048 |
-| SH-MA-16 | Openwire_5 Aug 26's first-ever +20% budget step (MA-062, ~₹1,057.58/day → ~₹1,269/day) holds CPP ≤₹350, platform ROAS ≥8×, and GA4-directional ROAS ≥6× within a 7-day read, confirming the SKU's organic-growth signal survives an actual budget increase. | +20% budget step, 7-day read. | **STILL ON HOLD, cycle 13 — combined-tag GA4-dir ROAS improved to 6.09× (see SH-MA-14), back above the 6.0 floor on a thin margin. Do not re-open a budget step this cycle regardless — account-wide budget HOLD in effect (MA-083).** | MA-062, MA-076 |
-| SH-MA-17 | Re-editing the 8–20s body of "Tech in Gujarati Reel_Openwire Hindi Dub_5 Aug" (leaving the 0–2s hook untouched) raises its video_p75/p25 watch-through ratio from 24.0% to ≥40% while holding CPP ≤₹120 and platform ROAS ≥8× within a 7-day read — isolating body-retention as a fixable, separate problem from the ad's already-strong hook. | ~₹3,000 test spend, 7-day read, funded by CUT-list reallocation (MA-063/064), no net-new budget. | **STILL NOT PRODUCED — p75/p25 continues slipping (24.0%→21.5%→20.9% this cycle), 3rd consecutive declining DEEP_WEEK read. Increasingly urgent.** | MA-066 |
-| SH-MA-18 | A checkout-flow technical/UX fix (once diagnosed per MA-071) recovers checkout→purchase conversion in Broad Interest and Openwire back toward their pre-collapse levels within 7 days of the fix landing, confirming a shared technical cause rather than two coincidental campaign-level declines. | No spend — diagnostic + technical fix, re-read via GA4 funnel metrics at D+7. | **✅ CONFIRMED, cycle 13 — C2P recovered in both campaigns (Broad Interest 24.5%→42.3%, above its 41.8% pre-collapse baseline; Openwire 20.5%→22.8%, trending back toward 27.1%). The shared-cause hypothesis holds. Note: a similar, isolated collapse has since appeared on a THIRD campaign (safebuds_20Apr) — see SH-MA-20/MA-084, a distinct instance of the same failure mode, not a re-opening of this one.** | MA-071 |
-| SH-MA-19 | New campaign "Pulse Fitness Band \| 24 Aug 26" clears CPP ≤₹450 and GA4-directional ROAS ≥8× by D+7 (2026-08-31), consistent with its early read (CPP ₹408.53, GA4-dir ROAS 8.64× on ₹1,225.59 spend, CVR 0.82% — own-tag GA4 match confirmed direct and reliable). | No change — campaign already live at its current small spend; this is a read-plan/threshold only. | **✅ VALIDATED, cycle 13 — CPP ₹288.30 (≤₹450 ✓), GA4-dir ROAS 10.26× cur7d / 8.63× prior7d (≥8× ✓ both weeks). First-ever budget-step candidate for this campaign, queued but gated behind the account-wide TRUE ROAS floor clearing (MA-083) — do not execute this cycle regardless.** | MA-078 |
-| SH-MA-20 (NEW, cycle 13) | A checkout-flow/offer audit specific to safebuds_20Apr's PDP and creative mix (motivated by MA-084) recovers its checkout→purchase rate from 15.4% back toward its pre-collapse baseline (32.0%) within 7 days of MA-080/081 (hero-ad pause + placement exclusion) executing, confirming the leak was creative/placement-driven rather than a separate checkout-technical issue. | No spend — diagnostic + creative/placement fix (MA-080/081), re-read via GA4 funnel metrics at the next DEEP_WEEK (2026-09-17). | **NEW — drafted 2026-09-03 (cycle 13), see MA-084.** | MA-084 |
-| SH-MA-21 (NEW, cycle 13) | Excluding safebuds_20Apr's Facebook Reels placement (CPP ₹1,138.98 vs blend ₹566.49) improves the campaign's blended CPP toward ₹566 or better within a 7-day read, recovering roughly ₹4,008/week in excess spend. | No spend change — placement exclusion only. | **NEW — drafted 2026-09-03 (cycle 13), see MA-081.** | MA-081 |
-| SH-MA-22 (NEW, cycle 13) | Pausing/deprioritizing "Techopedia Safebuds Reel_17May 26" (CPP ₹1,026.02, ROAS 2.62×) and reallocating priority to "Nobody Tech Safebuds Reel_30Jun26" + the two new SafeBuds ads lifts safebuds_20Apr's blended CPP/GA4-directional ROAS back toward or above the 6.0 floor within a 7-day read, with no net-new spend. | Pause/deprioritize one ad, reallocate priority within the existing adset — no budget change. | **NEW — drafted 2026-09-03 (cycle 13), see MA-080.** | MA-080 |
+| SH-MA-1 | LAL campaign (52576570206220) re-launch with Gadgetbhai creative only. | Removed from active pursuit — MA-012 rejected 2026-06-30. **Cycle 4 update:** the campaign is now PAUSED with zero delivery regardless of creative mix (see MA-018) — the creative-mix question is moot until the campaign is confirmed running again. | STALLED — campaign dark, not a creative-mix problem right now. Still dark as of cycle 14. | MA-012, MA-018 |
+| SH-MA-2 | A new review/explainer Comm 2.0 creative beats the Custom Reel's ROAS and clears the 8× bar. | **Cycle 4 update: hypothesis partially overtaken by events.** Custom Reel itself recovered to 10.50× ROAS this week (from 4.95× the prior week) without any creative swap — it now clears the 8× bar on its own. Hold off shipping a replacement creative until a second consecutive weak week confirms real decay (see cycle-4 learning: single-week dips on <₹3K/week spend are noisy). **Cycle 5 update: decayed again (CPP ₹437, ROAS 7.56×, weakest in its adset) — RE-OPENED, non-budget rotation drafted (MA-030). Cycle 6 update: recovered again (CPP ₹352, ROAS 9.38×) — third decay/recovery cycle logged, MA-030 stays queued but not urgent.** | WATCHING — ES Comm 2 has now collapsed a 5th consecutive cycle; Custom Reel doesn't reappear distinctly in cycle 14's ad-level data. Re-assess creative mix once the campaign's instability is resolved. | MA-003, MA-006, MA-012, MA-030 |
+| SH-MA-3 | boAt clip-on open-ear ads on Meta India do NOT erode NG SafeBuds CPP over 4 weeks — health/education hook stays differentiated from boAt's lifestyle/feature framing. | Watch SafeBuds CPP/ROAS week-on-week alongside boAt ad longevity check. | CONFIRMED so far — 10+ consecutive weeks; the safebuds_20Apr campaign's current problem is a self-inflicted stoppage (MA-089), not a boAt-driven CPP shift. Keep watching once the campaign resumes. | MA-004 |
+| SH-MA-4 | Broad audience (no LAL constraint) with Techopedia SafeBuds review creative achieves CPP ≤ ₹291 and ROAS ≥ 8× within 7 days (EXP-002). Meta Andromeda 2026 signal: creative IS the targeting. | ₹10K test, 7-day read, broad India interest layer only. | **VALIDATED (cycle 8). Cycle 14: Broad Interest is now 79% of the account's live spend, platform ROAS 10.46×, own-tag GA4-dir ROAS 6.32× (above floor) — the account's sole reliable floor-clearer this week. The MA-077 UTM fix (3-way merged tag) is approved but still not shipped — this own-tag read is encouraging but not yet independently fully verified.** | MA-013, MA-048 |
+| SH-MA-5 | ES Lite review Reel (EXP-003) achieves CPP ≤ ₹265 and ROAS ≥ 8× within 7 days on fresh interest audience. Unlocks a third revenue line now stock is cleared. | ₹10K test, 7-day read, ES Lite interest audience. | **CLOSED via /approvals 2026-09-09 (MA-056) — Meet investigating directly, not agent-actionable.** | MA-014, MA-021, MA-022, MA-041, MA-056 |
+| SH-MA-6 | SafeBuds LAL 3–5% expansion with health/education hook (EXP-004) holds ROAS ≥ 10× and CPP ≤ ₹350 within 7 days — validating both the audience expansion AND the health-hook creative together. | ₹12K test, 7-day read, LAL 3–5% + new health-hook creative. | OPEN — not re-queued; safebuds_20Apr 26 has a bigger, more urgent problem this cycle — it's gone fully dark (MA-089) — audience expansion is not the right lever until the campaign resumes and the account itself re-clears 6.0. | MA-015 |
+| SH-MA-7 | (EXP-006) Gujarati-voiceover SafeBuds review Reel, added as a 3rd ad inside the existing SafeBuds LAL 1% ad set (no new ad set, no geo constraint), matches/beats the ad set's blended CPP ₹258.08 and clears ROAS ≥8× within 7 days at ₹800/day. NET-NEW BET — no prior Purchase-optimized regional-language creative; only adjacent, non-predictive signal is the Kannada awareness reel (THRUPLAY, no purchase data). | ₹5,600 test (₹800/day × 7d), read at ad level vs. the two live SafeBuds controls. | **MOOT — host campaign (safebuds_20Apr) fully dark (MA-089).** | MA-024, MA-033, MA-058 |
+| SH-MA-8 | (EXP-007) Telugu-voiceover Comm 2.0 review Reel, added as a 5th ad inside the existing Comm 2.0 LAL 1% ad set (no new ad set, no geo constraint), matches/beats the ad set's blended CPP ₹242.21 and clears ROAS ≥8× within 7 days at ₹600/day. PURE NET-NEW BET — Comm 2.0 has zero prior regional-language creative of any kind (not even an awareness precedent). | ₹4,200 test (₹600/day × 7d), read at ad level vs. the three live Comm 2.0 controls. | **Host campaign (ES Comm 2) collapsed a 5th consecutive cycle (MA-085). Re-assess once the host campaign stabilizes.** | MA-025, MA-032, MA-057 |
+| SH-MA-9 | Pausing the TOFU Kannada office reel (zero platform-attributed purchases, now several consecutive weeks) does not measurably shrink the Retargeting campaign's reach/pool health, and blended TRUE ROAS improves by narrowing the gap to the 6.0 floor — testing whether the institutionally-assumed "TOFU feeds the retargeting pool" role is actually true or just an untested assumption carried since cycle 1 (2026-06-27). | Pause the single ad for 7–14 days; no budget redeployed elsewhere. Re-read Retargeting reach/frequency and blended TRUE ROAS at D+7 and D+14. | **CLOSED via /approvals 2026-09-09 (MA-055) — Meet investigating directly, not agent-actionable.** | MA-028, MA-055 |
+| SH-MA-10 | MOFU_PDP & Video Thruplay _24 May 26 campaign, once fully paused, frees ₹3,492.64/week with zero measurable loss to any converting funnel stage (it has driven 0 purchases 2 straight weeks) — the freed spend funds SH-MA-7 reallocation + the CF-31/CF-37 format tests without needing net-new budget. | Pause the full campaign (MA-031); confirm at D+7 spend→₹0 and no revenue/CVR impact elsewhere. | **CONFIRMED HELD** — the campaign no longer appears at all in the 35-day campaign pull, re-confirmed again this cycle (cycle 14). | MA-031 |
+| SH-MA-11 | CF-31 "Expert/audiologist explainer" challenger ad inside the safebuds_20Apr 26 LAL adset clears the review-format control (CPP ≤ ₹380, ROAS ≥ 8×, freq < 2.5×) within a 7-day read at ~₹5,000 spend. | ₹5,000 test, 7-day read, funded by MOFU-cut reallocation (MA-031). | **STALLED 10 cycles running — blocked on Meet's compliance call, 0 impressions delivered. Standing Meet agenda item (MA-059).** | MA-034, MA-046, MA-052, MA-059 |
+| SH-MA-12 | CF-37 "Fear-of-loss health hook" challenger ad inside the ES Comm 2 adset clears the review-format control (CPP ≤ ₹450, ROAS ≥ 8×, freq < 2.5×) within a 7-day read at ~₹5,000 spend. | ₹5,000 test, 7-day read, funded by MOFU-cut reallocation (MA-031). | **STALLED — 0 impressions delivered; host adset (ES Comm 2) has now collapsed a 5th consecutive cycle.** | MA-035, MA-046, MA-052, MA-059 |
+| SH-MA-13 | CF-51 "Silent Sensory Demo" challenger ad inside the safebuds_20Apr 26 hero adset clears the review-format control (CPP ≤ ₹380, ROAS ≥ 8×, freq < 2.5×) within a 7-day read at ~₹5,000 spend. | ₹5,000 test, 7-day read, funded by MA-042/043 reallocation (~₹1,036/14d) — no net-new spend. | **STALLED — brief still not produced, 10 cycles after being rotated in; host adset now fully dark (MA-089).** | MA-045, MA-052, MA-059 |
+| SH-MA-14 | Openwire (Type-C wired) campaign clears CPP ≤ ₹350 and platform ROAS ≥ 8× by 2026-08-12 (7-day read from its 2026-08-05 launch), consistent with the 2026-08-05 daily brief's 5.17% PDP CVR signal (vs SafeBuds' 0.75%). | No change — campaign already live at its current small spend; this is a read-plan/threshold only. | **Cycle 14 update: own-tag GA4-dir ROAS reads 4.99× this week (below floor, spend -64.4%) — the UTM fix (MA-077) is approved but still not shipped, so this may still be an undercount.** | MA-047, MA-062, MA-076 |
+| SH-MA-15 | "Broad Interest Based-24 Jul 26" campaign's +20% budget step (MA-048) holds GA4-directional ROAS ≥8× and platform CPP ≤₹380 within a 7-day read, confirming the organic-growth signal was real and not a one-week artifact. | +20% budget step, ~₹1,515/day → ~₹1,818/day, 7-day read. | **Cycle 14 update: this campaign is now 79% of the account's live spend, own-tag GA4-dir ROAS 6.32× (above floor) — the account's sole reliable floor-clearer. Still gated behind the MA-077 UTM fix for full independent verification, and behind MA-083's account-wide budget HOLD for any step.** | MA-048 |
+| SH-MA-16 | Openwire_5 Aug 26's first-ever +20% budget step (MA-062, ~₹1,057.58/day → ~₹1,269/day) holds CPP ≤₹350, platform ROAS ≥8×, and GA4-directional ROAS ≥6× within a 7-day read, confirming the SKU's organic-growth signal survives an actual budget increase. | +20% budget step, 7-day read. | **STILL ON HOLD, cycle 14 — own-tag GA4-dir ROAS fell back to 4.99× this week — do not re-open a budget step regardless (account-wide budget HOLD, MA-083).** | MA-062, MA-076 |
+| SH-MA-17 | Re-editing the 8–20s body of "Tech in Gujarati Reel_Openwire Hindi Dub_5 Aug" (leaving the 0–2s hook untouched) raises its video_p75/p25 watch-through ratio from 24.0% to ≥40% while holding CPP ≤₹120 and platform ROAS ≥8× within a 7-day read — isolating body-retention as a fixable, separate problem from the ad's already-strong hook. | ~₹3,000 test spend, 7-day read, funded by CUT-list reallocation (MA-063/064), no net-new budget. | **STILL NOT PRODUCED — no DEEP_WEEK diagnostic this cycle (off-week); last read (cycle 13) p75/p25 20.9%, 3rd consecutive declining read. Next diagnostic due 2026-09-17.** | MA-066 |
+| SH-MA-18 | A checkout-flow technical/UX fix (once diagnosed per MA-071) recovers checkout→purchase conversion in Broad Interest and Openwire back toward their pre-collapse levels within 7 days of the fix landing, confirming a shared technical cause rather than two coincidental campaign-level declines. | No spend — diagnostic + technical fix, re-read via GA4 funnel metrics at D+7. | **✅ CONFIRMED, cycle 13 — C2P recovered in both campaigns. No fresh funnel read this cycle (off-week); next DEEP_WEEK 2026-09-17.** | MA-071 |
+| SH-MA-19 | New campaign "Pulse Fitness Band \| 24 Aug 26" clears CPP ≤₹450 and GA4-directional ROAS ≥8× by D+7 (2026-08-31), consistent with its early read (CPP ₹408.53, GA4-dir ROAS 8.64× on ₹1,225.59 spend, CVR 0.82% — own-tag GA4 match confirmed direct and reliable). | No change — campaign already live at its current small spend; this is a read-plan/threshold only. | **✅ VALIDATED, re-confirmed cycle 14 — CPP ₹212.82, platform ROAS 16.25×, GA4-dir ROAS 11.65× — best unit economics on the account. Budget-step candidate queued, still gated behind the account-wide TRUE ROAS floor clearing (MA-083).** | MA-078 |
+| SH-MA-20 | A checkout-flow/offer audit specific to safebuds_20Apr's PDP and creative mix (motivated by MA-084) recovers its checkout→purchase rate from 15.4% back toward its pre-collapse baseline (32.0%) within 7 days of MA-080/081 (hero-ad pause + placement exclusion) executing, confirming the leak was creative/placement-driven rather than a separate checkout-technical issue. | No spend — diagnostic + creative/placement fix (MA-080/081), re-read via GA4 funnel metrics at the next DEEP_WEEK (2026-09-17). | **OVERTAKEN — campaign now fully dark (MA-089), no cur7d funnel to read. Re-diagnose at the next DEEP_WEEK if/when it resumes.** | MA-084 |
+| SH-MA-21 | Excluding safebuds_20Apr's Facebook Reels placement (CPP ₹1,138.98 vs blend ₹566.49) improves the campaign's blended CPP toward ₹566 or better within a 7-day read, recovering roughly ₹4,008/week in excess spend. | No spend change — placement exclusion only. | **MOOT — campaign fully dark (MA-089), no placement is spending at all to exclude from.** | MA-081 |
+| SH-MA-22 | Pausing/deprioritizing "Techopedia Safebuds Reel_17May 26" (CPP ₹1,026.02, ROAS 2.62×) and reallocating priority to "Nobody Tech Safebuds Reel_30Jun26" + the two new SafeBuds ads lifts safebuds_20Apr's blended CPP/GA4-directional ROAS back toward or above the 6.0 floor within a 7-day read, with no net-new spend. | Pause/deprioritize one ad, reallocate priority within the existing adset — no budget change. | **MOOT — the ad itself stopped delivering 2026-08-31 and the whole host campaign has since gone fully dark (MA-089).** | MA-080 |
+| SH-MA-23 (NEW, cycle 14) | Confirming and resolving the cause of safebuds_20Apr's 6-consecutive-day full stoppage (MA-089) restores the campaign to real delivery within 3 days of Meet's investigation, at which point MA-080/081's already-approved fixes can execute meaningfully. | No spend — diagnostic escalation only; re-read at D+3 (2026-09-13). | **NEW — drafted 2026-09-10 (cycle 14), see MA-089.** | MA-089 |
