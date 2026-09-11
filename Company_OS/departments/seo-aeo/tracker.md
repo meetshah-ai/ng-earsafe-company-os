@@ -5,6 +5,8 @@
 >
 > **2026-09-09 (/approvals decisions):** SEO-028/029/032/034 (retitles), SEO-030/033/035 (new articles), SEO-031 (FAQ expansion), SEO-009 (UTM investigation), SEO-010 (writer reassignment) all APPROVED — awaiting `/execute-approved`. Note: SEO-020..027 remain approved-but-unexecuted from prior cycles (20+ days) — that's an `/execute-approved` gap, not a new decision.
 >
+> **2026-09-11 (/execute-approved — LIVE writes to Shopify):** SEO-020, SEO-027, SEO-028, SEO-029, SEO-030 (scope changed — updated existing video-conferencing article instead of publishing a near-duplicate), SEO-031, SEO-032, SEO-033, SEO-034, SEO-035 all EXECUTED — see `DECISION_LOG.md` for exact article/collection IDs and what changed on each. SEO-010 turned out to be a stale finding (the pillar article had already published 2026-07-31) — no action taken, closed. SEO-009 (UTM investigation) and SEO-011 (halted, premise disproven) remain unexecuted — not agent-executable / not safely re-executable respectively. SEO-020..035 are now all resolved one way or another; only SEO-005 (earplug redirect, its own execution-spec gate) and SEO-009 remain genuinely open from this backlog.
+>
 > **⚙️ Managed-agent cadence (since 2026-07-17):** the `seo-aeo` managed agent runs every **Monday
 > 08:00 IST**, reads this file + `learning-log.md`, and drafts `SEO-###` rows to `queue-inbox.md`
 > (this department's private inbox — the agent never touches `APPROVALS_QUEUE.md`). **New IDs
