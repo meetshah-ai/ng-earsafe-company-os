@@ -1,7 +1,7 @@
 # SEO & AEO — Live Task Tracker
 
 > Read at the start of every SEO session to resume instantly. After a task: update status + result. Each 30-day cycle: archive completed into `learning-log.md` and reset.
-> **2026-10-07 (/approvals decision):** SEO-038 (teaching-online article rewrite) APPROVED by Meet — awaiting `/execute-approved`; draft body at `Company_OS/seo-aeo/drafts/SEO-038_best-headphones-for-teaching-online.html`. Do not re-draft. SEO-036/037/039..044 remain pending.
+> **2026-10-07 (/approvals + /execute-approved):** SEO-038 (teaching-online article rewrite) APPROVED by Meet and **EXECUTED LIVE 2026-10-07** — Shopify Article 751511568663 rewritten (new title, body, FAQPage schema, title/description tags); old 8-hr battery claim replaced with the PDP's 17+ hr. Do not re-draft. First read for this page: ~D+30 (2026-11-06). SEO-036/037/039..044 remain pending. **Open content-accuracy flags for the next cycle (not yet fixed, to be queued for approval):** (a) the Sep-11 SEO-030 article still says Comm 2.0 is 8 hr / IPX4 — conflicts with the PDP's 17+ hr; (b) Comm 2.0 PDP structured data (`custom.json_ld`) shows ₹3,299 and 4.2★/46 reviews vs live ₹3,499 and Judge.me 4.13★/52; (c) competitor price/spec cells in the Sep-11 SEO-027/030/033/035 comparison tables were not source-checked.
 >
 > Last updated: 2026-10-05 (weekly managed-agent cycle — SEO-036..043 (8 rows) all still pending approval; 1 new draft SEO-044; blast page and WFH page both worse a 2nd straight cycle since their fixes reportedly shipped)
 >
