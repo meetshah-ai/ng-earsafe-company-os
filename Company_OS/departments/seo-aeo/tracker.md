@@ -1,6 +1,8 @@
 # SEO & AEO — Live Task Tracker
 
 > Read at the start of every SEO session to resume instantly. After a task: update status + result. Each 30-day cycle: archive completed into `learning-log.md` and reset.
+> **2026-10-07 (/approvals decision):** SEO-038 (teaching-online article rewrite) APPROVED by Meet — awaiting `/execute-approved`; draft body at `Company_OS/seo-aeo/drafts/SEO-038_best-headphones-for-teaching-online.html`. Do not re-draft. SEO-036/037/039..044 remain pending.
+>
 > Last updated: 2026-10-05 (weekly managed-agent cycle — SEO-036..043 (8 rows) all still pending approval; 1 new draft SEO-044; blast page and WFH page both worse a 2nd straight cycle since their fixes reportedly shipped)
 >
 > **2026-10-05 (this cycle) — ⚠️ the two "resolved-then-regressed" fixes from last cycle got worse
@@ -137,7 +139,7 @@
 | CTR-FIX: `/collections/open-ear-headphones` earbuds/headphones vocabulary fix | SEO-044 | approval |
 | CTR-FIX: SafeBuds PDP "wehear" query-specific rewrite | SEO-036 | approval (pending 3 cycles; query CTR now 0%) |
 | RANK/GAP: ES Lite PDP template check + reinforcement rewrite | SEO-037 | approval (pending 3 cycles) |
-| WRITE: "best headphones for teaching online" rewrite/expand | SEO-038 | approval (pending 3 cycles) |
+| WRITE: "best headphones for teaching online" rewrite/expand | SEO-038 | approved 2026-10-07, awaiting /execute-approved |
 | AEO: bone-conduction-headphones-side-effects Myths-vs-Facts escalation | SEO-039 | approval (pending 3 cycles) |
 | Earplug consolidation decision | SEO-005 | founder decision |
 | GA4 organic revenue vs GSC click-volume mismatch — data-integrity cross-check | SEO-009 | CFO/CRO review |
