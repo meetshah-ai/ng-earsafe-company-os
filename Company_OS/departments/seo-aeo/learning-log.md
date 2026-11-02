@@ -9,8 +9,8 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 ```
 
 ## CONFIRMED PATTERNS (institutional truths)
-- Non-branded CTR (0.48%) is the crisis metric; pos 4–10 high-impression pages rewritten title/meta = fastest revenue. **Update 2026-10-19: non-branded CTR fell back below its own 30-day target (0.8044%→0.7757%) one cycle after first clearing it** — the crisis is not resolved, gains concentrated in branded search this cycle. **Update 2026-10-26: non-branded CTR recovered just above its own target again (0.7757%→0.8006%, a 0.025pp margin)** — not a clean win, essentially oscillating right around the target line for 3 straight cycles now (0.8044/0.7757/0.8006), while overall organic clicks eased back under their own 30-day target (2,816→2,597) for the first time in many cycles.
-- Informational blog traffic monetizes only with contextual CTAs (was ~0% CVR before Jun 2 install). **Update 2026-09-14: first non-zero blog CVR ever logged (0.12%, 2 txn/1,708 sessions this cycle)** — still far below the 0.5% target, but the ~0% streak is broken. Watch next cycle before declaring a trend. **Update 2026-09-28: 2nd cycle, roughly flat (0.1072%, 2 txn/1,865 sessions)** — the streak stays broken but hasn't grown; not yet a trend. **Update 2026-10-05: 3rd cycle, still flat (0.1079%, 2 txn/1,853 sessions)** — three consecutive cycles now hovering at ~0.11% CVR on a near-constant 2 transactions/month; this looks like a stable low floor, not organic growth yet. Still not formally a trend. **Update 2026-10-12: fell back toward the old near-zero floor (0.0531%, 1 txn/1,882 sessions)** — the non-zero streak broke. **Update 2026-10-19: essentially unchanged (0.0551%, 1 txn/1,814 sessions)** — still at the near-zero floor, not recovering. **Update 2026-10-26: fell to literal 0% (0 txn/1,688 sessions)** — the floor itself has now given way; this is a new low, not yet escalated (outside this department's draft scope) but worth flagging for CRO attention alongside SEO-009.
+- Non-branded CTR (0.48%) is the crisis metric; pos 4–10 high-impression pages rewritten title/meta = fastest revenue. **Update 2026-10-19: non-branded CTR fell back below its own 30-day target (0.8044%→0.7757%) one cycle after first clearing it** — the crisis is not resolved, gains concentrated in branded search this cycle. **Update 2026-10-26: non-branded CTR recovered just above its own target again (0.7757%→0.8006%, a 0.025pp margin)** — not a clean win, essentially oscillating right around the target line for 3 straight cycles now (0.8044/0.7757/0.8006), while overall organic clicks eased back under their own 30-day target (2,816→2,597) for the first time in many cycles. **Update 2026-11-02: fell back below target again (0.8006%→0.7756%)** — the 2nd miss in 3 cycles, confirming this is still an oscillation around the target line, not a secured clearance. Organic clicks (2,539) also missed their own target for a 2nd straight cycle (2,597→2,539, −2.2%).
+- Informational blog traffic monetizes only with contextual CTAs (was ~0% CVR before Jun 2 install). **Update 2026-09-14: first non-zero blog CVR ever logged (0.12%, 2 txn/1,708 sessions this cycle)** — still far below the 0.5% target, but the ~0% streak is broken. Watch next cycle before declaring a trend. **Update 2026-09-28: 2nd cycle, roughly flat (0.1072%, 2 txn/1,865 sessions)** — the streak stays broken but hasn't grown; not yet a trend. **Update 2026-10-05: 3rd cycle, still flat (0.1079%, 2 txn/1,853 sessions)** — three consecutive cycles now hovering at ~0.11% CVR on a near-constant 2 transactions/month; this looks like a stable low floor, not organic growth yet. Still not formally a trend. **Update 2026-10-12: fell back toward the old near-zero floor (0.0531%, 1 txn/1,882 sessions)** — the non-zero streak broke. **Update 2026-10-19: essentially unchanged (0.0551%, 1 txn/1,814 sessions)** — still at the near-zero floor, not recovering. **Update 2026-10-26: fell to literal 0% (0 txn/1,688 sessions)** — the floor itself has now given way; this is a new low, not yet escalated (outside this department's draft scope) but worth flagging for CRO attention alongside SEO-009. **Update 2026-11-02: held at literal 0% for a 2nd straight cycle (0 txn/1,619 sessions)** — the full-zero floor is not a one-cycle blip.
 - Google organic is the survival engine and highest-margin demand.
 - FAQPage schema is the AEO eligibility lever; citation must be tracked, not assumed.
 - Rank gains do not automatically convert to clicks — position can beat target while CTR on the
@@ -54,6 +54,9 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
   2026-10-26: both metrics eased back together this time — position improved slightly (4.58→4.46)
   while CTR fell (1.9252%→1.7722%, 3,584→3,555 impr)** — a 5th distinct joint-movement variant
   within 14 weeks (position up/CTR down, the mirror of 10-05's reading). Both metrics still clear
+  their targets comfortably; still reading as noise around a stable, target-beating keyword.
+  **Update 2026-11-02: position improved further while CTR eased slightly (4.46→4.26, 1.7722%→
+  1.7291%)** — a 6th distinct joint-movement variant within 15 weeks. Both metrics still clear
   their targets comfortably; still reading as noise around a stable, target-beating keyword.
 - **A page can rank well and still catastrophically fail on CTR if its title/meta don't match the
   queries it actually earns impressions on, not just its target keyword.** New pattern, confirmed
@@ -114,6 +117,14 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
   "open ear earbuds" mismatch is essentially flat again (0.5401%→0.5366% CTR), narrowing fully
   stalled; `best-headphones-for-glasses-wearers`'s target query impressions fell (1,050→647) but the
   0.00% CTR floor is unchanged — both still pending, no 9th confirmation found this cycle.
+  **9th confirmation, 2026-11-02, on a never-before-flagged page:** `side-effects-of-headphones-on-
+  brain` — its "loud headphones" query sits at **pos 2.65 (top 3)** on 247 impr/30d yet converts at
+  literal **0% CTR**, the sharpest version of this pattern yet (excellent rank, zero conversion),
+  alongside 3 sibling queries in the same shape ("over ear headphones side effects" 231 impr, "can
+  headphones cause headaches" 89 impr, "can earphones cause headaches" 41 impr, all 0% CTR). The
+  page's own best query ("side effects of headphones on brain," 5.78% CTR, pos 1.46) proves the
+  page itself is good. Drafted as SEO-050. Pattern now confirmed 9 times across blog (×3 distinct
+  pages), collection (twice, for 2 distinct reasons), and PDP page types.
 - **WebFetch silently strips `<script>` tags — it will false-negative on any JSON-LD/schema check.**
   Confirmed repeatedly (SEO-002 07-03, SEO-011/013 07-21). Never conclude "schema missing" from a
   WebFetch read; use raw `curl` or a Rich Results Test. This single tool limitation produced two
@@ -150,7 +161,7 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
   mechanical safeguard against repeating it. Lesson for every future write to a private
   department-owned file via this tool: always construct the full file content (existing + new),
   never a diff-shaped partial, and verify the resulting file size/row count looks right immediately
-  after the write, before moving to the next file.
+  after the write.
 - **Approval-to-execution latency is now a measurable drag on the crisis metric, not just a
   process complaint.** New pattern, 2026-08-10: 7 rows (SEO-020/021/022/024/025/026/027) sat
   APPROVED by Meet since 2026-08-04 without execution across multiple weekly cycles, during which
@@ -168,7 +179,11 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
   finding has qualitatively worsened while unexecuted: its top query didn't just stay at zero
   clicks, it vanished from GSC entirely this cycle (see SEO-047). The longer this backlog sits, the
   harder it becomes to tell whether un-executed drafts are stale or whether the underlying pages
-  have moved on without them.
+  have moved on without them. **Update 2026-11-02: the backlog is now 16 rows deep (SEO-036 through
+  SEO-052, SEO-038 the lone execution)** — the blast page's zero-row condition held for a 2nd
+  straight cycle (not worsening further, but not self-resolving either), and Comm 2.0 PDP's
+  position regression extended to a 4th straight cycle while SEO-051 (its first direct fix) sat
+  freshly drafted, unapproved.
 - **NEW, 2026-09-28 — a fix reportedly executed can coincide with the page getting worse, not
   better, and that is a signal to check the fix's technical delivery before assuming the content
   strategy failed.** Two independent pages that reportedly received on-page fixes on 2026-09-11
@@ -214,7 +229,12 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
   cycle's competitor-SERP check reverted to zero NG presence (reversing 10-19's partial-presence
   reading) — still only 2 known pages, still not formally named as a 3rd-page-confirmed pattern,
   but the blast page alone is now strong enough evidence to justify treating SEO-047 as urgent
-  independent of that bar.**
+  independent of that bar.** **Update 2026-11-02 — the blast page's top query stayed at zero GSC
+  rows for a 2nd straight cycle** (page impressions flat at the collapsed level, 3,867 vs 3,744) —
+  neither recovering nor deteriorating further, the collapse is holding steady rather than
+  self-resolving. The WFH page improved for a 2nd straight cycle on its own metrics (pos
+  23.22→22.21, named query 52.79→45.48) but its competitor-SERP presence stayed at zero — still
+  only 2 known pages, still unexecuted.
 - **NEW, 2026-10-12 — a WRITE brief marked "resolved/executed" can have had its scope silently
   changed during execution, leaving the original money keywords completely untouched.** SEO-030
   (Comm 2.0 "boom mic" buying guide) was executed 2026-09-11, but per its own resolution note the
@@ -236,7 +256,14 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
   Re-opened as a delivery-verification check — SEO-049. SEO-030 and SEO-035 are now two
   independent confirmations of "a WRITE row's resolved status can mask an untouched money
   keyword" — this failure mode should now be checked by default on every WRITE row nearing or past
-  its D+30 window, not just when a number looks suspicious.**
+  its D+30 window, not just when a number looks suspicious.** **Update 2026-11-02 — a 3rd
+  independent confirmation found, on SEO-033 (SafeBuds "open ear wireless earbuds india" / "open
+  ear earbuds ai translation" WRITE, executed 2026-09-11):** both exact phrases still log 0 GSC
+  rows, ~7 weeks post-execution. SafeBuds' own natural-phrasing queries ("wehear earbuds" 1.33%
+  CTR, "wehear safe buds" 1.53% CTR this cycle) rule out a demand-side explanation. Re-opened as
+  SEO-052. The hypothesis now graduates from "a repeatable failure mode to check" to a confirmed,
+  3-for-3 pattern — check every WRITE row's exact target phrase(s) by default once it's D+30+ past
+  execution.
 - **Assuming a local `/execute-approved` session's file updates reach the managed agent
   automatically — REJECTED 2026-07-27.** They don't; the agent only ever sees what's on GitHub.
   Three human-approved-and-shipped fixes (SEO-013/014/016, plus the OpenWire title swap and the
@@ -285,6 +312,7 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
   closed" — always re-read the resolution note's own wording, not just its status, before trusting
   a money keyword will ever move. **Reconfirmed as a repeatable failure mode, 2026-10-26, on a 2nd
   independent page: SEO-035** (see the CONFIRMED PATTERNS update above) — re-opened as SEO-049.
+  **Reconfirmed a 3rd time, 2026-11-02, on SEO-033** — re-opened as SEO-052.
 - **Treating a page's blended position/CTR collapse as proof of a technical regression without
   first disaggregating its query list — REJECTED 2026-10-19.** `are-noise-cancelling-headphones-
   safe` (SEO-034)'s blended position fell from 5.20 to 18.77 this cycle, superficially matching the
@@ -295,6 +323,13 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
   the same four templated queries persisted at nearly identical volume (~2,416 impr combined, pos
   27–43) and the money query held at pos 5.96 — the artifact is stable, not worsening, and not a
   5th case of anything new.
+- **NEW, 2026-10-26 — writing only "the new bits" of a shared/private markdown file via
+  `create_or_update_file` instead of the full existing content plus additions — REJECTED, caught
+  and corrected in the same session.** This exact session did this once to `queue-inbox.md`
+  (overwrote 11 pending rows + the entire Resolved table with just the new sync note + 3 rows),
+  immediately re-read the file to confirm the damage, and re-pushed the full reconstructed content
+  in the same session before moving on. See the CONFIRMED PATTERNS entry above for the lesson
+  carried forward.
 
 ## KEYWORD MOVEMENT LOG (update each 30-day pull)
 | Date | Keyword | Position before | Position after | CTR before | CTR after | Note |
@@ -348,6 +383,12 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 | 2026-10-19 | bone-conduction-headphones-side-effects (page, SEO-031/039 target) | 9.58 / 2,972 impr (10-12) | 9.49 / 3,061 impr | 0.4711% | 0.5227% | GSC signals continue improving (CTR and impressions both up). **web_search sweep regressed further — NG is now fully absent from the top-10**, a 2nd straight cycle of decline after 3 stable cycles at ~4th of 10. GSC and AEO signals are now diverging hard. SEO-039 is now the single most urgent pending item on the board. |
 | 2026-10-26 | bone-conduction-headphones-side-effects (page, SEO-031/039 target) | 9.49 / 3,061 impr (10-19) | 9.42 / 3,075 impr | 0.5227% | 0.4553% | GSC essentially flat/slightly down after months of improvement. **web_search sweep: NG remains fully absent from the top-10, a 3rd straight cycle of absence**, identical competitor cast to last cycle. SEO-039 (6 cycles pending) remains the single most urgent AEO item on the board. |
 | 2026-10-26 | can-bluetooth-earphones-cause-a-blast (page, SEO-028/040/047 target) | 15,580 impr / pos 4.43 (10-19) | **3,744 impr / pos 5.22** | 0.0385% | 0.1603% | **Visibility collapse, not just a CTR miss:** page impressions fell 76%; its top query "bluetooth headphones overheating fix" (12,044 impr/pos 4.23 last cycle, 0 clicks every cycle tracked for 5 straight cycles) returned **zero GSC rows anywhere in this cycle's pull**. Escalated with an explicit site-health/technical framing as SEO-047, in parallel with the still-open SEO-040. |
+| 2026-11-02 | open ear headphones | 4.46 (10-26) | 4.26 | 1.7722% | 1.7291% | Position improved further while CTR eased slightly (3,470 impr/60 clicks) — a 6th distinct joint-movement variant within 15 weeks. Both metrics still clear their targets comfortably; still noise around a stable high performer. |
+| 2026-11-02 | best-noise-canceling-headset-for-working-from-home (page, SEO-021/041 target) | 23.22 (10-26) | 22.21 | 0.4484% | 0.4587% | 2nd straight cycle of improvement on the page's own metrics (218 impr/1 click); named query also improved (52.79→45.48). This cycle's competitor-SERP check again found zero NG presence in the general web results — the back-and-forth instability continues, not a confirmed recovery. SEO-041 remains unexecuted. |
+| 2026-11-02 | can-bluetooth-earphones-cause-a-blast (page, SEO-028/040/047 target) | 3,744 impr / pos 5.22 (10-26) | 3,867 impr / pos 5.32 | 0.1603% | 0.1810% | Page impressions held roughly flat at the collapsed level (not recovering, not worsening further). Its top query "bluetooth headphones overheating fix" returned **zero GSC rows for a 2nd straight cycle** — the vanishing is not a one-cycle blip. SEO-047's site-health framing stands reinforced. |
+| 2026-11-02 | bone-conduction-headphones-side-effects (page, SEO-031/039 target) | 9.42 / 3,075 impr (10-26) | 8.80 / 2,272 impr (money query across variant pages) | 0.4553% | 0.2641% | GSC signals mixed (position improved, CTR/impressions down on the money-query cut). **web_search sweep: NG RETURNED TO PRESENCE this cycle** — own page surfaced ~6th of 10, plus a 2nd NG page (`are-bone-conduction-headphones-safe`) at ~9th of 10 — reversing the 3-straight-cycle fully-absent streak. Still not the cited/featured answer (Shokz UK's "Myths vs Facts" still ahead). SEO-039 remains the right fix, now with its best directional signal in 3 cycles. |
+| 2026-11-02 | /products/noise-cancelling-open-ear-headphones-with-mic-ng-ear-safe-comm-2-0 (Comm 2.0 PDP) | 2.89 / 1,409 impr (10-26) | **3.39 / 1,542 impr** | 2.2001% | 2.4643% | **4th straight cycle of position regression** (2.15→2.44→2.89→3.39) even as impressions (+9.4%), clicks (+22.6%) and CTR all improved — a widening-reach-but-falling-rank shape distinct from every other tracked regression on the site. Escalated as a dedicated technical/content audit, SEO-051. |
+| 2026-11-02 | side-effects-of-headphones-on-brain (page, new this cycle, SEO-050 target) | n/a (first flagged this cycle) | 2,546 impr / pos 5.61 (page); "loud headphones" query 247 impr / pos 2.65 | n/a | 1.5318% (page) / 0.00% ("loud headphones") | **9th confirmation of the SH-SEO-10 query-intent-mismatch pattern.** The page's own best query ("side effects of headphones on brain," 415 impr, 5.78% CTR, pos 1.46) proves the page is good; but "loud headphones" sits at pos 2.65 — top 3 — and converts at literal 0% CTR on 247 impr, alongside 3 sibling queries in the same shape (608 impr combined, all 0% CTR). Drafted as SEO-050. |
 
 ## AEO CITATION LOG (update each 14-day check)
 | Date | Query | NG named? | Article cited? | Engine |
@@ -398,6 +439,12 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 | 2026-10-26 | "bone conduction headphones side effects" | **No — fully absent from the top-10, a 3rd straight cycle.** hearinghealthmatters.org, soundtrace.com, drip-fly, shokz (×2), PMC/NIH, hearingup, cavcominc, soundly, mojawa occupy all 10 slots — identical cast to last cycle. | No | web_search proxy — SEO-039 (6 cycles pending) remains the single most urgent item on the board |
 | 2026-10-26 | "open ear vs in ear headphones" | No — 10th+ consecutive cycle, zero NG presence in the top-10. Bose, soundcore (×2), Forbes, beyerdynamic, shokz (×3), skullcandy, avantree, anker dominate — same cast, Anker/soundcore's footprint growing. | No | web_search proxy — escalation (SEO-043) remains the right call, still unexecuted |
 | 2026-10-26 | "best noise cancelling headset with mic for working from home" (competitor-SERP check, SEO-041) | No — zero NG presence anywhere in the general web results this cycle (10 generic enterprise-headset roundups: Jabra, Bose, Sony, Yealink, Sennheiser, Poly, etc. — no open-ear players, no NG). | No | web_search proxy — reverses 10-19's partial "~5th of 10" reading, continuing the unstable back-and-forth signal tracked under SEO-041 |
+| 2026-11-02 | "best open ear headphones india" | No dedicated AI-style citation. theaudiostore.in reseller page features NG EarSafe Comm 2.0 by name/price directly; NG's own collection page not found in this cycle's top-10 sweep (Digit.in, bestreviewsonline.in ×2, Amazon bestsellers/price-filtered, theaudiostore.in, TechRadar, Smartprix, Rolling Stone dominate). | No | web_search proxy — reseller citation continues, own-domain presence not confirmed this cycle |
+| 2026-11-02 | "are open ear headphones safe" | No — 11th straight cycle. Shokz UK (×2 articles), langsdom, soundcore, QCY, KingLuckyShop cited — same cast as prior cycles. | No | web_search proxy — SEO-020 confirmed MISS, not re-escalated |
+| 2026-11-02 | "earphones hurting ears what to do" | No — unchanged. headphonesaddict, hearing-speechcenter, soundcore, headphonesty, healthline, miracle-ear, shokz (×2 domains), HP cited. | No | web_search proxy — SEO-016 remains inconclusive |
+| 2026-11-02 | "bone conduction headphones side effects" | **Yes — NG RETURNED TO PRESENCE, reversing a 3-straight-cycle fully-absent streak.** NG's own `bone-conduction-headphones-side-effects` page surfaced ~6th of 10, and a 2nd NG page (`are-bone-conduction-headphones-safe`) also appeared ~9th of 10. | Present (×2 pages), still not the featured/cited answer — Shokz UK's "Myths vs Facts" article (uk.shokz.com/blogs/guides/how-safe-are-bone-conduction-headphones) still appears ahead. | web_search proxy — best AEO signal in 3 cycles; SEO-039 remains the right fix to close the remaining citation gap |
+| 2026-11-02 | "open ear vs in ear headphones" | No — 11th+ consecutive cycle, zero NG presence in the top-10. Bose, Forbes, soundcore (×2), shokz (×3), beyerdynamic, anker, sonos, baseus, avantree dominate — same cast. | No | web_search proxy — escalation (SEO-043) remains the right call, still unexecuted |
+| 2026-11-02 | "best noise cancelling headset with mic for working from home" (competitor-SERP check, SEO-041) | No — zero NG presence anywhere in the general web results this cycle (10 generic enterprise/remote-work-headset roundups: iwantek, headsetadvisor, Amazon ×2, zealglobaltrd, rtings, workorbithq, nearhub, cuttles, truvoicetelecom — no open-ear players, no NG). | No | web_search proxy — 2nd straight cycle of zero presence after 10-19's partial reading, continuing the unstable back-and-forth signal tracked under SEO-041 |
 
 ## REJECTED / DEAD ENDS
 - **Assuming a local `/execute-approved` session's file updates reach the managed agent
@@ -447,7 +494,7 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
   correct scope as SEO-045. Lesson: "resolved" status is not the same as "the original gap is
   closed" — always re-read the resolution note's own wording, not just its status, before trusting
   a money keyword will ever move. **Reconfirmed 2026-10-26 on a 2nd independent page, SEO-035 —
-  re-opened as SEO-049.**
+  re-opened as SEO-049.** **Reconfirmed a 3rd time, 2026-11-02, on SEO-033 — re-opened as SEO-052.**
 - **Treating a page's blended position/CTR collapse as proof of a technical regression without
   first disaggregating its query list — REJECTED 2026-10-19.** `are-noise-cancelling-headphones-
   safe` (SEO-034)'s blended position fell from 5.20 to 18.77 this cycle, superficially matching the
@@ -467,6 +514,100 @@ DATE | INITIATIVE | HYPOTHESIS | RESULT (confirmed/rejected/inconclusive) | LEAR
 ---
 
 ## CYCLE LOG (most recent first)
+
+### 2026-11-02 — Weekly managed-agent cycle: blast page stays vanished a 2nd cycle, Comm 2.0 PDP's 4th straight regression despite rising volume, bone-conduction AEO returns to presence after 3 absent cycles, SEO-033 joins SEO-030/SEO-035 as a 3rd scope-change delivery-verification case, 9th SH-SEO-10 confirmation
+
+**Initiative:** Eleventh Monday 08:00 IST managed-agent cycle. Read tracker.md + learning-log.md
+first (2 calls) — no new ⚠️ SYNC CORRECTION; confirmed SEO-036 through SEO-049 (14 rows, SEO-038
+executed) all still pending/executed-as-noted before drafting anything. Pulled GSC + GA4 fresh via
+a single direct-API script (writes raw JSON to /tmp, no analysis in that step), then two
+compute-only passes reading those same files: window 2026-10-03→2026-11-01 (30d). GSC returned
+13,339 query×page rows (single page, no truncation — rowLimit 25,000 never hit). GA4 returned
+1,389 rows, `len(rows)==rowCount` asserted (no truncation). All page/query/branded/PDP/landing-page
+breakdowns reconciled to their parent totals in code (asserted, no mismatches). Read
+`queue-inbox.md` directly before drafting — confirmed SEO-036..049 unchanged in status (bar
+SEO-038), drafted SEO-050/051/052 without collision.
+
+**CONFIRMED, not worsening — the blast page's top query stayed at zero GSC rows for a 2nd straight
+cycle:** "bluetooth headphones overheating fix" is still entirely absent from Search Console; page
+impressions held roughly flat at the collapsed level (3,867 vs last cycle's 3,744) — neither
+recovering nor deteriorating further. SEO-047's urgent site-health framing stands reinforced, not
+superseded; SEO-040 remains open in parallel.
+
+**NEW — Comm 2.0 PDP's position regression is now a confirmed 4-cycle trend, and a genuinely
+unusual shape:** pos 2.15→2.44→2.89→**3.39** across the last 4 cycles, even as impressions (+9.4%),
+clicks (+22.6%) and CTR (2.2001%→2.4643%) all grew this cycle. NG's single strongest PDP is both
+getting discovered more and ranking worse at the same time — distinct from every other tracked
+regression on the site (which show falling volume, not rising). Drafted a dedicated
+technical/content audit, **SEO-051**, and logged the shape as a new hypothesis, SH-SEO-24.
+
+**POSITIVE — bone-conduction-headphones-side-effects' AEO sweep returned to presence this cycle,**
+reversing a 3-straight-cycle fully-absent streak: NG's own page surfaced directly (~6th of 10), and
+a 2nd NG page (`are-bone-conduction-headphones-safe`) also appeared (~9th of 10). Still not the
+cited/featured answer — Shokz UK's "Myths vs Facts" article still appears ahead — so SEO-039 (7
+cycles pending) remains the right fix, now carrying the best directional AEO signal in 3 cycles.
+
+**NEW — a 3rd independent confirmation of the "resolved WRITE row masks an untouched money
+keyword" failure mode (SH-SEO-22), this time on SEO-033:** SafeBuds' "open ear wireless earbuds
+india" and "open ear earbuds ai translation" WRITE (executed 2026-09-11) still logs 0 GSC rows on
+both exact phrases, ~7 weeks post-execution — long past any reasonable indexing delay. SafeBuds'
+own natural-phrasing queries ("wehear earbuds" 1.33% CTR, "wehear safe buds" 1.53% CTR this cycle)
+rule out a demand-side explanation. Re-opened as a delivery-verification check, **SEO-052**. This
+is now 3 independent confirmations (SEO-030, SEO-035, SEO-033) — the hypothesis is fully
+established as a repeatable failure mode to check by default on every WRITE row nearing/past D+30.
+
+**NEW — a 9th confirmation of the SH-SEO-10 query-intent-mismatch pattern, the sharpest version
+yet, on a never-before-flagged page:** `side-effects-of-headphones-on-brain`'s "loud headphones"
+query sits at **pos 2.65 — top 3** — on 247 impr/30d yet converts at literal **0% CTR**, alongside
+3 sibling queries in the same shape ("over ear headphones side effects" 231 impr, "can headphones
+cause headaches" 89 impr, "can earphones cause headaches" 41 impr — 608 impr combined, all 0%
+CTR). The page's own best query proves the page itself is good (5.78% CTR at pos 1.46) — this is a
+pure title/FAQ vocabulary gap. Drafted as **SEO-050**.
+
+**REGRESSED — organic clicks missed their own 30-day target for a 2nd straight cycle:** 2,539 vs
+the 2,600 target (prior cycle 2,597, −2.2% WoW). Non-branded CTR (0.7756%) fell back below its own
+0.8% target for the 2nd time in 3 cycles (prior 0.8006%) — the metric continues oscillating around
+its target line rather than securing a clean clearance. GA4 organic revenue recovered +5.3%
+(₹3,62,880.46→₹3,82,107.56) after 2 straight declines, still well below the ₹9.5L 30-day target —
+notably, GSC clicks fell while GA4 revenue rose this cycle, reverting to SEO-009's usual divergence
+pattern after one cycle of moving together.
+
+**NEW, CRO-adjacent, not drafted:** blog CVR held at literal 0% for a 2nd straight cycle (0 txn /
+1,619 sessions) — the full-zero floor from last cycle is not a one-cycle blip; noted, not escalated
+(outside this department's draft scope).
+
+**RE-CONFIRMED, not re-drafted:** SEO-036 (SafeBuds "wehear") — CTR 0.1739% (1 click), roughly flat,
+still far worse than the PDP's own blend. SEO-037 (ES Lite) — 5th straight cycle near/at its best
+reading (pos 3.85), increasingly moot. SEO-013 (Pro Swimming) — not independently re-pulled this
+cycle as a named continuity page; disease-band member, demand-side-swing read holds per prior
+cycles. SEO-041 (WFH page) — improved for a 2nd straight cycle on its own metrics (pos 23.22→22.21,
+named query pos 52.79→45.48) but competitor-SERP check again found zero NG presence — still
+unstable. SEO-042 (running cluster) — "best running headphones india" still 0 rows. SEO-043
+(open-ear-vs-in-ear) — AEO sweep still fully absent, 11th+ consecutive cycle, same competitor cast.
+SEO-044 (open-ear-headphones collection) — "open ear earbuds" query CTR 0.5034%/pos 7.26, essentially
+flat, narrowing still stalled. SEO-045 (Comm 2.0 boom-mic phrases) — both exact phrases confirmed
+still 0 GSC rows; Comm 2.0 PDP's 4th straight regression noted above, see SEO-051. SEO-046
+(glasses-wearers) — target query impr=376, clicks=0, ctr=0.00%, pos=11.44 — mismatch unchanged.
+SEO-048 (OpenWire budget cluster) — "budget open ear earphones india" still 0 rows. SEO-049
+(OpenWire type-c delivery-verification) — "wired earphones with mic type c" still 0 rows, 5th cycle
+post-execution. SEO-009 and SEO-005 not independently re-derived beyond this cycle's own GSC/GA4
+numbers, per the Phase-1-only-reads rule; SEO-005 (earplug cluster) impr=11,864 clicks=42
+ctr=0.3540% pos=10.48 — worse on clicks/CTR/position vs last cycle, still pending founder decision.
+
+**PDP CLUSTER TRACKER — vs prior cycle (10-26):** OpenWire impr +1.1%, clicks +13.3%, CTR up
+(2.3810%→2.6688%), pos improved (6.12→5.52) — clear of the disease band; Comm 2.0 impr +9.4%,
+clicks +22.6%, CTR up (2.2001%→2.4643%), **pos worse again (2.89→3.39) — 4th straight cycle of
+regression**, even as every other metric improved, see SEO-051; SafeBuds impr −13.7%, clicks +4.9%,
+CTR up (1.1572%→1.4061%, still in disease band), pos improved (6.08→5.78), "wehear" roughly flat at
+0.1739%; ES Lite impr −13.9%, clicks −10%, CTR up slightly (2.0422%→2.1361%, clear of the disease
+band), **pos improved again (4.20→3.85)** — 5th straight cycle near/at its best reading.
+
+**Next sprint change triggered:** SEO-050 (CTR-FIX, 9th SH-SEO-10 confirmation on
+`side-effects-of-headphones-on-brain`), SEO-051 (RANK/GAP, Comm 2.0 PDP technical/content audit),
+SEO-052 (WRITE delivery-verification re-check of SEO-033). Next free ID after this cycle:
+**SEO-053.**
+
+---
 
 ### 2026-10-26 — Weekly managed-agent cycle: blast page visibility collapse (zero GSC rows, not just zero clicks), Comm 2.0 PDP's 2nd straight regression, bone-conduction AEO fully absent a 3rd cycle, SEO-035 joins SEO-030 as a 2nd scope-change delivery-verification case, self-corrected a mid-session file-overwrite mistake
 
@@ -853,13 +994,14 @@ full original text unmodified.)*
 | SH-SEO-4 | A dedicated India-focused "Shokz alternatives" comparison page can capture organic share of a cluster NG currently has zero presence in, within 60 days of publish. | Ship SEO-015/SEO-019, read GSC rank + clicks at 30/60 days. | CLOSED — D+30 MISS on clicks (0 clicks across the full 5-week live window despite position improving to 5.06), per queue-inbox.md 2026-08-24. Clicks now flowing (6 clicks/113 impr/pos 6.58, 10-05) — noted, not re-opened. This cycle (10-12): "shokz alternatives india" returned 0 rows — flagged as a one-cycle watch item. This cycle (10-19): 0 rows again, 2nd straight cycle. This cycle (10-26): 0 rows a 3rd straight cycle on the exact phrase (page performs fine on variant phrasing) — still read as long-tail volume noise, not escalated. | SEO-015, SEO-019 |
 | SH-SEO-5 | Adding a direct-answer FAQPage block for adjacent pain-point queries ("earphones hurting ears") to an already-authoritative page (vertigo blog) wins AI-answer consideration faster than a new standalone page would. | Ship SEO-016, recheck AEO citation proxy at 14 days. | OPEN — still inconclusive as of 2026-10-26; NG remains absent, Shokz's footprint has grown. | SEO-016 |
 | SH-SEO-9 | The first PDP-level GSC pull reliably surfaces CTR-disease-band members that thematic-cluster tracking alone misses. | Ship SEO-023 (SafeBuds CTR-FIX), read CTR/position at 30 days. | CLOSED (plateaued) — D+30+ read 2026-09-14 shows CTR flat at exactly 1.24%, identical to the pre-read baseline. Escalated with a query-specific fix as SEO-036 (still pending, 6 cycles now). | SEO-023, SEO-019, SEO-036 |
-| SH-SEO-10 | A CTR-FIX rewrite that targets a page's actual top queries by impression (not just its nominal target keyword) recovers CTR meaningfully faster than a rewrite targeting the exact-match phrase alone. | Ship SEO-025 (open-ear-vs-in-ear page), read CTR at 30 days. | OPEN — **8th confirmation 2026-10-19** (`best-headphones-for-glasses-wearers`) remains the latest; no 9th confirmation found 2026-10-26 — both SEO-044's "open ear earbuds" mismatch and SEO-046's glasses-wearer mismatch are continuity reads this cycle (both still unresolved, narrowing stalled). Pattern stands confirmed 8 times across blog (×2 distinct pages), collection (twice, for 2 distinct reasons), and PDP page types. | SEO-025, SEO-028, SEO-029, SEO-032, SEO-036, SEO-040, SEO-044, SEO-046 |
-| SH-SEO-13 | A page that already surfaces organically but hasn't won AI citation (bone-conduction-headphones-side-effects) reaches citation faster via a targeted direct-answer+FAQ expansion than a fully-absent page does. | Ship SEO-031, recheck AEO citation proxy at 14 days. | OPEN — SEO-031 executed 2026-09-11 per tracker.md. Page held its best-ever position in the web_search sweep (~4th of 10) for 3 straight cycles (08-17→10-05), **regressed to ~9th of 10 (10-12), then fully absent from the top-10 (10-19, 10-26 — now a 3rd straight cycle of absence).** SEO-039 (further escalation) still pending approval, now 6 cycles, the single most urgent item on the board. | SEO-031, SEO-039 |
+| SH-SEO-10 | A CTR-FIX rewrite that targets a page's actual top queries by impression (not just its nominal target keyword) recovers CTR meaningfully faster than a rewrite targeting the exact-match phrase alone. | Ship SEO-025 (open-ear-vs-in-ear page), read CTR at 30 days. | OPEN — **9th confirmation 2026-11-02** (`side-effects-of-headphones-on-brain`, SEO-050) — its "loud headphones" query sits at pos 2.65 (top-3) yet converts at literal 0% CTR, the sharpest version of this pattern yet (excellent rank, zero conversion). SEO-044's "open ear earbuds" mismatch and SEO-046's glasses-wearer mismatch remain continuity reads this cycle (both still unresolved, narrowing stalled). Pattern stands confirmed 9 times across blog (×3 distinct pages), collection (twice, for 2 distinct reasons), and PDP page types. | SEO-025, SEO-028, SEO-029, SEO-032, SEO-036, SEO-040, SEO-044, SEO-046, SEO-050 |
+| SH-SEO-13 | A page that already surfaces organically but hasn't won AI citation (bone-conduction-headphones-side-effects) reaches citation faster via a targeted direct-answer+FAQ expansion than a fully-absent page does. | Ship SEO-031, recheck AEO citation proxy at 14 days. | OPEN — SEO-031 executed 2026-09-11 per tracker.md. Page held its best-ever position in the web_search sweep (~4th of 10) for 3 straight cycles (08-17→10-05), regressed to ~9th of 10 (10-12), then fully absent from the top-10 for 3 straight cycles (10-19, 10-26, and — **reversed 2026-11-02: NG returned to presence (~6th of 10), plus a 2nd NG page at ~9th of 10.** SEO-039 (further escalation) still pending approval, now 7 cycles, remains the right fix to close the still-missing citation. | SEO-031, SEO-039 |
 | SH-SEO-16 | A query-specific (not generic) title/meta + FAQ fix on a PDP recovers CTR on its single worst-converting query, where a prior generic rewrite on the same page plateaued. | Ship SEO-036 (SafeBuds "wehear" query), read CTR on that specific query at 30 days (2026-10-13) against the 0.17% baseline. | OPEN — still pending approval as of 2026-10-26 (6 cycles now); "wehear" query CTR at 0.1040% this cycle, roughly flat vs last cycle's 0.089%, still ~11x worse than the PDP's own blend. | SEO-036 |
 | SH-SEO-17 | A PDP whose position falls sharply outside a template-change window is more likely a regression to check/revert than a genuine ranking loss to content-fix. | Ship SEO-037 (verify ES Lite's title/meta/canonical unchanged; reinforce if confirmed clean), read position at 30 days against the 6.12 baseline. | OPEN — still pending approval; ES Lite's position improved again this cycle (4.30→4.20), a 4th straight cycle near its best reading — very strong evidence the original drop was cyclical rather than a lasting technical regression, increasingly moot but not formally closed. **The underlying hypothesis (technical regression over content failure) continues to apply to the much larger, still-unresolved cases — SEO-040/041/047.** | SEO-037, SEO-040, SEO-041, SEO-047 |
-| SH-SEO-18 | A persona-specific rewrite (teachers, not generic WFH office workers) of an existing thin page can lift CTR/position on its own distinct keyword cluster. | Ship SEO-038 ("best headphones for teaching online"), read CTR/position at 30 days against the 0.11%/10.25 baseline. | **EXECUTED 2026-10-07** (approved same day via /approvals, executed same day via /execute-approved per tracker.md — Shopify Article 751511568663 rewritten). D+30 read due 2026-11-06. Spot-check 2026-10-19 (12 days post-execution): ctr=0.3215% pos=8.09 — early positive signal. Spot-check 2026-10-26 (19 days post-execution): ctr=0.3706% pos=7.72 — continuing to hold/improve, still too early to formally credit, D+30 remains due 2026-11-06. | SEO-038 |
-| SH-SEO-19 | Mirroring a winning competitor's exact content framing (Shokz UK's "Myths vs Facts" structure) on a page already close to AI citation closes the remaining gap faster than a generic FAQ expansion alone. | Ship SEO-039, recheck AEO citation proxy at 14 days (2026-09-28) against this cycle's ~4th-of-10 baseline. | OPEN — SEO-039 still unshipped (pending approval, 6 cycles); page's unaided position regressed to ~9th of 10 (10-12) then **fully absent from the top-10 for 3 straight cycles now (10-19, 10-26)** — the strongest evidence yet that an un-escalated, un-fixed position is not stable long-term and can collapse entirely. | SEO-039 |
-| SH-SEO-20 | A structural format change (comparison table + FAQ above the fold, not incremental prose edits) succeeds on a page where two prior incremental fixes (CTR-FIX + AEO) both failed to move either signal. | Ship SEO-043 (open-ear-vs-in-ear-vs-over-ear-headphones), read CTR at 30 days (2026-10-28) and AEO citation proxy at 14 days (2026-10-12) against this cycle's 0.0868% CTR / 6th-cycle-absence baseline. | OPEN — still pending approval; page's position has now improved for 4 straight cycles (9.09→7.65→6.67), CTR essentially flat, while the AEO signal stayed fully absent (10th+ cycle) — GSC and AEO continue to diverge, still unexecuted. | SEO-043, SEO-025, SEO-026 |
-| SH-SEO-21 | A delivery-verification-first fix on a page that got worse immediately after its own reported execution (SEO-040/041) will show the underlying technical issue within 1-2 cycles of being approved, rather than requiring a full D+30 content read. | Ship SEO-040 (blast page) and SEO-041 (WFH page), read both at D+14 (2026-10-19) for any technical-fix signal before the D+30 content read (2026-10-28/11-04). | OPEN — still unexecuted as of 2026-10-26 (5th cycle for SEO-040/041). **The blast page's evidence has now crossed a new threshold: its top query didn't just stay at zero clicks, it vanished from GSC entirely this cycle (−76% page impressions) — re-escalated as SEO-047 with an urgent site-health framing.** WFH page continues its unstable back-and-forth (position ticked up slightly, competitor-SERP presence reverted to zero). Both strengthen the case for shipping the fixes rather than testing them further. | SEO-040, SEO-041, SEO-047 |
-| SH-SEO-22 | A WRITE brief's "resolved/executed" status can mask a scope change that leaves the original money keywords untouched — re-reading the resolution note's own wording (not just its status) at the next cycle after execution catches this faster than waiting for a D+30 zero-row re-check to trigger escalation on its own. | Ship SEO-045 (Comm 2.0 "boom mic"/WFH-mic phrase re-scope, re-opening SEO-030's original brief), read both target phrases' GSC row-count at D+30 (2026-11-11). | OPEN — both target phrases confirmed still 0 GSC rows this cycle (10-26) too; Comm 2.0 PDP logged a 2nd straight cycle of regression. **NEW, 2026-10-26: a 2nd independent confirmation of this exact failure mode found on SEO-035 (OpenWire "wired earphones with mic type c") — re-opened as SEO-049.** The hypothesis itself graduates from "one case" to "a repeatable failure mode to check by default." | SEO-045, SEO-030, SEO-049, SEO-035 |
-| SH-SEO-23 | A page's blended position/CTR collapse can be a data-integrity artifact (a flood of unrelated, oddly-templated, zero-click queries) rather than a genuine technical regression — disaggregating the query list before escalating catches this. | Re-check SEO-034 at D+30 after this cycle's diagnostic; if the four templated queries persist or grow, treat as a recurring GSC data-quality issue to flag for Meet rather than a content problem to fix. | CONFIRMED STABLE, 2026-10-26 — re-checked, same four templated queries at nearly identical volume (~2,416 impr combined, pos 27–43), money query essentially unchanged (pos 5.96) — the artifact is stable and recurring, not worsening; reads as a genuine GSC data-quality quirk on this page rather than anything actionable. | SEO-034 |
+| SH-SEO-18 | A persona-specific rewrite (teachers, not generic WFH office workers) of an existing thin page can lift CTR/position on its own distinct keyword cluster. | Ship SEO-038 ("best headphones for teaching online"), read CTR/position at 30 days against the 0.11%/10.25 baseline. | **EXECUTED 2026-10-07** (approved same day via /approvals, executed same day via /execute-approved per tracker.md — Shopify Article 751511568663 rewritten). D+30 read due 2026-11-06. Spot-check 2026-10-19 (12 days post-execution): ctr=0.3215% pos=8.09 — early positive signal. Spot-check 2026-10-26 (19 days post-execution): ctr=0.3706% pos=7.72 — continuing to hold/improve, still too early to formally credit, D+30 remains due 2026-11-06. Spot-check 2026-11-02 (26 days post-execution): ctr=0.3526% pos=7.15 — holding roughly flat, D+30 due in 4 days. | SEO-038 |
+| SH-SEO-19 | Mirroring a winning competitor's exact content framing (Shokz UK's "Myths vs Facts" structure) on a page already close to AI citation closes the remaining gap faster than a generic FAQ expansion alone. | Ship SEO-039, recheck AEO citation proxy at 14 days (2026-09-28) against this cycle's ~4th-of-10 baseline. | OPEN — SEO-039 still unshipped (pending approval, 7 cycles); page's unaided position regressed to ~9th of 10 (10-12), fully absent for 3 straight cycles (10-19/10-26), then **returned to presence (~6th of 10) 2026-11-02** — the strongest evidence yet that un-fixed AEO position is unstable both ways; citation itself still not won. | SEO-039 |
+| SH-SEO-20 | A structural format change (comparison table + FAQ above the fold, not incremental prose edits) succeeds on a page where two prior incremental fixes (CTR-FIX + AEO) both failed to move either signal. | Ship SEO-043 (open-ear-vs-in-ear-vs-over-ear-headphones), read CTR at 30 days (2026-10-28) and AEO citation proxy at 14 days (2026-10-12) against this cycle's 0.0868% CTR / 6th-cycle-absence baseline. | OPEN — still pending approval; page's position has now improved for 5 straight cycles (9.09→7.65→6.67→6.26 blend), while the AEO signal stayed fully absent (11th+ cycle) — GSC and AEO continue to diverge, still unexecuted. | SEO-043, SEO-025, SEO-026 |
+| SH-SEO-21 | A delivery-verification-first fix on a page that got worse immediately after its own reported execution (SEO-040/041) will show the underlying technical issue within 1-2 cycles of being approved, rather than requiring a full D+30 content read. | Ship SEO-040 (blast page) and SEO-041 (WFH page), read both at D+14 (2026-10-19) for any technical-fix signal before the D+30 content read (2026-10-28/11-04). | OPEN — still unexecuted as of 2026-11-02 (6th cycle for SEO-040/041). **The blast page's top query stayed at zero GSC rows for a 2nd straight cycle — neither recovering nor worsening further, the collapse is holding, not resolving itself.** WFH page improved for a 2nd straight cycle on its own metrics but its competitor-SERP presence stayed at zero. Both strengthen the case for shipping the fixes rather than testing them further. | SEO-040, SEO-041, SEO-047 |
+| SH-SEO-22 | A WRITE brief's "resolved/executed" status can mask a scope change that leaves the original money keywords untouched — re-reading the resolution note's own wording (not just its status) at the next cycle after execution catches this faster than waiting for a D+30 zero-row re-check to trigger escalation on its own. | Ship SEO-045 (Comm 2.0 "boom mic"/WFH-mic phrase re-scope, re-opening SEO-030's original brief), read both target phrases' GSC row-count at D+30 (2026-11-11). | OPEN — both target phrases confirmed still 0 GSC rows this cycle (11-02) too; Comm 2.0 PDP logged a 4th straight cycle of regression (see SEO-051). **NEW, 2026-11-02: a 3rd independent confirmation of this exact failure mode found on SEO-033 (SafeBuds "open ear wireless earbuds india" / "open ear earbuds ai translation") — re-opened as SEO-052.** The hypothesis is now fully established as a repeatable failure mode to check by default on every WRITE row nearing/past D+30, not just a watch item. | SEO-045, SEO-030, SEO-049, SEO-035, SEO-052, SEO-033 |
+| SH-SEO-23 | A page's blended position/CTR collapse can be a data-integrity artifact (a flood of unrelated, oddly-templated, zero-click queries) rather than a genuine technical regression — disaggregating the query list before escalating catches this. | Re-check SEO-034 at D+30 after this cycle's diagnostic; if the four templated queries persist or grow, treat as a recurring GSC data-quality issue to flag for Meet rather than a content problem to fix. | CONFIRMED STABLE, 2026-10-26 — re-checked, same four templated queries at nearly identical volume (~2,416 impr combined, pos 27–43), money query essentially unchanged (pos 5.96) — the artifact is stable and recurring, not worsening; reads as a genuine GSC data-quality quirk on this page rather than anything actionable. Not independently re-pulled 2026-11-02 (out of this cycle's named continuity pages); page-level blend (are-noise-cancelling-headphones-safe) impr=4,036 clicks=0 pos=20.76, roughly consistent with the known artifact shape — flagged for explicit re-check next cycle. | SEO-034 |
+| SH-SEO-24 | A money PDP's position can erode for multiple straight cycles even while its impressions/clicks/CTR all grow — a "widening reach, falling rank" shape distinct from every other tracked technical-regression case (which show falling volume, not rising). | Ship SEO-051 (Comm 2.0 PDP technical/content audit), read position at 30 days (2026-12-02) against this cycle's 3.39 baseline. | OPEN — new hypothesis this cycle, drafted from Comm 2.0 PDP's 4th straight cycle of regression (2.15→2.44→2.89→3.39) occurring alongside rising impressions (+9.4%), clicks (+22.6%), and CTR (2.2001%→2.4643%). Could be benign (broader query mix diluting the blend) or an early warning (competitor/template compression on core branded terms) — SEO-051 is the first direct check. | SEO-051 |
